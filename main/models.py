@@ -72,13 +72,13 @@ class Brothers (models.Model):
     email = models.CharField(max_length=255, blank=True)
     isalive = models.BooleanField(default=True)
 
-class Areas (models.Model):
+class Areas(models.Model):
     name = models.CharField(max_length=255, blank=False)
 
-class EjCities (models.Model):
+class EjCities(models.Model):
     name = models.CharField(max_length=255, blank=False)
 
-class Found (models.Model):
+class Found(models.Model):
     _STATES = (
     ('1', 'Activo'),
     ('2', 'Inactivo')
