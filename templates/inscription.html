@@ -11,49 +11,51 @@
         
     </head>
     <body>
-        <div class="Main">
+        <div class="Main container">
             <h1>Ficha de Inscripción</h1>
-            <form class="form-horizontal">
-              
-                <div class="form-group">
-                    <label class="sr-only" for="date-inscription">Fecha insripción</label>
-                    <input type="date" class="form-control" id="date-inscription" placeholder="Fecha insripción" disabled>
+            <form>                              
+               <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="date-inscription">Fecha insripción</label>
+                        <input type="date" class="form-control" id="date-inscription" placeholder="Fecha insripción" disabled>
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="first-name">Nombres</label>
+                        <input type="text" class="form-control" id="first-name" placeholder="Nombres">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="last-name">Apellidos</label>
+                        <input type="text" class="form-control" id="last-name" placeholder="Apellidos">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="date-born">Fecha de nacimiento</label>
+                        <input type="date" class="form-control" id="date-born" placeholder="Fecha de nacimiento">
+                    </div>
+               </div>               
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label for="number-home">Telefono</label>
+                        <input type="tel" class="form-control" id="number-home" placeholder="Telefono de la casa">
+                    </div>
+                     <div class="form-group col-md-2">
+                        <label for="number-mobile">Telefono</label>
+                        <input type="tel" class="form-control" id="number-mobile" placeholder="Telefono móvil">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="address">Dirección</label>
+                        <input type="text" class="form-control" id="address" placeholder="Dirección">
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="first-name">Nombres</label>
-                    <input type="text" class="form-control" id="first-name" placeholder="Nombres">
-                </div>        
+                    <label for="mail">Correo electrónico</label>
+                    <input type="email" class="form-control" id="mail" placeholder="Correo electrónico">
+                </div>                
             </form>
         </div>
-        <div id="example-embed">
-            <h3>Iframe Step</h3>
-            <section data-mode="iframe" data-url="https://www.google.com.co">
-            </section>
-            <h3>Second Step</h3>
-            <section>
-                <p>Donec mi sapien, hendrerit nec egestas a, rutrum vitae dolor. Nullam venenatis diam ac ligula elementum pellentesque. 
-                    In lobortis sollicitudin felis non eleifend. Morbi tristique tellus est, sed tempor elit. Morbi varius, nulla quis condimentum 
-                    dictum, nisi elit condimentum magna, nec venenatis urna quam in nisi. Integer hendrerit sapien a diam adipiscing consectetur. 
-                    In euismod augue ullamcorper leo dignissim quis elementum arcu porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                    Vestibulum leo velit, blandit ac tempor nec, ultrices id diam. Donec metus lacus, rhoncus sagittis iaculis nec, malesuada a diam. 
-                    Donec non pulvinar urna. Aliquam id velit lacus.</p>
-            </section>
-            <h3>Third Step</h3>
-            <section>
-                <p>Morbi ornare tellus at elit ultrices id dignissim lorem elementum. Sed eget nisl at justo condimentum dapibus. Fusce eros justo, 
-                    pellentesque non euismod ac, rutrum sed quam. Ut non mi tortor. Vestibulum eleifend varius ullamcorper. Aliquam erat volutpat. 
-                    Donec diam massa, porta vel dictum sit amet, iaculis ac massa. Sed elementum dui commodo lectus sollicitudin in auctor mauris 
-                    venenatis.</p>
-            </section>
-            <h3>Fourth Step</h3>
-            <section>
-                <p>Quisque at sem turpis, id sagittis diam. Suspendisse malesuada eros posuere mauris vehicula vulputate. Aliquam sed sem tortor. 
-                    Quisque sed felis ut mauris feugiat iaculis nec ac lectus. Sed consequat vestibulum purus, imperdiet varius est pellentesque vitae. 
-                    Suspendisse consequat cursus eros, vitae tempus enim euismod non. Nullam ut commodo tortor.</p>
-            </section>
-        </div>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.steps.min.js' %}"> </script>
-    <script type="text/javascript" src="{% static 'js/inscription.js' %}"> </script>
+       
+    <!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
+    <!--<script type="text/javascript" src="{% static 'js/inscription.js' %}"> </script>-->
     </body>
 </html>
