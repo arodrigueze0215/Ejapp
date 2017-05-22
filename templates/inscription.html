@@ -7,6 +7,7 @@
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/inscription.css' %}" >
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         
     </head>
@@ -14,45 +15,102 @@
         <div class="Main container">
             <h1>Ficha de Inscripción</h1>
             <form>                              
-               <div class="row">
-                    <div class="form-group col-md-4">
-                        <label for="date-inscription">Fecha insripción</label>
-                        <input type="date" class="form-control" id="date-inscription" placeholder="Fecha insripción" disabled>
+              <div class="container">
+                   <div class="row">
+                        <div class="form-group col-md-3">
+                            <label for="date-inscription">Fecha insripción</label>
+                            <input type="date" class="form-control" id="date-inscription" placeholder="Fecha insripción" disabled>
+                        </div>
+                   </div>
+                   <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="first-name">Nombres</label>
+                            <input type="text" class="form-control" id="first-name" placeholder="Nombres">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="last-name">Apellidos</label>
+                            <input type="text" class="form-control" id="last-name" placeholder="Apellidos">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="date-born">Fecha de nacimiento</label>
+                            <input type="date" class="form-control" id="date-born" placeholder="Fecha de nacimiento">
+                        </div>
+                   </div>               
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <label for="number-home">Telefono</label>
+                            <input type="tel" class="form-control" id="number-home" placeholder="Telefono de la casa">
+                        </div>
+                         <div class="form-group col-md-2">
+                            <label for="number-mobile">Telefono</label>
+                            <input type="tel" class="form-control" id="number-mobile" placeholder="Telefono móvil">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="address">Dirección</label>
+                            <input type="text" class="form-control" id="address" placeholder="Dirección">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="mail">Correo electrónico</label>
+                            <input type="email" class="form-control" id="mail" placeholder="Correo electrónico">
+                        </div>                
                     </div>
-               </div>
-               <div class="row">
-                    <div class="form-group col-md-4">
-                        <label for="first-name">Nombres</label>
-                        <input type="text" class="form-control" id="first-name" placeholder="Nombres">
+              </div>
+                <div class="container Main-Study">                
+                    <div>
+                        <span> ¿Estudias?</span>
+                    
+                        <label class="radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="study-yes" value="true"> sí
+                        </label>
+                    
+                    
+                        <label class="radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="study-no" value="false"> No
+                        </label>
+                    
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="last-name">Apellidos</label>
-                        <input type="text" class="form-control" id="last-name" placeholder="Apellidos">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="date-born">Fecha de nacimiento</label>
-                        <input type="date" class="form-control" id="date-born" placeholder="Fecha de nacimiento">
-                    </div>
-               </div>               
-                <div class="row">
-                    <div class="form-group col-md-2">
-                        <label for="number-home">Telefono</label>
-                        <input type="tel" class="form-control" id="number-home" placeholder="Telefono de la casa">
-                    </div>
-                     <div class="form-group col-md-2">
-                        <label for="number-mobile">Telefono</label>
-                        <input type="tel" class="form-control" id="number-mobile" placeholder="Telefono móvil">
-                    </div>
-                    <div class="form-group col-md-8">
-                        <label for="address">Dirección</label>
-                        <input type="text" class="form-control" id="address" placeholder="Dirección">
+                    <div class="row col-md-12">
+                        <div class="form-group col-md-6">
+                            <label for="career">Carrera</label>
+                            <input type="text" class="form-control" id="career" placeholder="Carrera">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="institute">Instituto</label>
+                            <input type="text" class="form-control" id="institute" placeholder="Instituto">
+                        </div>                
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="mail">Correo electrónico</label>
-                    <input type="email" class="form-control" id="mail" placeholder="Correo electrónico">
-                </div>                
+                <div class="container Main-Job">                
+                    <div>
+                        <span> ¿Trabajas?</span>
+                    
+                        <label class="radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="study-yes" value="true"> sí
+                        </label>
+                    
+                    
+                        <label class="radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="study-no" value="false"> No
+                        </label>
+                    
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="form-group col-md-4">
+                            <label for="company">Empresa</label>
+                            <input type="text" class="form-control" id="company" placeholder="Empresa">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="role">Cargo</label>
+                            <input type="text" class="form-control" id="role" placeholder="Cargo">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="phone-company">Teléfono</label>
+                            <input type="tel" class="form-control" id="phone-company" placeholder="Telefono de la empresa">
+                        </div>                
+                    </div>
+                </div>
             </form>
+            
         </div>
        
     <!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
