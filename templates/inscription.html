@@ -56,16 +56,18 @@
                     </div>
               </div>
                 <div class="container Main-Study">                
-                    <div>
+                    <div class="Main-Study-Radios">
                         <span> ¿Estudias?</span>
                     
                         <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="study-yes" value="true"> sí
-                        </label>
+                            <input type="radio" name="study" id="study-yes" value="true" checked>
+                             sí
+                            </label>
                     
                     
                         <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="study-no" value="false"> No
+                            <input type="radio" name="study" id="study-no" value="false">
+                             No
                         </label>
                     
                     </div>
@@ -81,16 +83,16 @@
                     </div>
                 </div>
                 <div class="container Main-Job">                
-                    <div>
+                    <div  class="Main-Job-Radios">
                         <span> ¿Trabajas?</span>
                     
                         <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="study-yes" value="true"> sí
+                            <input type="radio" name="job" id="job-yes" value="true" checked> sí
                         </label>
                     
                     
                         <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="study-no" value="false"> No
+                            <input type="radio" name="job" id="job-no" value="false"> No
                         </label>
                     
                     </div>
@@ -109,11 +111,55 @@
                         </div>                
                     </div>
                 </div>
+
+                <div class="container">
+                    <h2>Datos de tu Papá</h2>                
+                    <div  class="Main-Father-Radios">
+                        <span> ¿Aún vive?</span>
+                    
+                        <label class="radio-inline">
+                            <input type="radio" name="job" id="dad-yes" value="true" checked> sí
+                        </label>
+                    
+                    
+                        <label class="radio-inline">
+                            <input type="radio" name="job" id="dad-no" value="false"> No
+                        </label>
+                    
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="form-group col-md-8">
+                            <label for="name-dad">Nombre completo</label>
+                            <input type="text" class="form-control" id="name-dad" placeholder="Nombres y apellidos de tu papá">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="ocupation-dad">Ocupación</label>
+                            <input type="text" class="form-control" id="ocupation-dad" placeholder="¿A que se dedica tu papá?">
+                        </div>
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="form-group col-md-3">
+                            <label for="phone-dad">Teléfono</label>
+                            <input type="tel" class="form-control" id="phone-dad" placeholder="Telefono de la casa">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="mobile-dad">Número Celular</label>
+                            <input type="tel" class="form-control" id="mobile-dad" placeholder="Número Celular">
+                        </div>
+                       <div class="form-group col-md-6">
+                            <label for="address-dad">Dirección</label>
+                            <input type="text" class="form-control" id="address-dad" placeholder="Dirección de la casa donde vive tu papá">
+                        </div>
+                        
+                
+                    </div>
+                </div>
+
             </form>
             
         </div>
        
-    <!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
-    <!--<script type="text/javascript" src="{% static 'js/inscription.js' %}"> </script>-->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="{% static 'js/inscription.js' %}"> </script>
     </body>
 </html>

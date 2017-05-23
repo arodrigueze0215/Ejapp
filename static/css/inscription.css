@@ -6,9 +6,15 @@
         border: 1px solid #ccc;
         border-radius: 5px;
     }
+        .Main-Study-Radios{
+            margin-left: 15px;
+        }
     .Main-Job{
         margin-top: 8px;
         padding: 20px 1px;
         border: 1px solid #ccc;
         border-radius: 5px;
     }
+         .Main-Job-Radios{
+            margin-left: 15px;
+        }
