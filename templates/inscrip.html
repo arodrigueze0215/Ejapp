@@ -11,21 +11,80 @@
      <body>
         <div class="Main">
             <form>
-                <div class="row">
-                    <div class="medium-6 columns">
-                        <label>Input Label
-                            <input type="text" placeholder=".medium-6.columns">
+                <h1 class="text-center">Ficha de inscripción</h1>
+                
+                <label>Fecha de inscripción
+                    <input type="date" placeholder="Fecha de inscripción">
+                </label>                
+                <section class="Section-Personal-Data">
+                    <h2> Datos personales</h2>
+                    <div class="Section-Personal-Data-Names">
+                        <label class="Section-Personal-Data-Name">Nombres
+                            <input type="text" placeholder="Nombres">
+                        </label>
+                        <label class="Section-Personal-Data-Last-Name">Apellidos
+                            <input type="text" placeholder="Apellidos">
+                        </label>
+                        <label class="Section-Personal-Data-Date-Born">Fecha nacimiento
+                            <input type="date" placeholder="Fecha de nacimiento">
                         </label>
                     </div>
-                    <div class="medium-6 columns">
-                        <label>Input Label
-                            <input type="text" placeholder=".medium-6.columns">
+                    <div class="Section-Personal-Data-Numbers">
+                         <label class="Section-Personal-Data-HomePhone">Teléfono
+                            <input type="tel" placeholder="Número telefónico de tu casa">
+                        </label>
+                        <label class="Section-Personal-Data-MobilePhone">Móvil
+                            <input type="tel" placeholder="Número telefónico personal">
                         </label>
                     </div>
-                </div>
+                    <div class="Section-Personal-Data-Addresses">
+                        <label class="Section-Personal-Data-Address">Dirección
+                            <input type="text" placeholder="Dirección de residencia">
+                        </label>
+                        <label class="Section-Personal-Data-Email">Correo electrónico
+                            <input type="email" placeholder="Dirección de Correo electrónico">
+                        </label>
+                    </div>
+                    <div class="Section-Personal-Data-Who-Life">
+                        <fieldset class="fieldset">
+                            <legend>¿Con quién vives?</legend>
+                            <div class="Section-Personal-Data-Who-Life-Check">
+                                <label class="life_with_gran" for="life_with_gran">Abuelos
+                                    <input id="life_with_gran" type="checkbox">
+                                </label>
+                                <label class="life_with_parent" for="life_with_parent">Padres
+                                    <input id="life_with_parent" type="checkbox">
+                                </label>
+                                <label class="life_with_only_mother" for="life_with_only_mother">Solo madre
+                                    <input id="life_with_only_mother" type="checkbox">
+                                </label>
+                                <label class="life_with_only_father" for="life_with_only_father">Solo padre
+                                    <input id="life_with_only_father" type="checkbox">
+                                </label>
+                                <label class="life_with_uncles" for="life_with_uncles">Tíos
+                                    <input id="life_with_uncles" type="checkbox">
+                                </label>
+                                <label class="life_with_friends" for="life_with_friends">Amigos
+                                    <input id="life_with_friends" type="checkbox">
+                                </label>
+                                <label class="life_with_cousins" for="life_with_cousins">Primos
+                                    <input id="life_with_cousins" type="checkbox">
+                                </label>
+                                <label class="life_with_brothers" for="life_with_brothers">Hermanos
+                                    <input id="life_with_brothers" type="checkbox">
+                                </label>
+                                <label class="life_with_alone" for="life_with_alone">Solo
+                                    <input id="life_with_alone" type="checkbox">
+                                </label>
+                            </div>
+                        </fieldset>
+
+                    </div>
+                    
+                </section>
             </form>
         </div>
-
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/foundation.min.js" integrity="sha256-Nd2xznOkrE9HkrAMi4xWy/hXkQraXioBg9iYsBrcFrs=" crossorigin="anonymous"></script>
      </body>
 </html>
