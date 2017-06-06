@@ -2,98 +2,89 @@
     width: 70%;
     margin: 2px auto;
 }
-    .Section-Personal-Data{
+    .Personal{
         padding-top: 24px;
 
     }
-        .Section-Personal-Data-Names{
+        .Personal-Names{
             display: flex;
             flex-direction: row;
         }
-            .Section-Personal-Data-Name{
+            .Personal-Name{
                 flex-grow: 1;
                 margin-right: 8px;
 
             }
-            .Section-Personal-Data-Last-Name{
+            .Personal-Last-Name{
                 flex-grow: 1;
                 margin-left: 8px;
                 margin-right: 8px;
 
             }
-            .Section-Personal-Data-Date-Born{
+            .Personal-Date-Born{
                 flex-grow: 1;
                 margin-left: 8px;
 
             }
-        .Section-Personal-Data-Addresses{
+        .Personal-Addresses{
             display: flex;
             flex-direction: row;
         }
-            .Section-Personal-Data-Address{
+            .Personal-Address{
                 flex-grow: 1;
                 margin-right: 8px;
 
             }
-            .Section-Personal-Data-Email{
+            .Personal-Email{
                 flex-grow: 1;
                 margin-left: 8px;
             }
-        .Section-Personal-Data-Numbers{
+        .Personal-Numbers{
             display: flex;
             flex-direction: row;
         }
-            .Section-Personal-Data-HomePhone{
+            .Personal-HomePhone{
                 flex-grow: 1;
                 margin-right: 8px;
 
             }
-            .Section-Personal-Data-MobilePhone{
+            .Personal-MobilePhone{
                 flex-grow: 1;
                 margin-left: 8px;
 
             }
-        .Section-Personal-Data-Who-Life{           
+        .Personal-Who-Life{           
 
         }
-            .Section-Personal-Data-Who-Life-Check{
+            .Personal-Who-Life-Check{
                 display: flex;
                 flex-direction: row;
             }
                 .life_with_gran{
                     flex-grow: 1;
-
                 }
                 .life_with_parent{
                     flex-grow: 1;
-                    
                 }
                 .life_with_only_mother{
                     flex-grow: 1;
-                    
                 }
                 .life_with_only_father{
                     flex-grow: 1;
-                    
                 }
                 .life_with_uncles{
                     flex-grow: 1;
-                    
                 }
                 .life_with_friends{
                     flex-grow: 1;
-                    
                 }
                 .life_with_cousins{
                     flex-grow: 1;
-                    
                 }
                 .life_with_brothers{
                     flex-grow: 1;
-                    
                 }
                 .life_with_alone{
                     flex-grow: 1;
-                    
                 }
 
