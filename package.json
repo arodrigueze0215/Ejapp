@@ -1,0 +1,21 @@
+{
+  "name": "ejapp",
+  "version": "1.0.0",
+  "description": "Ejapp es un proyecto comunitario para el Encuentro juvenil",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Are0215/Ejapp.git"
+  },
+  "author": "Andrés Rodriguez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Are0215/Ejapp/issues"
+  },
+  "homepage": "https://github.com/Are0215/Ejapp#readme",
+  "devDependencies": {},
+  "dependencies": {}
+}
