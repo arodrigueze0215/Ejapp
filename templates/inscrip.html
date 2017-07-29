@@ -5,7 +5,7 @@
      <head>
          <!-- Compressed CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css" integrity="sha256-itWEYdFWzZPBG78bJOOiQIn06QCgN/F0wMDcC4nOhxY=" crossorigin="anonymous" />
-        <link rel="stylesheet" href="{% static 'css/inscrip.css' %}" >
+        <link rel="stylesheet" href="{% static 'css/app.bundle.css' %}" >
          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
      </head>
      <body>
@@ -16,80 +16,80 @@
                 <label>Fecha de inscripción
                     <input type="date" placeholder="Fecha de inscripción">
                 </label>                
-                <section class="Personal">
+                <section class="Main__personal">
                     <h2> Datos personales</h2>
-                    <div class="Personal-Names">
-                        <label class="Personal-Name">Nombres
+                    <div class="Main__personal__names">
+                        <label class="Main__personal__names__name">Nombres
                             <input type="text" placeholder="Nombres">
                         </label>
-                        <label class="Personal-Last-Name">Apellidos
+                        <label class="Main__personal__names__lastName">Apellidos
                             <input type="text" placeholder="Apellidos">
                         </label>
-                        <label class="Personal-Date-Born">Fecha nacimiento
+                        <label class="Main__personal__names__dateBorn">Fecha nacimiento
                             <input type="date" placeholder="Fecha de nacimiento">
                         </label>
                     </div>
-                    <div class="Personal-Numbers">
-                         <label class="Personal-HomePhone">Teléfono
+                    <div class="Main__personal__numbers">
+                         <label class="Main__personal__numbers__homePhone">Teléfono
                             <input type="tel" placeholder="Número telefónico de tu casa">
                         </label>
-                        <label class="Personal-MobilePhone">Móvil
+                        <label class="Main__personal__numbers__MobilePhone">Móvil
                             <input type="tel" placeholder="Número telefónico personal">
                         </label>
                     </div>
-                    <div class="Personal-Addresses">
-                        <label class="Personal-Address">Dirección
+                    <div class="Main__personal__addresses">
+                        <label class="Main__personal__addresses__address">Dirección
                             <input type="text" placeholder="Dirección de residencia">
                         </label>
-                        <label class="Personal-Email">Correo electrónico
+                        <label class="Main__personal__addresses__email">Correo electrónico
                             <input type="email" placeholder="Dirección de Correo electrónico">
                         </label>
                     </div>
-                    <div class="Personal-Who-Life">
+                    <div class="Main__personal__whoLife">
                         <fieldset class="fieldset">
                             <legend>¿Con quién vives?</legend>
-                            <div class="Personal-Who-Life-Check">
+                            <div class="Main__personal__whoLife__check">
                                 
-                                <div class="life_with_gran">
+                                <div class="Main__personal__whoLife__check__lifeWithGran">
                                     <input id="life_with_gran" type="checkbox">
                                     Abuelos
                                 </div>
                                 
-                                <div class="life_with_parent">
+                                <div class="Main__personal__whoLife__check__lifeWithParent">
                                     <input id="life_with_parent" type="checkbox">
                                     Padres
                                 </div>
                                 
-                                <div class="life_with_only_mother">
+                                <div class="Main__personal__whoLife__check__lifeWithOnlyMother">
                                     <input id="life_with_only_mother" type="checkbox">
                                     Solo madre                                    
                                 </div>
-                                <div class="life_with_only_father">
+                                <div class="Main__personal__whoLife__check__lifeWithOnlyFather">
                                     <input id="life_with_only_father" type="checkbox">
                                     Solo padre
                                 </div>
                                 
-                                <div class="life_with_uncles">
+                                <div class="Main__personal__whoLife__check__lifeWithUncles">
                                     <input id="life_with_uncles" type="checkbox">
                                     Tíos
                                 </div>
                                 
-                                <div class="life_with_friends">
+                                <div class="Main__personal__whoLife__check__lifeWithFriends">
                                     <input id="life_with_friends" type="checkbox">
                                     Amigos
                                 </div>
                                 
-                                <div class="life_with_cousins">
+                                <div class="Main__personal__whoLife__check__lifeWithCousins">
                                     <input id="life_with_cousins" type="checkbox">
                                     Primos
                                 </div>
                                 
-                                <div class="life_with_brothers">
+                                <div class="Main__personal__whoLife__check__lifeWithBrothers">
                                     <input id="life_with_brothers" type="checkbox">
                                     Hermanos
                                 </div>
                                 
-                                <div class="life_with_alone">
+                                <div class="Main__personal__whoLife__check__lifeWithAlone">
                                     <input id="life_with_alone" type="checkbox">
                                     Solo
                                 </div>

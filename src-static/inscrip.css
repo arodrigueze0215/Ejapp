@@ -1,90 +1,90 @@
 .Main{
     width: 70%;
     margin: 2px auto;
-}
-    .Personal{
+    &__personal{
         padding-top: 24px;
 
-    }
-        .Personal-Names{
+        &__names{
             display: flex;
             flex-direction: row;
+            &__name{
+                flex-grow: 1;
+                margin-right: 8px;
+
+            }
+            &__lastName{
+                flex-grow: 1;
+                margin-left: 8px;
+                margin-right: 8px;
+
+            }
+            &__dateBorn{
+                flex-grow: 1;
+                margin-left: 8px;
+
+            }
         }
-            .Personal-Name{
-                flex-grow: 1;
-                margin-right: 8px;
-
-            }
-            .Personal-Last-Name{
-                flex-grow: 1;
-                margin-left: 8px;
-                margin-right: 8px;
-
-            }
-            .Personal-Date-Born{
-                flex-grow: 1;
-                margin-left: 8px;
-
-            }
-        .Personal-Addresses{
+        &__addresses{
             display: flex;
             flex-direction: row;
-        }
-            .Personal-Address{
+            &__address{
                 flex-grow: 1;
                 margin-right: 8px;
 
             }
-            .Personal-Email{
+            &__email{
                 flex-grow: 1;
                 margin-left: 8px;
             }
-        .Personal-Numbers{
+        }
+        &__Numbers{
             display: flex;
             flex-direction: row;
-        }
-            .Personal-HomePhone{
+            &__homePhone{
                 flex-grow: 1;
                 margin-right: 8px;
 
             }
-            .Personal-MobilePhone{
+            &__mobilePhone{
                 flex-grow: 1;
                 margin-left: 8px;
 
             }
-        .Personal-Who-Life{           
-
         }
-            .Personal-Who-Life-Check{
+        &__whoLife{           
+            &__Check{
                 display: flex;
                 flex-direction: row;
+                &__lifeWithGran{
+                    flex-grow: 1;
+                }
+                &__lifeWithGarent{
+                    flex-grow: 1;
+                }
+                &__lifeWithOnlyMother{
+                    flex-grow: 1;
+                }
+                &__lifeWithOnlyFather{
+                    flex-grow: 1;
+                }
+                &__lifeWithUncles{
+                    flex-grow: 1;
+                }
+                &__lifeWithFriends{
+                    flex-grow: 1;
+                }
+                &__lifeWithCousins{
+                    flex-grow: 1;
+                }
+                &__lifeWithBrothers{
+                    flex-grow: 1;
+                }
+                &__lifeWithAlone{
+                    flex-grow: 1;
+                }
             }
-                .life_with_gran{
-                    flex-grow: 1;
-                }
-                .life_with_parent{
-                    flex-grow: 1;
-                }
-                .life_with_only_mother{
-                    flex-grow: 1;
-                }
-                .life_with_only_father{
-                    flex-grow: 1;
-                }
-                .life_with_uncles{
-                    flex-grow: 1;
-                }
-                .life_with_friends{
-                    flex-grow: 1;
-                }
-                .life_with_cousins{
-                    flex-grow: 1;
-                }
-                .life_with_brothers{
-                    flex-grow: 1;
-                }
-                .life_with_alone{
-                    flex-grow: 1;
-                }
 
+        }
+    }
+
+}

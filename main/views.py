@@ -5,4 +5,4 @@ from django.template import loader
 
 # Create your views here.
 def inscriptions_add(request):
-     return render(request, 'inscription.html')
+     return render(request, 'inscrip.html')
