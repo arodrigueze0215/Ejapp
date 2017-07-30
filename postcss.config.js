@@ -1,6 +1,6 @@
 module.exports = {
   map: true,
-  from: './src-static/app.css',
+  from: './src-static/css/app.css',
   to: './static/css/app.bundle.css',
   plugins: {
     'postcss-import': {},
