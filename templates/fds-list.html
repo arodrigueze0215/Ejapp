@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load staticfiles %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="{% static 'css/app.bundle.css' %}" >
+        <title>Lista de FDS</title>
+    </head>
+    <body>
+        <nav class="navFds">
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <ul class="menu">
+                        <li class="menu-text">Site Title</li>
+                    </ul>
+                </div>
+                <div class="top-bar-right">
+                    <ul class="dropdown menu" data-dropdown-menu>
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#">Asitencia</a></li>
+                        <li><a href="#">Talleres</a></li>
+                        <li><a class="navFds__itemMenuSelected"href="#">FDS</a></li>
+                        <li><a href="#">Profundos</a></li>
+                        <li><a href="#">Consejeros</a></li>
+                        <li>
+                            <a href="#">mail@ejapp.com</a>
+                            <ul class="menu vertical">
+                                <li><a href="#">Perfil</a></li>
+                                <li><a href="#">Option Two</a></li>
+                                <li><a href="#">Option Three</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="Main">
+            <section class="listFds">
+                <h2>Fines de semana</h2>
+                <div class="listFds__actions">
+                    <div class="listFds__actions__new">
+                     <button type="button" class="button">Nuevo</button>
+                    </div>
+                    <div class="listFds__actions__search">
+                        <input type="search" placeholder="Search">
+                        <button type="button" class="button">Search</button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Numero FDS</th>
+                            <th>Inicia</th>
+                            <th>Termina</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cartoons Network</td>
+                            <td>FDS 53</td>
+                            <td>29 de Marzo 2017</td>
+                            <td>31 de Marzo 2017</td>
+                            <td>Accion</td>
+                        </tr>
+                        <tr>
+                            <td>Cartoons Network</td>
+                            <td>FDS 53</td>
+                            <td>29 de Marzo 2017</td>
+                            <td>31 de Marzo 2017</td>
+                            <td>Accion</td>
+                        </tr>
+                        <tr>
+                            <td>Cartoons Network</td>
+                            <td>FDS 53</td>
+                            <td>29 de Marzo 2017</td>
+                            <td>31 de Marzo 2017</td>
+                            <td>Accion</td>
+                        </tr>
+                        <tr>
+                            <td>Cartoons Network</td>
+                            <td>FDS 53</td>
+                            <td>29 de Marzo 2017</td>
+                            <td>31 de Marzo 2017</td>
+                            <td>Accion</td>
+                        </tr>
+                        <tr>
+                            <td>Cartoons Network</td>
+                            <td>FDS 53</td>
+                            <td>29 de Marzo 2017</td>
+                            <td>31 de Marzo 2017</td>
+                            <td>Accion</td>
+                        </tr>
+                        <tr>
+                            <td>Cartoons Network</td>
+                            <td>FDS 53</td>
+                            <td>29 de Marzo 2017</td>
+                            <td>31 de Marzo 2017</td>
+                            <td>Accion</td>
+                        </tr>
+                        <tr>
+                            <td>Cartoons Network</td>
+                            <td>FDS 53</td>
+                            <td>29 de Marzo 2017</td>
+                            <td>31 de Marzo 2017</td>
+                            <td>Accion</td>
+                        </tr>
+                        <tr>
+                            <td>Cartoons Network</td>
+                            <td>FDS 53</td>
+                            <td>29 de Marzo 2017</td>
+                            <td>31 de Marzo 2017</td>
+                            <td>Accion</td>
+                        </tr>
+                        <tr>
+                            <td>Cartoons Network</td>
+                            <td>FDS 53</td>
+                            <td>29 de Marzo 2017</td>
+                            <td>31 de Marzo 2017</td>
+                            <td>Accion</td>
+                        </tr>
+                        <tr>
+                            <td>Cartoons Network</td>
+                            <td>FDS 53</td>
+                            <td>29 de Marzo 2017</td>
+                            <td>31 de Marzo 2017</td>
+                            <td>Accion</td>
+                        </tr>
+                        <tr>
+                            <td>Cartoons Network</td>
+                            <td>FDS 53</td>
+                            <td>29 de Marzo 2017</td>
+                            <td>31 de Marzo 2017</td>
+                            <td>Accion</td>
+                        </tr>
+                        <tr>
+                            <td>Cartoons Network</td>
+                            <td>FDS 53</td>
+                            <td>29 de Marzo 2017</td>
+                            <td>31 de Marzo 2017</td>
+                            <td>Accion</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+        <script src="{% static 'js/app.bundle.js' %}"></script>
+    </body>
+</html>

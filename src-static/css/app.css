@@ -1,2 +1,8 @@
 @import "foundation.css";
 @import "inscrip.css";
+@import "override-foundation.css";
+@import "fds-list.css";
+:root{
+    --primaryColor:#CD2B26;
+    --grayHover:#D5D5D5;
+}
