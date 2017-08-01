@@ -1,6 +1,7 @@
 @import "foundation.css";
 @import "inscrip.css";
 @import "override-foundation.css";
+@import "datatable.net.css";
 @import "fds-list.css";
 :root{
     --primaryColor:#CD2B26;

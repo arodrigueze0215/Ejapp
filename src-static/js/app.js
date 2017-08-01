@@ -1,5 +1,6 @@
 import styles from '../css/app.css';
-window.jQuery = require("jquery");
-const $ = window.$ = window.jQuery= require("jquery");
+var $ = window.$ = window.jQuery= require("jquery");
+import dt from 'datatables.net';
 require("./foundation.min.js");
+require("./fds-list.js");
 $(document).foundation();
