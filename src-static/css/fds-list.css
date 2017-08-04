@@ -1,0 +1,35 @@
+.navFds{
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    z-index:1000;
+    &__itemMenuSelected{
+        color:var(--grayHover);
+    }
+}
+.listFds{
+    margin-top:8%;
+    &__actions{
+        display:flex;
+        flex-direction:row;
+
+        &__new{
+            text-align:left;
+            flex-grow:1;
+
+        }
+        &__search{
+            text-align:right;
+            display:flex;
+            flex-direction:row;
+            flex-grow:1;
+            & input{
+                width: 100%;
+            }
+
+        }
+    }
+
+}
+    
