@@ -27,4 +27,15 @@ document.addEventListener("DOMContentLoaded",function(){
             }
         }
     });
+    addButtonNew();
+    function addButtonNew() {
+        let btn = $(`<button id="openFormNewFds" type="button" class="button listFds__actions__new">Nuevo FDS</button>`);
+        $('#listFdsTable_wrapper').prepend(btn);
+
+    }
+    /**Events */
+    $('#openFormNewFds').on('click', ()=>{
+        $('#newFdsModal').foundation('open');
+    });
+    /**Events */
 });

@@ -39,16 +39,6 @@
         <div class="Main">
             <section class="listFds">
                 <h2>Fines de semana</h2>
-                <!--
-                <div class="listFds__actions">
-                    <div class="listFds__actions__new">
-                     <button type="button" class="button">Nuevo</button>
-                    </div>
-                    <div class="listFds__actions__search">
-                        <input type="search" placeholder="Search">
-                        <button type="button" class="button">Search</button>
-                    </div>
-                </div>-->
                 <table id="listFdsTable">
                     <thead>
                         <tr>
@@ -147,6 +137,14 @@
                     </tbody>
                 </table>
             </section>
+            <div class="reveal" id="newFdsModal" data-reveal>
+                <h1>Awesome. I Have It.</h1>
+                <p class="lead">Your couch. It is mine.</p>
+                <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
+                <button class="close-button" data-close aria-label="Close modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
         </div>
         <script src="{% static 'js/app.bundle.js' %}"></script>
     </body>
