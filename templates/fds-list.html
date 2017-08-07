@@ -42,105 +42,44 @@
                 <table id="listFdsTable">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
                             <th>Numero FDS</th>
+                            <th>Nombre</th>
                             <th>Inicia</th>
                             <th>Termina</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Cartoons Network</td>
-                            <td>FDS 53</td>
-                            <td>29 de Marzo 2017</td>
-                            <td>31 de Marzo 2017</td>
-                            <td>Accion</td>
-                        </tr>
-                        <tr>
-                            <td>Cartoons Network</td>
-                            <td>FDS 53</td>
-                            <td>29 de Marzo 2017</td>
-                            <td>31 de Marzo 2017</td>
-                            <td>Accion</td>
-                        </tr>
-                        <tr>
-                            <td>Cartoons Network</td>
-                            <td>FDS 53</td>
-                            <td>29 de Marzo 2017</td>
-                            <td>31 de Marzo 2017</td>
-                            <td>Accion</td>
-                        </tr>
-                        <tr>
-                            <td>Cartoons Network</td>
-                            <td>FDS 53</td>
-                            <td>29 de Marzo 2017</td>
-                            <td>31 de Marzo 2017</td>
-                            <td>Accion</td>
-                        </tr>
-                        <tr>
-                            <td>Cartoons Network</td>
-                            <td>FDS 53</td>
-                            <td>29 de Marzo 2017</td>
-                            <td>31 de Marzo 2017</td>
-                            <td>Accion</td>
-                        </tr>
-                        <tr>
-                            <td>Cartoons Network</td>
-                            <td>FDS 53</td>
-                            <td>29 de Marzo 2017</td>
-                            <td>31 de Marzo 2017</td>
-                            <td>Accion</td>
-                        </tr>
-                        <tr>
-                            <td>Cartoons Network</td>
-                            <td>FDS 53</td>
-                            <td>29 de Marzo 2017</td>
-                            <td>31 de Marzo 2017</td>
-                            <td>Accion</td>
-                        </tr>
-                        <tr>
-                            <td>Cartoons Network</td>
-                            <td>FDS 53</td>
-                            <td>29 de Marzo 2017</td>
-                            <td>31 de Marzo 2017</td>
-                            <td>Accion</td>
-                        </tr>
-                        <tr>
-                            <td>Cartoons Network</td>
-                            <td>FDS 53</td>
-                            <td>29 de Marzo 2017</td>
-                            <td>31 de Marzo 2017</td>
-                            <td>Accion</td>
-                        </tr>
-                        <tr>
-                            <td>Cartoons Network</td>
-                            <td>FDS 53</td>
-                            <td>29 de Marzo 2017</td>
-                            <td>31 de Marzo 2017</td>
-                            <td>Accion</td>
-                        </tr>
-                        <tr>
-                            <td>Cartoons Network</td>
-                            <td>FDS 53</td>
-                            <td>29 de Marzo 2017</td>
-                            <td>31 de Marzo 2017</td>
-                            <td>Accion</td>
-                        </tr>
-                        <tr>
-                            <td>Cartoons Network</td>
-                            <td>FDS 53</td>
-                            <td>29 de Marzo 2017</td>
-                            <td>31 de Marzo 2017</td>
-                            <td>Accion</td>
-                        </tr>
+                        {% for fds in fdsList %}
+                            <tr>
+                                <td>FDS {{fds.number_fds}}</td>
+                                <td>{{fds.name}}</td>
+                                <td>{{fds.date_start}}</td>
+                                <td>{{fds.date_end}}</td>
+                                <td>Accion</td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </section>
             <div class="reveal" id="newFdsModal" data-reveal>
-                <h1>Awesome. I Have It.</h1>
-                <p class="lead">Your couch. It is mine.</p>
-                <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
+                <h1>Nuevo Fds.</h1>
+                <form id="postNewFds" method="post">
+                    {% csrf_token %}
+                    <label>Nombre de la temática
+                        <input type="text" name="name_fds" placeholder="Nombre">
+                    </label>
+                    <label>Número de FDS
+                        <input type="number" name="number_fds" placeholder="Consecutivo">
+                    </label>
+                    <label>Fecha de inicio
+                        <input type="date" name="startdate_fds" placeholder="fecha">
+                    </label>
+                    <label>Fecha que finaliza
+                        <input type="date"  name="enddate_fds" placeholder="fecha">
+                    </label>
+                    <button class="button" type="submit">Crear</button>
+                </form>
                 <button class="close-button" data-close aria-label="Close modal" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>

@@ -96,6 +96,7 @@ class FdsEvents(models.Model):
     date_start = models.DateTimeField(auto_now_add=True)
     date_end = models.DateTimeField(auto_now_add=True)
     city_fds = models.CharField(max_length=255, blank=False)
+    is_active = models.BooleanField(default=True)
 
 class StaffRoleFds(models.Model):
     name = models.CharField(max_length=255, blank=False)
