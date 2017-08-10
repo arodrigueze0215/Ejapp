@@ -11,23 +11,8 @@
 .listFds{
     margin-top:8%;
     &__actions{
-        display:flex;
-        flex-direction:row;
-
         &__new{
-            text-align:left;
-            flex-grow:1;
-
-        }
-        &__search{
-            text-align:right;
-            display:flex;
-            flex-direction:row;
-            flex-grow:1;
-            & input{
-                width: 100%;
-            }
-
+            margin-left: 8px;
         }
     }
 
