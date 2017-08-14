@@ -93,8 +93,8 @@ class Found(models.Model):
 class FdsEvents(models.Model):
     name = models.CharField(max_length=255, blank=False)
     number_fds = models.CharField(max_length=10, blank=False)
-    date_start = models.DateTimeField(auto_now_add=True)
-    date_end = models.DateTimeField(auto_now_add=True)
+    date_start = models.DateTimeField(blank=False)
+    date_end = models.DateTimeField(blank=False)
     city_fds = models.CharField(max_length=255, blank=False)
     is_active = models.BooleanField(default=True)
 

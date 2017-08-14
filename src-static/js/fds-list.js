@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded",function(){
             "emptyTable":     "Ningun Fds creado en esta tabla",
             "info":           "Mostrando _START_ a _END_ de _TOTAL_ en total",
             "infoEmpty":      "Mostrando 0 a 0 de 0 en total",
-            "infoFiltered":   "(filtered from _MAX_ total entries)",
+            "infoFiltered":   '(filtered from _MAX_ total entries)',
             "infoPostFix":    "",
             "thousands":      ",",
             "lengthMenu":     " _MENU_ ",

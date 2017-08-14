@@ -16,6 +16,7 @@ def list_fds(request):
             number = request.POST.get('number_fds')
             startDate = request.POST.get('startdate_fds')
             endDate = request.POST.get('enddate_fds')
+            print "startDate", startDate
             if number:
                 try:
                     numberFds = FdsEvents.objects.filter(number_fds=number)
@@ -25,6 +26,7 @@ def list_fds(request):
                             newFDS.name = name
                             newFDS.number_fds = number
                             newFDS.date_start = startDate
+                            print "start date", startDate
                             newFDS.date_end = endDate
                             newFDS.city_fds = "Pereira"
                             newFDS.save()
@@ -42,8 +44,10 @@ def list_fds(request):
     else:
         template= loader.get_template('fds-list.html')
         numberFds = FdsEvents.objects.filter(city_fds="Pereira")
-        context = {
-            'fdsList': numberFds
-        }
-        print "Context", context
+        context = None
+        if len(numberFds) > 0:
+            context = {
+                'fdsList': numberFds
+            }
+        """print "Context", context"""
         return HttpResponse(template.render(context, request))
