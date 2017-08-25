@@ -56,7 +56,18 @@
                                 <td>{{fds.name}}</td>
                                 <td>{{fds.date_start}}</td>
                                 <td>{{fds.date_end}}</td>
-                                <td>Accion</td>
+                                <td>
+                                    <ul class="dropdown menu" data-dropdown-menu>
+                                        <li>
+                                            <a href="#"></a>
+                                            <ul class="menu vertical">
+                                                <li><a href="#">Editar Fds</a></li>
+                                                <li><a href="#">Eliminar Fds</a></li>
+                                                <li><a href="#">Habilitar inscripción</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>
