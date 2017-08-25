@@ -4,10 +4,19 @@ from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse, JsonResponse
 from .models import FdsEvents
+from django.utils import timezone
 
 
-def inscriptions_add(request):
-     return render(request, 'inscrip.html')
+def inscriptions_add(request, pk):
+    template= loader.get_template('inscrip.html')
+    Fds = FdsEvents.objects.filter(number_fds=pk)
+    now = timezone.now()
+    if now < Fds.date_start:
+        print "Fds está vigente"
+    elif now > Fds.date_end:
+        print "Fds pasó"
+
+    return HttpResponse(template.render(request))
 
 def list_fds(request):
     if request.method == 'POST':

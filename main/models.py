@@ -96,6 +96,7 @@ class FdsEvents(models.Model):
     date_start = models.DateTimeField(blank=False)
     date_end = models.DateTimeField(blank=False)
     city_fds = models.CharField(max_length=255, blank=False)
+    is_form_active = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
 class StaffRoleFds(models.Model):
