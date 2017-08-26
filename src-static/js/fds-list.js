@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded",function(){
+    var csrftoken = getCookie('csrftoken');
     
     $('#listFdsTable').DataTable({
         "language": { 
@@ -42,21 +43,95 @@ document.addEventListener("DOMContentLoaded",function(){
         let data = $('#postNewFds').serialize();
         postNewFds(data);
     });
+
+    /**
+     * Event that set a post to enable a isncription form
+     */
+    $('#listFdsTable').on('click','li.listFds__menuAction__enable', (ev)=>{
+        ev.preventDefault();
+        var id = $(ev.currentTarget).parent().data('row-id');
+        enableInscription(id, "True");
+    });
+    
+    /**
+     * Event that set a post to disable a isncription form
+     */
+    $('#listFdsTable').on('click','li.listFds__menuAction__disable', (ev)=>{
+        ev.preventDefault();
+        var id = $(ev.currentTarget).parent().data('row-id');
+        enableInscription(id, "False");
+    });
+
+    /**
+     * Event that set a delete fds from the list
+     */
+    $('#listFdsTable').on('click','li.listFds__menuAction__delete', (ev)=>{
+        ev.preventDefault();
+        var id = $(ev.currentTarget).parent().data('row-id');
+        console.log(`Delete: ${id}`);
+    });
     /**Events */
 
-    let postNewFds = (data) =>{
-        let postAjax = $.ajax({
-            url : window.location.href,
-            type : 'POST',
-            data : data
-        });
-        postAjax.done((data) =>{
-            if (data.result==='ok') {
-                location.reload();
-            } else{
-                console.log(data);
-            }         
+    /**
+     * Connection AJAX to backend
+     */
+        /**
+         * Create a new Fds 
+         */
+        let postNewFds = (data) =>{
+            let postAjax = $.ajax({
+                url : window.location.href,
+                type : 'POST',
+                data : data
+            });
+            postAjax.done((data) =>{
+                if (data.result==='ok') {
+                    location.reload();
+                } else{
+                    console.log(data);
+                }         
+                
+            });
+        }
 
-        });
+        /**
+         * Enable inscription form for each FDS
+         * @param {*Fds id} id 
+         * @param {* it could be True o False to enable the inscription Form} enable 
+         */
+        let enableInscription = (id, enable) =>{
+            data = {is_form: enable, fds_id:id, csrfmiddlewaretoken: csrftoken}
+            let postAjax = $.ajax({
+                url : '/formenable/',
+                type : 'POST',
+                data : data
+            });
+            postAjax.done((data) =>{
+                if (data.result==='ok') {
+                    location.reload();
+                } else{
+                    console.log(data);
+                }         
+                
+            });
+        }
+    /**
+     * Connection AJAX to backend
+     */
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
     }
 });

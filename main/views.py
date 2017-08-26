@@ -1,22 +1,29 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.http import HttpResponse, JsonResponse
 from .models import FdsEvents
 from django.utils import timezone
 
 
-def inscriptions_add(request, pk):
+def inscriptions_add(request, nFds):
     template= loader.get_template('inscrip.html')
-    Fds = FdsEvents.objects.filter(number_fds=pk)
+    Fds = get_object_or_404(FdsEvents, number_fds=nFds)
     now = timezone.now()
-    if now < Fds.date_start:
-        print "Fds está vigente"
-    elif now > Fds.date_end:
-        print "Fds pasó"
+    if Fds:
+        if now < Fds.date_start:
+            print "Fds está vigente"
+            context = {
+                'Fds': Fds
+            }
+            return HttpResponse(template.render(context, request))
+        elif now > Fds.date_end:
+            return render('inscription_nofound.html')
+            print "Fds pasó"
+    
 
-    return HttpResponse(template.render(request))
+    return render('inscription_nofound.html')
 
 def list_fds(request):
     if request.method == 'POST':
@@ -60,3 +67,29 @@ def list_fds(request):
             }
         """print "Context", context"""
         return HttpResponse(template.render(context, request))
+
+
+def enable_inscriptions(request):
+    if request.method == 'POST':
+        if request.is_ajax():
+            is_form = request.POST.get('is_form', None)
+            fds_id = request.POST.get('fds_id', None)
+            if is_form is not None and fds_id is not None:
+                Fds = get_object_or_404(FdsEvents, id=fds_id)
+                if Fds:
+                    if is_form=="True":
+                        Fds.is_form_active = "True"
+                        Fds.save()
+                        return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción habilitada'})
+                    else:
+                        Fds.is_form_active = "False"
+                        Fds.save()
+                        return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción deshabilitada'})
+
+                else:
+                    """El Fds no es valido"""
+                    return JsonResponse({'result': 'error', 'message':'El Fds seleccionado no es valido'})
+            else:
+                """ Datos de post no son validos"""
+                return JsonResponse({'result': 'error', 'message':'El Fds seleccionado no es valido'})
+

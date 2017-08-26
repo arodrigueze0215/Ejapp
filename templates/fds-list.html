@@ -46,6 +46,7 @@
                             <th>Nombre</th>
                             <th>Inicia</th>
                             <th>Termina</th>
+                            <th>Inscripción</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -56,14 +57,23 @@
                                 <td>{{fds.name}}</td>
                                 <td>{{fds.date_start|date:"M d, Y"}}</td>
                                 <td>{{fds.date_end}}</td>
+                                {% if fds.is_form_active%}
+                                <td><span class="label success">Habilitado</span></td>
+                                {%else%}
+                                <td><span class="label secondary">Deshabilitado</span></td>
+                                {%endif%}
                                 <td>
                                     <ul class="dropdown menu" data-dropdown-menu>
                                         <li>
                                             <a href="#"></a>
-                                            <ul class="menu vertical">
-                                                <li><a href="#">Editar Fds</a></li>
-                                                <li><a href="#">Eliminar Fds</a></li>
-                                                <li><a href="#">Habilitar inscripción</a></li>
+                                            <ul data-row-id="{{fds.id}}" class="menu vertical listFds__menuAction">
+                                                <li class="listFds__menuAction__edit"><a>Editar Fds</a></li>
+                                                <li class="listFds__menuAction__delete"><a>Eliminar Fds</a></li>
+                                                {% if fds.is_form_active%}
+                                                    <li class="listFds__menuAction__disable"><a>Deshabilitar inscripción</a></li>
+                                                {%else%}
+                                                    <li class="listFds__menuAction__enable"><a>Habilitar inscripción</a></li>
+                                                {%endif%}
                                             </ul>
                                         </li>
                                     </ul>
