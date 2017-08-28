@@ -3,27 +3,30 @@ from __future__ import unicode_literals
 from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.http import HttpResponse, JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
 from .models import FdsEvents
 from django.utils import timezone
 
 
 def inscriptions_add(request, nFds):
     template= loader.get_template('inscrip.html')
-    Fds = get_object_or_404(FdsEvents, number_fds=nFds)
+    Fds = FdsEvents.objects.filter(number_fds=nFds)
     now = timezone.now()
-    if Fds:
-        if now < Fds.date_start:
-            print "Fds está vigente"
-            context = {
-                'Fds': Fds
-            }
-            return HttpResponse(template.render(context, request))
-        elif now > Fds.date_end:
-            return render('inscription_nofound.html')
-            print "Fds pasó"
-    
+    try:
+        if len(Fds)>0:
+            if now < Fds.date_start:
+                print "Fds está vigente"
+                context = {
+                    'Fds': Fds
+                }
+                return HttpResponse(template.render(context, request))
+            elif now > Fds.date_end:
+                return render(request, 'inscription_nofound.html')
+                print "Fds pasó"
+        return render(request, 'inscription_nofound.html')
+    except FdsEvents.DoesNotExist:
+        return render(request, 'inscription_nofound.html')
 
-    return render('inscription_nofound.html')
 
 def list_fds(request):
     if request.method == 'POST':
