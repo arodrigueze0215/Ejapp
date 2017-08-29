@@ -97,10 +97,46 @@
                         </fieldset>
                     </div>                    
                 </section>
-                <section class="University">
+                <section class="Main__university">
                     <h2> Datos Unversitarios</h2>
+                    <div class="Main__university__question">
+                        <fieldset class="large-6 columns">
+                            <legend>¿Estudias?</legend>
+                            <input type="radio" name="study" value="true" id="study_yes" required><label for="study_yes">Sí</label>
+                            <input type="radio" name="study" value="false" id="study_no"><label for="study_no">No</label>
+                        </fieldset>
 
+                    </div>
+                    <div class="Main__university__data">
+                        <label class="Main__university__data__carrer">Carrera
+                            <input type="text" placeholder="¿Que carrera estudias?">
+                        </label>
+                        <label class="Main__university__data__whereStudy">Institución
+                            <input type="email" placeholder="Nombre de (Universidad, Instituto, etc)">
+                        </label>
+                    </div>
+                </section>
+                <section class="Main__work">
+                    <h2> Datos Laborares</h2>
+                    <div class="Main__work__question">
+                        <fieldset class="large-6 columns">
+                            <legend>¿Trabajas?</legend>
+                            <input type="radio" name="work" value="true" id="work_yes" required><label for="work_yes">Sí</label>
+                            <input type="radio" name="work" value="false" id="work_no"><label for="work_no">No</label>
+                        </fieldset>
 
+                    </div>
+                    <div class="Main__work__data">
+                        <label class="Main__work__data__company">Empresa
+                            <input type="text" placeholder="¿Nombre de la empresa o compañía?">
+                        </label>
+                        <label class="Main__work__data__role">Cargo
+                            <input type="email" placeholder="Cargo que desenpeñas">
+                        </label>
+                        <label class="Main__work__data__phone">Teléfono
+                            <input type="email" placeholder="Teléfono donde trabajas">
+                        </label>
+                    </div>
                 </section>
             </form>
         </div>

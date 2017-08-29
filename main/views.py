@@ -9,11 +9,11 @@ from django.utils import timezone
 
 
 def inscriptions_add(request, nFds):
-    template= loader.get_template('inscrip.html')
-    Fds = FdsEvents.objects.filter(number_fds=nFds)
-    now = timezone.now()
+    template= loader.get_template('inscription.html')
     try:
-        if len(Fds)>0:
+        Fds = FdsEvents.objects.get(number_fds=nFds)
+        now = timezone.now()
+        if Fds:
             if now < Fds.date_start:
                 print "Fds está vigente"
                 context = {

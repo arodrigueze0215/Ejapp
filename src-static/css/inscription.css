@@ -86,5 +86,44 @@
 
         }
     }
+    &__university{
+        &__question{
+
+        }
+        &__data{
+            display:flex;
+            flex-direction:row;
+            &__carrer{
+                flex-grow:1;
+                margin-right:8px;
+            }
+            &__whereStudy{
+                flex-grow:1;
+                margin-left:8px;
+            }
+        }
+    }
+    &__work{
+        &__question{
+
+        }
+        &__data{
+            display:flex;
+            flex-direction:row;
+            &__company{
+                flex-grow:1;
+                margin-right:8px;
+            }
+            &__role{
+                flex-grow:1;
+                margin-left:8px;
+                margin-right:8px;
+            }
+            &__phone{
+                flex-grow:1;
+                margin-left:8px;
+            }
+        }
+    }
 
 }
