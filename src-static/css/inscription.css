@@ -125,5 +125,76 @@
             }
         }
     }
+    &__family{
+        &__dad{
+            &__data{
+                &__one{
+                    display:flex;
+                    flex-direction:row;
+                    &__names{
+                        flex-grow:1;
+                        margin-right:8px;
+                    }
+                    &__ocupation{
+                        flex-grow:1;
+                        margin-left:8px;
+                    }
+                }
+                &__two{
+                    display:flex;
+                    flex-direction:row;
+                    &__phoneHome{
+                        flex-grow:1;
+                        margin-right:8px;
+                    }
+                    &__phone{
+                        flex-grow:1;
+                        margin-right:8px;
+                        margin-left:8px;
+                    }
+                    &__address{
+                        flex-grow:1;
+                        margin-left:8px;
+                    }
+                }
+            }
+        
+        }
+        &__mom{
+            &__data{
+                &__one{
+                    display:flex;
+                    flex-direction:row;
+                    &__names{
+                        flex-grow:1;
+                        margin-right:8px;
+                    }
+                    &__ocupation{
+                        flex-grow:1;
+                        margin-left:8px;
+                    }
+                }
+                &__two{
+                    display:flex;
+                    flex-direction:row;
+                    &__phoneHome{
+                        flex-grow:1;
+                        margin-right:8px;
+                    }
+                    &__phone{
+                        flex-grow:1;
+                        margin-right:8px;
+                        margin-left:8px;
+                    }
+                    &__address{
+                        flex-grow:1;
+                        margin-left:8px;
+                    }
+                }
+            }
+        
+        }
+    }
+
 
 }
