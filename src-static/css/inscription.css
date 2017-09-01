@@ -87,9 +87,7 @@
         }
     }
     &__university{
-        &__question{
-
-        }
+       
         &__data{
             display:flex;
             flex-direction:row;
@@ -104,9 +102,7 @@
         }
     }
     &__work{
-        &__question{
-
-        }
+        
         &__data{
             display:flex;
             flex-direction:row;
@@ -193,6 +189,41 @@
                 }
             }
         
+        }
+        &__brothers{
+            &__data{
+                display:flex;
+                flex-direction:row;
+                &__names{
+                    flex-grow:1;
+                    margin-left:8px;
+
+                }
+                &__date{
+                    flex-grow:1;
+                    margin-left:8px;
+                    margin-right:8px;
+
+                }
+                &__phone{
+                    flex-grow:1;
+                    margin-left:8px;
+                    margin-right:8px;
+
+                }
+                &__email{
+                    flex-grow:1;
+                    margin-left:8px;
+                    margin-right:8px;
+
+                }
+                &__save{
+                    flex-grow:1;
+                    margin-right:8px;
+                    margin-top: 24px;
+
+                }
+            }  
         }
     }
 
