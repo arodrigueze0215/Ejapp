@@ -112,7 +112,7 @@
                             <input type="text" name="study_carrer" placeholder="¿Que carrera estudias?">
                         </label>
                         <label class="Main__university__data__whereStudy">Institución
-                            <input type="email" name="study_where" placeholder="Nombre de (Universidad, Instituto, etc)">
+                            <input type="text" name="study_where" placeholder="Nombre de (Universidad, Instituto, etc)">
                         </label>
                     </div>
                 </section>
@@ -131,10 +131,10 @@
                             <input type="text" name="work_company"placeholder="¿Nombre de la empresa o compañía?">
                         </label>
                         <label class="Main__work__data__role">Cargo
-                            <input type="email" name="work_role"placeholder="Cargo que desenpeñas">
+                            <input type="text" name="work_role"placeholder="Cargo que desenpeñas">
                         </label>
                         <label class="Main__work__data__phone">Teléfono
-                            <input type="email" name="work_phone"placeholder="Teléfono donde trabajas">
+                            <input type="tel" name="work_phone"placeholder="Teléfono donde trabajas">
                         </label>
                     </div>
                 </section>
@@ -159,10 +159,10 @@
                         </div>
                         <div class="Main__family__dad__data__two">
                             <label class="Main__family__dad__data__two__phoneHome">Teléfono
-                                <input type="text" name="dad_phone_home" placeholder="# telefono de la casa">
+                                <input type="tel" name="dad_phone_home" placeholder="# telefono de la casa">
                             </label>
                             <label class="Main__family__dad__data__two__phone">Teléfono celular
-                                <input type="text" name="dad_phone" placeholder="# telefono celular">
+                                <input type="tel" name="dad_phone" placeholder="# telefono celular">
                             </label>
                             <label class="Main__family__dad__data__two__address">Dirección
                                 <input type="text" name="dad_address" placeholder="Dirección donde vive tu papá">
@@ -180,21 +180,21 @@
                         </div>
                         <div class="Main__family__mom__data__one">
                             <label class="Main__family__mom__data__one__names">Nombre completo
-                                <input type="text" name="dad_names" placeholder="Nombres y apellidos">
+                                <input type="text" name="mom_names" placeholder="Nombres y apellidos">
                             </label>
                             <label class="Main__family__mom__data__one__ocupation">Ocupación
-                                <input type="text" name="dad_ocupation" placeholder="A que se dedica tu mamá">
+                                <input type="text" name="mom_ocupation" placeholder="A que se dedica tu mamá">
                             </label>
                         </div>
                         <div class="Main__family__mom__data__two">
                             <label class="Main__family__mom__data__two__phoneHome">Teléfono
-                                <input type="text" name="dad_phone_home" placeholder="# telefono de la casa">
+                                <input type="tel" name="mom_phone_home" placeholder="# telefono de la casa">
                             </label>
                             <label class="Main__family__mom__data__two__phone">Teléfono celular
-                                <input type="text" name="dad_phone" placeholder="# telefono celular">
+                                <input type="tel" name="mom_phone" placeholder="# telefono celular">
                             </label>
                             <label class="Main__family__mom__data__two__address">Dirección
-                                <input type="text" name="dad_address" placeholder="Dirección donde vive tu mamá">
+                                <input type="text" name="mom_address" placeholder="Dirección donde vive tu mamá">
                             </label>
                         </div>
                     </div>
@@ -211,9 +211,9 @@
                                 <input type="tel" name="data-brothers-phone" placeholder="# celular">
                             </label>
                             <label class="Main__family__brothers__data__email">Correo electrónico
-                                <input type="email" name="data-brothers-names" placeholder="Correo">
+                                <input type="email" name="data-brothers-email" placeholder="Correo">
                             </label>
-                            <button  type="button" class="Main__family__brothers__data__save button">Agregar</button>
+                            <button  id="brothersDataSave" type="button" class="Main__family__brothers__data__save button">Agregar</button>
                         </div>
                         <div class="Main__family__brothers__table">
                             <table id="listBroders">
@@ -225,14 +225,8 @@
                                         <th>Correo Electrónico</th>
                                     </tr>
                                 </thead>
-                                <tbobdy>
-                                    <tr>
-                                            <td>nombres</td>
-                                            <td>Fecha nacimiento</td>
-                                            <td>Teléfono</td>
-                                            <td>Correo Electrónico</td>
-                                    </tr>
-                                </tbobdy>
+                                <tbody>
+                                </tbody>
                             </table>
                         </div>
                     </div>

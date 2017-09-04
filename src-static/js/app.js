@@ -3,4 +3,5 @@ var $ = window.$ = window.jQuery= require("jquery");
 import dt from 'datatables.net';
 require("./foundation.min.js");
 require("./fds-list.js");
+require("./inscription.js");
 $(document).foundation();
