@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded",function(){
      }
    });
    $('#brothersDataSave').click(()=>{
-      let brother =pushBrotherOnArray();
+      let brother = pushBrotherOnArray();
       brothers.push(brother);
       console.log(brothers);
 

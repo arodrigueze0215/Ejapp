@@ -226,6 +226,24 @@
             }  
         }
     }
+    &__generalInfo{
+        &__data{
+            &__one{
+                display:flex;
+                flex-direction: row;
+                &__whoIntiveMe{
+                    flex-grow:3;
+                    margin-right:8px;
+                }
+                &__whoIntiveMeNumber{
+                    flex-grow:1;
+                    margin-left:8px;
+                }
+            }
+        }
 
-
+    }
+    &__register{
+        width:100%;
+    }
 }

@@ -228,9 +228,48 @@
                                 <tbody>
                                 </tbody>
                             </table>
-                        </div>
+                        </div>                        
                     </div>
                 </section>
+                <section class="Main__health">
+                    <h2>Limitaciones de salud</h2>
+                    <label class="Main__health__illness">Enfermedades
+                        <input type="text" name="health-illnes" placeholder="¿Sufres de alguna enfermedad en particular?">
+                    </label>
+                    <label class="Main__health__especialFood">Alimentación espacial
+                        <input type="text" name="health-food" placeholder="¿Necesitas alimentarte de manera especial?">
+                    </label>
+                </section>
+                <section class="Main__generalInfo">
+                    <h2>Datos generales</h2>
+                    <div class="Main__generalInfo__data__one">
+                        <label class="Main__generalInfo__data__one__whoIntiveMe">¿Quien te invitó al EJ?
+                            <input type="text" name="whoIntiveMe"placeholder="Nombre y apellido">
+                        </label>
+                        <label class="Main__generalInfo__data__one__whoIntiveMeNumber">Teléfono móvil
+                            <input type="text" name="whoIntiveMeNumber" placeholder="# de celular de quien te invitó">
+                        </label>
+                    </div>
+                    <div class="Main__generalInfo__data__two">
+                        <label class="Main__generalInfo__data__two__whyFds">¿Por que quieres vivir FDS?
+                            <input type="text" name="whyFds"placeholder="Dejanos saber tu interes">
+                        </label>
+                    </div>
+                    <div class="Main__generalInfo__data__three">
+                        <h4>Aparte de vivir el fin de semana, ¿Te interesa pertenecer al encuentro juvenil Pereira?</h4>
+                        <input type="radio" name="wantFds" value="true" id="wantFds_yes" required><label for="wantFds_yes">Sí</label>
+                        <input type="radio" name="wantFds" value="false" id="wantFds_no"><label for="wantFds_no">No</label>
+                    </div>
+                    <div class="Main__generalInfo__data__four">
+                        <h4>¿Has participado de alguna actividad de crecimiento personal, grupo o movimiento juvenil?</h4>
+                        <input type="radio" name="otherExperiences" value="true" id="otherExperiences_yes" required><label for="otherExperiences_yes">Sí</label>
+                        <input type="radio" name="otherExperiences" value="false" id="otherExperiences_no"><label for="otherExperiences_no">No</label>
+                        <label class="Main__generalInfo__data__four__otherExperiences">Cuentanos ¿Cual?
+                            <input type="text" name="otherExperiences-which">
+                        </label>
+                    </div>
+                </section>
+                <button  id="register" type="button" class=" Main__register button">Agregar</button>
             </form>
         </div>
         <script src="{% static 'js/app.bundle.js' %}"></script>
