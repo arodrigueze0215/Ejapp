@@ -73,13 +73,23 @@ document.addEventListener("DOMContentLoaded",function(){
              break;
      }
    });
-   $('#brothersDataSave').click(()=>{
+  /**
+  * Events
+  */
+    $('#brothersDataSave').click(()=>{
       let brother = pushBrotherOnArray();
       brothers.push(brother);
       console.log(brothers);
+      
+      
+    });
+    $('#registerInscription').click((ev)=>{
+      data={};
 
-
-   });
+    });
+  /**
+  * Events
+  */
 
 
    let pushBrotherOnArray= ()=>{
@@ -120,5 +130,29 @@ document.addEventListener("DOMContentLoaded",function(){
                 <td>${email}</td>
             </tr>`
    }
+
+   /**
+     * Connection AJAX to backend
+     */
+        /**
+         * Create a new inscription
+         */
+        let postNewFds = (data) =>{
+          let postAjax = $.ajax({
+              url : window.location.href,
+              type : 'POST',
+              data : data
+          });
+          postAjax.done((data) =>{
+              if (data.result==='ok') {
+                console.log(data);
+              } else{
+                  console.log(data);
+              }         
+              
+          });
+      }
+
+
 
 })
