@@ -243,7 +243,11 @@
         }
 
     }
-    &__register{
-        width:100%;
+    &__contentActions{
+        display:flex;
+        justify-content: center;
+        &__register{
+            width:50%;
+        }
     }
 }

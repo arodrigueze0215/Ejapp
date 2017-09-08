@@ -63,6 +63,16 @@ document.addEventListener("DOMContentLoaded",function(){
              break;
      }
    });
+    $('input[type=radio][name=otherExperiences]').change(function(){
+       switch($(this).val()) {
+         case 'true':
+          $('input[type=text][name=otherExperiences-which]').removeAttr('disabled', 'disabled');
+             break;
+         case 'false':
+          $('input[type=text][name=otherExperiences-which]').attr('disabled', 'disabled');
+             break;
+     }
+   });
    $('#brothersDataSave').click(()=>{
       let brother = pushBrotherOnArray();
       brothers.push(brother);
