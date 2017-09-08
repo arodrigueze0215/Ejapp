@@ -91,6 +91,46 @@ document.addEventListener("DOMContentLoaded",function(){
   * Events
   */
 
+  let getDataFromInputs = ()=>{
+    data={};
+    let personal_names=$('input[type=text][name=personal_names]').val();
+    let personal_lastnames=$('input[type=text][name=personal_lastnames]').val();
+    let personal_dateborn=$('input[type=date][name=personal_dateborn]').val();
+    let personal_homephone=$('input[type=tel][name=personal_homephone]').val();
+    let personal_mobilephone=$('input[type=tel][name=personal_mobilephone]').val();
+    let personal_address=$('input[type=text][name=personal_address]').val();
+    let personal_email=$('input[type=email][name=personal_email]').val();
+    data.personal_names = personal_names;
+    data.personal_lastnames = personal_lastnames;
+    data.personal_dateborn = personal_dateborn;
+    data.personal_homephone = personal_homephone;
+    data.personal_mobilephone = personal_mobilephone;
+    data.personal_address = personal_address;
+    data.personal_email = personal_email;
+    let life_with_gran=$('#life_with_gran').val();
+    let life_with_parent=$('#life_with_parent').val();
+    let life_with_only_mother=$('#life_with_only_mother').val();
+    let life_with_only_father=$('#life_with_only_father').val();
+    let life_with_uncles=$('#life_with_uncles').val();
+    let life_with_friends=$('#life_with_friends').val();
+    let life_with_cousins=$('#life_with_cousins').val();
+    let life_with_brothers=$('#life_with_brothers').val();
+    let life_with_alone=$('#life_with_alone').val();
+    data.life_with_gran = life_with_gran;
+    data.life_with_parent = life_with_parent;
+    data.life_with_only_mother = life_with_only_mother;
+    data.life_with_only_father = life_with_only_father;
+    data.life_with_uncles = life_with_uncles;
+    data.life_with_friends = life_with_friends;
+    data.life_with_cousins = life_with_cousins;
+    data.life_with_brothers = life_with_brothers;
+    data.life_with_alone = life_with_alone;
+    let study=$('input[type=radio][name=study]').val();
+
+
+    return data;
+  }
+
 
    let pushBrotherOnArray= ()=>{
     let names=$('input[type=text][name=data-brothers-names]').val();
