@@ -126,6 +126,48 @@ document.addEventListener("DOMContentLoaded",function(){
     data.life_with_brothers = life_with_brothers;
     data.life_with_alone = life_with_alone;
     let study=$('input[type=radio][name=study]').val();
+    let study_carrer=$('input[type=text][name=study_carrer]').val();
+    let study_where=$('input[type=text][name=study_where]').val();
+    data.study = study;
+    data.study_carrer = study_carrer;
+    data.study_where = study_where;
+    let work=$('input[type=radio][name=work]').val();
+    let work_company=$('input[type=text][name=work_company]').val();
+    let work_role=$('input[type=text][name=work_role]').val();
+    let work_phone=$('input[type=text][name=work_phone]').val();
+    data.work_company = work_company;
+    data.work_role = work_role;
+    data.work_phone = work_phone;
+    let dad=$('input[type=radio][name=dad]').val();
+    let dad_names=$('input[type=text][name=dad_names]').val();
+    let dad_ocupation=$('input[type=text][name=dad_ocupation]').val();
+    let dad_phone_home=$('input[type=tel][name=dad_phone_home]').val();
+    let dad_phone=$('input[type=tel][name=dad_phone]').val();
+    let dad_address=$('input[type=text][name=dad_address]').val();
+    data.dad = dad;
+    data.dad_names = dad_names;
+    data.dad_ocupation = dad_ocupation;
+    data.dad_phone_home = dad_phone_home;
+    data.dad_phone = dad_phone;
+    data.dad_address = dad_address;
+    let mom=$('input[type=radio][name=mom]').val();
+    let mom_names=$('input[type=text][name=mom_names]').val();
+    let mom_ocupation=$('input[type=text][name=mom_ocupation]').val();
+    let mom_phone_home=$('input[type=tel][name=mom_phone_home]').val();
+    let mom_phone=$('input[type=tel][name=mom_phone]').val();
+    let mom_address=$('input[type=text][name=mom_address]').val();
+    data.mom = mom;
+    data.mom_names = mom_names;
+    data.mom_ocupation = mom_ocupation;
+    data.mom_phone_home = mom_phone_home;
+    data.mom_phone = mom_phone;
+    data.mom_address = mom_address;
+    
+    //add brothers array
+    data.brothers.push(brothers);
+    let health_illnes=$('input[type=text][name=health-illnes]').val();
+    let health_food=$('input[type=text][name=health-illnes]').val();
+    
 
 
     return data;
