@@ -29,15 +29,13 @@ document.addEventListener("DOMContentLoaded",function(){
    });
    $('input[type=radio][name=dad]').change(function(){
        switch($(this).val()) {
-         case 'true':
-          $('input[type=text][name=dad_names]').removeAttr('disabled', 'disabled');         
+         case 'true':         
           $('input[type=text][name=dad_ocupation]').removeAttr('disabled', 'disabled');         
           $('input[type=tel][name=dad_phone_home]').removeAttr('disabled', 'disabled');
           $('input[type=tel][name=dad_phone]').removeAttr('disabled', 'disabled');
           $('input[type=text][name=dad_address]').removeAttr('disabled', 'disabled');         
              break;
          case 'false':
-          $('input[type=text][name=dad_names]').attr('disabled', 'disabled');         
           $('input[type=text][name=dad_ocupation]').attr('disabled', 'disabled');         
           $('input[type=tel][name=dad_phone_home]').attr('disabled', 'disabled');
           $('input[type=tel][name=dad_phone]').attr('disabled', 'disabled');
@@ -48,14 +46,12 @@ document.addEventListener("DOMContentLoaded",function(){
     $('input[type=radio][name=mom]').change(function(){
        switch($(this).val()) {
          case 'true':
-          $('input[type=text][name=mom_names]').removeAttr('disabled', 'disabled');         
           $('input[type=text][name=mom_ocupation]').removeAttr('disabled', 'disabled');         
           $('input[type=tel][name=mom_phone_home]').removeAttr('disabled', 'disabled');
           $('input[type=tel][name=mom_phone]').removeAttr('disabled', 'disabled');
           $('input[type=text][name=mom_address]').removeAttr('disabled', 'disabled');         
              break;
          case 'false':
-          $('input[type=text][name=mom_names]').attr('disabled', 'disabled');         
           $('input[type=text][name=mom_ocupation]').attr('disabled', 'disabled');         
           $('input[type=tel][name=mom_phone_home]').attr('disabled', 'disabled');
           $('input[type=tel][name=mom_phone]').attr('disabled', 'disabled');
@@ -83,7 +79,7 @@ document.addEventListener("DOMContentLoaded",function(){
       
       
     });
-    $('#registerInscription').click((ev)=>{
+    $('#registerInscription').submit((ev)=>{
       data= getDataFromInputs();
       console.log(data);
 
@@ -117,7 +113,7 @@ document.addEventListener("DOMContentLoaded",function(){
     data.life_with_cousins = $('#life_with_cousins').is(':checked')? true: false;
     data.life_with_brothers = $('#life_with_brothers').is(':checked')? true: false;
     data.life_with_alone = $('#life_with_alone').is(':checked')? true: false;
-    let study=$('input[type=radio][name=study]').val();
+    let study=$('input[type=radio][name=study]').is(':checked')? true: false;
     let study_carrer=$('input[type=text][name=study_carrer]').val();
     let study_where=$('input[type=text][name=study_where]').val();
     data.study = study;
@@ -130,7 +126,7 @@ document.addEventListener("DOMContentLoaded",function(){
     data.work_company = work_company;
     data.work_role = work_role;
     data.work_phone = work_phone;
-    let dad=$('input[type=radio][name=dad]').val();
+    let dad=$('input[type=radio][name=dad]').is(':checked')? true: false;
     let dad_names=$('input[type=text][name=dad_names]').val();
     let dad_ocupation=$('input[type=text][name=dad_ocupation]').val();
     let dad_phone_home=$('input[type=tel][name=dad_phone_home]').val();
@@ -142,7 +138,7 @@ document.addEventListener("DOMContentLoaded",function(){
     data.dad_phone_home = dad_phone_home;
     data.dad_phone = dad_phone;
     data.dad_address = dad_address;
-    let mom=$('input[type=radio][name=mom]').val();
+    let mom=$('input[type=radio][name=mom]').is(':checked')? true: false;
     let mom_names=$('input[type=text][name=mom_names]').val();
     let mom_ocupation=$('input[type=text][name=mom_ocupation]').val();
     let mom_phone_home=$('input[type=tel][name=mom_phone_home]').val();
@@ -166,8 +162,8 @@ document.addEventListener("DOMContentLoaded",function(){
     let whoIntiveMe=$('input[type=text][name=whoIntiveMe]').val();
     let whoIntiveMeNumber=$('input[type=tel][name=whoIntiveMeNumber]').val();
     let whyFds=$('input[type=text][name=whyFds]').val();
-    let wantFds=$('input[type=radio][name=wantFds]').val();
-    let otherExperiences=$('input[type=radio][name=otherExperiences]').val();
+    let wantFds=$('input[type=radio][name=wantFds]').is(':checked')? true: false;
+    let otherExperiences=$('input[type=radio][name=otherExperiences]').is(':checked')? true: false;
     let otherExperiences_which=$('input[type=text][name=otherExperiences-which]').val();
     data.whoIntiveMe = whoIntiveMe;
     data.whoIntiveMeNumber = whoIntiveMeNumber;

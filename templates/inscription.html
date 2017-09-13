@@ -10,9 +10,11 @@
      </head>
      <body>
         <div class="Main">
-            <form>
+            <form data-abide novalidate>
                 <h1 class="text-center">Ficha de inscripción</h1>
-                
+                <div data-abide-error class="alert callout" style="display: none;">
+                    <p><i class="fi-alert"></i> Hay algunos errores en la inscripción.</p>
+                </div>
                 <label>Fecha de inscripción
                     <input type="date" placeholder="Fecha de inscripción">
                 </label>                
@@ -20,13 +22,22 @@
                     <h2> Datos personales</h2>
                     <div class="Main__personal__names">
                         <label class="Main__personal__names__name">Nombres
-                            <input type="text" name="personal_names" placeholder="Nombres">
+                            <input type="text" name="personal_names" placeholder="Nombres" required>
+                            <span class="form-error">
+                                Hace falta tus nombres.
+                              </span>
                         </label>
                         <label class="Main__personal__names__lastName">Apellidos
-                            <input type="text" name="personal_lastname" placeholder="Apellidos">
+                            <input type="text" name="personal_lastname" placeholder="Apellidos" required>
+                            <span class="form-error">
+                                Hace falta tus apellidos.
+                            </span>
                         </label>
                         <label class="Main__personal__names__dateBorn">Fecha nacimiento
-                            <input type="date" name="personal_dateborn" placeholder="Fecha de nacimiento">
+                            <input type="date" name="personal_dateborn" placeholder="Fecha de nacimiento" required>
+                            <span class="form-error">
+                                Hace falta tu fecha de nacimiento.
+                              </span>
                         </label>
                     </div>
                     <div class="Main__personal__numbers">
@@ -42,7 +53,10 @@
                             <input type="text" name="personal_address" placeholder="Dirección de residencia">
                         </label>
                         <label class="Main__personal__addresses__email">Correo electrónico
-                            <input type="email" name="personal_email" placeholder="Dirección de Correo electrónico">
+                            <input type="email" name="personal_email" placeholder="Dirección de Correo electrónico" required>
+                            <span class="form-error">
+                               Hace falta tu correo electrónico
+                            </span>
                         </label>
                     </div>
                     <div class="Main__personal__whoLife">
@@ -102,7 +116,7 @@
                     <div class="Main__university__question">
                         <fieldset class="large-6 columns">
                             <legend>¿Estudias?</legend>
-                            <input type="radio" name="study" value="true" id="study_yes" required><label for="study_yes">Sí</label>
+                            <input type="radio" name="study" value="true" id="study_yes" required checked><label for="study_yes">Sí</label>
                             <input type="radio" name="study" value="false" id="study_no"><label for="study_no">No</label>
                         </fieldset>
 
@@ -121,7 +135,7 @@
                     <div class="Main__work__question">
                         <fieldset class="large-6 columns">
                             <legend>¿Trabajas?</legend>
-                            <input type="radio" name="work" value="true" id="work_yes" required><label for="work_yes">Sí</label>
+                            <input type="radio" name="work" value="true" id="work_yes" required checked><label for="work_yes">Sí</label>
                             <input type="radio" name="work" value="false" id="work_no"><label for="work_no">No</label>
                         </fieldset>
 
@@ -145,13 +159,16 @@
                         <div class="Main__family__dad__question">
                             <fieldset class="large-6 columns">
                                 <legend>¿Aún vive?</legend>
-                                <input type="radio" name="dad" value="true" id="dad_yes" required><label for="dad_yes">Sí</label>
+                                <input type="radio" name="dad" value="true" id="dad_yes" required checked><label for="dad_yes">Sí</label>
                                 <input type="radio" name="dad" value="false" id="dad_no"><label for="dad_no">No</label>
                             </fieldset>                        
                         </div>
                         <div class="Main__family__dad__data__one">
                             <label class="Main__family__dad__data__one__names">Nombre completo
-                                <input type="text" name="dad_names" placeholder="Nombres y apellidos">
+                                <input type="text" name="dad_names" placeholder="Nombres y apellidos" required>
+                                <span class="form-error">
+                                    Hace falta el nombre de tu papá.
+                                </span>
                             </label>
                             <label class="Main__family__dad__data__one__ocupation">Ocupación
                                 <input type="text" name="dad_ocupation" placeholder="A que se dedica tu papá">
@@ -174,13 +191,16 @@
                         <div class="Main__family__mom__question">
                             <fieldset class="large-6 columns">
                                 <legend>¿Aún vive?</legend>
-                                <input type="radio" name="mom" value="true" id="mom_yes" required><label for="mom_yes">Sí</label>
+                                <input type="radio" name="mom" value="true" id="mom_yes" required checked><label for="mom_yes">Sí</label>
                                 <input type="radio" name="mom" value="false" id="mom_no"><label for="mom_no">No</label>
                             </fieldset>                        
                         </div>
                         <div class="Main__family__mom__data__one">
                             <label class="Main__family__mom__data__one__names">Nombre completo
-                                <input type="text" name="mom_names" placeholder="Nombres y apellidos">
+                                <input type="text" name="mom_names" placeholder="Nombres y apellidos" required>
+                                <span class="form-error">
+                                    Hace falta el nombre de tu mamá.
+                                </span>
                             </label>
                             <label class="Main__family__mom__data__one__ocupation">Ocupación
                                 <input type="text" name="mom_ocupation" placeholder="A que se dedica tu mamá">
@@ -244,10 +264,16 @@
                     <h2>Datos generales</h2>
                     <div class="Main__generalInfo__data__one">
                         <label class="Main__generalInfo__data__one__whoIntiveMe">¿Quien te invitó al EJ?
-                            <input type="text" name="whoIntiveMe"placeholder="Nombre y apellido">
+                            <input type="text" name="whoIntiveMe"placeholder="Nombre y apellido" required>
+                            <span class="form-error">
+                                Es importante que nos digas por quién fuiste invitado
+                              </span>
                         </label>
                         <label class="Main__generalInfo__data__one__whoIntiveMeNumber">Teléfono móvil
-                            <input type="tel" name="whoIntiveMeNumber" placeholder="# de celular de quien te invitó">
+                            <input type="tel" name="whoIntiveMeNumber" placeholder="# de celular de quien te invitó" required>
+                            <span class="form-error">
+                                Su número de teléfono también :)
+                              </span>
                         </label>
                     </div>
                     <div class="Main__generalInfo__data__two">
@@ -257,20 +283,20 @@
                     </div>
                     <div class="Main__generalInfo__data__three">
                         <h4>Aparte de vivir el fin de semana, ¿Te interesa pertenecer al encuentro juvenil Pereira?</h4>
-                        <input type="radio" name="wantFds" value="true" id="wantFds_yes" required><label for="wantFds_yes">Sí</label>
+                        <input type="radio" name="wantFds" value="true" id="wantFds_yes" required checked><label for="wantFds_yes">Sí</label>
                         <input type="radio" name="wantFds" value="false" id="wantFds_no"><label for="wantFds_no">No</label>
                     </div>
                     <div class="Main__generalInfo__data__four">
                         <h4>¿Has participado de alguna actividad de crecimiento personal, grupo o movimiento juvenil?</h4>
-                        <input type="radio" name="otherExperiences" value="true" id="otherExperiences_yes" required><label for="otherExperiences_yes">Sí</label>
-                        <input type="radio" name="otherExperiences" value="false" id="otherExperiences_no"><label for="otherExperiences_no">No</label>
+                        <input type="radio" name="otherExperiences" value="true" id="otherExperiences_yes"><label for="otherExperiences_yes">Sí</label>
+                        <input type="radio" name="otherExperiences" value="false" id="otherExperiences_no"required checked><label for="otherExperiences_no">No</label>
                         <label class="Main__generalInfo__data__four__otherExperiences">Cuentanos ¿Cual?
-                            <input type="text" name="otherExperiences-which">
+                            <input type="text" name="otherExperiences-which" disabled>
                         </label>
                     </div>
                 </section>
                 <section class="Main__contentActions">
-                    <button  id="registerInscription" type="button" class="Main__contentActions__register button">Agregar</button>
+                    <button  id="registerInscription" type="submit" value="Submit" class="Main__contentActions__register button">Agregar</button>
                 </section>
             </form>
         </div>
