@@ -20,6 +20,13 @@
                 </label>                
                 <section class="Main__personal">
                     <h2> Datos personales</h2>
+                    <div class="Main__personal__gender">
+                        <fieldset class="large-6 columns">
+                            <legend>¿Género?</legend>
+                            <input type="radio" name="gender" value="true" id="gender_male" required checked><label for="gender_male">Masculino</label>
+                            <input type="radio" name="gender" value="false" id="gender_female"><label for="gender_female">Femenino</label>
+                        </fieldset>
+                    </div>
                     <div class="Main__personal__names">
                         <label class="Main__personal__names__name">Nombres
                             <input type="text" name="personal_names" placeholder="Nombres" required>
@@ -44,7 +51,7 @@
                          <label class="Main__personal__numbers__homePhone">Teléfono
                             <input type="tel" name="personal_homephone" placeholder="Número telefónico de tu casa">
                         </label>
-                        <label class="Main__personal__numbers__MobilePhone">Móvil
+                        <label class="Main__personal__numbers__mobilePhone">Móvil
                             <input type="tel" name="personal_mobilephone" placeholder="Número telefónico personal">
                         </label>
                     </div>

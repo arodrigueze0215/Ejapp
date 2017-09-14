@@ -1,3 +1,4 @@
+import * as csrftoken from './csrftoken.js';
 document.addEventListener("DOMContentLoaded",function(){
   let brothers = [];
 
@@ -79,9 +80,10 @@ document.addEventListener("DOMContentLoaded",function(){
       
       
     });
-    $('#registerInscription').submit((ev)=>{
-      data= getDataFromInputs();
-      console.log(data);
+    $('#registerInscription').on('click',(ev)=>{
+      ev.preventDefault();
+      let data= getDataFromInputs();
+      postNewInscription(data);
 
     });
   /**
@@ -89,7 +91,8 @@ document.addEventListener("DOMContentLoaded",function(){
   */
 
   let getDataFromInputs = ()=>{
-    data={};
+    let data={};
+    let gender=$('input[type=radio][name=gender]').is(':checked')? true: false;
     let personal_names=$('input[type=text][name=personal_names]').val();
     let personal_lastnames=$('input[type=text][name=personal_lastnames]').val();
     let personal_dateborn=$('input[type=date][name=personal_dateborn]').val();
@@ -97,6 +100,7 @@ document.addEventListener("DOMContentLoaded",function(){
     let personal_mobilephone=$('input[type=tel][name=personal_mobilephone]').val();
     let personal_address=$('input[type=text][name=personal_address]').val();
     let personal_email=$('input[type=email][name=personal_email]').val();
+    data.personal_gender = gender;
     data.personal_names = personal_names;
     data.personal_lastnames = personal_lastnames;
     data.personal_dateborn = personal_dateborn;
@@ -171,11 +175,12 @@ document.addEventListener("DOMContentLoaded",function(){
     data.wantFds = wantFds;
     data.otherExperiences = otherExperiences;
     data.otherExperiences_which = otherExperiences_which;
+    data.csrfmiddlewaretoken = csrftoken.csrfToken('csrftoken');;
     return data;
   }
 
 
-   let pushBrotherOnArray= ()=>{
+  let pushBrotherOnArray= ()=>{
     let names=$('input[type=text][name=data-brothers-names]').val();
     let date=$('input[type=date][name=data-brothers-date]').val();
     let phone=$('input[type=tel][name=data-brothers-phone]').val();
@@ -203,16 +208,16 @@ document.addEventListener("DOMContentLoaded",function(){
     let row = $(addRowOnTable(brother.names, brother.date, brother.phone, brother.email));
     $('#listBroders > tbody').append(row);
     return brother;
-   }
+  }
 
-   let addRowOnTable= (names, date, tel, email) =>{
-     return `<tr>
-                <td>${names}</td>
-                <td>${date}</td>
-                <td>${tel}</td>
-                <td>${email}</td>
-            </tr>`
-   }
+  let addRowOnTable= (names, date, tel, email) =>{
+    return `<tr>
+              <td>${names}</td>
+              <td>${date}</td>
+              <td>${tel}</td>
+              <td>${email}</td>
+          </tr>`
+  }
 
    /**
      * Connection AJAX to backend
@@ -220,7 +225,7 @@ document.addEventListener("DOMContentLoaded",function(){
         /**
          * Create a new inscription
          */
-        let postNewFds = (data) =>{
+        let postNewInscription = (data) =>{
           let postAjax = $.ajax({
               url : window.location.href,
               type : 'POST',

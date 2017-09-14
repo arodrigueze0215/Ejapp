@@ -37,7 +37,7 @@
                 margin-left: 8px;
             }
         }
-        &__Numbers{
+        &__numbers{
             display: flex;
             flex-direction: row;
             &__homePhone{

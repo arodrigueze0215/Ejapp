@@ -9,23 +9,28 @@ from django.utils import timezone
 
 
 def inscriptions_add(request, nFds):
-    template= loader.get_template('inscription.html')
-    try:
-        Fds = FdsEvents.objects.get(number_fds=nFds)
-        now = timezone.now()
-        if Fds:
-            if now < Fds.date_start:
-                print "Fds está vigente"
-                context = {
-                    'Fds': Fds
-                }
-                return HttpResponse(template.render(context, request))
-            elif now > Fds.date_end:
-                return render(request, 'inscription_nofound.html')
-                print "Fds pasó"
-        return render(request, 'inscription_nofound.html')
-    except FdsEvents.DoesNotExist:
-        return render(request, 'inscription_nofound.html')
+    if request.method == 'POST' and request.is_ajax():
+        print "POST: ", request.POST
+        return JsonResponse({'result': 'error', 'message':request.POST})
+
+    else:
+        template= loader.get_template('inscription.html')
+        try:
+            Fds = FdsEvents.objects.get(number_fds=nFds)
+            now = timezone.now()
+            if Fds:
+                if now < Fds.date_start:
+                    print "Fds está vigente"
+                    context = {
+                        'Fds': Fds
+                    }
+                    return HttpResponse(template.render(context, request))
+                elif now > Fds.date_end:
+                    return render(request, 'inscription_nofound.html')
+                    print "Fds pasó"
+            return render(request, 'inscription_nofound.html')
+        except FdsEvents.DoesNotExist:
+            return render(request, 'inscription_nofound.html')
 
 
 def list_fds(request):
