@@ -6,11 +6,59 @@ from django.http import HttpResponse, JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from .models import FdsEvents
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 def inscriptions_add(request, nFds):
     if request.method == 'POST' and request.is_ajax():
         print "POST: ", request.POST
+        personal_gender = request.POST.get('personal_gender', None)
+        personal_names = request.POST.get('personal_names', None)
+        personal_lastnames = request.POST.get('personal_lastnames', None)
+        personal_dateborn = request.POST.get('personal_dateborn', None)
+        personal_homephone = request.POST.get('personal_homephone', None)
+        personal_mobilephone = request.POST.get('personal_mobilephone', None)
+        personal_address = request.POST.get('personal_address', None)
+        personal_email = request.POST.get('personal_email', None)
+        life_with_gran = request.POST.get('life_with_gran', None)
+        life_with_parent = request.POST.get('life_with_parent', None)
+        life_with_only_mother = request.POST.get('life_with_only_mother', None)
+        life_with_only_father = request.POST.get('life_with_only_father', None)
+        life_with_uncles = request.POST.get('life_with_uncles', None)
+        life_with_friends = request.POST.get('life_with_friends', None)
+        life_with_cousins = request.POST.get('life_with_cousins', None)
+        life_with_brothers = request.POST.get('life_with_brothers', None)
+        life_with_alone = request.POST.get('life_with_alone', None)
+        study = request.POST.get('study', None)
+        study_carrer = request.POST.get('study_carrer', None)
+        study_where = request.POST.get('study_where', None)
+        work_company = request.POST.get('work_company', None)
+        work_role = request.POST.get('work_role', None)
+        work_phone = request.POST.get('work_phone', None)
+        dad = request.POST.get('dad', None)
+        dad_names = request.POST.get('dad_names', None)
+        dad_ocupation = request.POST.get('dad_ocupation', None)
+        dad_phone_home = request.POST.get('dad_phone_home', None)
+        dad_phone = request.POST.get('dad_phone', None)
+        dad_address = request.POST.get('dad_address', None)
+        mom = request.POST.get('mom', None)
+        mom_names = request.POST.get('mom_names', None)
+        mom_ocupation = request.POST.get('mom_ocupation', None)
+        mom_phone_home = request.POST.get('mom_phone_home', None)
+        mom_phone = request.POST.get('mom_phone', None)
+        mom_address = request.POST.get('mom_address', None)
+        brothers = request.POST.getlist('brothers')
+        health_illnes = request.POST.get('health_illnes', None)
+        health_food = request.POST.get('health_food', None)
+        whoIntiveMe = request.POST.get('whoIntiveMe', None)
+        whyFds = request.POST.get('whyFds', None)
+        wantFds = request.POST.get('wantFds', None)
+        otherExperiences = request.POST.get('otherExperiences', None)
+        otherExperiences_which = request.POST.get('otherExperiences_which', None)
+        user = None
+        if personal_names and personal_lastnames and personal_email:
+            user = User.objects.create_user(username=personal_email,email=personal_email)
+
         return JsonResponse({'result': 'error', 'message':request.POST})
 
     else:
