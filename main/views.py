@@ -4,12 +4,13 @@ from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.http import HttpResponse, JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
-from .models import FdsEvents
+from .models import (FdsEvents, Young, Inscription)
 from django.utils import timezone
 from django.contrib.auth.models import User
 
 
 def inscriptions_add(request, nFds):
+    Fds = FdsEvents.objects.get(number_fds=nFds)
     if request.method == 'POST' and request.is_ajax():
         print "POST: ", request.POST
         personal_gender = request.POST.get('personal_gender', None)
@@ -55,16 +56,44 @@ def inscriptions_add(request, nFds):
         wantFds = request.POST.get('wantFds', None)
         otherExperiences = request.POST.get('otherExperiences', None)
         otherExperiences_which = request.POST.get('otherExperiences_which', None)
-        user = None
-        if personal_names and personal_lastnames and personal_email:
-            user = User.objects.create_user(username=personal_email,email=personal_email)
-
-        return JsonResponse({'result': 'error', 'message':request.POST})
+        if personal_names and personal_lastnames and personal_email and personal_dateborn:
+            young = Young()
+            inscription = Inscription()
+            user = User.objects.create_user(username=personal_email, email=personal_email)
+            user.first_name = personal_names
+            user.last_name = personal_lastnames
+            user.save()
+            young.user = user
+            young.date_born = personal_dateborn
+            if personal_homephone:
+                young.home_phone = personal_homephone
+            if personal_mobilephone:
+                young.mobile_phone = personal_mobilephone
+            if personal_address:
+                young.address = personal_address
+            if personal_gender:
+                young.gender = personal_gender
+            young.save()
+            inscription.young = young
+            if Fds:
+                inscription.city = Fds.city_fds
+            else:
+                """TODO: Modificar esto después para no quemar este valor de esta manera"""
+                inscription.city = "Sin ciudad"
+            if study:
+                young.do_you_study = study
+            if study_carrer:
+                young.carrer = study_carrer
+            if study_where:
+                young.school = study_where
+            if work:
+                young.do_you_work = work     
+                
+            return JsonResponse({'result': 'error', 'message':request.POST})
 
     else:
         template= loader.get_template('inscription.html')
         try:
-            Fds = FdsEvents.objects.get(number_fds=nFds)
             now = timezone.now()
             if Fds:
                 if now < Fds.date_start:
