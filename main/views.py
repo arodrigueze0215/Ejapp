@@ -52,6 +52,7 @@ def inscriptions_add(request, nFds):
         health_illnes = request.POST.get('health_illnes', None)
         health_food = request.POST.get('health_food', None)
         whoIntiveMe = request.POST.get('whoIntiveMe', None)
+        whoIntiveMeNumber = request.POST.get('whoIntiveMeNumber', None)
         whyFds = request.POST.get('whyFds', None)
         wantFds = request.POST.get('wantFds', None)
         otherExperiences = request.POST.get('otherExperiences', None)
@@ -81,14 +82,56 @@ def inscriptions_add(request, nFds):
                 """TODO: Modificar esto después para no quemar este valor de esta manera"""
                 inscription.city = "Sin ciudad"
             if study:
-                young.do_you_study = study
+                inscription.do_you_study = study
             if study_carrer:
-                young.carrer = study_carrer
+                inscription.carrer = study_carrer
             if study_where:
-                young.school = study_where
+                inscription.school = study_where
             if work:
-                young.do_you_work = work     
-                
+                inscription.do_you_work = work     
+            if work_company:
+                inscription.company = work_company     
+            if work_role:
+                inscription.position_job = work_role     
+            if work_role:
+                inscription.position_job = work_role     
+            if work_phone:
+                inscription.position_job = work_phone
+            if life_with_gran:
+                inscription.life_with_gran = life_with_gran     
+            if life_with_parent:
+                inscription.life_with_parent = life_with_parent     
+            if life_with_only_father:
+                inscription.life_with_only_father = life_with_only_father     
+            if life_with_only_mother:
+                inscription.life_with_only_mother = life_with_only_mother     
+            if life_with_only_mother:
+                inscription.life_with_only_mother = life_with_only_mother     
+            if life_with_uncles:
+                inscription.life_with_uncles = life_with_uncles     
+            if life_with_friends:
+                inscription.life_with_friends = life_with_friends     
+            if life_with_cousins:
+                inscription.life_with_cousins = life_with_cousins     
+            if life_with_brothers:
+                inscription.life_with_brothers = life_with_brothers     
+            if life_with_alone:
+                inscription.life_with_alone = life_with_alone     
+            if health_illnes:
+                inscription.illness = health_illnes     
+            if health_food:
+                inscription.health_food = health_food     
+            if whoIntiveMe:
+                inscription.who_invite_me = whoIntiveMe     
+            if whoIntiveMeNumber:
+                inscription.who_invite_me_number = whoIntiveMeNumber     
+            if wantFds:
+                inscription.do_you_want_ej = wantFds     
+            if whyFds:
+                inscription.why_fds = whyFds     
+            if otherExperiences:
+                inscription.other_experiences = otherExperiences
+            inscription.save()                
             return JsonResponse({'result': 'error', 'message':request.POST})
 
     else:
