@@ -131,8 +131,10 @@ def inscriptions_add(request, nFds):
                 inscription.why_fds = whyFds     
             if otherExperiences:
                 inscription.other_experiences = otherExperiences
-            inscription.save()                
-            return JsonResponse({'result': 'error', 'message':request.POST})
+            inscription.save()
+            return JsonResponse({'result': 'ok', 'message':'Tu registro terminó satisfactoriamente' 'data_register':{'name': personal_names, 'last_name': personal_lastnames}})
+        else:
+            return JsonResponse({'result': 'error', 'message':'Hay datos obligatorios que hacen falta'})
 
     else:
         template= loader.get_template('inscription.html')
