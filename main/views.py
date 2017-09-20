@@ -75,6 +75,8 @@ def inscriptions_add(request, nFds):
             if personal_gender:
                 young.gender = personal_gender
             young.save()
+            """TODO: Agregar lista de hermanos"""
+            """TODO: Agregar lista de Papas"""
             inscription.young = young
             if Fds:
                 inscription.city = Fds.city_fds
@@ -132,7 +134,7 @@ def inscriptions_add(request, nFds):
             if otherExperiences:
                 inscription.other_experiences = otherExperiences
             inscription.save()
-            return JsonResponse({'result': 'ok', 'message':'Tu registro terminó satisfactoriamente' 'data_register':{'name': personal_names, 'last_name': personal_lastnames}})
+            return JsonResponse({'result': 'ok', 'message':'Tu registro terminó satisfactoriamente', 'data_register':{'name': personal_names, 'fds': nFds}})
         else:
             return JsonResponse({'result': 'error', 'message':'Hay datos obligatorios que hacen falta'})
 

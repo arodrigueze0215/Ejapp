@@ -86,6 +86,9 @@ document.addEventListener("DOMContentLoaded",function(){
       postNewInscription(data);
 
     });
+    $('messageResultInscription').bind('closed', function() {
+      $('messageResultInscriptionContent').children().remove();
+    });
   /**
   * Events
   */
@@ -218,6 +221,11 @@ document.addEventListener("DOMContentLoaded",function(){
               <td>${email}</td>
           </tr>`
   }
+  let addMesageResult= (names, fds, message) =>{
+    return `<h1>Muy bien ${names}</h1>
+            <span>${message}</span>
+            <span>Te has inscrito al FDS ${fds} pronto nos comunicaremos contigo para darte todas las instrucciones</span>`
+  }
 
    /**
      * Connection AJAX to backend
@@ -232,10 +240,11 @@ document.addEventListener("DOMContentLoaded",function(){
               data : data
           });
           postAjax.done((data) =>{
+            $('#messageResultInscription').foundation('open');
               if (data.result==='ok') {
-                console.log(data);
+                $('#messageResultInscriptionContent').append($(addMesageResult(data.data_register.name, data.data_register.fds, data.data_register.message)));
               } else{
-                  console.log(data);
+                $('#messageResultInscriptionContent').append($(addMesageResult(data.data_register.name, data.data_register.fds, data.data_register.message)));
               }         
               
           });
