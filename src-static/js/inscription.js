@@ -1,6 +1,6 @@
 import * as csrftoken from './csrftoken.js';
 document.addEventListener("DOMContentLoaded",function(){
-  let brothers = [];
+  let brothers = new Array();
 
    $('input[type=radio][name=study]').change(function(){
        switch($(this).val()) {
@@ -80,21 +80,34 @@ document.addEventListener("DOMContentLoaded",function(){
       
       
     });
-    $('#registerInscription').on('click',(ev)=>{
-      ev.preventDefault();
-      let data= getDataFromInputs();
-      postNewInscription(data);
+    $('#formInscription').submit((event)=>{
+      event.preventDefault();
+      let personal_names=$('input[type=text][name=personal_names]').val();
+      let personal_lastnames=$('input[type=text][name=personal_lastnames]').val();
+      let personal_dateborn=$('input[type=date][name=personal_dateborn]').val();
+      let personal_email=$('input[type=email][name=personal_email]').val();
+      let dad_names=$('input[type=text][name=dad_names]').val();
+      let mom_names=$('input[type=text][name=mom_names]').val();
+      let whoIntiveMe=$('input[type=text][name=whoIntiveMe]').val();
+      let whoIntiveMeNumber=$('input[type=tel][name=whoIntiveMeNumber]').val();
+      if(personal_names && personal_lastnames && personal_dateborn && personal_email &&
+        dad_names && mom_names && whoIntiveMe && whoIntiveMeNumber){
+            let data = getDataFromInputs();
+            console.log(data);
+            postInscription(data);
+          
+          }       
 
     });
-    $('messageResultInscription').bind('closed', function() {
-      $('messageResultInscriptionContent').children().remove();
+    $('#btnCloseReveal').on('click', function() {
+      $('#messageResultInscriptionContent').children().remove();
     });
   /**
   * Events
   */
 
   let getDataFromInputs = ()=>{
-    let data={};
+    let data = {};
     let gender=$('input[type=radio][name=gender]').is(':checked')? true: false;
     let personal_names=$('input[type=text][name=personal_names]').val();
     let personal_lastnames=$('input[type=text][name=personal_lastnames]').val();
@@ -104,7 +117,7 @@ document.addEventListener("DOMContentLoaded",function(){
     let personal_address=$('input[type=text][name=personal_address]').val();
     let personal_email=$('input[type=email][name=personal_email]').val();
     data.personal_gender = gender;
-    data.personal_names = personal_names;
+    data.personal_names =personal_names;
     data.personal_lastnames = personal_lastnames;
     data.personal_dateborn = personal_dateborn;
     data.personal_homephone = personal_homephone;
@@ -126,10 +139,11 @@ document.addEventListener("DOMContentLoaded",function(){
     data.study = study;
     data.study_carrer = study_carrer;
     data.study_where = study_where;
-    let work=$('input[type=radio][name=work]').val();
+    let work=$('input[type=radio][name=work]').is(':checked')? true: false;
     let work_company=$('input[type=text][name=work_company]').val();
     let work_role=$('input[type=text][name=work_role]').val();
     let work_phone=$('input[type=text][name=work_phone]').val();
+    data.work = work;
     data.work_company = work_company;
     data.work_role = work_role;
     data.work_phone = work_phone;
@@ -158,8 +172,6 @@ document.addEventListener("DOMContentLoaded",function(){
     data.mom_phone = mom_phone;
     data.mom_address = mom_address;
     
-    //add brothers array
-    data.brothers = brothers;
     
     let health_illnes=$('input[type=text][name=health-illnes]').val();
     let health_food=$('input[type=text][name=health-food]').val();
@@ -178,11 +190,13 @@ document.addEventListener("DOMContentLoaded",function(){
     data.wantFds = wantFds;
     data.otherExperiences = otherExperiences;
     data.otherExperiences_which = otherExperiences_which;
-    data.csrfmiddlewaretoken = csrftoken.csrfToken('csrftoken');;
+    data.csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
+    //add brothers array
+    data.brothers = JSON.stringify(brothers);
     return data;
   }
-
-
+  
+  
   let pushBrotherOnArray= ()=>{
     let names=$('input[type=text][name=data-brothers-names]').val();
     let date=$('input[type=date][name=data-brothers-date]').val();
@@ -226,30 +240,38 @@ document.addEventListener("DOMContentLoaded",function(){
             <span>${message}</span>
             <span>Te has inscrito al FDS ${fds} pronto nos comunicaremos contigo para darte todas las instrucciones</span>`
   }
-
-   /**
-     * Connection AJAX to backend
-     */
-        /**
-         * Create a new inscription
-         */
-        let postNewInscription = (data) =>{
-          let postAjax = $.ajax({
-              url : window.location.href,
-              type : 'POST',
-              data : data
-          });
-          postAjax.done((data) =>{
-            $('#messageResultInscription').foundation('open');
-              if (data.result==='ok') {
-                $('#messageResultInscriptionContent').append($(addMesageResult(data.data_register.name, data.data_register.fds, data.data_register.message)));
-              } else{
-                $('#messageResultInscriptionContent').append($(addMesageResult(data.data_register.name, data.data_register.fds, data.data_register.message)));
-              }         
-              
-          });
-      }
+  let addMesageResultErrorUserExists= (names, email, message) =>{
+    return `<h1>Hola ${names}</h1>
+            <span>Lo sentimos. ${message} : ${email}</span>`
+  }
+  let addMesageResultFail= () =>{
+    return `<h1>Algo anda mal</h1>
+            <span>Ocurrió un error al intentar realizar la inscripción</span>`
+  }
 
 
+  /**
+   * Create a new inscription
+   */
+  let postInscription = (data)=>{
+    let postAjax = $.ajax({
+      url : window.location.href,
+      type : 'POST',
+      dataType: "json", // response typ
+      data : data
+    });
+    postAjax.done((data) =>{
+      console.log(data);
+      $('#messageResultInscription').foundation('open');
+        if (data.result==='ok') {
+          $('#messageResultInscriptionContent').append($(addMesageResult(data.data_register.name, data.data_register.fds, data.message)));
+        } else{
+          $('#messageResultInscriptionContent').append($(addMesageResultErrorUserExists(data.data_register.name, data.data_register.email, data.message)));
+        }                       
+      });
+      postAjax.fail(()=>{
+        $('#messageResultInscriptionContent').append($(addMesageResultFail()));
+    });
+  }
 
 })

@@ -246,8 +246,14 @@
     &__contentActions{
         display:flex;
         justify-content: center;
+        flex-direction:column-reverse;
         &__register{
             width:50%;
+            margin: 4px auto;
+        }
+        &__error{
+            width:50%;
+            margin: 4px auto;
         }
     }
 }

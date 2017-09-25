@@ -52,8 +52,12 @@ class Inscription(models.Model):
     pieces_save = models.CharField(max_length=50, choices=_PIECE, default="1")
 
 class  Parents(models.Model):
+    _RELATION = (
+    ('1', 'Mamá'),
+    ('2', 'Papá'),
+    )
     young = models.OneToOneField(Young, on_delete=models.CASCADE)
-    realtionship = models.CharField(max_length=255, blank=False)
+    relationship = models.CharField(max_length=255, choices=_RELATION, blank=False)
     name_parent = models.CharField(max_length=255, blank=False)
     occupation = models.CharField(max_length=255, blank=True)
     home_phone = models.CharField(max_length=50, blank=True)
@@ -62,8 +66,14 @@ class  Parents(models.Model):
     isalive = models.BooleanField(default=True)
 
 class Brothers (models.Model):
+    _RELATIONS = (
+    ('1', 'hermano'),
+    ('2', 'hermana'),
+    ('3', 'primo'),
+    ('4', 'prima'),
+    )
     young = models.OneToOneField(Young, on_delete=models.CASCADE)
-    realtionship = models.CharField(max_length=255, blank=False)
+    realtionship = models.CharField(max_length=255, choices=_RELATIONS, default="1", blank=False)
     name_brother = models.CharField(max_length=255, blank=False)
     date_born = models.CharField(max_length=255, blank=False)
     mobile_phone = models.CharField(max_length=50, blank=True)

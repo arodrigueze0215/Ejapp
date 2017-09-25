@@ -4,11 +4,10 @@ from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.http import HttpResponse, JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
-from .models import (FdsEvents, Young, Inscription)
+from .models import (FdsEvents, Young, Inscription, Parents)
 from django.utils import timezone
 from django.contrib.auth.models import User
-
-
+import json
 def inscriptions_add(request, nFds):
     Fds = FdsEvents.objects.get(number_fds=nFds)
     if request.method == 'POST' and request.is_ajax():
@@ -33,6 +32,7 @@ def inscriptions_add(request, nFds):
         study = request.POST.get('study', None)
         study_carrer = request.POST.get('study_carrer', None)
         study_where = request.POST.get('study_where', None)
+        work = request.POST.get('work', None)
         work_company = request.POST.get('work_company', None)
         work_role = request.POST.get('work_role', None)
         work_phone = request.POST.get('work_phone', None)
@@ -48,7 +48,7 @@ def inscriptions_add(request, nFds):
         mom_phone_home = request.POST.get('mom_phone_home', None)
         mom_phone = request.POST.get('mom_phone', None)
         mom_address = request.POST.get('mom_address', None)
-        brothers = request.POST.getlist('brothers')
+        brothers = request.POST.get('brothers', None)
         health_illnes = request.POST.get('health_illnes', None)
         health_food = request.POST.get('health_food', None)
         whoIntiveMe = request.POST.get('whoIntiveMe', None)
@@ -58,85 +58,133 @@ def inscriptions_add(request, nFds):
         otherExperiences = request.POST.get('otherExperiences', None)
         otherExperiences_which = request.POST.get('otherExperiences_which', None)
         if personal_names and personal_lastnames and personal_email and personal_dateborn:
-            young = Young()
-            inscription = Inscription()
-            user = User.objects.create_user(username=personal_email, email=personal_email)
-            user.first_name = personal_names
-            user.last_name = personal_lastnames
-            user.save()
-            young.user = user
-            young.date_born = personal_dateborn
-            if personal_homephone:
-                young.home_phone = personal_homephone
-            if personal_mobilephone:
-                young.mobile_phone = personal_mobilephone
-            if personal_address:
-                young.address = personal_address
-            if personal_gender:
-                young.gender = personal_gender
-            young.save()
-            """TODO: Agregar lista de hermanos"""
-            """TODO: Agregar lista de Papas"""
-            inscription.young = young
-            if Fds:
-                inscription.city = Fds.city_fds
+            if User.objects.filter(username=personal_email).exists():
+                return JsonResponse({'result': 'error','message': 'Ya existe un usuario con este correo', 'data_register':{'name': personal_names, 'email': personal_email}})
             else:
-                """TODO: Modificar esto después para no quemar este valor de esta manera"""
-                inscription.city = "Sin ciudad"
-            if study:
-                inscription.do_you_study = study
-            if study_carrer:
-                inscription.carrer = study_carrer
-            if study_where:
-                inscription.school = study_where
-            if work:
-                inscription.do_you_work = work     
-            if work_company:
-                inscription.company = work_company     
-            if work_role:
-                inscription.position_job = work_role     
-            if work_role:
-                inscription.position_job = work_role     
-            if work_phone:
-                inscription.position_job = work_phone
-            if life_with_gran:
-                inscription.life_with_gran = life_with_gran     
-            if life_with_parent:
-                inscription.life_with_parent = life_with_parent     
-            if life_with_only_father:
-                inscription.life_with_only_father = life_with_only_father     
-            if life_with_only_mother:
-                inscription.life_with_only_mother = life_with_only_mother     
-            if life_with_only_mother:
-                inscription.life_with_only_mother = life_with_only_mother     
-            if life_with_uncles:
-                inscription.life_with_uncles = life_with_uncles     
-            if life_with_friends:
-                inscription.life_with_friends = life_with_friends     
-            if life_with_cousins:
-                inscription.life_with_cousins = life_with_cousins     
-            if life_with_brothers:
-                inscription.life_with_brothers = life_with_brothers     
-            if life_with_alone:
-                inscription.life_with_alone = life_with_alone     
-            if health_illnes:
-                inscription.illness = health_illnes     
-            if health_food:
-                inscription.health_food = health_food     
-            if whoIntiveMe:
-                inscription.who_invite_me = whoIntiveMe     
-            if whoIntiveMeNumber:
-                inscription.who_invite_me_number = whoIntiveMeNumber     
-            if wantFds:
-                inscription.do_you_want_ej = wantFds     
-            if whyFds:
-                inscription.why_fds = whyFds     
-            if otherExperiences:
-                inscription.other_experiences = otherExperiences
-            inscription.save()
-            return JsonResponse({'result': 'ok', 'message':'Tu registro terminó satisfactoriamente', 'data_register':{'name': personal_names, 'fds': nFds}})
+                young = Young()
+                inscription = Inscription()
+                user = User.objects.create_user(username=personal_email, email=personal_email)
+                user.first_name = personal_names
+                user.last_name = personal_lastnames
+                user.save()
+                young.user = user
+                young.date_born = personal_dateborn
+                if personal_homephone:
+                    young.home_phone = personal_homephone
+                if personal_mobilephone:
+                    young.mobile_phone = personal_mobilephone
+                if personal_address:
+                    young.address = personal_address
+                if personal_gender:
+                    young.gender = personal_gender
+                young.save()
+                inscription.young = young
+                if Fds:
+                    inscription.city = Fds.city_fds
+                else:
+                    """TODO: Modificar esto después para no quemar este valor de esta manera"""
+                    inscription.city = "Sin ciudad"
+                if study:
+                    inscription.do_you_study = study
+                if study_carrer:
+                    inscription.carrer = study_carrer
+                if study_where:
+                    inscription.school = study_where
+                if work:
+                    inscription.do_you_work = work     
+                if work_company:
+                    inscription.company = work_company     
+                if work_role:
+                    inscription.position_job = work_role     
+                if work_role:
+                    inscription.position_job = work_role     
+                if work_phone:
+                    inscription.position_job = work_phone
+                if life_with_gran:
+                    inscription.life_with_gran = life_with_gran     
+                if life_with_parent:
+                    inscription.life_with_parent = life_with_parent     
+                if life_with_only_father:
+                    inscription.life_with_only_father = life_with_only_father     
+                if life_with_only_mother:
+                    inscription.life_with_only_mother = life_with_only_mother     
+                if life_with_only_mother:
+                    inscription.life_with_only_mother = life_with_only_mother     
+                if life_with_uncles:
+                    inscription.life_with_uncles = life_with_uncles     
+                if life_with_friends:
+                    inscription.life_with_friends = life_with_friends     
+                if life_with_cousins:
+                    inscription.life_with_cousins = life_with_cousins     
+                if life_with_brothers:
+                    inscription.life_with_brothers = life_with_brothers     
+                if life_with_alone:
+                    inscription.life_with_alone = life_with_alone     
+                if health_illnes:
+                    inscription.illness = health_illnes     
+                if health_food:
+                    inscription.health_food = health_food     
+                if whoIntiveMe:
+                    inscription.who_invite_me = whoIntiveMe     
+                if whoIntiveMeNumber:
+                    inscription.who_invite_me_number = whoIntiveMeNumber     
+                if wantFds:
+                    inscription.do_you_want_ej = wantFds     
+                if whyFds:
+                    inscription.why_fds = whyFds     
+                if otherExperiences:
+                    inscription.other_experiences = otherExperiences
+                inscription.save()
+
+                """add dad"""
+                if dad_names:
+                    dad_parent = Parents()
+                    dad_parent.young = young
+                    dad_parent.relationship = "2"
+                    if dad:
+                        dad_parent.isalive = dad
+                    if dad_ocupation:
+                        dad_parent.occupation = dad_ocupation
+                    if dad_phone_home:
+                        dad_parent.home_phone = dad_phone_home
+                    if dad_phone:
+                        dad_parent.mobile_phone = dad_phone
+                    if dad_address:
+                        dad_parent.address = dad_address
+                    dad_parent.save()
+
+                """add mom"""
+                if mom_names:
+                    mom_parent = Parents()
+                    mom_parent.young = young
+                    mom_parent.relationship = "1"
+                    if mom:
+                        mom_parent.isalive = mom
+                    if mom_ocupation:
+                        mom_parent.occupation = mom_ocupation
+                    if mom_phone_home:
+                        mom_parent.home_phone = mom_phone_home
+                    if mom_phone:
+                        mom_parent.mobile_phone = mom_phone
+                    if mom_address:
+                        mom_parent.address = mom_address
+                    mom_parent.save()
+                if brothers:
+                    brothers = json.loads(brothers)
+                    for bro in brothers:
+                        brother = Brothers()
+                        brother.young = young
+                        brother.name_brother = bro['names']
+                        if bro['email']:
+                            brother.name_brother = bro['email']
+                        if bro['date']:
+                            brother.date_born = bro['date']
+                        if bro['phone']:
+                            brother.mobile_phone = bro['phone']
+                        brother.save()
+                return JsonResponse({'result': 'ok', 'message':'Tu registro terminó satisfactoriamente', 'data_register':{'name': personal_names, 'fds': nFds}})
         else:
-            return JsonResponse({'result': 'error', 'message':'Hay datos obligatorios que hacen falta'})
+            return JsonResponse({'result': 'error', 'message':'Hay datos obligatorios que hacen falta', 'data_register':{'name': personal_names, 'fds': nFds}})
 
     else:
         template= loader.get_template('inscription.html')

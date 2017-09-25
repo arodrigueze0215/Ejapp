@@ -10,7 +10,8 @@
      </head>
      <body>
         <div class="Main">
-            <form data-abide novalidate>
+            <form data-abide novalidate method="POST" id="formInscription">
+                {% csrf_token %}
                 <h1 class="text-center">Ficha de inscripción</h1>
                 <div data-abide-error class="alert callout" style="display: none;">
                     <p><i class="fi-alert"></i> Hay algunos errores en la inscripción.</p>
@@ -35,7 +36,7 @@
                               </span>
                         </label>
                         <label class="Main__personal__names__lastName">Apellidos
-                            <input type="text" name="personal_lastname" placeholder="Apellidos" required>
+                            <input type="text" name="personal_lastnames" placeholder="Apellidos" required>
                             <span class="form-error">
                                 Hace falta tus apellidos.
                             </span>
@@ -303,13 +304,16 @@
                     </div>
                 </section>
                 <section class="Main__contentActions">
-                    <button  id="registerInscription" type="submit" value="Submit" class="Main__contentActions__register button">Agregar</button>
+                    <button type="submit" value="Submit" class="Main__contentActions__register button">Agregar</button>
+                    <div data-abide-error class="alert callout Main__contentActions__error" style="display: none;">
+                        <p><i class="fi-alert"></i>Hay algunos campos que son obligatorios</p>
+                    </div>
                 </section>
             </form>
             <div class="reveal" id="messageResultInscription" data-reveal>
                 <div id="messageResultInscriptionContent">
                 </div>
-                <button class="close-button" data-close aria-label="Close modal" type="button">
+                <button id="btnCloseReveal" class="close-button" data-close aria-label="Close modal" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
