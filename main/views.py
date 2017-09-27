@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from Ejapp import settings
 from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.http import HttpResponse, JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
-from .models import (FdsEvents, Young, Inscription, Parents)
+from .models import (FdsEvents, Young, Inscription, Parents, Brothers)
 from django.utils import timezone
 from django.contrib.auth.models import User
 import json
 def inscriptions_add(request, nFds):
     Fds = FdsEvents.objects.get(number_fds=nFds)
     if request.method == 'POST' and request.is_ajax():
-        print "POST: ", request.POST
+        if settings.DEBUG == True:
             print "POST: ", request.POST
         current_date = request.POST.get('current_date', None)
         personal_gender = request.POST.get('personal_gender', None)
@@ -195,14 +196,19 @@ def inscriptions_add(request, nFds):
             now = timezone.now()
             if Fds:
                 if now < Fds.date_start:
-                    print "Fds está vigente"
+                    if settings.DEBUG == True:
+                        print "Fds está vigente"
+                        print "RELATIONS: ", Brothers._RELATIONS
+                    
                     context = {
-                        'Fds': Fds
+                        'Fds': Fds,
+                        'relations': Brothers._RELATIONS
                     }
                     return HttpResponse(template.render(context, request))
                 elif now > Fds.date_end:
                     return render(request, 'inscription_nofound.html')
-                    print "Fds pasó"
+                    if settings.DEBUG == True:
+                        print "Fds pasó"
             return render(request, 'inscription_nofound.html')
         except FdsEvents.DoesNotExist:
             return render(request, 'inscription_nofound.html')
@@ -215,7 +221,8 @@ def list_fds(request):
             number = request.POST.get('number_fds')
             startDate = request.POST.get('startdate_fds')
             endDate = request.POST.get('enddate_fds')
-            print "startDate", startDate
+            if settings.DEBUG == True:
+                print "startDate", startDate
             if number:
                 try:
                     numberFds = FdsEvents.objects.filter(number_fds=number)
@@ -225,7 +232,8 @@ def list_fds(request):
                             newFDS.name = name
                             newFDS.number_fds = number
                             newFDS.date_start = startDate
-                            print "start date", startDate
+                            if settings.DEBUG == True:
+                                print "start date", startDate
                             newFDS.date_end = endDate
                             newFDS.city_fds = "Pereira"
                             newFDS.save()
@@ -248,7 +256,8 @@ def list_fds(request):
             context = {
                 'fdsList': numberFds
             }
-        """print "Context", context"""
+        if settings.DEBUG == True:"""
+            print "Context", context"""
         return HttpResponse(template.render(context, request))
 
 
