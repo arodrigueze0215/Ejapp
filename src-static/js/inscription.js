@@ -1,6 +1,17 @@
 import * as csrftoken from './csrftoken.js';
 document.addEventListener("DOMContentLoaded",function(){
   let brothers = new Array();
+  let today = ()=> {
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth()+1; //January is 0!
+    let yyyy = today.getFullYear();  
+    if(dd<10) dd = '0'+dd;    
+    if(mm<10) mm = '0'+mm;    
+    return  `${yyyy}-${mm}-${dd}`;
+  }
+  $('input[type=date][name=current_date]').val(today());
+
 
    $('input[type=radio][name=study]').change(function(){
        switch($(this).val()) {
@@ -108,6 +119,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
   let getDataFromInputs = ()=>{
     let data = {};
+    let current_date=$('input[type=date][name=current_date]').val();
     let gender=$('input[type=radio][name=gender]').is(':checked')? true: false;
     let personal_names=$('input[type=text][name=personal_names]').val();
     let personal_lastnames=$('input[type=text][name=personal_lastnames]').val();
@@ -116,6 +128,7 @@ document.addEventListener("DOMContentLoaded",function(){
     let personal_mobilephone=$('input[type=tel][name=personal_mobilephone]').val();
     let personal_address=$('input[type=text][name=personal_address]').val();
     let personal_email=$('input[type=email][name=personal_email]').val();
+    data.current_date = current_date;
     data.personal_gender = gender;
     data.personal_names =personal_names;
     data.personal_lastnames = personal_lastnames;

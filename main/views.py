@@ -12,6 +12,8 @@ def inscriptions_add(request, nFds):
     Fds = FdsEvents.objects.get(number_fds=nFds)
     if request.method == 'POST' and request.is_ajax():
         print "POST: ", request.POST
+            print "POST: ", request.POST
+        current_date = request.POST.get('current_date', None)
         personal_gender = request.POST.get('personal_gender', None)
         personal_names = request.POST.get('personal_names', None)
         personal_lastnames = request.POST.get('personal_lastnames', None)
@@ -62,7 +64,6 @@ def inscriptions_add(request, nFds):
                 return JsonResponse({'result': 'error','message': 'Ya existe un usuario con este correo', 'data_register':{'name': personal_names, 'email': personal_email}})
             else:
                 young = Young()
-                inscription = Inscription()
                 user = User.objects.create_user(username=personal_email, email=personal_email)
                 user.first_name = personal_names
                 user.last_name = personal_lastnames
@@ -78,7 +79,9 @@ def inscriptions_add(request, nFds):
                 if personal_gender:
                     young.gender = personal_gender
                 young.save()
+                inscription = Inscription()
                 inscription.young = young
+                inscription.inscription_date = current_date
                 if Fds:
                     inscription.city = Fds.city_fds
                 else:
