@@ -227,7 +227,7 @@
                         </div>
                     </div>
                     <div class="Main__family__brothers">
-                        <h4> Datos de tus hermanos</h4>
+                        <h4> Datos de tus hermanos (as) /Primos (as)</h4>
                         <div class="Main__family__brothers__data">
                             <label class="Main__family__brothers__data__names">Nombre completo
                                 <input type="text" name="data-brothers-names" placeholder="Nombres y apellidos">
@@ -241,6 +241,11 @@
                             <label class="Main__family__brothers__data__email">Correo electrónico
                                 <input type="email" name="data-brothers-email" placeholder="Correo">
                             </label>
+                            <select class="Main__family__brothers__data__relations">
+                                {% for relation in relations %}
+                                    <option value="{{relation.0}}">{{relation.1}}</option>
+                                {% endfor %}
+                            </select>
                             <button  id="brothersDataSave" type="button" class="Main__family__brothers__data__save button">Agregar</button>
                         </div>
                         <div class="Main__family__brothers__table">

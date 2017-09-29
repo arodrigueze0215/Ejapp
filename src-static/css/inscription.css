@@ -1,5 +1,5 @@
 .Main{
-    width: 70%;
+    width: 80%;
     margin: 2px auto;
     &__currentDate{
         width: 30%;
@@ -220,6 +220,13 @@
                     margin-left:8px;
                     margin-right:8px;
 
+                }
+                &__relations{
+                    flex-grow:1;
+                    margin-left:8px;
+                    margin-right:8px;
+                    margin-top: 24px;
+                    width:16%;
                 }
                 &__save{
                     flex-grow:1;
