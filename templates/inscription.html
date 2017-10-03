@@ -247,7 +247,7 @@
                             <label class="Main__family__brothers__data__email">Correo electrónico
                                 <input type="email" name="data-brothers-email" placeholder="Correo">
                             </label>
-                            <select class="Main__family__brothers__data__relations">
+                            <select name="relation" class="Main__family__brothers__data__relations">
                                 {% for relation in relations %}
                                     <option value="{{relation.0}}">{{relation.1}}</option>
                                 {% endfor %}
@@ -262,6 +262,7 @@
                                         <th>Fecha nacimiento</th>
                                         <th>Teléfono</th>
                                         <th>Correo Electrónico</th>
+                                        <th>Relación</th>
                                     </tr>
                                 </thead>
                                 <tbody>

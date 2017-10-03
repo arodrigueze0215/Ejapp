@@ -217,6 +217,8 @@ document.addEventListener("DOMContentLoaded",function(){
     let date=$('input[type=date][name=data-brothers-date]').val();
     let phone=$('input[type=tel][name=data-brothers-phone]').val();
     let email=$('input[type=email][name=data-brothers-email]').val();
+    let relation=$('select[name=relation]').val();
+    let relationText=$('select[name=relation] option:selected').text();
     let brother = {};
     if(names!=''&&names!='undefined'&&names!=null){
       brother.names=names;
@@ -237,17 +239,25 @@ document.addEventListener("DOMContentLoaded",function(){
       brother.email=email;
     }else
       brother.email='';
-    let row = $(addRowOnTable(brother.names, brother.date, brother.phone, brother.email));
+
+    let relaText='';
+    if(relation!=''&&relation!='undefined'&&relation!=null){
+      relaText = relationText;
+      brother.relation=relation;
+    }else
+      brother.relation='';
+    let row = $(addRowOnTable(brother.names, brother.date, brother.phone, brother.email, relaText));
     $('#listBroders > tbody').append(row);
     return brother;
   }
 
-  let addRowOnTable= (names, date, tel, email) =>{
+  let addRowOnTable= (names, date, tel, email, relation) =>{
     return `<tr>
               <td>${names}</td>
               <td>${date}</td>
               <td>${tel}</td>
               <td>${email}</td>
+              <td>${relation}</td>
           </tr>`
   }
   let addMesageResult= (names, fds, message) =>{

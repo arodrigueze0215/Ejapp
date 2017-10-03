@@ -191,6 +191,8 @@ def inscriptions_add(request, nFds):
                             brother.date_born = bro['date']
                         if bro['phone']:
                             brother.mobile_phone = bro['phone']
+                        if bro['relation']:
+                            brother.relationship = bro['relation']
                         brother.save()
                 return JsonResponse({'result': 'ok', 'message':'Tu registro terminó satisfactoriamente', 'data_register':{'name': personal_names, 'fds': nFds}})
         else:
