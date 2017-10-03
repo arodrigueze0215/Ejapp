@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded",function(){
          * @param {* it could be True o False to enable the inscription Form} enable 
          */
         let enableInscription = (id, enable) =>{
-            data = {is_form: enable, fds_id:id, csrfmiddlewaretoken: csrftoken}
+            let data = {is_form: enable, fds_id:id, csrfmiddlewaretoken: csrftoken};
             let postAjax = $.ajax({
                 url : '/formenable/',
                 type : 'POST',

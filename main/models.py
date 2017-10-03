@@ -16,6 +16,8 @@ class Young(models.Model):
     occupation = models.CharField(max_length=255, blank=True)
     profession = models.CharField(max_length=255, blank=True)
     gender = models.CharField(max_length=50, choices=_GENDER, default="2")
+    def __str__(self):
+        return self.user.username.encode('utf-8')
 
 class Inscription(models.Model):
     _PIECE = (
@@ -56,7 +58,7 @@ class  Parents(models.Model):
     ('1', 'Mamá'),
     ('2', 'Papá'),
     )
-    young = models.OneToOneField(Young, on_delete=models.CASCADE)
+    young = models.ForeignKey(Young, on_delete=models.CASCADE)
     relationship = models.CharField(max_length=255, choices=_RELATION, blank=False)
     name_parent = models.CharField(max_length=255, blank=False)
     occupation = models.CharField(max_length=255, blank=True)
@@ -72,7 +74,7 @@ class Brothers (models.Model):
     ('3', 'primo'),
     ('4', 'prima'),
     )
-    young = models.OneToOneField(Young, on_delete=models.CASCADE)
+    young = models.ForeignKey(Young, on_delete=models.CASCADE)
     realtionship = models.CharField(max_length=255, choices=_RELATIONS, default="1", blank=False)
     name_brother = models.CharField(max_length=255, blank=False)
     date_born = models.CharField(max_length=255, blank=False)
