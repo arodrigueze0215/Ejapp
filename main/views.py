@@ -9,9 +9,11 @@ from .models import (FdsEvents, Young, Inscription, Parents, Brothers)
 from django.utils import timezone
 from django.contrib.auth.models import User
 import json
-def inscriptions_add(request, nFds):
-    Fds = FdsEvents.objects.get(number_fds=nFds)
+def inscriptions_add(request):
     if request.method == 'POST' and request.is_ajax():
+        nFds = request.GET.get('fds',None)
+        city = request.GET.get('ciudad',None)
+        Fds = FdsEvents.objects.get(number_fds=nFds,city_fds=city)
         if settings.DEBUG == True:
             print "POST: ", request.POST
         current_date = request.POST.get('current_date', None)
