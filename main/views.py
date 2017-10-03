@@ -23,6 +23,8 @@ def inscriptions_add(request, nFds):
         personal_mobilephone = request.POST.get('personal_mobilephone', None)
         personal_address = request.POST.get('personal_address', None)
         personal_email = request.POST.get('personal_email', None)
+        personal_occupation = request.POST.get('personal_occupation', None)
+        personal_profession = request.POST.get('personal_profession', None)
         life_with_gran = request.POST.get('life_with_gran', None)
         life_with_parent = request.POST.get('life_with_parent', None)
         life_with_only_mother = request.POST.get('life_with_only_mother', None)
@@ -77,6 +79,10 @@ def inscriptions_add(request, nFds):
                     young.mobile_phone = personal_mobilephone
                 if personal_address:
                     young.address = personal_address
+                if personal_profession:
+                    young.profession = personal_profession
+                if personal_occupation:
+                    young.occupation = personal_occupation
                 if personal_gender:
                     young.gender = personal_gender
                 young.save()

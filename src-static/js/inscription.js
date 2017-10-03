@@ -128,6 +128,8 @@ document.addEventListener("DOMContentLoaded",function(){
     let personal_mobilephone=$('input[type=tel][name=personal_mobilephone]').val();
     let personal_address=$('input[type=text][name=personal_address]').val();
     let personal_email=$('input[type=email][name=personal_email]').val();
+    let personal_prodession=$('input[type=text][name=personal_profession]').val();
+    let personal_occupation=$('input[type=text][name=personal_occupation]').val();
     data.current_date = current_date;
     data.personal_gender = gender;
     data.personal_names =personal_names;
