@@ -211,21 +211,30 @@ def inscriptions_add(request):
                 print "nFds: ", nFds
                 print "Ciudad: ", city
                 
-            Fds = FdsEvents.objects.get(number_fds=nFds, city_fds=city)
+            Fds = get_object_or_404(FdsEvents, number_fds=nFds, city_fds=city)
             if settings.DEBUG == True:
-                print "Ciudad: ", Fds
+                print "FDS: ", Fds
             now = timezone.now()
             if Fds:
                 if now < Fds.date_start:
-                    if settings.DEBUG == True:
-                        print "Fds está vigente"
-                        print "RELATIONS: ", Brothers._RELATIONS
-                    
-                    context = {
-                        'Fds': Fds,
-                        'relations': Brothers._RELATIONS
-                    }
-                    return HttpResponse(template.render(context, request))
+                    if Fds.is_active==True:
+                        if Fds.is_form_active==True:                            
+                            if settings.DEBUG == True:
+                                print "Fds está vigente"
+                                print "RELATIONS: ", Brothers._RELATIONS
+                                print "Is active: ", Fds.is_active
+                            
+                            context = {
+                                'Fds': Fds,
+                                'relations': Brothers._RELATIONS
+                            }
+                            return HttpResponse(template.render(context, request))
+                        else:
+                            """No está habilitado el fds"""
+                            return render(request, 'inscription_nofound.html')
+                    else:
+                        """El fds fue eliminado lógicamente"""
+                        return render(request, 'inscription_nofound.html')
                 elif now > Fds.date_end:
                     return render(request, 'inscription_nofound.html')
                     if settings.DEBUG == True:
@@ -265,10 +274,53 @@ def list_fds(request):
                         return JsonResponse({'result': 'error', 'message':'Este Fds ya existe'})
                 except FdsEvents.DoesNotExist:
                         return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
+        return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
+    elif request.method == 'PUT':
+        if request.is_ajax():
+            name = request.POST.get('name_fds', None)
+            idFds = request.POST.get('id_fds', None)
+            number = request.POST.get('number_fds', None)
+            startDate = request.POST.get('startdate_fds', None)
+            endDate = request.POST.get('enddate_fds', None)
+            if idFds:
+                try:
+                    Fds = get_object_or_404(FdsEvents, id=idFds)
+                    if idFds:
+                        if name:
+                            Fds.name = name
+                        if number:
+                            Fds.number_fds = number
+                        if startDate:
+                            Fds.date_start = startDate
+                        if endDate:
+                            Fds.date_end = endDate
+                        Fds.city_fds = "Pereira" "TODO: remove static set"
+                        Fds.save()
+                        return JsonResponse({'result': 'ok', 'message':'Se actualizó correctamente'})                           
+                    else:
+                        return JsonResponse({'result': 'error', 'message':'No se encontró un Fds correcto'})
+                except FdsEvents.DoesNotExist:
+                    return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
+        return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
 
-
-
-            return JsonResponse({'result': 'ok'})
+    elif request.method == 'DELETE':
+        if request.is_ajax():
+            fds = request.POST.get('number_fds')
+            if settings.DEBUG == True:
+                print "number_fds requestPost", fds
+            if fds:
+                try:
+                    Fds = get_object_or_404(FdsEvents, number_fds=fds)
+                    Fds.is_active = False
+                    Fds.save()
+                    text = "El FDS #"+Fds.number_fds+"Fue eliminado exitosamente"
+                    return JsonResponse({'result': 'ok', 'message':text})
+                except FdsEvents.DoesNotExist:
+                    return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
+            else:
+                return JsonResponse({'result': 'error', 'message':'No se encontró un FDS correcto'})
+        else:
+            return JsonResponse({'result': 'error', 'message':'Ocurrió un error al intentar hacer esta acción'})
     else:
         template= loader.get_template('fds-list.html')
         numberFds = FdsEvents.objects.filter(city_fds="Pereira")
@@ -285,22 +337,36 @@ def enable_inscriptions(request):
         if request.is_ajax():
             is_form = request.POST.get('is_form', None)
             fds_id = request.POST.get('fds_id', None)
+            if settings.DEBUG == True:
+                print "is_form", is_form
+                print "fds_id", fds_id
+
             if is_form is not None and fds_id is not None:
                 Fds = get_object_or_404(FdsEvents, id=fds_id)
+                if settings.DEBUG == True:
+                    print "Fds found to enable inscription", Fds
                 if Fds:
                     if is_form=="True":
-                        Fds.is_form_active = "True"
+                        Fds.is_form_active = True
                         Fds.save()
-                        return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción habilitada'})
+                        path = "?fds="+Fds.number_fds+";ciudad="+Fds.city_fds
+                        url = request.META['HTTP_REFERER']+path
+                        
+                        if settings.DEBUG == True:
+                            print "Fds saved True: ", Fds
+                            print "url: ", url
+                        return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción habilitada', 'active':'true', 'url':url})
                     else:
-                        Fds.is_form_active = "False"
+                        Fds.is_form_active = False
                         Fds.save()
-                        return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción deshabilitada'})
+                        if settings.DEBUG == True:
+                            print "Fds saved False: ", Fds
+                        return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción deshabilitada', 'active':'false'})
 
                 else:
                     """El Fds no es valido"""
-                    return JsonResponse({'result': 'error', 'message':'El Fds seleccionado no es valido'})
+                    return JsonResponse({'result': 'error', 'message':'El Fds seleccionado no es valido', 'active':'false'})
             else:
                 """ Datos de post no son validos"""
-                return JsonResponse({'result': 'error', 'message':'El Fds seleccionado no es valido'})
+                return JsonResponse({'result': 'error', 'message':'El Fds seleccionado no es valido', 'active':'false'})
 

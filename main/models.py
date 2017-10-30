@@ -110,6 +110,8 @@ class FdsEvents(models.Model):
     city_fds = models.CharField(max_length=255, blank=False)
     is_form_active = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    def __str__(self):
+        return self.name+", "+self.number_fds+", "+self.city_fds+", "+str(self.is_form_active)
 
 class StaffRoleFds(models.Model):
     name = models.CharField(max_length=255, blank=False)
