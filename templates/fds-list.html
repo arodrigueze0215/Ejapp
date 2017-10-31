@@ -87,6 +87,7 @@
                 <h1>Nuevo Fds.</h1>
                 <form id="postNewFds" method="post">
                     {% csrf_token %}
+                    <input type="hidden" name="method" value="POST">
                     <label>Nombre de la temática
                         <input type="text" name="name_fds" placeholder="Nombre">
                     </label>
@@ -115,9 +116,10 @@
                 </button>
             </div>
             <div class="reveal" id="deleteFds" data-reveal>
-                <h1>¿Estas seguro que deseas eliminar este FDs?</h1>
-                <button type="button" name="delete_fds">Eliminar</button>
-                <button type="button" name="cancel_delete">Cancelar</button>
+                <h1>Eliminar</h1>
+                <div id="deleteFds_content"> </div>
+                <button type="button" class="button" name="delete_fds">Eliminar</button>
+                <button type="button" class="button" name="cancel_delete" data-close aria-label="Close modal">Cancelar</button>
                 <button class="close-button" data-close aria-label="Close modal" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>

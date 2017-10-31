@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded",function(){
     $('#listFdsTable').on('click','li.listFds__menuAction__enable', (ev)=>{
         ev.preventDefault();
         var id = $(ev.currentTarget).parent().data('row-id');
-        enableInscription(id, "True");
+        enableInscription(id, "True", ev);
     });
     
     /**
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded",function(){
     $('#listFdsTable').on('click','li.listFds__menuAction__disable', (ev)=>{
         ev.preventDefault();
         var id = $(ev.currentTarget).parent().data('row-id');
-        enableInscription(id, "False");
+        enableInscription(id, "False", ev);
     });
 
     /**
@@ -69,7 +69,17 @@ document.addEventListener("DOMContentLoaded",function(){
     $('#listFdsTable').on('click','li.listFds__menuAction__delete', (ev)=>{
         ev.preventDefault();
         var id = $(ev.currentTarget).parent().data('row-id');
-        console.log(`Delete: ${id}`);
+        let content = `<p class="lead" data-id="${id}">¿Estas seguro que deseas eliminar este FDS?</p>`
+        $('#deleteFds_content').append($(content));
+        $('#deleteFds').foundation('open');
+    });
+    
+    $('button[type=button][name=delete_fds]').on('click', function() {
+        let id =$('#deleteFds_content').children().eq(0).data('id')
+        deleteFds(id);
+    });
+    $('button[type=button][name=cancel_delete]').on('click', function() {
+        $('#deleteFds_content').children().remove();
     });
     /**Events */
 
@@ -100,7 +110,7 @@ document.addEventListener("DOMContentLoaded",function(){
          * @param {*Fds id} id 
          * @param {* it could be True o False to enable the inscription Form} enable 
          */
-        let enableInscription = (id, enable) =>{
+        let enableInscription = (id, enable, ev) =>{
             let data = {is_form: enable, fds_id:id, csrfmiddlewaretoken: csrftoken};
             let postAjax = $.ajax({
                 url : '/formenable/',
@@ -109,11 +119,41 @@ document.addEventListener("DOMContentLoaded",function(){
             });
             postAjax.done((data) =>{
                 if (data.result==='ok') {
-                    location.reload();
+                    if(data.active==='true'){
+                        $(`#listFdsTableRow${id}`).children().eq(4).children().removeClass('secondary').addClass('success');                        
+                        $(`#listFdsTableRow${id}`).children().eq(4).children().text("Habilitado");
+                        $(ev.currentTarget).children().text('Deshabilitar inscripción');
+                        $(ev.currentTarget).removeClass('listFds__menuAction__enable').addClass('listFds__menuAction__disable');
+                        $('#copyUrlInscription').foundation('open');
+                        console.log(data.url);
+                        $('input[type=url][name=urlInscription]').val(data.url);
+                    }
+                    else{
+                        $(`#listFdsTableRow${id}`).children().eq(4).children().removeClass('success').addClass('secondary');
+                        $(`#listFdsTableRow${id}`).children().eq(4).children().text("Deshabilitado");
+                        $(ev.currentTarget).children().text('habilitar inscripción');
+                        $(ev.currentTarget).removeClass('listFds__menuAction__disable').addClass('listFds__menuAction__enable');
+
+                    }
                 } else{
                     console.log(data);
                 }         
                 
+            });
+        }
+
+        let deleteFds = (id) =>{
+            let data = {csrfmiddlewaretoken: csrftoken, id_fds:id, method:"DELETE"};
+            let deleteAjax = $.ajax({
+                type : 'POST',
+                data : data
+            });
+            deleteAjax.done((data) =>{
+                if (data.result==='ok') {
+                    location.reload();
+                } else{
+                    console.log(data);
+                }
             });
         }
     /**

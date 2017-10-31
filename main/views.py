@@ -247,36 +247,52 @@ def inscriptions_add(request):
 def list_fds(request):
     if request.method == 'POST':
         if request.is_ajax():
-            name = request.POST.get('name_fds')
-            number = request.POST.get('number_fds')
-            startDate = request.POST.get('startdate_fds')
-            endDate = request.POST.get('enddate_fds')
-            if settings.DEBUG == True:
-                print "startDate", startDate
-            if number:
-                try:
-                    numberFds = FdsEvents.objects.filter(number_fds=number)
-                    if len(numberFds)==0:
-                        if name and startDate and endDate:
-                            newFDS = FdsEvents()
-                            newFDS.name = name
-                            newFDS.number_fds = number
-                            newFDS.date_start = startDate
-                            if settings.DEBUG == True:
-                                print "start date", startDate
-                            newFDS.date_end = endDate
-                            newFDS.city_fds = "Pereira"
-                            newFDS.save()
-                            return JsonResponse({'result': 'ok', 'message':'Se creó un Nuevo FDS'})
+            method = request.POST.get('method')
+            if method == 'POST':
+                name = request.POST.get('name_fds')
+                number = request.POST.get('number_fds')
+                startDate = request.POST.get('startdate_fds')
+                endDate = request.POST.get('enddate_fds')
+                if settings.DEBUG == True:
+                    print "startDate", startDate
+                if number:
+                    try:
+                        numberFds = FdsEvents.objects.filter(number_fds=number)
+                        if len(numberFds)==0:
+                            if name and startDate and endDate:
+                                newFDS = FdsEvents()
+                                newFDS.name = name
+                                newFDS.number_fds = number
+                                newFDS.date_start = startDate
+                                if settings.DEBUG == True:
+                                    print "start date", startDate
+                                newFDS.date_end = endDate
+                                newFDS.city_fds = "Pereira"
+                                newFDS.save()
+                                return JsonResponse({'result': 'ok', 'message':'Se creó un Nuevo FDS'})
+                            else:
+                                return JsonResponse({'result': 'error', 'message':'todos los campos son abligatorios'})
                         else:
-                            return JsonResponse({'result': 'error', 'message':'todos los campos son abligatorios'})
-                    else:
-                        return JsonResponse({'result': 'error', 'message':'Este Fds ya existe'})
-                except FdsEvents.DoesNotExist:
+                            return JsonResponse({'result': 'error', 'message':'Este Fds ya existe'})
+                    except FdsEvents.DoesNotExist:
+                            return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
+            elif method == 'DELETE':
+                fds = request.POST.get('id_fds')
+                if settings.DEBUG == True:
+                    print "number_fds requestPost", fds
+                if fds:
+                    try:
+                        Fds = get_object_or_404(FdsEvents, id=fds)
+                        Fds.is_active = False
+                        Fds.save()
+                        text = "El FDS #"+Fds.number_fds+"Fue eliminado exitosamente"
+                        return JsonResponse({'result': 'ok', 'message':text})
+                    except FdsEvents.DoesNotExist:
                         return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
-        return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
-    elif request.method == 'PUT':
-        if request.is_ajax():
+                else:
+                    return JsonResponse({'result': 'error', 'message':'No se encontró un FDS correcto'})
+
+        elif method == 'PUT':
             name = request.POST.get('name_fds', None)
             idFds = request.POST.get('id_fds', None)
             number = request.POST.get('number_fds', None)
@@ -301,29 +317,9 @@ def list_fds(request):
                         return JsonResponse({'result': 'error', 'message':'No se encontró un Fds correcto'})
                 except FdsEvents.DoesNotExist:
                     return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
-        return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
-
-    elif request.method == 'DELETE':
-        if request.is_ajax():
-            fds = request.POST.get('number_fds')
-            if settings.DEBUG == True:
-                print "number_fds requestPost", fds
-            if fds:
-                try:
-                    Fds = get_object_or_404(FdsEvents, number_fds=fds)
-                    Fds.is_active = False
-                    Fds.save()
-                    text = "El FDS #"+Fds.number_fds+"Fue eliminado exitosamente"
-                    return JsonResponse({'result': 'ok', 'message':text})
-                except FdsEvents.DoesNotExist:
-                    return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
-            else:
-                return JsonResponse({'result': 'error', 'message':'No se encontró un FDS correcto'})
-        else:
-            return JsonResponse({'result': 'error', 'message':'Ocurrió un error al intentar hacer esta acción'})
     else:
         template= loader.get_template('fds-list.html')
-        numberFds = FdsEvents.objects.filter(city_fds="Pereira")
+        numberFds = FdsEvents.objects.filter(city_fds="Pereira", is_active=True)
         context = None
         if len(numberFds) > 0:
             context = {
