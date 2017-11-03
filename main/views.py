@@ -247,7 +247,9 @@ def inscriptions_add(request):
 def list_fds(request):
     if request.method == 'POST':
         if request.is_ajax():
-            method = request.POST.get('method')
+            method = request.POST.get('method', None)
+            if settings.DEBUG == True:
+                    print "Method", method
             if method == 'POST':
                 name = request.POST.get('name_fds')
                 number = request.POST.get('number_fds')
@@ -291,32 +293,34 @@ def list_fds(request):
                         return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
                 else:
                     return JsonResponse({'result': 'error', 'message':'No se encontró un FDS correcto'})
+            elif method == 'PUT':
+                name = request.POST.get('name_fds', None)
+                idFds = request.POST.get('id_fds', None)
+                number = request.POST.get('number_fds', None)
+                startDate = request.POST.get('startdate_fds', None)
+                endDate = request.POST.get('enddate_fds', None)
+                if idFds:
+                    try:
+                        Fds = get_object_or_404(FdsEvents, id=idFds)
+                        if idFds:
+                            if name:
+                                Fds.name = name
+                            if number:
+                                Fds.number_fds = number
+                            if startDate:
+                                Fds.date_start = startDate
+                            if endDate:
+                                Fds.date_end = endDate
+                            "TODO: remove static set"
+                            Fds.city_fds = "Pereira"
 
-        elif method == 'PUT':
-            name = request.POST.get('name_fds', None)
-            idFds = request.POST.get('id_fds', None)
-            number = request.POST.get('number_fds', None)
-            startDate = request.POST.get('startdate_fds', None)
-            endDate = request.POST.get('enddate_fds', None)
-            if idFds:
-                try:
-                    Fds = get_object_or_404(FdsEvents, id=idFds)
-                    if idFds:
-                        if name:
-                            Fds.name = name
-                        if number:
-                            Fds.number_fds = number
-                        if startDate:
-                            Fds.date_start = startDate
-                        if endDate:
-                            Fds.date_end = endDate
-                        Fds.city_fds = "Pereira" "TODO: remove static set"
-                        Fds.save()
-                        return JsonResponse({'result': 'ok', 'message':'Se actualizó correctamente'})                           
-                    else:
-                        return JsonResponse({'result': 'error', 'message':'No se encontró un Fds correcto'})
-                except FdsEvents.DoesNotExist:
-                    return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
+                            Fds.save()
+                            return JsonResponse({'result': 'ok', 'message':'Se actualizó correctamente'})                           
+                        else:
+                            return JsonResponse({'result': 'error', 'message':'No se encontró un Fds correcto'})
+                    except FdsEvents.DoesNotExist:
+                        return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
+                return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
     else:
         template= loader.get_template('fds-list.html')
         numberFds = FdsEvents.objects.filter(city_fds="Pereira", is_active=True)

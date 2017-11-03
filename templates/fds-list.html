@@ -56,7 +56,7 @@
                                 <td>FDS {{fds.number_fds}}</td>
                                 <td>{{fds.name}}</td>
                                 <td>{{fds.date_start|date:"M d, Y"}}</td>
-                                <td>{{fds.date_end}}</td>
+                                <td>{{fds.date_end|date:"M d, Y"}}</td>
                                 {% if fds.is_form_active%}
                                 <td><span class="label success">Habilitado</span></td>
                                 {%else%}
@@ -66,7 +66,9 @@
                                     <ul class="dropdown menu" data-dropdown-menu>
                                         <li>
                                             <a>Mas</a>
-                                            <ul data-row-id="{{fds.id}}" class="menu vertical listFds__menuAction">
+                                            <ul data-row-id="{{fds.id}}" data-row-numberfds="{{fds.number_fds}}" 
+                                            data-row-name="{{fds.name}}" data-row-datestart ="{{fds.date_start|date:'Y-m-d'}}"
+                                            data-row-dateend ="{{fds.date_end|date:'Y-m-d'}}" class="menu vertical listFds__menuAction">
                                                 <li class="listFds__menuAction__edit"><a>Editar Fds</a></li>
                                                 <li class="listFds__menuAction__delete"><a>Eliminar Fds</a></li>
                                                 {% if fds.is_form_active%}
@@ -101,6 +103,30 @@
                         <input type="date"  name="enddate_fds" placeholder="fecha">
                     </label>
                     <button class="button" type="submit">Crear</button>
+                </form>
+                <button class="close-button" data-close aria-label="Close modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="reveal" id="updateFdsModal" data-reveal>
+                <h1>Modificar Fds.</h1>
+                <form id="putNewFds" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="method" value="PUT">
+                    <input type="hidden" name="id_fds">
+                    <label>Nombre de la temática
+                        <input type="text" name="name_fds" placeholder="Nombre">
+                    </label>
+                    <label>Número de FDS
+                        <input type="number" name="number_fds" placeholder="Consecutivo">
+                    </label>
+                    <label>Fecha de inicio
+                        <input type="date" name="startdate_fds" placeholder="fecha">
+                    </label>
+                    <label>Fecha que finaliza
+                        <input type="date"  name="enddate_fds" placeholder="fecha">
+                    </label>
+                    <button class="button" type="submit">Actualizar</button>
                 </form>
                 <button class="close-button" data-close aria-label="Close modal" type="button">
                     <span aria-hidden="true">&times;</span>

@@ -44,7 +44,12 @@ document.addEventListener("DOMContentLoaded",function(){
         let data = $('#postNewFds').serialize();
         postNewFds(data);
     });
-
+    $('#putNewFds').on('submit', (ev)=>{
+        ev.preventDefault();
+        let data = $('#putNewFds').serialize();
+        putNewFds(data);
+    });
+    
     /**
      * Event that set a post to enable a isncription form
      */
@@ -61,6 +66,24 @@ document.addEventListener("DOMContentLoaded",function(){
         ev.preventDefault();
         var id = $(ev.currentTarget).parent().data('row-id');
         enableInscription(id, "False", ev);
+    });
+    
+    /**
+     * Event that set a post to edit a isncription form
+     */
+    $('#listFdsTable').on('click','li.listFds__menuAction__edit', (ev)=>{
+        $('#updateFdsModal').foundation('open');
+        ev.preventDefault();
+        let id = $(ev.currentTarget).parent().data('row-id');
+        let numberfds = $(ev.currentTarget).parent().data('row-numberfds');
+        let name = $(ev.currentTarget).parent().data('row-name');
+        let datestart = $(ev.currentTarget).parent().data('row-datestart');
+        let dateend = $(ev.currentTarget).parent().data('row-dateend');
+        $('#putNewFds > input[name=id_fds]').val(id);
+        $('#putNewFds > label > input[name=name_fds]').val(name);
+        $('#putNewFds > label > input[name=number_fds]').val(numberfds);
+        $('#putNewFds > label > input[name=startdate_fds]').val(datestart);
+        $('#putNewFds > label > input[name=enddate_fds]').val(dateend);
     });
 
     /**
@@ -154,6 +177,23 @@ document.addEventListener("DOMContentLoaded",function(){
                 } else{
                     console.log(data);
                 }
+            });
+        }
+        /**
+         * Create a new Fds 
+         */
+        let putNewFds = (data) =>{
+            let putAjax = $.ajax({
+                type : 'POST',
+                data : data
+            });
+            putAjax.done((data) =>{
+                if (data.result==='ok') {
+                    location.reload();
+                } else{
+                    console.log(data);
+                }         
+                
             });
         }
     /**
