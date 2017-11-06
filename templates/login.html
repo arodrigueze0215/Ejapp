@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load staticfiles %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="{% static 'css/app.bundle.css' %}" >
+        <title>Iniciar sesión</title>
+    </head>
+    <body>
+        <div class="Main">
+            <section class="Main__sectionLogin">
+                <form data-abide novalidate id="formLogin">                    
+                    {% csrf_token %}
+                    <h1 class="text-center">Iniciar sesión</h1>
+                    <label class="Main__sectionLogin__email">Correo
+                        <input type="email" name="login_email" placeholder="Correo electrónico" required>
+                        <span class="form-error">
+                            Tu correo es obligatorio
+                        </span>
+                    </label>
+                    <label class="Main__sectionLogin__password">Contraseña
+                        <input type="password" name="login_password" placeholder="Contraseña" required>
+                        <span class="form-error">
+                            Tu contraseña es obligatorio
+                        </span>
+                    </label>
+                    <div class="Main__sectionLogin__contentActions text-center">
+                        <button type="submit" value="Submit" class="Main__sectionLogin__contentActions__login button">Iniciar sesión</button>
+                        <div data-abide-error class="alert callout Main__sectionLogin__contentActions__error" style="display: none;">
+                            <p><i class="fi-alert"></i>Hay algunos campos que son obligatorios</p>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+        
+        <script src="{% static 'js/app.bundle.js' %}"></script>
+    </body>
+</html>

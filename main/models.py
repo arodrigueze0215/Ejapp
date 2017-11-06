@@ -84,9 +84,13 @@ class Brothers (models.Model):
 
 class Areas(models.Model):
     name = models.CharField(max_length=255, blank=False)
+    def __str__(self):
+        return self.name
 
 class EjCities(models.Model):
     name = models.CharField(max_length=255, blank=False)
+    def __str__(self):
+        return self.name
 
 class Found(models.Model):
     _STATES = (
@@ -100,6 +104,8 @@ class Found(models.Model):
     active_city = models.CharField(max_length=255, blank=True)
     area = models.ForeignKey(Areas,blank=False, default=None)
     name_parent_fds = models.CharField(max_length=255, blank=True)
+    def __str__(self):
+        return self.state
 
 
 class FdsEvents(models.Model):

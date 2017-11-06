@@ -1,6 +1,4 @@
 .Main{
-    width: 80%;
-    margin: 2px auto;
     &__currentDate{
         width: 30%;
 

@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from Ejapp import settings
 from django.shortcuts import render, get_object_or_404
 from django.template import loader
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from .models import (FdsEvents, Young, Inscription, Parents, Brothers)
@@ -243,7 +244,7 @@ def inscriptions_add(request):
         except FdsEvents.DoesNotExist:
             return render(request, 'inscription_nofound.html')
 
-
+@login_required(login_url='/login/')
 def list_fds(request):
     if request.method == 'POST':
         if request.is_ajax():
@@ -331,7 +332,7 @@ def list_fds(request):
             }
         return HttpResponse(template.render(context, request))
 
-
+@login_required(login_url='/login/')
 def enable_inscriptions(request):
     if request.method == 'POST':
         if request.is_ajax():

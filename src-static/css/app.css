@@ -3,7 +3,12 @@
 @import "override-foundation.css";
 @import "datatable.net.css";
 @import "fds-list.css";
+@import "login.css";
 :root{
     --primaryColor:#CD2B26;
     --grayHover:#D5D5D5;
+}
+.Main{
+    width: 80%;
+    margin: 2px auto;
 }

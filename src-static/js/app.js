@@ -5,4 +5,5 @@ import csrftoken from './csrftoken.js';
 require("./foundation.min.js");
 require("./fds-list.js");
 require("./inscription.js");
+require("./login.js");
 $(document).foundation();
