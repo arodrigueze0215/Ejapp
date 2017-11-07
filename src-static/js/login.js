@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded",function(){
         });
         postAjax.done((data) =>{
             if (data.result==='ok') {
-                window.location = "/"
+                window.location = "/fds/"
             } else if(data.result=='error'){
                 console.log(data.message);
             }         

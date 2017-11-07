@@ -25,12 +25,13 @@
                         <li><a href="#">Profundos</a></li>
                         <li><a href="#">Consejeros</a></li>
                         <li>
-                            <a href="#">mail@ejapp.com</a>
-                            <ul class="menu vertical">
-                                <li><a href="#">Perfil</a></li>
-                                <li><a href="#">Option Two</a></li>
-                                <li><a href="#">Option Three</a></li>
-                            </ul>
+                            {% if user.is_authenticated %}
+                                <a >{{user.first_name}} {{user.last_name}}</a>
+                                <ul class="menu vertical">
+                                    <li><a href="#">Perfil</a></li>
+                                    <li><a href="{% url 'main:login:logout' %}">Salir</a></li>
+                                </ul>
+                            {% endif%}
                         </li>
                     </ul>
                 </div>
