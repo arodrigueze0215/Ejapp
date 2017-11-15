@@ -371,3 +371,6 @@ def enable_inscriptions(request):
                 """ Datos de post no son validos"""
                 return JsonResponse({'result': 'error', 'message':'El Fds seleccionado no es valido', 'active':'false'})
 
+def inscriptions_list(request):
+    print "render: ",request.user
+    return render(request, 'inscription-list.html')

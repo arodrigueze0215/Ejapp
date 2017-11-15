@@ -29,6 +29,14 @@ module.exports = {
                 exclude: /node_modules/, 
                 loader: "babel-loader"
             },
+            { 
+                test: /\.jsx?$/, 
+                exclude: /node_modules/, 
+                loader: "babel-loader",
+                query: {
+                    presets: ['env', 'react'],
+                }
+            },
             {
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: 'url-loader'
@@ -44,6 +52,7 @@ module.exports = {
         ]
 
     },
+    target: 'web',
     plugins: [
     new ExtractTextPlugin('./static/css/app.bundle.css'),
   ]

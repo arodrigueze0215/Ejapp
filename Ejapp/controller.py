@@ -39,66 +39,66 @@ def AuthUserApi(request):
             if young:
                 found = Found.objects.get(young=young)
                 if found:
-                    return {'code':status.HTTP_200_OK ,'result': 'ok','message': 'Autenticado'}
+                    return {'status':status.HTTP_200_OK ,'result': 'ok','statusText': 'Autenticado'}
                 else:
-                    return {'code':status.HTTP_401_UNAUTHORIZED ,'result': 'error','message': 'Permisos restringidos.'}
+                    return {'status':status.HTTP_401_UNAUTHORIZED ,'result': 'error','statusText': 'Permisos restringidos.'}
             else:
-                return {'code':status.HTTP_401_UNAUTHORIZED ,'result': 'error','message': 'Permisos restringidos.'}
+                return {'status':status.HTTP_401_UNAUTHORIZED ,'result': 'error','statusText': 'Permisos restringidos.'}
         else:
-            return {'code':status.HTTP_401_UNAUTHORIZED ,'result': 'error','message': 'Permisos restringidos.'}
+            return {'status':status.HTTP_401_UNAUTHORIZED ,'result': 'error','statusText': 'Permisos restringidos.'}
     except User.DoesNotExist:
-        return {'code':status.HTTP_401_UNAUTHORIZED ,'result': 'error','message': 'Permisos restringidos.'}
+        return {'status':status.HTTP_401_UNAUTHORIZED ,'result': 'error','statusText': 'Permisos restringidos.'}
     except Young.DoesNotExist:
-        return {'code':status.HTTP_401_UNAUTHORIZED ,'result': 'error','message': 'Permisos restringidos.'}
+        return {'status':status.HTTP_401_UNAUTHORIZED ,'result': 'error','statusText': 'Permisos restringidos.'}
     except Found.DoesNotExist:
-        return {'code':status.HTTP_401_UNAUTHORIZED ,'result': 'error','message': 'Permisos restringidos.'}
+        return {'status':status.HTTP_401_UNAUTHORIZED ,'result': 'error','statusText': 'Permisos restringidos.'}
 
 def GetInscriptions(request, **params):
     try:
         auth = AuthUserApi(request)
-        if auth['result'] == 'ok' and auth['code']==status.HTTP_200_OK:
+        if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
             city = params.get("city")
             inscriptionDate = params.get("inscription_date")
             if city:
                 queryset = Inscription.objects.filter(city=city)
                 if queryset:
                     objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
-                    data = {'object':objSerializer.data, 'result':'ok', 'code':status.HTTP_200_OK}
+                    data = {'object':objSerializer.data, 'result':'ok', 'status':status.HTTP_200_OK}
                     return data
                 else:
-                    data = {'object':{}, 'result': 'error','code':status.HTTP_400_BAD_REQUEST}
+                    data = {'object':{}, 'result': 'error','status':status.HTTP_400_BAD_REQUEST}
                     return data
             elif inscriptionDate:
                 queryset = Inscription.objects.filter(inscription_date=inscriptionDate)
                 objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
                 if objSerializer:
-                    data = {'object':objSerializer.data, 'result': 'ok','code':status.HTTP_200_OK}
+                    data = {'object':objSerializer.data, 'result': 'ok','status':status.HTTP_200_OK}
                     return data
                 else:
-                    data = {'object':{}, 'result': 'error','code':status.HTTP_400_BAD_REQUEST}
+                    data = {'object':[], 'result': 'error','status':status.HTTP_400_BAD_REQUEST}
                     return data
             elif inscriptionDate and city:
                 queryset = Inscription.objects.filter(inscription_date=inscriptionDate, city=city)
                 objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
                 if objSerializer:
-                    data = {'object':objSerializer.data, 'result': 'ok','code':status.HTTP_200_OK}
+                    data = {'object':objSerializer.data, 'result': 'ok','status':status.HTTP_200_OK}
                     return data
                 else:
-                    data = {'object':{}, 'result': 'error','code':status.HTTP_400_BAD_REQUEST}
+                    data = {'object':{}, 'result': 'error','status':status.HTTP_400_BAD_REQUEST}
                     return data
             else:
                 queryset = Inscription.objects.filter()
                 objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
                 if objSerializer:
-                    data = {'object':objSerializer.data, 'result': 'ok','code':status.HTTP_200_OK}
+                    data = {'object':objSerializer.data, 'result': 'ok','status':status.HTTP_200_OK}
                     return data
                 else:
-                    data = {'object':{}, 'result': 'error','code':status.HTTP_400_BAD_REQUEST}
+                    data = {'object':[], 'result': 'error','status':status.HTTP_400_BAD_REQUEST}
                     return data
         else:
             return auth
     except Inscription.DoesNotExist:
-            data = {'object':{}, 'result': 'error','code':status.HTTP_400_BAD_REQUEST}
+            data = {'object':[], 'result': 'error','statusText': 'Inscripción no existe','code':status.HTTP_400_BAD_REQUEST}
             return data
     
 def GetInscription(request, pk):
@@ -108,15 +108,15 @@ def GetInscription(request, pk):
             Inscription = Inscription.objects.get(id=pk)
             if Inscription:
                 objSerializer = InscriptionSerializer(Inscription, many=True, context={'request': request})
-                data = {'object':objSerializer.data, 'result': 'ok','code':status.HTTP_200_OK}
+                data = {'object':objSerializer.data, 'result': 'ok','status':status.HTTP_200_OK}
                 return data
             else:
-                data = {'object':'null', 'result': 'error','code':status.HTTP_400_BAD_REQUEST}
+                data = {'object':{}, 'result': 'error','status':status.HTTP_400_BAD_REQUEST}
                 return data
         else:
             return auth        
     except Inscription.DoesNotExist:
-            data = {'object':'null', 'result': 'error','code':status.HTTP_400_BAD_REQUEST}
+            data = {'object':{}, 'result': 'error', 'statusText': 'Inscripción no existe', 'status':status.HTTP_400_BAD_REQUEST}
             return data
             
 
@@ -133,15 +133,15 @@ def GetParents(request, **params):
                     data = {'object':objSerializer, 'result': 'ok','code':status.HTTP_200_OK}
                     return data
                 else:
-                    data = {'object':{}, 'result': 'error','code':status.HTTP_400_BAD_REQUEST}
+                    data = {'object':[], 'result': 'error','statusText':'No hay padres', 'status':status.HTTP_400_BAD_REQUEST}
                     return data
             else:
-                data = {'object':{}, 'result': 'error','code':status.HTTP_400_BAD_REQUEST}
+                data = {'object':[], 'result': 'error','statusText': 'Parámetro incorrecto', 'status':status.HTTP_400_BAD_REQUEST}
                 return data
         else:
             return auth
     except Young.DoesNotExist:
-        data = {'object':{}, 'result': 'error','code':status.HTTP_400_BAD_REQUEST}
+        data = {'object':[], 'result': 'error','statusText': 'No existe joven', 'status':status.HTTP_400_BAD_REQUEST}
         return data
 
 def GetBrothers(request, **params):
@@ -154,16 +154,16 @@ def GetBrothers(request, **params):
                 brothers = Brothers.objects.get(young=young)
                 if brothers:
                     objSerializer = BrothersSerializer(brothers, many=True, context={'request': request})
-                    data = {'object':objSerializer, 'result': 'ok','code':status.HTTP_200_OK}
+                    data = {'object':objSerializer, 'result': 'ok','status':status.HTTP_200_OK}
                     return data
                 else:
-                    data = {'object':{}, 'result': 'error','code':status.HTTP_400_BAD_REQUEST}
+                    data = {'object':[], 'result': 'error','statusText': 'no hay hermanos','status':status.HTTP_400_BAD_REQUEST}
                     return data
             else:
-                data = {'object':{}, 'result': 'error','code':status.HTTP_400_BAD_REQUEST}
+                data = {'object':[], 'result': 'error','statusText': 'Parámetro incorrecto','status':status.HTTP_400_BAD_REQUEST}
                 return data
         else:
             return auth
     except Young.DoesNotExist:
-        data = {'object':{}, 'result': 'error','code':status.HTTP_400_BAD_REQUEST}
+        data = {'object':[], 'result': 'error','statusText': 'No existe joven','status':status.HTTP_400_BAD_REQUEST}
         return data

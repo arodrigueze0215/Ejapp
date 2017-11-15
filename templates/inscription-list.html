@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load staticfiles %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="{% static 'css/app.bundle.css' %}" >
+        <title>Inscripciones</title>
+    </head>
+    <body>
+        <div>{%if user.is_authenticated%} {{user.email}} {% endif%}</div>
+        <div id="react-target-inscriptionslist"></div>    
+        <script src="{% static 'js/app.bundle.js' %}"></script>
+    </body>
+</html>
