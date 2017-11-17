@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import api from '../../../api/api.jsx';
+import initDatatable from './initDatatable.js';
 
 class InscriptionsList extends Component{
     constructor(props){
@@ -13,6 +14,8 @@ class InscriptionsList extends Component{
         this.setState({
             data, // no necesito decir data=data es2017 me comprime y obvia el data del state con la de la api
         });
+        initDatatable(); //inicia el las propiedades del plugin datatable
+
         
     }
     
@@ -20,17 +23,27 @@ class InscriptionsList extends Component{
         
         if (this.state.data.result==='ok'&& this.state.data.status===200) {
             return(
-                <RenderTable id={this.props} data={this.state.data.object}/>
+                <RenderTable {...this.props} data={this.state.data.object}/>
             );            
-        } else {
+        } else if(this.state.data.result==='error'){
             
             return(
                <MessageError status={this.state.data.status} statusText={this.state.data.statusText}/>
             );            
+        } else{
+            return(
+               <MessageLoading/>
+            );            
+            
         }
     }
 }
-function MessageError(props) {
+/**
+ *  Muestra un mensaje de error en pantalla cuando se obtiene un mensaje insesperado o
+ *  la sesión no se encuentra activa
+ * @param {*props} props 
+ */
+let MessageError=(props) =>{
     return(
         <div>
             <h2>Error {props.status}</h2>
@@ -39,11 +52,30 @@ function MessageError(props) {
     );
     
 }
-function RenderTable(props) {
+let MessageLoading=(props) =>{
+    return(
+        <div>
+            <h2>Cargando...</h2>
+        </div>
+    );
+    
+}
+let RenderTable=(props)=> {
+    let id = props.id;
     let rows = props.data;
+    const trRows=rows.map(row => 
+        <Row 
+            key={row.id}
+            id={row.id}
+            name={row.young.user.first_name} 
+            inscription_date={row.inscription_date} 
+            invite_by={row.who_intive_me}
+            save={row.pieces_save}
+        />
+    )
     return(
         
-         <table id={props.id}>
+         <table id={id}>
                 <thead>
                     <tr>
                         <td>Nombre</td>
@@ -53,21 +85,14 @@ function RenderTable(props) {
                     </tr>
                 </thead>
                 <tbody>
-                        {rows.map(row => {
-                            <Row 
-                                name={row.young.user.firs_name} 
-                                inscription_date={row.inscription_date} 
-                                invite_by={row.invite_by}
-                                save={row.save}
-                            />
-                        })}
+                        {trRows}
                 </tbody>
             </table>
     );
 }
-function Row(props) {
+let Row= (props)=> {
     return(
-        <tr>
+        <tr data-id={props.id}>
             <td>{props.name}</td>
             <td>{props.inscription_date}</td>
             <td>{props.invite_by}</td>
