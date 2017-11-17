@@ -1,6 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 import InscriptionsList from './pages/inscriptions-list/InscriptionsList.jsx';
+var target = document.getElementById('react-target-inscriptionslist');
 
 let Main = (props) =>{
     return(
@@ -11,7 +12,9 @@ let Main = (props) =>{
     );
 }
  
-render(
-    <Main/>,
-    document.getElementById('react-target-inscriptionslist'),
-);
+if (target!==null) {
+    render(
+        <Main/>,
+        target,
+    );    
+}
