@@ -4,7 +4,7 @@ const baseUrl = 'http://localhost:8000';
 var api = {
     inscriptions:{
         async getInscriptionList(){
-            const response = await fetch(`${baseUrl}/api/inscriptionslist/`);
+            const response = await fetch(`${baseUrl}/api/inscriptionslist/`, {credentials: "same-origin"});
             const data = await response.json();
             return data;
         }

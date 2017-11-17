@@ -9,7 +9,6 @@
         <title>Inscripciones</title>
     </head>
     <body>
-        <div>{%if user.is_authenticated%} {{user.email}} {% endif%}</div>
         <div id="react-target-inscriptionslist"></div>    
         <script src="{% static 'js/app.bundle.js' %}"></script>
     </body>
