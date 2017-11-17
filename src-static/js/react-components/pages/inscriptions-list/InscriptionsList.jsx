@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import api from '../../../api/api.jsx';
 
-
 class InscriptionsList extends Component{
     constructor(props){
         super(props);

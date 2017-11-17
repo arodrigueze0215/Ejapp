@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-const baseUrl = 'http://localhost:8000';
+const baseUrl = 'http://localhost:3000';
 var api = {
     inscriptions:{
         async getInscriptionList(){
