@@ -1,4 +1,4 @@
-import * as csrf from './csrftoken.js';
+import * as csrf from './libs/csrftoken.js';
 document.addEventListener("DOMContentLoaded",function(){
     var csrftoken = csrf.csrfToken('csrftoken');
     
