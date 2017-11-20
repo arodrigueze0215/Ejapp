@@ -58,8 +58,28 @@ def GetInscriptions(request, **params):
         auth = AuthUserApi(request)
         if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
             city = params.get("city")
-            inscriptionDate = params.get("inscription_date")
-            if city:
+            fdsNum = params.get("fds")
+            print "Params fds: ", fdsNum
+            print "Params city: ", city
+            if fdsNum and city:
+                fds = FdsEvents.objects.get(number_fds=fdsNum)
+                if fds:
+                    queryset = Inscription.objects.filter(fdsEvent=fds, city=city)
+                    if queryset:
+                        objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
+                        if objSerializer:
+                            data = {'object':objSerializer.data, 'result':'ok', 'status':status.HTTP_200_OK}
+                            return data
+                        else:
+                            data = {'object':[], 'result': 'error','statusText': 'No serealiza corréctamente','status':status.HTTP_400_BAD_REQUEST}
+                            return data
+                    else:
+                        data = {'object':[], 'result': 'error','statusText': 'No existe ninguna ficha de inscripción para este Fds.','status':status.HTTP_400_BAD_REQUEST}
+                        return data
+                else:
+                    data = {'object':[], 'result': 'error', 'statusText': 'No existe este FDS aún','status':status.HTTP_404_NOT_FOUND}
+                    return data
+            elif city:
                 queryset = Inscription.objects.filter(city=city)
                 if queryset:
                     objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
@@ -68,33 +88,23 @@ def GetInscriptions(request, **params):
                 else:
                     data = {'object':{}, 'result': 'error','status':status.HTTP_400_BAD_REQUEST}
                     return data
-            elif inscriptionDate:
-                queryset = Inscription.objects.filter(inscription_date=inscriptionDate)
-                objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
-                if objSerializer:
-                    data = {'object':objSerializer.data, 'result': 'ok','status':status.HTTP_200_OK}
-                    return data
+            elif fdsNum:
+                fds = Inscription.objects.get(number_fds=fdsNum)
+                if fds:
+                    queryset = Inscription.objects.filter(fdsEvent=fds)
+                    objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
+                    if objSerializer:
+                        data = {'object':objSerializer.data, 'result': 'ok','status':status.HTTP_200_OK}
+                        return data
+                    else:
+                        data = {'object':[], 'result': 'error','statusText': 'No serealiza corréctamente','status':status.HTTP_400_BAD_REQUEST}
+                        return data
                 else:
-                    data = {'object':[], 'result': 'error','status':status.HTTP_400_BAD_REQUEST}
-                    return data
-            elif inscriptionDate and city:
-                queryset = Inscription.objects.filter(inscription_date=inscriptionDate, city=city)
-                objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
-                if objSerializer:
-                    data = {'object':objSerializer.data, 'result': 'ok','status':status.HTTP_200_OK}
-                    return data
-                else:
-                    data = {'object':{}, 'result': 'error','status':status.HTTP_400_BAD_REQUEST}
+                    data = {'object':[], 'result': 'error', 'statusText': 'No existe este FDS aún','status':status.HTTP_404_NOT_FOUND}
                     return data
             else:
-                queryset = Inscription.objects.filter()
-                objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
-                if objSerializer:
-                    data = {'object':objSerializer.data, 'result': 'ok','status':status.HTTP_200_OK}
-                    return data
-                else:
-                    data = {'object':[], 'result': 'error','status':status.HTTP_400_BAD_REQUEST}
-                    return data
+                data = {'object':[], 'result': 'ok','status':status.HTTP_200_OK}
+                return data
         else:
             return auth
     except Inscription.DoesNotExist:

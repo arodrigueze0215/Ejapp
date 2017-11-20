@@ -96,6 +96,19 @@ document.addEventListener("DOMContentLoaded",function(){
         $('#deleteFds_content').append($(content));
         $('#deleteFds').foundation('open');
     });
+    /**
+     * Event that go inscribed list
+     */
+    $('#listFdsTable').on('click','li.listFds__menuAction__listInscribed', (ev)=>{
+        ev.preventDefault();
+        let fds = $(ev.currentTarget).parent().data('row-fds');
+        let city = $(ev.currentTarget).parent().data('row-city');
+        let url = window.location.origin;
+        url = `${url}/listainscritos/?fds=${fds};city=${city}`
+        console.log(url);
+
+        window.location.href = url;
+    });
     
     $('button[type=button][name=delete_fds]').on('click', function() {
         let id =$('#deleteFds_content').children().eq(0).data('id')
