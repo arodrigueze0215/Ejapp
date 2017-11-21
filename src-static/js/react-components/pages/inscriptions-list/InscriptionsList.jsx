@@ -23,7 +23,7 @@ class InscriptionsList extends Component{
         
         if (this.state.data.result==='ok'&& this.state.data.status===200) {
             return(
-                <RenderTable {...this.props} data={this.state.data.object}/>
+                <RenderTable {...this.props} data={this.state.data.object.bodyObject} header={this.state.data.object.headerObject}/>
             );            
         } else if(this.state.data.result==='error'){
             
@@ -62,32 +62,39 @@ let MessageLoading=(props) =>{
 }
 let RenderTable=(props)=> {
     let id = props.id;
+    console.log('props', props)
     let rows = props.data;
-    const trRows=rows.map(row => 
-        <Row 
+    const trRows=rows.map(row => {
+        let fullName = `${row.young.user.first_name} ${row.young.user.first_name}`
+
+        return(<Row 
             key={row.id}
             id={row.id}
-            name={row.young.user.first_name} 
+            name={fullName}  
             inscription_date={row.inscription_date} 
             invite_by={row.who_intive_me}
             save={row.pieces_save}
-        />
-    )
+        />);
+
+    });
     return(
-        
-         <table id={id}>
+        <section className={props.classSection}>
+            <h2>Lista de inscritos FDS{props.header.number_fds}</h2>
+            <table id={id}>
                 <thead>
                     <tr>
                         <td>Nombre</td>
                         <td>Fecha inscripción</td>
                         <td>Invitado por</td>
                         <td>Paz y salvo</td>
+                        <td>Más</td>
                     </tr>
                 </thead>
                 <tbody>
                         {trRows}
                 </tbody>
             </table>
+        </section>
     );
 }
 let Row= (props)=> {
@@ -97,6 +104,7 @@ let Row= (props)=> {
             <td>{props.inscription_date}</td>
             <td>{props.invite_by}</td>
             <td>{props.save}</td>
+            <td><button className="button">Ver más</button></td>
         </tr>
     );
 }

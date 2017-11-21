@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from main.models import (Young, Found, Inscription, Parents, Brothers)
+from main.models import (Young, Found, Inscription, Parents, Brothers,FdsEvents)
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,6 +13,10 @@ class YoungSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Young
         fields = ('id', 'user', 'date_born', 'home_phone', 'mobile_phone', 'address', 'occupation', 'profession', 'gender')
+class fdsEventSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = FdsEvents
+        fields = ('id', 'name', 'number_fds', 'date_start', 'date_end', 'city_fds', 'is_form_active', 'is_active')
 class InscriptionSerializerAll(serializers.HyperlinkedModelSerializer):
     young = YoungSerializer(many=False, read_only=False)
     class Meta:

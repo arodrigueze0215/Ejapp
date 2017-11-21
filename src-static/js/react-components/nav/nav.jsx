@@ -4,7 +4,7 @@ class Nav extends Component{
     render(){
         
         return(
-            <nav className="navFds">
+            <nav className="navEj">
                 <nav className="top-bar">
                     <NavLogo/>
                     <UlNav/>

@@ -9,5 +9,5 @@ require("./fds-list.js");
 require("./inscription.js");
 require("./login.js");
 require('./api/api.jsx')
-require("./react-components/index.jsx");
+require("./react-components/pages/inscriptions-list/index.jsx");
 $(document).foundation();

@@ -4,6 +4,8 @@
 @import "datatable.net.css";
 @import "fds-list.css";
 @import "login.css";
+@import "../js/react-components/nav/nav.css";
+@import "../js/react-components/pages/inscriptions-list/index.css";
 :root{
     --primaryColor:#CD2B26;
     --grayHover:#D5D5D5;

@@ -1,7 +1,7 @@
 import React from 'react';
+import InscriptionsList from './InscriptionsList.jsx';
 import {render} from 'react-dom';
-import InscriptionsList from './pages/inscriptions-list/InscriptionsList.jsx';
-import Nav from './pages/nav/Nav.jsx';
+import Nav from '../../nav/Nav.jsx';
 var target = document.getElementById('react-target-inscriptionslist');
 
 let Main = (props) =>{
@@ -9,7 +9,7 @@ let Main = (props) =>{
         <div>
             <Nav/>
             <div className="Main">
-                <InscriptionsList id="inscriptionList"/>
+                <InscriptionsList id="inscriptionList" classSection="Section__inscriptionsList"/>
             </div>
         </div>
 

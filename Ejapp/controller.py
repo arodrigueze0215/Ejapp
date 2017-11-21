@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
-from api.serializers import (InscriptionSerializer)
+from api.serializers import (InscriptionSerializer, fdsEventSerializer)
 from rest_framework import status
 from main.models import (FdsEvents, Young, Inscription, Parents, Brothers, Found)
 
@@ -66,18 +66,19 @@ def GetInscriptions(request, **params):
                 if fds:
                     queryset = Inscription.objects.filter(fdsEvent=fds, city=city)
                     if queryset:
+                        headerObjectobjSerializer = fdsEventSerializer(fds, many=False, context={'request': request})
                         objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
                         if objSerializer:
-                            data = {'object':objSerializer.data, 'result':'ok', 'status':status.HTTP_200_OK}
+                            data = {'object':{'headerObject':headerObjectobjSerializer.data,'bodyObject':objSerializer.data}, 'result':'ok', 'status':status.HTTP_200_OK}
                             return data
                         else:
-                            data = {'object':[], 'result': 'error','statusText': 'No serealiza corréctamente','status':status.HTTP_400_BAD_REQUEST}
+                            data = {'object':{}, 'result': 'error','statusText': 'No serealiza corréctamente','status':status.HTTP_400_BAD_REQUEST}
                             return data
                     else:
-                        data = {'object':[], 'result': 'error','statusText': 'No existe ninguna ficha de inscripción para este Fds.','status':status.HTTP_400_BAD_REQUEST}
+                        data = {'object':{}, 'result': 'error','statusText': 'No existe ninguna ficha de inscripción para este Fds.','status':status.HTTP_400_BAD_REQUEST}
                         return data
                 else:
-                    data = {'object':[], 'result': 'error', 'statusText': 'No existe este FDS aún','status':status.HTTP_404_NOT_FOUND}
+                    data = {'object':{}, 'result': 'error', 'statusText': 'No existe este FDS aún','status':status.HTTP_404_NOT_FOUND}
                     return data
             elif city:
                 queryset = Inscription.objects.filter(city=city)
@@ -91,24 +92,25 @@ def GetInscriptions(request, **params):
             elif fdsNum:
                 fds = Inscription.objects.get(number_fds=fdsNum)
                 if fds:
+                    headerObjectobjSerializer = FdsEventSerializer(fds, many=False, context={'request': request})
                     queryset = Inscription.objects.filter(fdsEvent=fds)
                     objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
                     if objSerializer:
-                        data = {'object':objSerializer.data, 'result': 'ok','status':status.HTTP_200_OK}
+                        data = {'object':{'headerObject':headerObjectobjSerializer.data,'bodyObject':objSerializer.data}, 'result': 'ok','status':status.HTTP_200_OK}
                         return data
                     else:
-                        data = {'object':[], 'result': 'error','statusText': 'No serealiza corréctamente','status':status.HTTP_400_BAD_REQUEST}
+                        data = {'object':{}, 'result': 'error','statusText': 'No serealiza corréctamente','status':status.HTTP_400_BAD_REQUEST}
                         return data
                 else:
-                    data = {'object':[], 'result': 'error', 'statusText': 'No existe este FDS aún','status':status.HTTP_404_NOT_FOUND}
+                    data = {'object':{}, 'result': 'error', 'statusText': 'No existe este FDS aún','status':status.HTTP_404_NOT_FOUND}
                     return data
             else:
-                data = {'object':[], 'result': 'ok','status':status.HTTP_200_OK}
+                data = {'object':{}, 'result': 'ok','status':status.HTTP_200_OK}
                 return data
         else:
             return auth
     except Inscription.DoesNotExist:
-            data = {'object':[], 'result': 'error','statusText': 'Inscripción no existe','code':status.HTTP_400_BAD_REQUEST}
+            data = {'object':{}, 'result': 'error','statusText': 'Inscripción no existe','code':status.HTTP_400_BAD_REQUEST}
             return data
     
 def GetInscription(request, pk):
