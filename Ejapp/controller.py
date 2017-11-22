@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
-from api.serializers import (InscriptionSerializer, fdsEventSerializer)
+from api.serializers import (InscriptionSerializer, fdsEventSerializer, FoundSerializer)
 from rest_framework import status
 from main.models import (FdsEvents, Young, Inscription, Parents, Brothers, Found)
 
@@ -39,7 +39,8 @@ def AuthUserApi(request):
             if young:
                 found = Found.objects.get(young=young)
                 if found:
-                    return {'status':status.HTTP_200_OK ,'result': 'ok','statusText': 'Autenticado'}
+                    queryset = FoundSerializer(found, many=False, context={'request': request})
+                    return {'status':status.HTTP_200_OK ,'result': 'ok','authUser': queryset.data}
                 else:
                     return {'status':status.HTTP_401_UNAUTHORIZED ,'result': 'error','statusText': 'Permisos restringidos.'}
             else:
@@ -69,7 +70,7 @@ def GetInscriptions(request, **params):
                         headerObjectobjSerializer = fdsEventSerializer(fds, many=False, context={'request': request})
                         objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
                         if objSerializer:
-                            data = {'object':{'headerObject':headerObjectobjSerializer.data,'bodyObject':objSerializer.data}, 'result':'ok', 'status':status.HTTP_200_OK}
+                            data = { 'object':{'headerObject':headerObjectobjSerializer.data,'bodyObject':objSerializer.data}, 'result':'ok', 'status':status.HTTP_200_OK}
                             return data
                         else:
                             data = {'object':{}, 'result': 'error','statusText': 'No serealiza corréctamente','status':status.HTTP_400_BAD_REQUEST}
@@ -81,16 +82,22 @@ def GetInscriptions(request, **params):
                     data = {'object':{}, 'result': 'error', 'statusText': 'No existe este FDS aún','status':status.HTTP_404_NOT_FOUND}
                     return data
             elif city:
-                queryset = Inscription.objects.filter(city=city)
-                if queryset:
-                    objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
-                    data = {'object':objSerializer.data, 'result':'ok', 'status':status.HTTP_200_OK}
-                    return data
+                fds = FdsEvents.objects.get(city_fds=city)
+                if fds:
+                    headerObjectobjSerializer = FdsEventSerializer(fds, many=False, context={'request': request})
+                    queryset = Inscription.objects.filter(FdsEvent=fds)                
+                    if queryset:
+                        objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
+                        data = {'object':{'headerObject':headerObjectobjSerializer.data,'bodyObject':objSerializer.data}, 'result':'ok', 'status':status.HTTP_200_OK}
+                        return data
+                    else:
+                        data = {'object':{}, 'result': 'error','status':status.HTTP_400_BAD_REQUEST}
+                        return data
                 else:
-                    data = {'object':{}, 'result': 'error','status':status.HTTP_400_BAD_REQUEST}
-                    return data
+                    data = {'object':{}, 'result': 'error', 'statusText': 'No existe este FDS aún','status':status.HTTP_404_NOT_FOUND}
+                    return data 
             elif fdsNum:
-                fds = Inscription.objects.get(number_fds=fdsNum)
+                fds = FdsEvents.objects.get(number_fds=fdsNum)
                 if fds:
                     headerObjectobjSerializer = FdsEventSerializer(fds, many=False, context={'request': request})
                     queryset = Inscription.objects.filter(fdsEvent=fds)

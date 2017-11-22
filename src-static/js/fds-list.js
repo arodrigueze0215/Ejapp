@@ -3,6 +3,14 @@ document.addEventListener("DOMContentLoaded",function(){
     var csrftoken = csrf.csrfToken('csrftoken');
     
     $('#listFdsTable').DataTable({
+        "columns": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            { "orderable": false },
+        ],
         "language": { 
             "decimal":        "",
             "emptyTable":     "Ningun Fds creado en esta tabla",

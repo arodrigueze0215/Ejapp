@@ -13,6 +13,11 @@ class YoungSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Young
         fields = ('id', 'user', 'date_born', 'home_phone', 'mobile_phone', 'address', 'occupation', 'profession', 'gender')
+class FoundSerializer(serializers.HyperlinkedModelSerializer):
+    young = YoungSerializer(many=False, read_only=False)
+    class Meta:
+        model = Found
+        fields = ('id', 'young', 'state', 'number_fds', 'city_fds', 'active_city', 'name_parent_fds')
 class fdsEventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = FdsEvents
@@ -24,6 +29,11 @@ class InscriptionSerializerAll(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 class InscriptionSerializer(serializers.HyperlinkedModelSerializer):
     young = YoungSerializer(many=False, read_only=False)
+    pieces_save = serializers.SerializerMethodField()
+
+    def get_pieces_save(self, obj):
+        return obj.get_pieces_save_display()
+    
     class Meta:
         model = Inscription
         fields = ('id', 'young', 'inscription_date', 'who_intive_me', 'pieces_save')

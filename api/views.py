@@ -11,6 +11,10 @@ class InscriptionsList(APIView):
         fds = request.query_params.get('fds')
         data = controller.GetInscriptions(request, city=city,fds=fds)      
         return Response(data, status=data['status'])
+class UserAuth(APIView):
+    def get(self, request, format=None):
+        data = controller.AuthUserApi(request)      
+        return Response(data, status=data['status'])
 
 class InscriptionDetails(APIView):
     def get(self, request, pk, format=None):

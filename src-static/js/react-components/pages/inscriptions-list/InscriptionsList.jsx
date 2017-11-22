@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import api from '../../../api/api.jsx';
 import initDatatable from './initDatatable.js';
+import moment from 'moment';
 
 class InscriptionsList extends Component{
     constructor(props){
@@ -65,7 +66,7 @@ let RenderTable=(props)=> {
     console.log('props', props)
     let rows = props.data;
     const trRows=rows.map(row => {
-        let fullName = `${row.young.user.first_name} ${row.young.user.first_name}`
+        let fullName = `${row.young.user.first_name} ${row.young.user.last_name}`
 
         return(<Row 
             key={row.id}
@@ -101,7 +102,7 @@ let Row= (props)=> {
     return(
         <tr data-id={props.id}>
             <td>{props.name}</td>
-            <td>{props.inscription_date}</td>
+            <td>{moment(props.inscription_date).format('MMMM Do YYYY')}</td>
             <td>{props.invite_by}</td>
             <td>{props.save}</td>
             <td><button className="button">Ver más</button></td>
