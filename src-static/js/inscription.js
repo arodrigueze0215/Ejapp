@@ -1,4 +1,4 @@
-import * as csrftoken from './csrftoken.js';
+import * as csrftoken from './libs/csrftoken.js';
 document.addEventListener("DOMContentLoaded",function(){
   let brothers = new Array();
   let today = ()=> {

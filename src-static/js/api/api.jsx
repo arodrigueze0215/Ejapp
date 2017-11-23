@@ -1,10 +1,31 @@
 import fetch from 'isomorphic-fetch';
 
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'http://localhost:8000';
 var api = {
+    apiAuth:{
+        async getApiAuth(){
+            let options = {
+                credentials: "same-origin",
+            } 
+            const response = await fetch(
+                `${baseUrl}/api/apiauth/`,
+                options
+            );
+            const data = await response.json();
+            return data;
+        }
+
+    },
     inscriptions:{
         async getInscriptionList(){
-            const response = await fetch(`${baseUrl}/api/inscriptionslist/`, {credentials: "same-origin"});
+            let searchParams = window.location.search;
+            let options = {
+                credentials: "same-origin",
+            } 
+            const response = await fetch(
+                `${baseUrl}/api/inscriptionslist/${searchParams}`,
+                options
+            );
             const data = await response.json();
             return data;
         }

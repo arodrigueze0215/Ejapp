@@ -1,8 +1,16 @@
-import * as csrf from './csrftoken.js';
+import * as csrf from './libs/csrftoken.js';
 document.addEventListener("DOMContentLoaded",function(){
     var csrftoken = csrf.csrfToken('csrftoken');
     
     $('#listFdsTable').DataTable({
+        "columns": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            { "orderable": false },
+        ],
         "language": { 
             "decimal":        "",
             "emptyTable":     "Ningun Fds creado en esta tabla",
@@ -95,6 +103,19 @@ document.addEventListener("DOMContentLoaded",function(){
         let content = `<p class="lead" data-id="${id}">¿Estas seguro que deseas eliminar este FDS?</p>`
         $('#deleteFds_content').append($(content));
         $('#deleteFds').foundation('open');
+    });
+    /**
+     * Event that go inscribed list
+     */
+    $('#listFdsTable').on('click','li.listFds__menuAction__listInscribed', (ev)=>{
+        ev.preventDefault();
+        let fds = $(ev.currentTarget).parent().data('row-fds');
+        let city = $(ev.currentTarget).parent().data('row-city');
+        let url = window.location.origin;
+        url = `${url}/listainscritos/?fds=${fds};city=${city}`
+        console.log(url);
+
+        window.location.href = url;
     });
     
     $('button[type=button][name=delete_fds]').on('click', function() {

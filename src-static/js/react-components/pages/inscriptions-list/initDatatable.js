@@ -1,6 +1,13 @@
 
 function initDatatable(params) {
     $('#inscriptionList').DataTable({
+        "columns": [
+            null,
+            null,
+            null,
+            null,
+            { "orderable": false },
+        ],
         "language": { 
             "decimal":        "",
             "emptyTable":     "Ningun Inscrito aún",
@@ -13,7 +20,7 @@ function initDatatable(params) {
             "loadingRecords": "Cargando...",
             "processing":     "Procesando...",
             "search":         "",
-            "searchPlaceholder": "Buscar",
+            "searchPlaceholder": "Buscar...",
             "zeroRecords":    "No se encontraron resultados",
             "paginate": {
                 "first":      "Primero",

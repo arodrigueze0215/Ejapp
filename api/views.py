@@ -6,10 +6,14 @@ from Ejapp import controller
 
 class InscriptionsList(APIView):
     def get(self, request, format=None):
-        print "API: ",request.user
-        city = request.data.get('city')
-        inscriptionDate = request.data.get('inscription_date')
-        data = controller.GetInscriptions(request, city=city,inscription_date=inscriptionDate)      
+        print "API: ",request.query_params
+        city = request.query_params.get('city')
+        fds = request.query_params.get('fds')
+        data = controller.GetInscriptions(request, city=city,fds=fds)      
+        return Response(data, status=data['status'])
+class UserAuth(APIView):
+    def get(self, request, format=None):
+        data = controller.AuthUserApi(request)      
         return Response(data, status=data['status'])
 
 class InscriptionDetails(APIView):

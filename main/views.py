@@ -373,5 +373,4 @@ def enable_inscriptions(request):
 
 @login_required(login_url='/login/')
 def inscriptions_list(request):
-    print "render: ",request.user
-    return render(request, 'inscription-list.html')
+    return render(request, 'inscriptions_list.html')

@@ -19,6 +19,17 @@ class Young(models.Model):
     def __str__(self):
         return self.user.username.encode('utf-8')
 
+class FdsEvents(models.Model):
+    name = models.CharField(max_length=255, blank=False)
+    number_fds = models.CharField(max_length=10, blank=False)
+    date_start = models.DateTimeField(blank=False)
+    date_end = models.DateTimeField(blank=False)
+    city_fds = models.CharField(max_length=255, blank=False)
+    is_form_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    def __str__(self):
+        return self.name+", FDS"+self.number_fds+", "+self.city_fds+", "+str(self.is_form_active)
+
 class Inscription(models.Model):
     _PIECE = (
     ('1', 'DEBE'),
@@ -26,6 +37,7 @@ class Inscription(models.Model):
     ('3', 'PAGÓ'),
     )
     young = models.OneToOneField(Young, on_delete=models.CASCADE)
+    fdsEvent = models.ForeignKey(FdsEvents, on_delete=models.CASCADE, default=0)
     city = models.CharField(max_length=255, blank=False)
     inscription_date = models.DateTimeField(auto_now_add=True)
     do_you_study = models.BooleanField(default=False)
@@ -108,16 +120,6 @@ class Found(models.Model):
         return self.state
 
 
-class FdsEvents(models.Model):
-    name = models.CharField(max_length=255, blank=False)
-    number_fds = models.CharField(max_length=10, blank=False)
-    date_start = models.DateTimeField(blank=False)
-    date_end = models.DateTimeField(blank=False)
-    city_fds = models.CharField(max_length=255, blank=False)
-    is_form_active = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    def __str__(self):
-        return self.name+", "+self.number_fds+", "+self.city_fds+", "+str(self.is_form_active)
 
 class StaffRoleFds(models.Model):
     name = models.CharField(max_length=255, blank=False)
