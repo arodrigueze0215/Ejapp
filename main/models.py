@@ -59,7 +59,7 @@ class  Parents(models.Model):
     ('2', 'Papá'),
     )
     young = models.ForeignKey(Young, on_delete=models.CASCADE)
-    relationship = models.CharField(max_length=255, choices=_RELATION, blank=False)
+    relationship = models.CharField(max_length=255, choices=_RELATION, blank=False, default="2")
     name_parent = models.CharField(max_length=255, blank=False)
     occupation = models.CharField(max_length=255, blank=True)
     home_phone = models.CharField(max_length=50, blank=True)
