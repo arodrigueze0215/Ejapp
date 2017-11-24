@@ -33,3 +33,15 @@ let InfoUser =(props)=>{
     );
 
 }
+
+let Rows = (props) =>{
+    return(
+        <tr>
+        <td>{props.name}</td>
+        <td>{props.email}</td>
+        <td>{props.home_phone}/{props.mobile_phone}</td>
+        <td>{props.occupation}/{props.profession}</td>
+        <td>{props.gender}</td>
+    </tr>
+    );
+}
