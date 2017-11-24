@@ -374,3 +374,7 @@ def enable_inscriptions(request):
 @login_required(login_url='/login/')
 def inscriptions_list(request):
     return render(request, 'inscriptions_list.html')
+
+@login_required(login_url='/login/')
+def inscription_detail(request):
+    return render(request, 'inscription_detail.html')

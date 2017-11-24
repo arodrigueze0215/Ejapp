@@ -87,7 +87,7 @@ class Brothers (models.Model):
     ('4', 'prima'),
     )
     young = models.ForeignKey(Young, on_delete=models.CASCADE)
-    realtionship = models.CharField(max_length=255, choices=_RELATIONS, default="1", blank=False)
+    relationship = models.CharField(max_length=255, choices=_RELATIONS, default="1", blank=False)
     name_brother = models.CharField(max_length=255, blank=False)
     date_born = models.CharField(max_length=255, blank=False)
     mobile_phone = models.CharField(max_length=50, blank=True)

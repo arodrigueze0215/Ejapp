@@ -23,7 +23,7 @@ var api = {
                 credentials: "same-origin",
             } 
             const response = await fetch(
-                `${baseUrl}/api/inscriptionslist/${searchParams}`,
+                `${baseUrl}/api/inscriptions/${searchParams}`,
                 options
             );
             const data = await response.json();

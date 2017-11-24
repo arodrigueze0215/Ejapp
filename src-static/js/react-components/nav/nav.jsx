@@ -49,7 +49,6 @@ class Nav extends Component{
 }
 
 let UlNav = (props)=>{
-    console.log('props1', props)
     let userAuth= `${props.user.authUser.young.user.first_name} ${props.user.authUser.young.user.last_name}`;
     return(
         <div className="top-bar-right">

@@ -10,6 +10,10 @@ class UserSerializer(serializers.ModelSerializer):
 
 class YoungSerializer(serializers.HyperlinkedModelSerializer):
     user = UserSerializer(many=False, read_only=False)
+    gender = serializers.SerializerMethodField()
+
+    def get_gender(self, obj):
+        return obj.get_gender_display()
     class Meta:
         model = Young
         fields = ('id', 'user', 'date_born', 'home_phone', 'mobile_phone', 'address', 'occupation', 'profession', 'gender')
@@ -37,13 +41,22 @@ class InscriptionSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Inscription
         fields = ('id', 'young', 'inscription_date', 'who_intive_me', 'pieces_save')
+
 class ParentsSerializer(serializers.HyperlinkedModelSerializer):
-    young = YoungSerializer(many=False, read_only=False)
+    relationship = serializers.SerializerMethodField()
+
+    def get_relationship(self, obj):
+        return obj.get_relationship_display()
+
     class Meta:
         model = Parents
-        fields = '__all__'
+        fields = ('id', 'relationship', 'name_parent', 'occupation', 'home_phone', 'mobile_phone', 'address', 'isalive')
 class BrothersSerializer(serializers.HyperlinkedModelSerializer):
-    young = YoungSerializer(many=False, read_only=False)
+    relationship = serializers.SerializerMethodField()
+
+    def get_relationship(self, obj):
+        return obj.get_relationship_display()
+
     class Meta:
         model = Brothers
-        fields = '__all__'
+        fields = ('id', 'relationship', 'name_brother', 'date_born', 'mobile_phone', 'email', 'isalive')

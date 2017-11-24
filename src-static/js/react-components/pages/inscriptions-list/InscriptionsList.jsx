@@ -63,7 +63,6 @@ let MessageLoading=(props) =>{
 }
 let RenderTable=(props)=> {
     let id = props.id;
-    console.log('props', props)
     let rows = props.data;
     const trRows=rows.map(row => {
         let fullName = `${row.young.user.first_name} ${row.young.user.last_name}`
