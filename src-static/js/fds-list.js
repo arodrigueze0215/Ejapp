@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded",function(){
         let fds = $(ev.currentTarget).parent().data('row-fds');
         let city = $(ev.currentTarget).parent().data('row-city');
         let url = window.location.origin;
-        url = `${url}/listainscritos/?fds=${fds};city=${city}`
+        url = `${url}/inscritos/lista/?fds=${fds};city=${city}`
         console.log(url);
 
         window.location.href = url;

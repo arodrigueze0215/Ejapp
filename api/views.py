@@ -23,12 +23,12 @@ class InscriptionDetails(APIView):
     
 class ParentsList(APIView):
     def get(self, request, format=None):
-        idyoung = request.data.get('idyoung')
+        idyoung = request.query_params.get('idyoung')
         data = controller.GetParents(request, pk=idyoung)        
         return Response(data, status=data['status'])
 class BrothersList(APIView):
     def get(self, request, format=None):
-        idyoung = request.data.get('idyoung')
+        idyoung = request.query_params.get('idyoung')
         data = controller.GetBrothers(request, pk=idyoung)        
         return Response(data, status=data['status'])
 
