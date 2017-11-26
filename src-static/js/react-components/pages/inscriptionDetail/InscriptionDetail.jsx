@@ -45,6 +45,7 @@ let Details = (props) =>{
         <section>
             <HeaderYoungDetail {...props.data.young}/>
             <Study {...props.data}/>
+            <Job {...props.data}/>
 
         </section>
     );
@@ -109,16 +110,9 @@ let Study = (props)=>{
                 </thead>
                 <tbody>
                     <tr>
-                    {props.do_you_study?(
-                        <td>Sí</td>
-                        ):
-                        (
-                        <td>No</td>
-
-                        ) }
-                        
-                        <td>{props.carrer}</td>
-                        <td>{props.school}</td>
+                    {props.do_you_study?(<td>Sí</td>):(<td>No</td>)}
+                    {props.carrer.length>0?(<td>{props.carrer}</td>):(<td>No tiene</td>)}
+                    {props.school.length>0?(<td>{props.school}</td>):(<td>No tiene</td>)}
                     </tr>
                 </tbody>
             </table>
@@ -128,7 +122,7 @@ let Study = (props)=>{
 let Job = (props)=>{
     return(
         <article>
-            <h1>Información laboral</h1>
+            <h3>Información laboral</h3>
             <table>
                 <thead>
                     <tr>
@@ -140,10 +134,10 @@ let Job = (props)=>{
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{props.work}</td>
-                        <td>{props.company}</td>
-                        <td>{props.position}</td>
-                        <td>{props.phone}</td>
+                        {props.do_you_work?(<td>Sí</td>):(<td>No</td>)}
+                        {props.company.length>0?(<td>{props.company}</td>):(<td>No tiene</td>)}
+                        {props.position_job.length>0?(<td>{props.position_job}</td>):(<td>No tiene</td>)}
+                        {props.phone_company.length>0?(<td>{props.phone_company}</td>):(<td>No tiene</td>)}
                     </tr>
                 </tbody>
             </table>
@@ -170,15 +164,15 @@ let WhoLives = (props)=>{
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{props.life_with_gran}</td>
-                        <td>{props.life_with_parent}</td>
-                        <td>{props.life_with_only_mother}</td>
-                        <td>{props.life_with_only_father}</td>
-                        <td>{props.life_with_uncles}</td>
-                        <td>{props.life_with_friends}</td>
-                        <td>{props.life_with_cousins}</td>
-                        <td>{props.life_with_brothers}</td>
-                        <td>{props.life_with_alone}</td>
+                        <td>{props.life_with_gran.toString()}</td>
+                        <td>{props.life_with_parent.toString()}</td>
+                        <td>{props.life_with_only_mother.toString()}</td>
+                        <td>{props.life_with_only_father.toString()}</td>
+                        <td>{props.life_with_uncles.toString()}</td>
+                        <td>{props.life_with_friends.toString()}</td>
+                        <td>{props.life_with_cousins.toString()}</td>
+                        <td>{props.life_with_brothers.toString()}</td>
+                        <td>{props.life_with_alone.toString()}</td>
                     </tr>
                 </tbody>
             </table>

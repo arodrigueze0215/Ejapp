@@ -8,7 +8,9 @@ const target = document.getElementById('reactTargetInscriptionDetail');
  
 if (target!==null) {
     render(
-       <InscriptionDetail/>,
-        target,
+        <div className="Main">
+            <InscriptionDetail/>
+        </div>,
+        target
     );    
 }
