@@ -17,8 +17,9 @@ class UserAuth(APIView):
         return Response(data, status=data['status'])
 
 class InscriptionDetails(APIView):
-    def get(self, request, pk, format=None):
-        data = controller.GetInscription(request, id=pk)        
+    def get(self, request, format=None):
+        pk = request.query_params.get('id')
+        data = controller.GetInscription(request, pk=pk)        
         return Response(data, status=data['status'])
     
 class ParentsList(APIView):

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import api from '../../../api/api.jsx';
+import MessageError from '../../MessageError/MessageError.jsx';
+import ContentLoading from '../../ContentLoading/ContentLoading.jsx';
 import initDatatable from './initDatatable.js';
 import moment from 'moment';
 
@@ -38,20 +40,6 @@ class InscriptionsList extends Component{
             
         }
     }
-}
-/**
- *  Muestra un mensaje de error en pantalla cuando se obtiene un mensaje insesperado o
- *  la sesión no se encuentra activa
- * @param {*props} props 
- */
-let MessageError=(props) =>{
-    return(
-        <div>
-            <h2>Error {props.status}</h2>
-            <h3>{props.statusText}</h3>
-        </div>
-    );
-    
 }
 let MessageLoading=(props) =>{
     return(

@@ -28,9 +28,23 @@ var api = {
             );
             const data = await response.json();
             return data;
+        },
+        async getYoungDetail(){
+            const id = window.location.search;
+            let options = {
+                credentials: "same-origin",
+            } 
+            const response = await fetch(
+                `${baseUrl}/api/inscriptions/details/${id}`,
+                options
+            );
+            const data = await response.json();
+            return data;
+
         }
 
     }
+
 }
 
 export default api;

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from main.models import (Young, Found, Inscription, Parents, Brothers,FdsEvents)
+from main.models import (Young, Found, Inscription, Parents, Brothers, FdsEvents)
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,9 +28,19 @@ class fdsEventSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name', 'number_fds', 'date_start', 'date_end', 'city_fds', 'is_form_active', 'is_active')
 class InscriptionSerializerAll(serializers.HyperlinkedModelSerializer):
     young = YoungSerializer(many=False, read_only=False)
+    pieces_save = serializers.SerializerMethodField()
+
+    def get_pieces_save(self, obj):
+        return obj.get_pieces_save_display()
+    
     class Meta:
         model = Inscription
-        fields = '__all__'
+        fields = ('id', 'young', 'inscription_date', 'do_you_study', 'carrer', 'school', 'do_you_work',
+          'company', 'position_job','phone_company', 'life_with_gran','life_with_parent','life_with_only_mother',
+          'life_with_only_father','life_with_uncles','life_with_friends','life_with_cousins','life_with_brothers',
+          'life_with_alone','illness','especial_food','who_intive_me', 'who_intive_me_number','do_you_want_ej',
+          'why_fds','other_experiences','pieces_save')
+
 class InscriptionSerializer(serializers.HyperlinkedModelSerializer):
     young = YoungSerializer(many=False, read_only=False)
     pieces_save = serializers.SerializerMethodField()

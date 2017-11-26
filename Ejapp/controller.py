@@ -124,22 +124,23 @@ def GetInscriptions(request, **params):
             data = {'object':{}, 'result': 'error','statusText': 'Inscripción no existe','code':status.HTTP_400_BAD_REQUEST}
             return data
     
-def GetInscription(request, pk):
+def GetInscription(request, **params):
     try:
         auth = AuthUserApi(request)
-        if auth['result'] == 'ok' and auth['code']==status.HTTP_200_OK:
-            Inscription = Inscription.objects.get(id=pk)
-            if Inscription:
-                objSerializer = InscriptionSerializerAll(Inscription, many=False, context={'request': request})
+        if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
+            pk = params.get("pk")
+            inscription = Inscription.objects.get(id=pk)
+            if inscription:
+                objSerializer = InscriptionSerializerAll(inscription, many=False, context={'request': request})
                 data = {'bodyObject':objSerializer.data, 'result': 'ok','status':status.HTTP_200_OK}
                 return data
             else:
-                data = {'object':{}, 'result': 'error','status':status.HTTP_400_BAD_REQUEST}
+                data = {'bodyObject':{}, 'statusText': 'Inscripción no existe', 'result': 'error','status':status.HTTP_400_BAD_REQUEST}
                 return data
         else:
             return auth        
     except Inscription.DoesNotExist:
-            data = {'object':{}, 'result': 'error', 'statusText': 'Inscripción no existe', 'status':status.HTTP_400_BAD_REQUEST}
+            data = {'bodyObject':{}, 'result': 'error', 'statusText': 'Inscripción no existe', 'status':status.HTTP_400_BAD_REQUEST}
             return data
             
 
