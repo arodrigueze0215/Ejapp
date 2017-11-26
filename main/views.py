@@ -10,6 +10,7 @@ from .models import (FdsEvents, Young, Inscription, Parents, Brothers)
 from django.utils import timezone
 from django.contrib.auth.models import User
 import json
+from django.core.urlresolvers import reverse
 def inscriptions_add(request):
     if request.method == 'POST' and request.is_ajax():
         nFds = request.GET.get('fds',None)
@@ -93,6 +94,7 @@ def inscriptions_add(request):
                 inscription.young = young
                 inscription.inscription_date = current_date
                 if Fds:
+                    inscription.fdsEvent = Fds
                     inscription.city = Fds.city_fds
                 else:
                     """TODO: Modificar esto después para no quemar este valor de esta manera"""
@@ -156,6 +158,7 @@ def inscriptions_add(request):
                     mom_parent = Parents()
                     mom_parent.young = young
                     mom_parent.relationship = "1"
+                    mom_parent.name_parent = mom_names
                     if mom=='true':
                         mom_parent.isalive = True
                     if mom_ocupation:
@@ -172,6 +175,7 @@ def inscriptions_add(request):
                     dad_parent = Parents()
                     dad_parent.young = young
                     dad_parent.relationship = "2"
+                    dad_parent.name_parent = dad_names
                     if dad=='true':
                         dad_parent.isalive = True
                     if dad_ocupation:
@@ -191,7 +195,7 @@ def inscriptions_add(request):
                         brother.young = young
                         brother.name_brother = bro['names']
                         if bro['email']:
-                            brother.name_brother = bro['email']
+                            brother.email = bro['email']
                         if bro['date']:
                             brother.date_born = bro['date']
                         if bro['phone']:
@@ -350,11 +354,12 @@ def enable_inscriptions(request):
                     if is_form=="True":
                         Fds.is_form_active = True
                         Fds.save()
-                        path = "?fds="+Fds.number_fds+";ciudad="+Fds.city_fds
-                        url = request.META['HTTP_REFERER']+path
+                        path = reverse("main:inscriptions_add")+"?fds="+Fds.number_fds+";ciudad="+Fds.city_fds
+                        url = request.META['HTTP_ORIGIN']+path
                         
                         if settings.DEBUG == True:
                             print "Fds saved True: ", Fds
+                            print "request META: ", request.META
                             print "url: ", url
                         return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción habilitada', 'active':'true', 'url':url})
                     else:

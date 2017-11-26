@@ -17,8 +17,6 @@ let InfoUser =(props)=>{
     const fullName = `${row.user.first_name} ${row.user.last_name}`;
     const trRows=        
         <Row 
-            name= {fullName}
-            email= {row.user.email}
             born= {row.date_born}
             address= {row.address}
             home_phone= {row.home_phone}
@@ -30,17 +28,17 @@ let InfoUser =(props)=>{
 
     return(
         <article>
-            <h1>Información Personal</h1>
+            <h1>Información de participante</h1>
+            <h3>{fullName}</h3>
+            <h5>{row.user.email}</h5>
             <table>
                 <thead>
                     <tr>
-                        <td>Nombres</td>
-                        <td>Correo</td>
                         <td>Fecha nacimiento</td>
                         <td>Dirección</td>
                         <td>Telefonos / Celular</td>
                         <td>Ocupación / Profesión</td>
-                        <td>Genero</td>
+                        <td>Género</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,8 +52,6 @@ let InfoUser =(props)=>{
 let Row = (props) =>{
     return(
         <tr>
-            <td>{props.name}</td>
-            <td>{props.email}</td>
             <td>{props.born}</td>
             <td>{props.address}</td>
             <td>{props.home_phone} <strong>/</strong> {props.mobile_phone}</td>

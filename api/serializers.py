@@ -38,7 +38,7 @@ class InscriptionSerializerAll(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'young', 'inscription_date', 'do_you_study', 'carrer', 'school', 'do_you_work',
           'company', 'position_job','phone_company', 'life_with_gran','life_with_parent','life_with_only_mother',
           'life_with_only_father','life_with_uncles','life_with_friends','life_with_cousins','life_with_brothers',
-          'life_with_alone','illness','especial_food','who_intive_me', 'who_intive_me_number','do_you_want_ej',
+          'life_with_alone','illness','especial_food','who_invite_me', 'who_invite_me_number','do_you_want_ej',
           'why_fds','other_experiences','pieces_save')
 
 class InscriptionSerializer(serializers.HyperlinkedModelSerializer):
@@ -50,7 +50,7 @@ class InscriptionSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = Inscription
-        fields = ('id', 'young', 'inscription_date', 'who_intive_me', 'pieces_save')
+        fields = ('id', 'young', 'inscription_date', 'who_invite_me', 'pieces_save')
 
 class ParentsSerializer(serializers.HyperlinkedModelSerializer):
     relationship = serializers.SerializerMethodField()

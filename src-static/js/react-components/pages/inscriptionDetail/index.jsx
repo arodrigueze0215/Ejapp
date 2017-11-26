@@ -4,13 +4,21 @@ import {render} from 'react-dom';
 import Nav from '../../nav/Nav.jsx';
 const target = document.getElementById('reactTargetInscriptionDetail');
 
+let MainDetail = (props) =>{
+    return(
+        <div>
+            <Nav/>
+            <div className="Main">
+                <InscriptionDetail classSection="Section__inscriptionDetail"/>   
+            </div>
+        </div>
 
+    );
+}
  
 if (target!==null) {
     render(
-        <div className="Main">
-            <InscriptionDetail/>
-        </div>,
+       <MainDetail/>,
         target
     );    
 }

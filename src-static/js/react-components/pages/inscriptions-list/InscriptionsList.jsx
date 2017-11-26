@@ -21,17 +21,33 @@ class InscriptionsList extends Component{
 
         
     }
+    onClickRow(idrow, idyoung){
+        console.log('click', idrow);
+        let url = window.location.origin;
+        url = `${url}/inscrito/detalle/?id=${idrow};idyoung=${idyoung}`
+        console.log(url);
+
+        window.location.href = url;
+    }
     
     render(){
         
         if (this.state.data.result==='ok'&& this.state.data.status===200) {
             return(
-                <RenderTable {...this.props} data={this.state.data.object.bodyObject} header={this.state.data.object.headerObject}/>
+                <RenderTable {
+                    ...this.props} 
+                    onClickRow={this.onClickRow} 
+                    data={this.state.data.object.bodyObject} 
+                    header={this.state.data.object.headerObject}
+                />
             );            
         } else if(this.state.data.result==='error'){
             
             return(
-               <MessageError status={this.state.data.status} statusText={this.state.data.statusText}/>
+               <MessageError 
+                    status={this.state.data.status} 
+                    statusText={this.state.data.statusText}
+                />
             );            
         } else{
             return(
@@ -60,8 +76,10 @@ let RenderTable=(props)=> {
             id={row.id}
             name={fullName}  
             inscription_date={row.inscription_date} 
-            invite_by={row.who_intive_me}
+            invite_by={row.who_invite_me}
             save={row.pieces_save}
+            idyoung={row.young.id}
+            onClickRow={props.onClickRow}
         />);
 
     });
@@ -92,7 +110,7 @@ let Row= (props)=> {
             <td>{moment(props.inscription_date).format('MMMM Do YYYY')}</td>
             <td>{props.invite_by}</td>
             <td>{props.save}</td>
-            <td><button className="button">Ver más</button></td>
+            <td><button className="button" onClick={props.onClickRow.bind(this,props.id, props.idyoung)}>Ver más</button></td>
         </tr>
     );
 }

@@ -1,6 +1,7 @@
 
 function initDatatable(params) {
-    $('#inscriptionList').DataTable({
+    let inscriptionList = $('#inscriptionList');
+    inscriptionList.DataTable({
         "columns": [
             null,
             null,

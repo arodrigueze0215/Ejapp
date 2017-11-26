@@ -30,4 +30,4 @@ class CitiesAdmin(admin.ModelAdmin):
     
 @admin.register(Inscription)
 class InscriptionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'young', 'fdsEvent', 'inscription_date', 'who_intive_me', 'pieces_save')
+    list_display = ('id', 'young', 'fdsEvent', 'city', 'inscription_date', 'who_invite_me', 'pieces_save')

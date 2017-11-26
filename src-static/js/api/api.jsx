@@ -30,19 +30,49 @@ var api = {
             return data;
         },
         async getYoungDetail(){
-            const id = window.location.search;
+            const params = window.location.search;
             let options = {
                 credentials: "same-origin",
             } 
             const response = await fetch(
-                `${baseUrl}/api/inscriptions/details/${id}`,
+                `${baseUrl}/api/inscriptions/details/${params}`,
+                options
+            );
+            const data = await response.json();
+            return data;
+
+        }      
+
+    },
+    parents:{
+        async getParentsList(){
+            const params = window.location.search;
+            let options = {
+                credentials: "same-origin",
+            } 
+            const response = await fetch(
+                `${baseUrl}/api/parentlist/${params}`,
                 options
             );
             const data = await response.json();
             return data;
 
         }
+    },
+    brothers:{
+        async getBrothersList(){
+            const params = window.location.search;
+            let options = {
+                credentials: "same-origin",
+            } 
+            const response = await fetch(
+                `${baseUrl}/api/brotherslist/${params}`,
+                options
+            );
+            const data = await response.json();
+            return data;
 
+        }
     }
 
 }
