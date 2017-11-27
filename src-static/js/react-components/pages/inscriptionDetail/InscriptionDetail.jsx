@@ -54,6 +54,7 @@ let Details = (props) =>{
             <SpecialFood {...props.data}/>
             <WhoInviteMe {...props.data}/>
             <AboutFDS {...props.data}/>
+            {props.data.other_experiences && <AboutOtherExperiences {...props.data}/> }
 
         </section>
     );
@@ -187,14 +188,7 @@ let WhoInviteMe = (props)=>{
     );
 }
 let AboutFDS = (props)=>{
-     /*
-    about fds{
-        "do_you_want_ej": true,
-        "why_fds": "Por que sí",
-        "other_experiences": "",
-        "pieces_save": "DEBE"
-    }
-     */
+    
     return(
         <article>
             <h3>Acerca del FDS</h3>
@@ -211,8 +205,31 @@ let AboutFDS = (props)=>{
                     <tr>
                         {props.do_you_want_ej?(<td>Sí</td>):(<td>No</td>)}
                         {props.why_fds.length>0?(<td>{props.why_fds}</td>):(<td>Sín comentarios</td>)}
-                        {props.other_experiences.length>0?(<td>{props.other_experiences}</td>):(<td>Ninguno</td>)}
+                        {props.other_experiences?(<td>Sí</td>):(<td>Ninguna</td>)}
                         <td>{props.pieces_save}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </article>
+    );
+}
+
+let AboutOtherExperiences = (props)=>{
+    
+    return(
+        <article>
+            <h3>Otras experiencias</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <td>¿Otras experiencias?</td>
+                        <td>¿Cuales?</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sí</td>
+                        {props.experiences_which.length>0?(<td>{props.experiences_which}</td>):(<td>Ninguna</td>)}
                     </tr>
                 </tbody>
             </table>

@@ -149,6 +149,8 @@ def inscriptions_add(request):
                     inscription.why_fds = whyFds     
                 if otherExperiences:
                     inscription.other_experiences = otherExperiences
+                if otherExperiences_which:
+                    inscription.experiences_which = otherExperiences_which
                 if settings.DEBUG == True:
                     print "inscription: ", inscription.life_with_alone
                 inscription.save()

@@ -62,7 +62,8 @@ class Inscription(models.Model):
     who_invite_me_number = models.CharField(max_length=50, blank=True)
     do_you_want_ej = models.BooleanField(default=False)
     why_fds = models.CharField(max_length=999, blank=True)
-    other_experiences = models.CharField(max_length=999, blank=True)
+    other_experiences = models.BooleanField(default=False)
+    experiences_which = models.CharField(max_length=999, blank=True)
     pieces_save = models.CharField(max_length=50, choices=_PIECE, default="1")
 
 class  Parents(models.Model):

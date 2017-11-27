@@ -1,5 +1,6 @@
 node_modules
 static
+migrations
 db.sqlite3
 *.pyc
-**/*pyc
+*pyc

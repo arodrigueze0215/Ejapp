@@ -6,59 +6,67 @@ class HeaderYoungDetail extends Component{
     }
     render(){
         return(
-            <InfoUser young={this.props}/>
+            <div>
+                <InfoBasicUser {...this.props}/>
+                <InfoUser {...this.props}/>
+            </div>
         );
 
     }
 }
-
-let InfoUser =(props)=>{
-    let row = props.young;
-    const fullName = `${row.user.first_name} ${row.user.last_name}`;
-    const trRows=        
-        <Row 
-            born= {row.date_born}
-            address= {row.address}
-            home_phone= {row.home_phone}
-            mobile_phone= {row.mobile_phone}
-            occupation= {row.occupation}
-            profession= {row.profession}
-            gender= {row.gender}
-        />;   
-
+let InfoBasicUser =(props)=>{
     return(
         <article>
-            <h1>Información de participante</h1>
-            <h3>{fullName}</h3>
-            <h5>{row.user.email}</h5>
+            <h3>Información básica del participante</h3>
             <table>
                 <thead>
                     <tr>
+                        <td>Nombres</td>
+                        <td>Apellidos</td>
+                        <td>Correo</td>
                         <td>Fecha nacimiento</td>
                         <td>Dirección</td>
-                        <td>Telefonos / Celular</td>
-                        <td>Ocupación / Profesión</td>
-                        <td>Género</td>
                     </tr>
                 </thead>
                 <tbody>
-                    {trRows}
+                    <tr>
+                        <td>{props.user.first_name}</td>
+                        <td>{props.user.last_name}</td>
+                        <td>{props.user.email}</td>
+                        <td>{props.date_born}</td>
+                        <td>{props.address}</td>
+                    </tr>
                 </tbody>
             </table>
         </article>
     );
 }
 
-let Row = (props) =>{
+let InfoUser =(props)=>{
     return(
-        <tr>
-            <td>{props.born}</td>
-            <td>{props.address}</td>
-            <td>{props.home_phone} <strong>/</strong> {props.mobile_phone}</td>
-            <td>{props.occupation} <strong>/</strong> {props.profession}</td>
-            <td>{props.gender}</td>
-        </tr>
+        <article>
+            <h3>Información de contacto</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Telefonos</td>
+                        <td>Celular</td>
+                        <td>Ocupación</td>
+                        <td>Profesión</td>
+                        <td>Género</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {props.home_phone.length>0?(<td>{props.home_phone}</td>):(<td>No tiene</td>)} 
+                        {props.mobile_phone.length>0?(<td>{props.mobile_phone}</td>):(<td>No tiene</td>)}
+                        {props.occupation.length>0?(<td>{props.occupation}</td>):(<td>No tiene</td>)}            
+                        {props.profession.length>0?(<td>{props.profession}</td>):(<td>No tiene</td>)}            
+                        {props.gender?(<td>Masculino</td>):(<td>Femenino</td>)}
+                    </tr>
+                </tbody>
+            </table>
+        </article>
     );
 }
-
 export default HeaderYoungDetail;
