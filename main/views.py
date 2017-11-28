@@ -147,8 +147,8 @@ def inscriptions_add(request):
                     inscription.do_you_want_ej = True     
                 if whyFds:
                     inscription.why_fds = whyFds     
-                if otherExperiences:
-                    inscription.other_experiences = otherExperiences
+                if otherExperiences=='true':
+                    inscription.other_experiences = True
                 if otherExperiences_which:
                     inscription.experiences_which = otherExperiences_which
                 if settings.DEBUG == True:
@@ -385,3 +385,20 @@ def inscriptions_list(request):
 @login_required(login_url='/login/')
 def inscription_detail(request):
     return render(request, 'inscription_details.html')
+
+def result_inscription(request):
+    template= loader.get_template('result_inscription.html')
+    result = request.GET.get('result', None)
+    message = request.GET.get('message', None)
+    personal_names = request.GET.get('personal_names', None)
+    nFds = request.GET.get('fds', None)
+
+    context = {
+        'result': result,
+        'message':message,
+        'data_register':{
+            'name': personal_names, 
+            'fds': nFds,
+        }
+    }
+    return HttpResponse(template.render(context, request))

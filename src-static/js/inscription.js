@@ -291,7 +291,11 @@ document.addEventListener("DOMContentLoaded",function(){
       console.log(data);
       $('#messageResultInscription').foundation('open');
         if (data.result==='ok') {
-          $('#messageResultInscriptionContent').append($(addMesageResult(data.data_register.name, data.data_register.fds, data.message)));
+          //$('#messageResultInscriptionContent').append($(addMesageResult(data.data_register.name, data.data_register.fds, data.message)));
+          url = `resultado/inscripcion?result=${data.result};message=${data.message};personal_name=${data.data_register.name};fds=${data.data_register.fds}`
+          console.log(url);
+  
+          window.location.href = url;
         } else{
           $('#messageResultInscriptionContent').append($(addMesageResultErrorUserExists(data.data_register.name, data.data_register.email, data.message)));
         }                       
