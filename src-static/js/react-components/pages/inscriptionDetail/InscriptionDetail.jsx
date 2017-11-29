@@ -158,7 +158,7 @@ let SpecialFood = (props)=>{
                 </thead>
                 <tbody>
                     <tr>
-                        {props.illness.length>0?(<td>props.illness</td>):(<td>No tiene</td>)}
+                        {props.illness.length>0?(<td>{props.illness}</td>):(<td>No tiene</td>)}
                         {props.especial_food.length>0?(<td>{props.especial_food}</td>):(<td>No necesita</td>)}
                     </tr>
                 </tbody>

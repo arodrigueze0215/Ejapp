@@ -12,4 +12,5 @@ require("./login.js");
 require('./api/api.jsx')
 require("./react-components/pages/inscriptions-list/index.jsx");
 require("./react-components/pages/inscriptionDetail/index.jsx");
+require("./react-components/ResultsTemplate/index.jsx");
 $(document).foundation();

@@ -387,18 +387,4 @@ def inscription_detail(request):
     return render(request, 'inscription_details.html')
 
 def result_inscription(request):
-    template= loader.get_template('result_inscription.html')
-    result = request.GET.get('result', None)
-    message = request.GET.get('message', None)
-    personal_names = request.GET.get('personal_names', None)
-    nFds = request.GET.get('fds', None)
-
-    context = {
-        'result': result,
-        'message':message,
-        'data_register':{
-            'name': personal_names, 
-            'fds': nFds,
-        }
-    }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'result_inscription.html')

@@ -5,16 +5,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Inscripción</title>
+        <link rel="stylesheet" href="{% static 'css/app.bundle.css' %}" >
+        <title>Resultado</title>
     </head>
     <body>
-        <div>
-            <span>{{result}}</span>
-            <span>{{message}}</span>
-            <span>{{data_register.personal_names}}</span>
-            <span>{{data_register.fds}}</span>
-            
-        </div>
-        
+        <div id="reactTargetResultTemplate"></div>
+        <script src="{% static 'js/app.bundle.js' %}"></script>        
     </body>
 </html>
