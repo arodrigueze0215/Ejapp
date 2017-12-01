@@ -257,30 +257,34 @@ document.addEventListener("DOMContentLoaded",function(){
   
   
   let pushBrotherOnArray= ()=>{
-    let names=$('input[type=text][name=data-brothers-names]').val();
-    let date=$('input[type=date][name=data-brothers-date]').val();
-    let phone=$('input[type=tel][name=data-brothers-phone]').val();
-    let email=$('input[type=email][name=data-brothers-email]').val();
-    let relation=$('select[name=relation]').val();
+    let names=$('input[type=text][name=data-brothers-names]');
+    let date=$('input[type=date][name=data-brothers-date]');
+    let phone=$('input[type=tel][name=data-brothers-phone]');
+    let email=$('input[type=email][name=data-brothers-email]');
+    let relation=$('select[name=relation]');
     let relationText=$('select[name=relation] option:selected').text();
     let brother = {};
     if(names!=''&&names!='undefined'&&names!=null){
-      brother.names=names;
+      brother.names=names.val();
+      names.val('');
     } else{
       brother.names='';
     }
     if(date!=''&&date!='undefined'&&date!=null){
-      brother.date=date;
+      brother.date=date.val();
+      date.val('');
     }else{
       brother.date='';
     }
     if(phone!=''&&phone!='undefined'&&phone!=null){
-      brother.phone=phone;
+      brother.phone=phone.val();
+      phone.val('');
     }else
       brother.phone='';
     
     if(email!=''&&email!='undefined'&&email!=null){
-      brother.email=email;
+      brother.email=email.val();
+      email.val('');
     }else
       brother.email='';
 

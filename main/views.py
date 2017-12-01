@@ -211,6 +211,7 @@ def inscriptions_add(request):
 
     else:
         template= loader.get_template('inscription.html')
+        templateNoFound= loader.get_template('inscription_nofound.html')
         try:
             nFds = request.GET.get('fds',None)
             city = request.GET.get('ciudad',None)
@@ -238,17 +239,46 @@ def inscriptions_add(request):
                             return HttpResponse(template.render(context, request))
                         else:
                             """No está habilitado el fds"""
-                            return render(request, 'inscription_nofound.html')
+                            contextNoFds = {
+                                'title': 'Hola',
+                                'message': 'Está ficha de inscripción aún no está habilitado.',
+                            }
+                            return HttpResponse(templateNoFound.render(contextNoFds, request))
                     else:
                         """El fds fue eliminado lógicamente"""
-                        return render(request, 'inscription_nofound.html')
+                        contextNoFds = {
+                            'title': 'Hola',
+                            'message': 'No existe un Fds activo por ahora.',
+                        }
+                        return HttpResponse(templateNoFound.render(contextNoFds, request))
                 elif now > Fds.date_end:
-                    return render(request, 'inscription_nofound.html')
                     if settings.DEBUG == True:
                         print "Fds pasó"
-            return render(request, 'inscription_nofound.html')
+                    contextNoFds = {
+                        'title': 'Hola',
+                        'message': 'Desafortunádamente la fecha limite para inscripción ha pasado.',
+                    }
+                    return HttpResponse(templateNoFound.render(contextNoFds, request))
+                else:
+                    if settings.DEBUG == True:
+                        print "Fds en progreso"
+                    contextNoFds = {
+                        'title': 'Hola',
+                        'message': 'Desafortunádamente la fecha limite para inscripción ha pasado.',
+                    }
+                    return HttpResponse(templateNoFound.render(contextNoFds, request))
+            else:
+                contextNoFds = {
+                    'title': 'Hola',
+                    'message': 'Desafortunádamente la fecha limite para inscripción ha pasado.',
+                }
+                return HttpResponse(templateNoFound.render(contextNoFds, request))
         except FdsEvents.DoesNotExist:
-            return render(request, 'inscription_nofound.html')
+            contextNoFds = {
+                'title': 'Hola',
+                'message': 'Desafortunádamente la fecha limite para inscripción ha pasado.',
+            }
+            return HttpResponse(templateNoFound.render(contextNoFds, request))
 
 @login_required(login_url='/login/')
 def list_fds(request):
