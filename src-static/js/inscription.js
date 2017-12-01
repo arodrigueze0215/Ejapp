@@ -240,8 +240,8 @@ document.addEventListener("DOMContentLoaded",function(){
     let whoIntiveMe=$('input[type=text][name=whoIntiveMe]').val();
     let whoIntiveMeNumber=$('input[type=tel][name=whoIntiveMeNumber]').val();
     let whyFds=$('input[type=text][name=whyFds]').val();
-    let wantFds=$('input[type=radio][name=wantFds]').is(':checked')? "true": "false";
-    let otherExperiences=$('input[type=radio][name=otherExperiences]').is(':checked')? "true": "false";
+    let wantFds=$('#wantFds_yes').is(':checked')? "true": "false";
+    let otherExperiences=$('#otherExperiences_yes').is(':checked')? "true": "false";
     let otherExperiences_which=$('input[type=text][name=otherExperiences-which]').val();
     data.whoIntiveMe = whoIntiveMe;
     data.whoIntiveMeNumber = whoIntiveMeNumber;
