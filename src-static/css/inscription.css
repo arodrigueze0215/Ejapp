@@ -1,6 +1,9 @@
 .Main{
     &__currentDate{
         width: 30%;
+        @media (--desktop){
+        width: 100%;
+        }
 
     }
     &__personal{
@@ -9,55 +12,101 @@
         &__names{
             display: flex;
             flex-direction: row;
+            @media (--desktop){
+                flex-direction: column;
+
+            }
             &__name{
                 flex-grow: 1;
                 margin-right: 8px;
+                @media (--desktop){
+                    margin-right: 0px;
+                }
 
             }
             &__lastName{
                 flex-grow: 1;
                 margin-left: 8px;
                 margin-right: 8px;
+                @media (--desktop){
+                    margin-left: 0px;
+                    margin-right: 0px;
+
+                }
 
             }
             &__dateBorn{
                 flex-grow: 1;
                 margin-left: 8px;
+                @media (--desktop){
+                    margin-left: 0px;
+
+                }
 
             }
         }
         &__numbers{
             display: flex;
             flex-direction: row;
+            @media (--desktop){
+                flex-direction: column;
+
+            }
             &__homePhone{
                 flex-grow: 1;
                 margin-right: 8px;
+                @media (--desktop){
+                    margin-right: 0px;
+                }
             }
             &__mobilePhone{
                 flex-grow: 1;
                 margin-left: 8px;
                 margin-right: 8px;
+                @media (--desktop){
+                    margin-left: 0px;
+                    margin-right: 0px;
+
+                }
             }
             &__address{
                 flex-grow: 1;
                 margin-left: 8px;
+                @media (--desktop){
+                    margin-left: 0px;
+                }
             }
         }
         &__addresses{
             display: flex;
             flex-direction: row;
+            @media (--desktop){
+                flex-direction: column;
+            }
             &__email{
                 flex-grow: 1;
                 margin-right: 8px;
+                @media (--desktop){
+                    margin-right: 0px;
+                }
             }
             &__profesion{
                 flex-grow: 1;
                 margin-left: 8px;
                 margin-right: 8px;
+                @media (--desktop){
+                    margin-left: 0px;
+                    margin-right: 0px;
+
+                }
             }
             &__occupation{
                 flex-grow: 1;
                 margin-left: 8px;
+                @media (--desktop){
+                    margin-left: 0px;
+                    margin-right: 0px;
+                }
             }
         }
         &__whoLife{           
@@ -100,13 +149,22 @@
         &__data{
             display:flex;
             flex-direction:row;
+            @media (--desktop){
+                flex-direction: column;
+            }
             &__carrer{
                 flex-grow:1;
                 margin-right:8px;
+                @media (--desktop){
+                    margin-right: 0px;
+                }
             }
             &__whereStudy{
                 flex-grow:1;
                 margin-left:8px;
+                @media (--desktop){
+                    margin-left: 0px;
+                }
             }
         }
     }
@@ -115,18 +173,33 @@
         &__data{
             display:flex;
             flex-direction:row;
+             @media (--desktop){
+                flex-direction: column;
+
+            }
             &__company{
                 flex-grow:1;
                 margin-right:8px;
+                @media (--desktop){
+                    margin-right: 0px;
+                }
             }
             &__role{
                 flex-grow:1;
                 margin-left:8px;
                 margin-right:8px;
+                @media (--desktop){
+                    margin-left: 0px;
+                    margin-right: 0px;
+
+                }
             }
             &__phone{
                 flex-grow:1;
                 margin-left:8px;
+                 @media (--desktop){
+                    margin-left: 0px;
+                }
             }
         }
     }
@@ -136,30 +209,52 @@
                 &__one{
                     display:flex;
                     flex-direction:row;
+                    @media (--desktop){
+                        flex-direction: column;
+                    }
                     &__names{
                         flex-grow:1;
                         margin-right:8px;
+                        @media (--desktop){
+                            margin-right: 0px;
+                        }
                     }
                     &__ocupation{
                         flex-grow:1;
                         margin-left:8px;
+                        @media (--desktop){
+                            margin-left: 0px;
+                        }
                     }
                 }
                 &__two{
                     display:flex;
                     flex-direction:row;
+                    @media (--desktop){
+                        flex-direction: column;
+                    }
                     &__phoneHome{
                         flex-grow:1;
                         margin-right:8px;
+                        @media (--desktop){
+                            margin-right: 0px;
+                        }
                     }
                     &__phone{
                         flex-grow:1;
                         margin-right:8px;
                         margin-left:8px;
+                        @media (--desktop){
+                            margin-right: 0px;
+                            margin-left: 0px;
+                        }
                     }
                     &__address{
                         flex-grow:1;
                         margin-left:8px;
+                        @media (--desktop){
+                            margin-left: 0px;
+                        }
                     }
                 }
             }
@@ -170,30 +265,53 @@
                 &__one{
                     display:flex;
                     flex-direction:row;
+                    @media (--desktop){
+                        flex-direction: column;
+                    }
                     &__names{
                         flex-grow:1;
                         margin-right:8px;
+                        @media (--desktop){
+                            margin-right: 0px;
+                        }
                     }
                     &__ocupation{
                         flex-grow:1;
                         margin-left:8px;
+                        @media (--desktop){
+                            margin-left: 0px;
+                        }
                     }
                 }
                 &__two{
                     display:flex;
                     flex-direction:row;
+                    @media (--desktop){
+                        flex-direction: column;
+                    }
                     &__phoneHome{
                         flex-grow:1;
                         margin-right:8px;
+                        @media (--desktop){
+                            margin-right: 0px;
+                        }
+                        
                     }
                     &__phone{
                         flex-grow:1;
                         margin-right:8px;
                         margin-left:8px;
+                        @media (--desktop){
+                            margin-right: 0px;
+                            margin-left: 0px;
+                        }
                     }
                     &__address{
                         flex-grow:1;
                         margin-left:8px;
+                        @media (--desktop){
+                            margin-left: 0px;
+                        }
                     }
                 }
             }

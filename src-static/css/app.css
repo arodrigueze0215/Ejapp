@@ -17,3 +17,13 @@
     width: 80%;
     margin: 2px auto;
 }
+/* DESKTOP */
+@custom-media --desktop (max-width: 1235px);
+/* TABLET LANDSCAPE*/
+@custom-media --tablet-landscape (max-width: 1024px);
+/*TABLETS PORTRAIT*/
+@custom-media --tablet-portrait (max-width: 768px);
+/*SMARTPHONES LANDSCAPE*/
+@custom-media --smart-landscape (max-width: 480px);
+/*SMARTPHONES PORTRAIT*/
+@custom-media --smart-portrait (max-width: 300px);
