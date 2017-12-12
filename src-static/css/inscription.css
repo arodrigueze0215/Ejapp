@@ -17,7 +17,7 @@
 
             }
             &__name{
-                flex-grow: 1;
+                flex-grow: 20;
                 margin-right: 8px;
                 @media (--desktop){
                     margin-right: 0px;
@@ -25,7 +25,7 @@
 
             }
             &__lastName{
-                flex-grow: 1;
+                flex-grow: 20;
                 margin-left: 8px;
                 margin-right: 8px;
                 @media (--desktop){
@@ -36,7 +36,7 @@
 
             }
             &__dateBorn{
-                flex-grow: 1;
+                flex-grow: 10;
                 margin-left: 8px;
                 @media (--desktop){
                     margin-left: 0px;
@@ -53,14 +53,14 @@
 
             }
             &__homePhone{
-                flex-grow: 1;
+                flex-grow: 10;
                 margin-right: 8px;
                 @media (--desktop){
                     margin-right: 0px;
                 }
             }
             &__mobilePhone{
-                flex-grow: 1;
+                flex-grow: 10;
                 margin-left: 8px;
                 margin-right: 8px;
                 @media (--desktop){
@@ -70,7 +70,7 @@
                 }
             }
             &__address{
-                flex-grow: 1;
+                flex-grow: 20;
                 margin-left: 8px;
                 @media (--desktop){
                     margin-left: 0px;
@@ -321,27 +321,68 @@
             &__data{
                 display:flex;
                 flex-direction:row;
+                @media (--tablet-portrait-900){
+                    flex-wrap: wrap;                
+                }
+                @media (--tablet-portrait){
+                    flex-direction: column;           
+                }
                 &__names{
                     flex-grow:1;
                     margin-left:8px;
+                    @media (--tablet-portrait-963){
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    @media (--tablet-portrait){
+                        margin-left:0px;
+                    }
 
                 }
                 &__date{
                     flex-grow:1;
                     margin-left:8px;
                     margin-right:8px;
+                    @media (--tablet-portrait-963){
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    @media (--tablet-portrait){
+                        margin-left:0px;
+                        margin-right:0px;
+                    }
 
                 }
                 &__phone{
                     flex-grow:1;
                     margin-left:8px;
                     margin-right:8px;
+                    @media (--tablet-portrait-963){
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    @media (--tablet-portrait){
+                        margin-left:0px;
+                        margin-right:0px;
+                    }
 
                 }
                 &__email{
                     flex-grow:1;
                     margin-left:8px;
                     margin-right:8px;
+                    @media (--tablet-portrait-963){
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    @media (--tablet-portrait){
+                        margin-left:0px;
+                        margin-right:0px;
+                    }
 
                 }
                 &__relations{
@@ -350,14 +391,32 @@
                     margin-right:8px;
                     margin-top: 24px;
                     width:16%;
+                    @media (--tablet-portrait-963){
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    @media (--tablet-portrait){
+                        width:100%;
+                        margin-left:0px;
+                        margin-right:0px;
+                    }
                 }
                 &__save{
                     flex-grow:1;
                     margin-right:8px;
                     margin-top: 24px;
+                    @media (--tablet-portrait){
+                        margin-right:0px;
+                    }
 
                 }
             }  
+            &__table{
+                @media (--tablet-portrait){
+                    overflow: auto;
+                }
+            }
         }
     }
     &__generalInfo{
@@ -365,6 +424,9 @@
             &__one{
                 display:flex;
                 flex-direction: row;
+                @media (--tablet-portrait-900){
+                    flex-wrap: wrap;                
+                }
                 &__whoIntiveMe{
                     flex-grow:3;
                     margin-right:8px;

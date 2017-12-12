@@ -18,11 +18,15 @@
     margin: 2px auto;
 }
 /* DESKTOP */
-@custom-media --desktop (max-width: 1235px);
+@custom-media --desktop (max-width: 1240px);
 /* TABLET LANDSCAPE*/
 @custom-media --tablet-landscape (max-width: 1024px);
 /*TABLETS PORTRAIT*/
-@custom-media --tablet-portrait (max-width: 768px);
+@custom-media --tablet-portrait-963 (max-width: 963px);
+/*TABLETS PORTRAIT*/
+@custom-media --tablet-portrait-900 (max-width: 900px);
+/*TABLETS PORTRAIT*/
+@custom-media --tablet-portrait (max-width: 800px);
 /*SMARTPHONES LANDSCAPE*/
 @custom-media --smart-landscape (max-width: 480px);
 /*SMARTPHONES PORTRAIT*/
