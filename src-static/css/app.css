@@ -2,6 +2,7 @@
 @import "inscription.css";
 @import "override-foundation.css";
 @import "datatable.net.css";
+@import "responsive.dataTables.css";
 @import "fds-list.css";
 @import "login.css";
 @import "nofound.css";

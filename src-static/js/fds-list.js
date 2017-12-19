@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded",function(){
     var csrftoken = csrf.csrfToken('csrftoken');
     
     $('#listFdsTable').DataTable({
+        responsive:true,
         "columns": [
             null,
             null,

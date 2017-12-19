@@ -4,6 +4,16 @@
     top:0;
     width:100%;
     z-index:1000;
+    &__menuOptions{
+    }
+    &__hamburger{
+        display: none;
+        &__image{
+            width: 48px;
+            height: 48px;
+            background-color: #f8ed53;
+        }
+    }
     &__itemMenuSelected{
         color:var(--grayHover);
     }

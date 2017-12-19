@@ -427,13 +427,26 @@
                 @media (--tablet-portrait-900){
                     flex-wrap: wrap;                
                 }
+                @media (--tablet-portrait){
+                    flex-direction: column;
+                }
                 &__whoIntiveMe{
                     flex-grow:3;
                     margin-right:8px;
+                    @media (--tablet-portrait){
+                        margin-right:0px;
+
+                    }
+                    
                 }
                 &__whoIntiveMeNumber{
                     flex-grow:1;
                     margin-left:8px;
+                    @media (--tablet-portrait){
+                        margin-left:0px;
+                        
+                    }
+                    
                 }
             }
         }
@@ -446,10 +459,18 @@
         &__register{
             width:50%;
             margin: 4px auto;
+            @media (--tablet-portrait){
+                width:100%;
+
+            }
         }
         &__error{
             width:50%;
             margin: 4px auto;
+            @media (--tablet-portrait){
+                width:100%;
+
+            }
         }
     }
 }
