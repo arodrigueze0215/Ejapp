@@ -5,13 +5,18 @@
     width:100%;
     z-index:1000;
     &__menuOptions{
+        @media (--tablet-portrait-963){
+            display: none;
+        }
     }
     &__hamburger{
         display: none;
+        @media (--tablet-portrait-963){
+            display: block;
+        }
         &__image{
-            width: 48px;
-            height: 48px;
-            background-color: #f8ed53;
+            width: 32px;
+            height: 24px;
         }
     }
     &__itemMenuSelected{
