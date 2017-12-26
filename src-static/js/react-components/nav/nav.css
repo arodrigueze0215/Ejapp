@@ -12,6 +12,9 @@
     &__hamburger{
         display: none;
         @media (--tablet-portrait-963){
+            position: absolute;
+            top: 13px;
+            right: 13px;
             display: block;
         }
         &__image{
@@ -22,4 +25,43 @@
     &__itemMenuSelected{
         color:var(--grayHover);
     }
+}
+.menuSlide{
+    display: none;
+    @media (--tablet-portrait-963){
+        display: flex;
+        width: 100%;
+        position: absolute;
+        right: -100%;
+        top:54px;
+        bottom: 0;
+        z-index: 100;
+        background: var(--yellowTransparent);
+        align-items: center;
+        font-size: 32px;
+        transition: 300ms;
+    }
+    &--active{
+        right: 0;
+    }
+    &__listItem{
+        @media (--tablet-portrait-963){
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            text-align: center;
+            
+        }
+        & li{
+            border-bottom: 1px solid black;
+        }
+        & a{
+            color: black;
+            cursor: pointer;
+        }
+
+    }
+}
+.body__scroll--active{
+    overflow: hidden;
 }

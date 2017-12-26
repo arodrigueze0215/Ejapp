@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded",function(){
             null,
             { "orderable": false },
         ],
+        "scrollX": false,
         "language": { 
             "decimal":        "",
             "emptyTable":     "Ningun Fds creado en esta tabla",
@@ -125,6 +126,15 @@ document.addEventListener("DOMContentLoaded",function(){
     });
     $('button[type=button][name=cancel_delete]').on('click', function() {
         $('#deleteFds_content').children().remove();
+    });
+
+    $('#navEj__hamburgers').on('click', ()=>{
+        $('#menuSlide').toggleClass('menuSlide--active');
+        $('body').toggleClass('body__scroll--active');
+    });
+    $('#navEj__hamburgers').on('touch', ()=>{
+        $('#menuSlide').toggleClass('menuSlide--active');
+        $('body').toggleClass('body__scroll--active');
     });
     /**Events */
 

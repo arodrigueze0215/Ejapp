@@ -9,6 +9,7 @@ function initDatatable(params) {
             null,
             { "orderable": false },
         ],
+        "scrollX": false,
         "language": { 
             "decimal":        "",
             "emptyTable":     "Ningun Inscrito aún",
