@@ -2,7 +2,6 @@
 @import "inscription.css";
 @import "override-foundation.css";
 @import "datatable.net.css";
-@import "responsive.dataTables.css";
 @import "fds-list.css";
 @import "login.css";
 @import "nofound.css";
@@ -34,6 +33,8 @@ body{
 @custom-media --tablet-portrait-900 (max-width: 900px);
 /*TABLETS PORTRAIT*/
 @custom-media --tablet-portrait (max-width: 800px);
+/*SMARTPHONES LANDSCAPE*/
+@custom-media --smart-landscape-640 (max-width: 640px);
 /*SMARTPHONES LANDSCAPE*/
 @custom-media --smart-landscape (max-width: 480px);
 /*SMARTPHONES PORTRAIT*/
