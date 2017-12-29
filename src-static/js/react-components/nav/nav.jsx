@@ -91,9 +91,7 @@ let NavLogo = (props) =>{
 let Hamburger = ()=>{
     function onClickHamburger(){
         let $menuSlide = document.getElementById('menuSlide');
-        let $body = document.getElementsByTagName("BODY")[0];
         $menuSlide.classList.toggle('menuSlide--active');
-        $body.classList.toggle('body__scroll--active');
         
     }
     return(

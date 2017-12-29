@@ -1,3 +1,11 @@
-.Section__inscriptionDetail{
+.inscriptionDetail{
     margin-top:8%;
+    &__basic{
+        overflow: auto;
+    
+    }
+    &__contact{
+        overflow: auto;
+    }
+
 }

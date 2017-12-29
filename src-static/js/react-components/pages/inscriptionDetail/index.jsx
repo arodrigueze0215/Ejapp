@@ -9,7 +9,7 @@ let MainDetail = (props) =>{
         <div>
             <Nav/>
             <div className="Main">
-                <InscriptionDetail classSection="Section__inscriptionDetail"/>   
+                <InscriptionDetail classSection="inscriptionDetail"/>   
             </div>
         </div>
 

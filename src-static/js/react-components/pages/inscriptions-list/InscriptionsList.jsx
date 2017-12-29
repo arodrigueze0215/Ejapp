@@ -68,6 +68,7 @@ let MessageLoading=(props) =>{
 let RenderTable=(props)=> {
     let id = props.id;
     let rows = props.data;
+     
     const trRows=rows.map(row => {
         let fullName = `${row.young.user.first_name} ${row.young.user.last_name}`
 
@@ -86,7 +87,7 @@ let RenderTable=(props)=> {
     return(
         <section className={props.classSection}>
             <h2>Lista de inscritos FDS{props.header.number_fds}</h2>
-            <table id={id}>
+            <table id={id} style={{width:"100%"}}>
                 <thead>
                     <tr>
                         <td>Nombre</td>
