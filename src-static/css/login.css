@@ -1,0 +1,21 @@
+.Main{
+    &__sectionLogin{
+        margin: 10% 30%;
+        @media (--tablet-portrait){
+            margin: 10% 10%;
+
+        }
+        @media (--smart-landscape){
+            margin: 10% auto;
+
+        }
+        &__contentActions{
+            &__login{
+                width:100%;
+                background-color: var(--primaryColor);
+
+            }
+
+        }
+    }
+}

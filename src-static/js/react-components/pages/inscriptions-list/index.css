@@ -1,0 +1,23 @@
+#react-target-inscriptionslist{
+     overflow: auto;
+    @media (--tablet-portrait-963){
+        height: 150vh;
+
+    }
+}
+.content__inscriptionsList{
+    margin-top:8%;
+    @media (--smart-landscape-640){
+        font-size: 12px;
+
+    }
+    @media (--tablet-portrait){
+        margin-top:16%;
+    }
+    @media (--smart-landscape){
+        margin-top:22%;
+    }
+    @media (--smart-portrait){
+        margin-top:28%;
+    }
+}

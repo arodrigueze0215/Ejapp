@@ -3,7 +3,39 @@
 @import "override-foundation.css";
 @import "datatable.net.css";
 @import "fds-list.css";
+@import "login.css";
+@import "nofound.css";
+@import "../js/react-components/nav/nav.css";
+@import "../js/react-components/pages/inscriptions-list/index.css";
+@import "../js/react-components/pages/inscriptionDetail/index.css";
+@import "../js/react-components/ResultsTemplate/index.css";
 :root{
     --primaryColor:#CD2B26;
     --grayHover:#D5D5D5;
+    --yellowPrimaryColor: #f8ed53;
+    --yellowTransparent: rgba(248, 237, 83,.9);
 }
+body{
+    overflow-x: hidden;
+
+}
+.Main{
+    width: 80%;
+    margin: 2px auto;
+}
+/* DESKTOP */
+@custom-media --desktop (max-width: 1240px);
+/* TABLET LANDSCAPE*/
+@custom-media --tablet-landscape (max-width: 1024px);
+/*TABLETS PORTRAIT*/
+@custom-media --tablet-portrait-963 (max-width: 963px);
+/*TABLETS PORTRAIT*/
+@custom-media --tablet-portrait-900 (max-width: 900px);
+/*TABLETS PORTRAIT*/
+@custom-media --tablet-portrait (max-width: 800px);
+/*SMARTPHONES LANDSCAPE*/
+@custom-media --smart-landscape-640 (max-width: 640px);
+/*SMARTPHONES LANDSCAPE*/
+@custom-media --smart-landscape (max-width: 480px);
+/*SMARTPHONES PORTRAIT*/
+@custom-media --smart-portrait (max-width: 300px);

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     {% load staticfiles %}
-     <title>Ficha de inscripción</title>
-     <head>
-         <!-- Compressed CSS -->
+    <head>
+        <!-- Compressed CSS -->
         <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css" integrity="sha256-itWEYdFWzZPBG78bJOOiQIn06QCgN/F0wMDcC4nOhxY=" crossorigin="anonymous" />-->
         <link rel="stylesheet" href="{% static 'css/app.bundle.css' %}" >
-         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>Ficha de inscripción</title>
      </head>
      <body>
         <div class="Main">
@@ -17,7 +17,7 @@
                     <p><i class="fi-alert"></i> Hay algunos errores en la inscripción.</p>
                 </div>
                 <label>Fecha de inscripción
-                    <input type="date" placeholder="Fecha de inscripción">
+                    <input class="Main__currentDate" type="date" name="current_date" placeholder="Fecha de inscripción" disabled >
                 </label>                
                 <section class="Main__personal">
                     <h2> Datos personales</h2>
@@ -55,16 +55,22 @@
                         <label class="Main__personal__numbers__mobilePhone">Móvil
                             <input type="tel" name="personal_mobilephone" placeholder="Número telefónico personal">
                         </label>
-                    </div>
-                    <div class="Main__personal__addresses">
-                        <label class="Main__personal__addresses__address">Dirección
+                        <label class="Main__personal__numbers__address">Dirección
                             <input type="text" name="personal_address" placeholder="Dirección de residencia">
                         </label>
+                    </div>
+                    <div class="Main__personal__addresses">
                         <label class="Main__personal__addresses__email">Correo electrónico
                             <input type="email" name="personal_email" placeholder="Dirección de Correo electrónico" required>
                             <span class="form-error">
                                Hace falta tu correo electrónico
                             </span>
+                        </label>
+                        <label class="Main__personal__addresses__profesion">Profesión
+                            <input type="text" name="personal_preofession" placeholder="Profesión">
+                        </label>
+                        <label class="Main__personal__addresses__occupation">Ocupación
+                            <input type="text" name="personal_occupation" placeholder="Ocupación">
                         </label>
                     </div>
                     <div class="Main__personal__whoLife">
@@ -73,47 +79,65 @@
                             <div class="Main__personal__whoLife__check">
                                 
                                 <div class="Main__personal__whoLife__check__lifeWithGran">
-                                    <input id="life_with_gran" type="checkbox">
-                                    Abuelos
+                                    <label>
+                                        <input id="life_with_gran" type="checkbox">
+                                        Abuelos
+                                    </label>
                                 </div>
                                 
                                 <div class="Main__personal__whoLife__check__lifeWithParent">
-                                    <input id="life_with_parent" type="checkbox">
-                                    Padres
+                                    <label>
+                                        <input id="life_with_parent" type="checkbox">
+                                        Padres
+                                    </label>
                                 </div>
                                 
                                 <div class="Main__personal__whoLife__check__lifeWithOnlyMother">
-                                    <input id="life_with_only_mother" type="checkbox">
-                                    Solo madre                                    
+                                    <label>
+                                        <input id="life_with_only_mother" type="checkbox">
+                                        Solo madre                                    
+                                    </label>
                                 </div>
                                 <div class="Main__personal__whoLife__check__lifeWithOnlyFather">
-                                    <input id="life_with_only_father" type="checkbox">
-                                    Solo padre
+                                    <label>
+                                        <input id="life_with_only_father" type="checkbox">
+                                        Solo padre
+                                    </label>
                                 </div>
                                 
                                 <div class="Main__personal__whoLife__check__lifeWithUncles">
-                                    <input id="life_with_uncles" type="checkbox">
-                                    Tíos
+                                    <label>
+                                        <input id="life_with_uncles" type="checkbox">
+                                        Tíos
+                                    </label>
                                 </div>
                                 
                                 <div class="Main__personal__whoLife__check__lifeWithFriends">
-                                    <input id="life_with_friends" type="checkbox">
-                                    Amigos
+                                    <label>
+                                        <input id="life_with_friends" type="checkbox">
+                                        Amigos
+                                    </label>
                                 </div>
                                 
                                 <div class="Main__personal__whoLife__check__lifeWithCousins">
-                                    <input id="life_with_cousins" type="checkbox">
-                                    Primos
+                                    <label>
+                                        <input id="life_with_cousins" type="checkbox">
+                                        Primos
+                                    </label>
                                 </div>
                                 
                                 <div class="Main__personal__whoLife__check__lifeWithBrothers">
-                                    <input id="life_with_brothers" type="checkbox">
-                                    Hermanos
+                                    <label>
+                                        <input id="life_with_brothers" type="checkbox">
+                                        Hermanos
+                                    </label>
                                 </div>
                                 
                                 <div class="Main__personal__whoLife__check__lifeWithAlone">
-                                    <input id="life_with_alone" type="checkbox">
-                                    Solo
+                                    <label>
+                                        <input id="life_with_alone" type="checkbox">
+                                        Solo
+                                    </label>
                                 </div>
                             </div>
                         </fieldset>
@@ -227,7 +251,7 @@
                         </div>
                     </div>
                     <div class="Main__family__brothers">
-                        <h4> Datos de tus hermanos</h4>
+                        <h4> Datos de tus hermanos (as) /Primos (as)</h4>
                         <div class="Main__family__brothers__data">
                             <label class="Main__family__brothers__data__names">Nombre completo
                                 <input type="text" name="data-brothers-names" placeholder="Nombres y apellidos">
@@ -241,16 +265,22 @@
                             <label class="Main__family__brothers__data__email">Correo electrónico
                                 <input type="email" name="data-brothers-email" placeholder="Correo">
                             </label>
+                            <select name="relation" class="Main__family__brothers__data__relations">
+                                {% for relation in relations %}
+                                    <option value="{{relation.0}}">{{relation.1}}</option>
+                                {% endfor %}
+                            </select>
                             <button  id="brothersDataSave" type="button" class="Main__family__brothers__data__save button">Agregar</button>
                         </div>
                         <div class="Main__family__brothers__table">
-                            <table id="listBroders">
+                            <table id="listBroders" class="table-scroll">
                                 <thead>
                                     <tr>
                                         <th>nombres</th>
                                         <th>Fecha nacimiento</th>
                                         <th>Teléfono</th>
                                         <th>Correo Electrónico</th>
+                                        <th>Relación</th>
                                     </tr>
                                 </thead>
                                 <tbody>

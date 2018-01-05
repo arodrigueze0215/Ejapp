@@ -1,6 +1,17 @@
-import * as csrftoken from './csrftoken.js';
+import * as csrftoken from './libs/csrftoken.js';
 document.addEventListener("DOMContentLoaded",function(){
   let brothers = new Array();
+  let today = ()=> {
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth()+1; //January is 0!
+    let yyyy = today.getFullYear();  
+    if(dd<10) dd = '0'+dd;    
+    if(mm<10) mm = '0'+mm;    
+    return  `${yyyy}-${mm}-${dd}`;
+  }
+  $('input[type=date][name=current_date]').val(today());
+
 
    $('input[type=radio][name=study]').change(function(){
        switch($(this).val()) {
@@ -9,22 +20,37 @@ document.addEventListener("DOMContentLoaded",function(){
             $('input[type=text][name=study_where]').removeAttr('disabled');
              break;
          case 'false':
-          $('input[type=text][name=study_carrer]').attr('disabled', 'disabled');
+         $('input[type=text][name=study_carrer]').attr('disabled', 'disabled');
+          if($('input[type=text][name=study_carrer]').val().length>0){
+            $('input[type=text][name=study_carrer]').val('');
+          }
           $('input[type=text][name=study_where]').attr('disabled', 'disabled');
+          if($('input[type=text][name=study_where]').val().length>0){
+            $('input[type=text][name=study_where]').val('');
+          }
              break;
      }
    });
     $('input[type=radio][name=work]').change(function(){
        switch($(this).val()) {
          case 'true':
-          $('input[type=text][name=work_company]').removeAttr('disabled');         
-          $('input[type=text][name=work_role]').removeAttr('disabled');         
-          $('input[type=tel][name=work_phone]').removeAttr('disabled');         
-             break;
+         $('input[type=text][name=work_company]').removeAttr('disabled');         
+         $('input[type=text][name=work_role]').removeAttr('disabled');         
+         $('input[type=tel][name=work_phone]').removeAttr('disabled');         
+         break;
          case 'false':
-          $('input[type=text][name=work_company]').attr('disabled', 'disabled');         
+         $('input[type=text][name=work_company]').attr('disabled', 'disabled');         
+          if($('input[type=text][name=work_company]').val().length>0){
+            $('input[type=text][name=work_company]').val('');
+          }
           $('input[type=text][name=work_role]').attr('disabled', 'disabled');         
+          if($('input[type=text][name=work_role]').val().length>0){
+            $('input[type=text][name=work_role]').val('');
+          }
           $('input[type=tel][name=work_phone]').attr('disabled', 'disabled');
+          if($('input[type=tel][name=work_phone]').val().length>0){
+            $('input[type=tel][name=work_phone]').val('');
+          }
              break;
      }
    });
@@ -38,9 +64,21 @@ document.addEventListener("DOMContentLoaded",function(){
              break;
          case 'false':
           $('input[type=text][name=dad_ocupation]').attr('disabled', 'disabled');         
+          if($('input[type=text][name=dad_ocupation]').val().length>0){
+              $('input[type=text][name=dad_ocupation]').val('');
+          }
           $('input[type=tel][name=dad_phone_home]').attr('disabled', 'disabled');
+          if($('input[type=tel][name=dad_phone_home]').val().length>0){
+              $('input[type=tel][name=dad_phone_home]').val('');
+          }
           $('input[type=tel][name=dad_phone]').attr('disabled', 'disabled');
+          if($('input[type=tel][name=dad_phone]').val().length>0){
+              $('input[type=tel][name=dad_phone]').val('');
+          }
           $('input[type=text][name=dad_address]').attr('disabled', 'disabled');
+          if($('input[type=text][name=dad_address]').val().length>0){
+              $('input[type=text][name=dad_address]').val('');
+          }
              break;
      }
    });
@@ -54,9 +92,21 @@ document.addEventListener("DOMContentLoaded",function(){
              break;
          case 'false':
           $('input[type=text][name=mom_ocupation]').attr('disabled', 'disabled');         
+          if($('input[type=text][name=mom_ocupation]').val().length>0){
+            $('input[type=text][name=mom_ocupation]').val('');
+          }
           $('input[type=tel][name=mom_phone_home]').attr('disabled', 'disabled');
+          if($('input[type=tel][name=mom_phone_home]').val().length>0){
+            $('input[type=tel][name=mom_phone_home]').val('');
+          }
           $('input[type=tel][name=mom_phone]').attr('disabled', 'disabled');
+          if($('input[type=tel][name=mom_phone]').val().length>0){
+            $('input[type=tel][name=mom_phone]').val('');
+          }
           $('input[type=text][name=mom_address]').attr('disabled', 'disabled');
+          if($('input[type=text][name=mom_address]').val().length>0){
+            $('input[type=text][name=mom_address]').val('');
+          }
              break;
      }
    });
@@ -66,7 +116,10 @@ document.addEventListener("DOMContentLoaded",function(){
           $('input[type=text][name=otherExperiences-which]').removeAttr('disabled', 'disabled');
              break;
          case 'false':
-          $('input[type=text][name=otherExperiences-which]').attr('disabled', 'disabled');
+         $('input[type=text][name=otherExperiences-which]').attr('disabled', 'disabled');
+          if($('input[type=text][name=otherExperiences-which]').val().length>0){
+            $('input[type=text][name=otherExperiences-which]').val('');
+          }
              break;
      }
    });
@@ -108,7 +161,8 @@ document.addEventListener("DOMContentLoaded",function(){
 
   let getDataFromInputs = ()=>{
     let data = {};
-    let gender=$('input[type=radio][name=gender]').is(':checked')? true: false;
+    let current_date=$('input[type=date][name=current_date]').val();
+    let gender=$('input[type=radio][name=gender]').is(':checked')? "true": "false";
     let personal_names=$('input[type=text][name=personal_names]').val();
     let personal_lastnames=$('input[type=text][name=personal_lastnames]').val();
     let personal_dateborn=$('input[type=date][name=personal_dateborn]').val();
@@ -116,6 +170,9 @@ document.addEventListener("DOMContentLoaded",function(){
     let personal_mobilephone=$('input[type=tel][name=personal_mobilephone]').val();
     let personal_address=$('input[type=text][name=personal_address]').val();
     let personal_email=$('input[type=email][name=personal_email]').val();
+    let personal_prodession=$('input[type=text][name=personal_profession]').val();
+    let personal_occupation=$('input[type=text][name=personal_occupation]').val();
+    data.current_date = current_date;
     data.personal_gender = gender;
     data.personal_names =personal_names;
     data.personal_lastnames = personal_lastnames;
@@ -124,22 +181,24 @@ document.addEventListener("DOMContentLoaded",function(){
     data.personal_mobilephone = personal_mobilephone;
     data.personal_address = personal_address;
     data.personal_email = personal_email;
-    data.life_with_gran = $('#life_with_gran').is(':checked')? true: false;
-    data.life_with_parent = $('#life_with_parent').is(':checked')? true: false;
-    data.life_with_only_mother = $('#life_with_only_mother').is(':checked')? true: false;
-    data.life_with_only_father = $('#life_with_only_father').is(':checked')? true: false;
-    data.life_with_uncles = $('#life_with_uncles').is(':checked')? true: false;
-    data.life_with_friends = $('#life_with_friends').is(':checked')? true: false;
-    data.life_with_cousins = $('#life_with_cousins').is(':checked')? true: false;
-    data.life_with_brothers = $('#life_with_brothers').is(':checked')? true: false;
-    data.life_with_alone = $('#life_with_alone').is(':checked')? true: false;
-    let study=$('input[type=radio][name=study]').is(':checked')? true: false;
+    data.personal_prodession = personal_prodession;
+    data.personal_occupation = personal_occupation;
+    data.life_with_gran = $('#life_with_gran').is(':checked')? "true": "false";
+    data.life_with_parent = $('#life_with_parent').is(':checked')? "true": "false";
+    data.life_with_only_mother = $('#life_with_only_mother').is(':checked')? "true": "false";
+    data.life_with_only_father = $('#life_with_only_father').is(':checked')? "true": "false";
+    data.life_with_uncles = $('#life_with_uncles').is(':checked')? "true": "false";
+    data.life_with_friends = $('#life_with_friends').is(':checked')? "true": "false";
+    data.life_with_cousins = $('#life_with_cousins').is(':checked')? "true": "false";
+    data.life_with_brothers = $('#life_with_brothers').is(':checked')? "true": "false";
+    data.life_with_alone = $('#life_with_alone').is(':checked')? "true": "false";
+    let study=$('input[type=radio][name=study]').is(':checked')? "true": "false";
     let study_carrer=$('input[type=text][name=study_carrer]').val();
     let study_where=$('input[type=text][name=study_where]').val();
     data.study = study;
     data.study_carrer = study_carrer;
     data.study_where = study_where;
-    let work=$('input[type=radio][name=work]').is(':checked')? true: false;
+    let work=$('input[type=radio][name=work]').is(':checked')? "true": "false";
     let work_company=$('input[type=text][name=work_company]').val();
     let work_role=$('input[type=text][name=work_role]').val();
     let work_phone=$('input[type=text][name=work_phone]').val();
@@ -147,7 +206,7 @@ document.addEventListener("DOMContentLoaded",function(){
     data.work_company = work_company;
     data.work_role = work_role;
     data.work_phone = work_phone;
-    let dad=$('input[type=radio][name=dad]').is(':checked')? true: false;
+    let dad=$('input[type=radio][name=dad]').is(':checked')? "true": "false";
     let dad_names=$('input[type=text][name=dad_names]').val();
     let dad_ocupation=$('input[type=text][name=dad_ocupation]').val();
     let dad_phone_home=$('input[type=tel][name=dad_phone_home]').val();
@@ -159,7 +218,7 @@ document.addEventListener("DOMContentLoaded",function(){
     data.dad_phone_home = dad_phone_home;
     data.dad_phone = dad_phone;
     data.dad_address = dad_address;
-    let mom=$('input[type=radio][name=mom]').is(':checked')? true: false;
+    let mom=$('input[type=radio][name=mom]').is(':checked')? "true": "false";
     let mom_names=$('input[type=text][name=mom_names]').val();
     let mom_ocupation=$('input[type=text][name=mom_ocupation]').val();
     let mom_phone_home=$('input[type=tel][name=mom_phone_home]').val();
@@ -181,8 +240,8 @@ document.addEventListener("DOMContentLoaded",function(){
     let whoIntiveMe=$('input[type=text][name=whoIntiveMe]').val();
     let whoIntiveMeNumber=$('input[type=tel][name=whoIntiveMeNumber]').val();
     let whyFds=$('input[type=text][name=whyFds]').val();
-    let wantFds=$('input[type=radio][name=wantFds]').is(':checked')? true: false;
-    let otherExperiences=$('input[type=radio][name=otherExperiences]').is(':checked')? true: false;
+    let wantFds=$('#wantFds_yes').is(':checked')? "true": "false";
+    let otherExperiences=$('#otherExperiences_yes').is(':checked')? "true": "false";
     let otherExperiences_which=$('input[type=text][name=otherExperiences-which]').val();
     data.whoIntiveMe = whoIntiveMe;
     data.whoIntiveMeNumber = whoIntiveMeNumber;
@@ -198,41 +257,55 @@ document.addEventListener("DOMContentLoaded",function(){
   
   
   let pushBrotherOnArray= ()=>{
-    let names=$('input[type=text][name=data-brothers-names]').val();
-    let date=$('input[type=date][name=data-brothers-date]').val();
-    let phone=$('input[type=tel][name=data-brothers-phone]').val();
-    let email=$('input[type=email][name=data-brothers-email]').val();
+    let names=$('input[type=text][name=data-brothers-names]');
+    let date=$('input[type=date][name=data-brothers-date]');
+    let phone=$('input[type=tel][name=data-brothers-phone]');
+    let email=$('input[type=email][name=data-brothers-email]');
+    let relation=$('select[name=relation]');
+    let relationText=$('select[name=relation] option:selected').text();
     let brother = {};
     if(names!=''&&names!='undefined'&&names!=null){
-      brother.names=names;
+      brother.names=names.val();
+      names.val('');
     } else{
       brother.names='';
     }
     if(date!=''&&date!='undefined'&&date!=null){
-      brother.date=date;
+      brother.date=date.val();
+      date.val('');
     }else{
       brother.date='';
     }
     if(phone!=''&&phone!='undefined'&&phone!=null){
-      brother.phone=phone;
+      brother.phone=phone.val();
+      phone.val('');
     }else
       brother.phone='';
     
     if(email!=''&&email!='undefined'&&email!=null){
-      brother.email=email;
+      brother.email=email.val();
+      email.val('');
     }else
       brother.email='';
-    let row = $(addRowOnTable(brother.names, brother.date, brother.phone, brother.email));
+
+    let relaText='';
+    if(relation!=''&&relation!='undefined'&&relation!=null){
+      relaText = relationText;
+      brother.relation=relation;
+    }else
+      brother.relation='';
+    let row = $(addRowOnTable(brother.names, brother.date, brother.phone, brother.email, relaText));
     $('#listBroders > tbody').append(row);
     return brother;
   }
 
-  let addRowOnTable= (names, date, tel, email) =>{
+  let addRowOnTable= (names, date, tel, email, relation) =>{
     return `<tr>
               <td>${names}</td>
               <td>${date}</td>
               <td>${tel}</td>
               <td>${email}</td>
+              <td>${relation}</td>
           </tr>`
   }
   let addMesageResult= (names, fds, message) =>{
@@ -264,7 +337,10 @@ document.addEventListener("DOMContentLoaded",function(){
       console.log(data);
       $('#messageResultInscription').foundation('open');
         if (data.result==='ok') {
-          $('#messageResultInscriptionContent').append($(addMesageResult(data.data_register.name, data.data_register.fds, data.message)));
+          //$('#messageResultInscriptionContent').append($(addMesageResult(data.data_register.name, data.data_register.fds, data.message)));
+          let url = `/resultado/?result=${data.result}&message=${data.message}&personal_name=${data.data_register.name}&fds=${data.data_register.fds}`
+          console.log(url);  
+          window.location.href = url;
         } else{
           $('#messageResultInscriptionContent').append($(addMesageResultErrorUserExists(data.data_register.name, data.data_register.email, data.message)));
         }                       

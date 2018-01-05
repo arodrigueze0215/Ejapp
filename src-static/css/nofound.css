@@ -1,0 +1,8 @@
+.content__noFound{
+    text-align: center;
+    border: 1px solid black;
+    margin-top: 4%;
+    span{
+        font-size: 22px;
+    }
+}
