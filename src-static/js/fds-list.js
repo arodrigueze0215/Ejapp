@@ -133,6 +133,14 @@ document.addEventListener("DOMContentLoaded",function(){
     $('#navEj__hamburgers').on('touch', ()=>{
         $('#menuSlide').toggleClass('menuSlide--active');
     });
+    $('#userAuthenticated').on('click', ()=>{
+        $('.menuSlide__content__listItem__myProfile').toggleClass('menuSlide__content__listItem__item--active');
+        $('.menuSlide__content__listItem__logout').toggleClass('menuSlide__content__listItem__item--active');
+    });
+    $('#userAuthenticated').on('touch', ()=>{
+        $('.menuSlide__content__listItem__myProfile').toggleClass('menuSlide__content__listItem__item--active');
+        $('.menuSlide__content__listItem__logout').toggleClass('menuSlide__content__listItem__item--active');
+    });
 
     hideColumnsResponsive();
     

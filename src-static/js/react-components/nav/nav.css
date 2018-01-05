@@ -45,20 +45,38 @@
     &--active{
         right: 0;
     }
-    &__listItem{
-        @media (--tablet-portrait-963){
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            text-align: center;
+    &__content{
+        width: 100%;
+        margin: auto 10%;
+        @media (--smart-landscape){
+            margin: auto 3%;
             
         }
-        & li{
-            border-bottom: 1px solid black;
-        }
-        & a{
-            color: black;
-            cursor: pointer;
+        &__listItem{
+            @media (--tablet-portrait-963){
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                
+            }
+            &__myProfile{
+                transition: 300ms;                
+            }
+            &__logout{
+                transition: 300ms;
+            }
+            &__item--active{
+                display: none;
+            }
+            & li{
+                border-bottom: 1px solid black;
+            }
+            & a{
+                color: black;
+                cursor: pointer;
+            }
+
         }
 
     }

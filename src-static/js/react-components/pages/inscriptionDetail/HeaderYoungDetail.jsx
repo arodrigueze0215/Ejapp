@@ -16,9 +16,9 @@ class HeaderYoungDetail extends Component{
 }
 let InfoBasicUser =(props)=>{
     return(
-        <article className="inscriptionDetail__basic">
+        <article className="content__inscriptionDetail__basic">
             <h3>Información básica del participante</h3>
-            <table className="inscriptionDetail__basic__tableDetail">
+            <table className="content__inscriptionDetail__basic__tableDetail">
                 <thead>
                     <tr>
                         <td>Nombres</td>
@@ -44,9 +44,9 @@ let InfoBasicUser =(props)=>{
 
 let InfoUser =(props)=>{
     return(
-        <article className="inscriptionDetail__contact">
+        <article className="content__inscriptionDetail__contact">
             <h3>Información de contacto</h3>
-            <table className="inscriptionDetail__contact__tableInfo">
+            <table className="content__inscriptionDetail__contact__tableInfo">
                 <thead>
                     <tr>
                         <td>Telefonos</td>

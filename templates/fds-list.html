@@ -41,7 +41,7 @@
             </div>
         </nav>
         <nav id="menuSlide" class="menuSlide">
-            <ul class="menu menuSlide__listItem" data-dropdown-menu>
+            <ul class="menu menuSlide__content__listItem" data-dropdown-menu>
                 <li><a href="#">Inicio</a></li>
                 <li><a href="#">Asitencia</a></li>
                 <li><a href="#">Talleres</a></li>
@@ -50,9 +50,11 @@
                 <li><a href="#">Consejeros</a></li>
                 <li>
                     {% if user.is_authenticated %}
-                        <a >{{user.first_name}} {{user.last_name}}</a>
+                    <a id="userAuthenticated">{{user.first_name}} {{user.last_name}}</a>
                     {% endif%}
                 </li>
+                <li class="menuSlide__content__listItem__myProfile menuSlide__content__listItem__item--active"><a href="#">MI perfil</a></li>
+                <li class="menuSlide__content__listItem__logout menuSlide__content__listItem__item--active"><a href="/logout/">Salir</a></li>
             </ul>
         </nav>
         <div class="Main">

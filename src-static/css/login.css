@@ -1,15 +1,18 @@
 .Main{
     &__sectionLogin{
         margin: 10% 30%;
-        &__mail{
-            
+        @media (--tablet-portrait){
+            margin: 10% 10%;
+
         }
-        &__password{
+        @media (--smart-landscape){
+            margin: 10% auto;
 
         }
         &__contentActions{
             &__login{
                 width:100%;
+                background-color: var(--primaryColor);
 
             }
 

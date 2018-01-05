@@ -105,18 +105,20 @@ let MenuSlide = (props) =>{
     let userAuth= `${props.user.authUser.young.user.first_name} ${props.user.authUser.young.user.last_name}`;
     return(
         <nav id="menuSlide" className="menuSlide">
-            <ul className="menu menuSlide__listItem" data-dropdown-menu>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Asitencia</a></li>
-                <li><a href="#">Talleres</a></li>
-                <li><a className="navFds__itemMenuSelected" href="#">FDS</a></li>
-                <li><a href="#">Profundos</a></li>
-                <li><a href="#">Consejeros</a></li>
-                <li>
-                     <a>{userAuth}</a>
-                    
-                </li>
-            </ul>
+            <div className="menuSlide__content">
+                <ul className="menu menuSlide__content__listItem" data-dropdown-menu>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Asitencia</a></li>
+                    <li><a href="#">Talleres</a></li>
+                    <li><a className="navFds__itemMenuSelected" href="#">FDS</a></li>
+                    <li><a href="#">Profundos</a></li>
+                    <li><a href="#">Consejeros</a></li>
+                    <li>
+                         <a>{userAuth}</a>
+                        
+                    </li>
+                </ul>
+            </div>
         </nav>
     );
 }
