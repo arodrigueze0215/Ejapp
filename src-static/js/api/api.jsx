@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
-//const baseUrl = 'http://192.168.0.23:8000';
-const baseUrl = 'http://localhost:8000';
+const baseUrl = 'http://192.168.0.23:8000';
+//const baseUrl = 'http://localhost:8000';
 var api = {
     apiAuth:{
         async getApiAuth(){
