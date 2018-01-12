@@ -1,3 +1,69 @@
-.Section__inscriptionDetail{
-    margin-top:8%;
+#reactTargetInscriptionDetail{
+    overflow: auto;
+    @media (--tablet-portrait-963){
+        height: 150vh;
+
+    }
+}
+.content{
+    width: 80%;
+    margin: 2px auto;
+    @media (--tablet-portrait-963){
+        overflow-y: auto;
+        width: 90%;
+
+    }
+    
+    &__inscriptionDetail{
+        margin-top:8%;
+        @media (--smart-landscape-640){
+            font-size: 12px;
+
+        }
+        @media (--tablet-portrait){
+            margin-top:16%;
+        }
+        @media (--smart-landscape){
+            margin-top:22%;
+        }
+        @media (--smart-portrait){
+            margin-top:28%;
+        }
+        &__basic{
+            overflow: auto;
+        
+        }
+        &__contact{
+            overflow: auto;
+        }
+        &__study{
+            overflow: auto;
+        }
+        &__job{
+            overflow: auto;
+        }
+        &__whoLives{
+            overflow: auto;
+        }
+        &__specialFood{
+            overflow: auto;
+        }
+        &__whoInviteMe{
+            overflow: auto;
+        }
+        &__aboutFds{
+            overflow: auto;
+        }
+        &__aboutOtherExperiences{
+            overflow: auto;
+        }
+        &__parents{
+            overflow: auto;
+        }
+        &__brothers{
+            overflow: auto;
+        }
+        
+
+    }
 }

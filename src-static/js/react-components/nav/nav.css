@@ -4,7 +4,80 @@
     top:0;
     width:100%;
     z-index:1000;
+    &__menuOptions{
+        @media (--tablet-portrait-963){
+            display: none;
+        }
+    }
+    &__hamburger{
+        display: none;
+        @media (--tablet-portrait-963){
+            position: absolute;
+            top: 13px;
+            right: 13px;
+            display: block;
+        }
+        &__image{
+            width: 32px;
+            height: 24px;
+        }
+    }
     &__itemMenuSelected{
         color:var(--grayHover);
+    }
+}
+.menuSlide{
+    display: none;
+    @media (--tablet-portrait-963){
+        display: flex;
+        width: 100%;
+        position: absolute;
+        right: -100%;
+        top:54px;
+        bottom: -50%;
+        z-index: 100;
+        background: var(--yellowTransparent);
+        align-items:center;
+        font-size: 32px;
+        transition: 300ms;
+        overflow-y:auto;
+    }
+    &--active{
+        right: 0;
+    }
+    &__content{
+        width: 100%;
+        margin: auto 10%;
+        @media (--smart-landscape){
+            margin: auto 3%;
+            
+        }
+        &__listItem{
+            @media (--tablet-portrait-963){
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                
+            }
+            &__myProfile{
+                transition: 300ms;                
+            }
+            &__logout{
+                transition: 300ms;
+            }
+            &__item--active{
+                display: none;
+            }
+            & li{
+                border-bottom: 1px solid black;
+            }
+            & a{
+                color: black;
+                cursor: pointer;
+            }
+
+        }
+
     }
 }

@@ -8,8 +8,8 @@ let MainDetail = (props) =>{
     return(
         <div>
             <Nav/>
-            <div className="Main">
-                <InscriptionDetail classSection="Section__inscriptionDetail"/>   
+            <div className="content">
+                <InscriptionDetail classSection="content__inscriptionDetail"/>   
             </div>
         </div>
 

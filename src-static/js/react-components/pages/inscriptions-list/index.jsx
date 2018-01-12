@@ -8,8 +8,8 @@ let Main = (props) =>{
     return(
         <div>
             <Nav/>
-            <div className="Main">
-                <InscriptionsList id="inscriptionList" classSection="Section__inscriptionsList"/>
+            <div className="content">
+                <InscriptionsList id="inscriptionList" classSection="content__inscriptionsList"/>
             </div>
         </div>
 

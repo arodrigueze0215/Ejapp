@@ -3,25 +3,25 @@
     {% load staticfiles %}
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="{% static 'css/app.bundle.css' %}" >
         <title>Lista de FDS</title>
     </head>
     <body>
-        <nav class="navFds">
-            <div class="top-bar">
+        <nav class="navEj">
+            <div class="top-bar ">
                 <div class="top-bar-left">
                     <ul class="menu">
                         <li class="menu-text">Site Title</li>
                     </ul>
                 </div>
-                <div class="top-bar-right">
+                <div class="top-bar-right navEj__menuOptions">
                     <ul class="dropdown menu" data-dropdown-menu>
                         <li><a href="#">Inicio</a></li>
                         <li><a href="#">Asitencia</a></li>
                         <li><a href="#">Talleres</a></li>
-                        <li><a class="navFds__itemMenuSelected"href="#">FDS</a></li>
+                        <li><a class="navEj__itemMenuSelected"href="#">FDS</a></li>
                         <li><a href="#">Profundos</a></li>
                         <li><a href="#">Consejeros</a></li>
                         <li>
@@ -35,15 +35,35 @@
                         </li>
                     </ul>
                 </div>
+                <div id="navEj__hamburgers" class="top-bar-right navEj__hamburger">
+                    <img class="navEj__hamburger__image" src="{% static 'media/hamburger.png' %}" alt="icon">
+                </div>
             </div>
+        </nav>
+        <nav id="menuSlide" class="menuSlide">
+            <ul class="menu menuSlide__content__listItem" data-dropdown-menu>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Asitencia</a></li>
+                <li><a href="#">Talleres</a></li>
+                <li><a class="navEj__itemMenuSelected"href="#">FDS</a></li>
+                <li><a href="#">Profundos</a></li>
+                <li><a href="#">Consejeros</a></li>
+                <li>
+                    {% if user.is_authenticated %}
+                    <a id="userAuthenticated">{{user.first_name}} {{user.last_name}}</a>
+                    {% endif%}
+                </li>
+                <li class="menuSlide__content__listItem__myProfile menuSlide__content__listItem__item--active"><a href="#">MI perfil</a></li>
+                <li class="menuSlide__content__listItem__logout menuSlide__content__listItem__item--active"><a href="/logout/">Salir</a></li>
+            </ul>
         </nav>
         <div class="Main">
             <section class="listFds">
                 <h2>Fines de semana</h2>
-                <table id="listFdsTable">
+                <table id="listFdsTable" style="width:100%;" >
                     <thead>
                         <tr>
-                            <th>Numero FDS</th>
+                            <th>FDS</th>
                             <th>Nombre</th>
                             <th>Inicia</th>
                             <th>Termina</th>

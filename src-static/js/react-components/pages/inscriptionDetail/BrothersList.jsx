@@ -54,7 +54,7 @@ let Brothers =(props)=>{
     });      
 
     return(
-        <article>
+        <article className="content__inscriptionDetail__brothers">
             <h3>Datos hermanos</h3>
             <table className="unstriped">
                 <thead>

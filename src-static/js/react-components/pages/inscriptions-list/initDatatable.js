@@ -1,7 +1,7 @@
 
 function initDatatable(params) {
     let inscriptionList = $('#inscriptionList');
-    inscriptionList.DataTable({
+    inscriptionList= $('#inscriptionList').DataTable({
         "columns": [
             null,
             null,
@@ -9,6 +9,7 @@ function initDatatable(params) {
             null,
             { "orderable": false },
         ],
+        "scrollX": false,
         "language": { 
             "decimal":        "",
             "emptyTable":     "Ningun Inscrito aún",
@@ -35,5 +36,34 @@ function initDatatable(params) {
             }
         }
     });
+    hideColumnsResponsive();
+    function hideColumnsResponsive(){
+        var width900 = window.matchMedia(maxWidth900);
+        if (width900.matches)inscriptionList.column(3).visible(false);
+        
+        width900.addListener(()=>{
+            let query = width900.matches;
+            let col = inscriptionList.column(3);
+            col.visible(!query);
+        });
+        var width800 = window.matchMedia(maxWidth800);
+        if (width800.matches){
+            inscriptionList.column(1).visible(false);
+        }
+        width800.addListener(()=>{
+            let query = width800.matches;
+            let dateEnd = inscriptionList.column(1);
+            dateEnd.visible(!query);
+        });
+        var width480 = window.matchMedia(maxWidth480);
+        if (width480.matches){
+            inscriptionList.column(2).visible(false);
+        }
+        width480.addListener(()=>{
+            let query = width480.matches;
+            let dateInit = inscriptionList.column(2);
+            dateInit.visible(!query);
+        });
+     }
 }
 export default initDatatable;

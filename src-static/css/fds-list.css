@@ -1,3 +1,4 @@
+//navFds will become deprecaded
 .navFds{
     position:fixed;
     left:0;
@@ -10,9 +11,22 @@
 }
 .listFds{
     margin-top:8%;
+    @media (--smart-landscape-640){
+        margin-top:16%;
+    }
+    @media (--smart-landscape){
+        margin-top:24%;
+    }
+    &__table{
+        width: 100%;
+    }
     &__actions{
         &__new{
             margin-left: 8px;
+            @media (--smart-landscape-640){
+                margin-left: 0px;
+                width: 100%;
+            }
         }
     }
     &__menuAction li:hover{
@@ -23,6 +37,12 @@
     }
     &__menuAction a:hover{
         color: black;
+    }
+}
+
+.dataTables_wrapper .dataTables_filter input{
+    @media (--smart-landscape-640){
+        margin-left: 0px;
     }
 }
     

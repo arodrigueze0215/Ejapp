@@ -55,7 +55,7 @@ let Parents =(props)=>{
     });      
 
     return(
-        <article>
+        <article className="content__inscriptionDetail__parents">
             <h3>Datos papás</h3>
             <table className="unstriped">
                 <thead>

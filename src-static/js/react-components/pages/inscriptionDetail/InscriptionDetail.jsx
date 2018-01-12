@@ -62,9 +62,8 @@ let Details = (props) =>{
 }
 
 let Study = (props)=>{
-    console.log(props)
     return(
-        <article>
+        <article className="content__inscriptionDetail__study">
             <h3>Información académica</h3>
             <table>
                 <thead>
@@ -87,7 +86,7 @@ let Study = (props)=>{
 }
 let Job = (props)=>{
     return(
-        <article>
+        <article className="content__inscriptionDetail__job">
             <h3>Información laboral</h3>
             <table>
                 <thead>
@@ -112,7 +111,7 @@ let Job = (props)=>{
 }
 let WhoLives = (props)=>{
     return(
-        <article>
+        <article className="content__inscriptionDetail__whoLives">
             <h3>Actualmente vive con</h3>
             <table>
                 <thead>
@@ -147,7 +146,7 @@ let WhoLives = (props)=>{
 }
 let SpecialFood = (props)=>{
     return(
-        <article>
+        <article className="content__inscriptionDetail__specialFood">
             <h3>Limitaciones de salud</h3>
             <table>
                 <thead>
@@ -158,7 +157,7 @@ let SpecialFood = (props)=>{
                 </thead>
                 <tbody>
                     <tr>
-                        {props.illness.length>0?(<td>props.illness</td>):(<td>No tiene</td>)}
+                        {props.illness.length>0?(<td>{props.illness}</td>):(<td>No tiene</td>)}
                         {props.especial_food.length>0?(<td>{props.especial_food}</td>):(<td>No necesita</td>)}
                     </tr>
                 </tbody>
@@ -168,7 +167,7 @@ let SpecialFood = (props)=>{
 }
 let WhoInviteMe = (props)=>{
     return(
-        <article>
+        <article className="content__inscriptionDetail__whoInviteMe">
             <h3>Invitado por</h3>
             <table>
                 <thead>
@@ -190,7 +189,7 @@ let WhoInviteMe = (props)=>{
 let AboutFDS = (props)=>{
     
     return(
-        <article>
+        <article className="content__inscriptionDetail__aboutFds">
             <h3>Acerca del FDS</h3>
             <table>
                 <thead>
@@ -217,7 +216,7 @@ let AboutFDS = (props)=>{
 let AboutOtherExperiences = (props)=>{
     
     return(
-        <article>
+        <article className="content__inscriptionDetail__aboutOtherExperiences">
             <h3>Otras experiencias</h3>
             <table>
                 <thead>

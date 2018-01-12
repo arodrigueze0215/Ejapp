@@ -20,22 +20,37 @@ document.addEventListener("DOMContentLoaded",function(){
             $('input[type=text][name=study_where]').removeAttr('disabled');
              break;
          case 'false':
-          $('input[type=text][name=study_carrer]').attr('disabled', 'disabled');
+         $('input[type=text][name=study_carrer]').attr('disabled', 'disabled');
+          if($('input[type=text][name=study_carrer]').val().length>0){
+            $('input[type=text][name=study_carrer]').val('');
+          }
           $('input[type=text][name=study_where]').attr('disabled', 'disabled');
+          if($('input[type=text][name=study_where]').val().length>0){
+            $('input[type=text][name=study_where]').val('');
+          }
              break;
      }
    });
     $('input[type=radio][name=work]').change(function(){
        switch($(this).val()) {
          case 'true':
-          $('input[type=text][name=work_company]').removeAttr('disabled');         
-          $('input[type=text][name=work_role]').removeAttr('disabled');         
-          $('input[type=tel][name=work_phone]').removeAttr('disabled');         
-             break;
+         $('input[type=text][name=work_company]').removeAttr('disabled');         
+         $('input[type=text][name=work_role]').removeAttr('disabled');         
+         $('input[type=tel][name=work_phone]').removeAttr('disabled');         
+         break;
          case 'false':
-          $('input[type=text][name=work_company]').attr('disabled', 'disabled');         
+         $('input[type=text][name=work_company]').attr('disabled', 'disabled');         
+          if($('input[type=text][name=work_company]').val().length>0){
+            $('input[type=text][name=work_company]').val('');
+          }
           $('input[type=text][name=work_role]').attr('disabled', 'disabled');         
+          if($('input[type=text][name=work_role]').val().length>0){
+            $('input[type=text][name=work_role]').val('');
+          }
           $('input[type=tel][name=work_phone]').attr('disabled', 'disabled');
+          if($('input[type=tel][name=work_phone]').val().length>0){
+            $('input[type=tel][name=work_phone]').val('');
+          }
              break;
      }
    });
@@ -49,9 +64,21 @@ document.addEventListener("DOMContentLoaded",function(){
              break;
          case 'false':
           $('input[type=text][name=dad_ocupation]').attr('disabled', 'disabled');         
+          if($('input[type=text][name=dad_ocupation]').val().length>0){
+              $('input[type=text][name=dad_ocupation]').val('');
+          }
           $('input[type=tel][name=dad_phone_home]').attr('disabled', 'disabled');
+          if($('input[type=tel][name=dad_phone_home]').val().length>0){
+              $('input[type=tel][name=dad_phone_home]').val('');
+          }
           $('input[type=tel][name=dad_phone]').attr('disabled', 'disabled');
+          if($('input[type=tel][name=dad_phone]').val().length>0){
+              $('input[type=tel][name=dad_phone]').val('');
+          }
           $('input[type=text][name=dad_address]').attr('disabled', 'disabled');
+          if($('input[type=text][name=dad_address]').val().length>0){
+              $('input[type=text][name=dad_address]').val('');
+          }
              break;
      }
    });
@@ -65,9 +92,21 @@ document.addEventListener("DOMContentLoaded",function(){
              break;
          case 'false':
           $('input[type=text][name=mom_ocupation]').attr('disabled', 'disabled');         
+          if($('input[type=text][name=mom_ocupation]').val().length>0){
+            $('input[type=text][name=mom_ocupation]').val('');
+          }
           $('input[type=tel][name=mom_phone_home]').attr('disabled', 'disabled');
+          if($('input[type=tel][name=mom_phone_home]').val().length>0){
+            $('input[type=tel][name=mom_phone_home]').val('');
+          }
           $('input[type=tel][name=mom_phone]').attr('disabled', 'disabled');
+          if($('input[type=tel][name=mom_phone]').val().length>0){
+            $('input[type=tel][name=mom_phone]').val('');
+          }
           $('input[type=text][name=mom_address]').attr('disabled', 'disabled');
+          if($('input[type=text][name=mom_address]').val().length>0){
+            $('input[type=text][name=mom_address]').val('');
+          }
              break;
      }
    });
@@ -77,7 +116,10 @@ document.addEventListener("DOMContentLoaded",function(){
           $('input[type=text][name=otherExperiences-which]').removeAttr('disabled', 'disabled');
              break;
          case 'false':
-          $('input[type=text][name=otherExperiences-which]').attr('disabled', 'disabled');
+         $('input[type=text][name=otherExperiences-which]').attr('disabled', 'disabled');
+          if($('input[type=text][name=otherExperiences-which]').val().length>0){
+            $('input[type=text][name=otherExperiences-which]').val('');
+          }
              break;
      }
    });
@@ -198,8 +240,8 @@ document.addEventListener("DOMContentLoaded",function(){
     let whoIntiveMe=$('input[type=text][name=whoIntiveMe]').val();
     let whoIntiveMeNumber=$('input[type=tel][name=whoIntiveMeNumber]').val();
     let whyFds=$('input[type=text][name=whyFds]').val();
-    let wantFds=$('input[type=radio][name=wantFds]').is(':checked')? "true": "false";
-    let otherExperiences=$('input[type=radio][name=otherExperiences]').is(':checked')? "true": "false";
+    let wantFds=$('#wantFds_yes').is(':checked')? "true": "false";
+    let otherExperiences=$('#otherExperiences_yes').is(':checked')? "true": "false";
     let otherExperiences_which=$('input[type=text][name=otherExperiences-which]').val();
     data.whoIntiveMe = whoIntiveMe;
     data.whoIntiveMeNumber = whoIntiveMeNumber;
@@ -215,30 +257,34 @@ document.addEventListener("DOMContentLoaded",function(){
   
   
   let pushBrotherOnArray= ()=>{
-    let names=$('input[type=text][name=data-brothers-names]').val();
-    let date=$('input[type=date][name=data-brothers-date]').val();
-    let phone=$('input[type=tel][name=data-brothers-phone]').val();
-    let email=$('input[type=email][name=data-brothers-email]').val();
-    let relation=$('select[name=relation]').val();
+    let names=$('input[type=text][name=data-brothers-names]');
+    let date=$('input[type=date][name=data-brothers-date]');
+    let phone=$('input[type=tel][name=data-brothers-phone]');
+    let email=$('input[type=email][name=data-brothers-email]');
+    let relation=$('select[name=relation]');
     let relationText=$('select[name=relation] option:selected').text();
     let brother = {};
     if(names!=''&&names!='undefined'&&names!=null){
-      brother.names=names;
+      brother.names=names.val();
+      names.val('');
     } else{
       brother.names='';
     }
     if(date!=''&&date!='undefined'&&date!=null){
-      brother.date=date;
+      brother.date=date.val();
+      date.val('');
     }else{
       brother.date='';
     }
     if(phone!=''&&phone!='undefined'&&phone!=null){
-      brother.phone=phone;
+      brother.phone=phone.val();
+      phone.val('');
     }else
       brother.phone='';
     
     if(email!=''&&email!='undefined'&&email!=null){
-      brother.email=email;
+      brother.email=email.val();
+      email.val('');
     }else
       brother.email='';
 
@@ -291,7 +337,10 @@ document.addEventListener("DOMContentLoaded",function(){
       console.log(data);
       $('#messageResultInscription').foundation('open');
         if (data.result==='ok') {
-          $('#messageResultInscriptionContent').append($(addMesageResult(data.data_register.name, data.data_register.fds, data.message)));
+          //$('#messageResultInscriptionContent').append($(addMesageResult(data.data_register.name, data.data_register.fds, data.message)));
+          let url = `/resultado/?result=${data.result}&message=${data.message}&personal_name=${data.data_register.name}&fds=${data.data_register.fds}`
+          console.log(url);  
+          window.location.href = url;
         } else{
           $('#messageResultInscriptionContent').append($(addMesageResultErrorUserExists(data.data_register.name, data.data_register.email, data.message)));
         }                       

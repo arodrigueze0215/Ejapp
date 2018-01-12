@@ -2,7 +2,7 @@ import * as csrf from './libs/csrftoken.js';
 document.addEventListener("DOMContentLoaded",function(){
     var csrftoken = csrf.csrfToken('csrftoken');
     
-    $('#listFdsTable').DataTable({
+    var listFdsTable = $('#listFdsTable').DataTable({
         "columns": [
             null,
             null,
@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded",function(){
             null,
             { "orderable": false },
         ],
+        "scrollX": false,
         "language": { 
             "decimal":        "",
             "emptyTable":     "Ningun Fds creado en esta tabla",
@@ -61,7 +62,7 @@ document.addEventListener("DOMContentLoaded",function(){
     /**
      * Event that set a post to enable a isncription form
      */
-    $('#listFdsTable').on('click','li.listFds__menuAction__enable', (ev)=>{
+    listFdsTable.on('click','li.listFds__menuAction__enable', (ev)=>{
         ev.preventDefault();
         var id = $(ev.currentTarget).parent().data('row-id');
         enableInscription(id, "True", ev);
@@ -70,7 +71,7 @@ document.addEventListener("DOMContentLoaded",function(){
     /**
      * Event that set a post to disable a isncription form
      */
-    $('#listFdsTable').on('click','li.listFds__menuAction__disable', (ev)=>{
+    listFdsTable.on('click','li.listFds__menuAction__disable', (ev)=>{
         ev.preventDefault();
         var id = $(ev.currentTarget).parent().data('row-id');
         enableInscription(id, "False", ev);
@@ -79,7 +80,7 @@ document.addEventListener("DOMContentLoaded",function(){
     /**
      * Event that set a post to edit a isncription form
      */
-    $('#listFdsTable').on('click','li.listFds__menuAction__edit', (ev)=>{
+    listFdsTable.on('click','li.listFds__menuAction__edit', (ev)=>{
         $('#updateFdsModal').foundation('open');
         ev.preventDefault();
         let id = $(ev.currentTarget).parent().data('row-id');
@@ -97,7 +98,7 @@ document.addEventListener("DOMContentLoaded",function(){
     /**
      * Event that set a delete fds from the list
      */
-    $('#listFdsTable').on('click','li.listFds__menuAction__delete', (ev)=>{
+    listFdsTable.on('click','li.listFds__menuAction__delete', (ev)=>{
         ev.preventDefault();
         var id = $(ev.currentTarget).parent().data('row-id');
         let content = `<p class="lead" data-id="${id}">¿Estas seguro que deseas eliminar este FDS?</p>`
@@ -107,7 +108,7 @@ document.addEventListener("DOMContentLoaded",function(){
     /**
      * Event that go inscribed list
      */
-    $('#listFdsTable').on('click','li.listFds__menuAction__listInscribed', (ev)=>{
+    listFdsTable.on('click','li.listFds__menuAction__listInscribed', (ev)=>{
         ev.preventDefault();
         let fds = $(ev.currentTarget).parent().data('row-fds');
         let city = $(ev.currentTarget).parent().data('row-city');
@@ -125,6 +126,24 @@ document.addEventListener("DOMContentLoaded",function(){
     $('button[type=button][name=cancel_delete]').on('click', function() {
         $('#deleteFds_content').children().remove();
     });
+
+    $('#navEj__hamburgers').on('click', ()=>{
+        $('#menuSlide').toggleClass('menuSlide--active');
+    });
+    $('#navEj__hamburgers').on('touch', ()=>{
+        $('#menuSlide').toggleClass('menuSlide--active');
+    });
+    $('#userAuthenticated').on('click', ()=>{
+        $('.menuSlide__content__listItem__myProfile').toggleClass('menuSlide__content__listItem__item--active');
+        $('.menuSlide__content__listItem__logout').toggleClass('menuSlide__content__listItem__item--active');
+    });
+    $('#userAuthenticated').on('touch', ()=>{
+        $('.menuSlide__content__listItem__myProfile').toggleClass('menuSlide__content__listItem__item--active');
+        $('.menuSlide__content__listItem__logout').toggleClass('menuSlide__content__listItem__item--active');
+    });
+
+    hideColumnsResponsive();
+    
     /**Events */
 
     /**
@@ -220,4 +239,33 @@ document.addEventListener("DOMContentLoaded",function(){
     /**
      * Connection AJAX to backend
      */
+
+     function hideColumnsResponsive(){
+        var width800 = window.matchMedia(maxWidth800);
+        if (width800.matches)listFdsTable.column(1).visible(false);
+        
+        width800.addListener(()=>{
+            let query = width800.matches;
+            let col = listFdsTable.column(1);
+            col.visible(!query);
+        });
+        var width640 = window.matchMedia(maxWidth640);
+        if (width640.matches){
+            listFdsTable.column(3).visible(false);
+        }
+        width640.addListener(()=>{
+            let query = width640.matches;
+            let dateEnd = listFdsTable.column(3);
+            dateEnd.visible(!query);
+        });
+        var width480 = window.matchMedia(maxWidth480);
+        if (width480.matches){
+            listFdsTable.column(2).visible(false);
+        }
+        width480.addListener(()=>{
+            let query = width480.matches;
+            let dateInit = listFdsTable.column(2);
+            dateInit.visible(!query);
+        });
+     }
 });

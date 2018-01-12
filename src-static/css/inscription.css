@@ -1,6 +1,9 @@
 .Main{
     &__currentDate{
         width: 30%;
+        @media (--desktop){
+        width: 100%;
+        }
 
     }
     &__personal{
@@ -9,55 +12,101 @@
         &__names{
             display: flex;
             flex-direction: row;
+            @media (--desktop){
+                flex-direction: column;
+
+            }
             &__name{
-                flex-grow: 1;
+                flex-grow: 20;
                 margin-right: 8px;
+                @media (--desktop){
+                    margin-right: 0px;
+                }
 
             }
             &__lastName{
-                flex-grow: 1;
+                flex-grow: 20;
                 margin-left: 8px;
                 margin-right: 8px;
+                @media (--desktop){
+                    margin-left: 0px;
+                    margin-right: 0px;
+
+                }
 
             }
             &__dateBorn{
-                flex-grow: 1;
+                flex-grow: 10;
                 margin-left: 8px;
+                @media (--desktop){
+                    margin-left: 0px;
+
+                }
 
             }
         }
         &__numbers{
             display: flex;
             flex-direction: row;
+            @media (--desktop){
+                flex-direction: column;
+
+            }
             &__homePhone{
-                flex-grow: 1;
+                flex-grow: 10;
                 margin-right: 8px;
+                @media (--desktop){
+                    margin-right: 0px;
+                }
             }
             &__mobilePhone{
-                flex-grow: 1;
+                flex-grow: 10;
                 margin-left: 8px;
                 margin-right: 8px;
+                @media (--desktop){
+                    margin-left: 0px;
+                    margin-right: 0px;
+
+                }
             }
             &__address{
-                flex-grow: 1;
+                flex-grow: 20;
                 margin-left: 8px;
+                @media (--desktop){
+                    margin-left: 0px;
+                }
             }
         }
         &__addresses{
             display: flex;
             flex-direction: row;
+            @media (--desktop){
+                flex-direction: column;
+            }
             &__email{
                 flex-grow: 1;
                 margin-right: 8px;
+                @media (--desktop){
+                    margin-right: 0px;
+                }
             }
             &__profesion{
                 flex-grow: 1;
                 margin-left: 8px;
                 margin-right: 8px;
+                @media (--desktop){
+                    margin-left: 0px;
+                    margin-right: 0px;
+
+                }
             }
             &__occupation{
                 flex-grow: 1;
                 margin-left: 8px;
+                @media (--desktop){
+                    margin-left: 0px;
+                    margin-right: 0px;
+                }
             }
         }
         &__whoLife{           
@@ -100,13 +149,22 @@
         &__data{
             display:flex;
             flex-direction:row;
+            @media (--desktop){
+                flex-direction: column;
+            }
             &__carrer{
                 flex-grow:1;
                 margin-right:8px;
+                @media (--desktop){
+                    margin-right: 0px;
+                }
             }
             &__whereStudy{
                 flex-grow:1;
                 margin-left:8px;
+                @media (--desktop){
+                    margin-left: 0px;
+                }
             }
         }
     }
@@ -115,18 +173,33 @@
         &__data{
             display:flex;
             flex-direction:row;
+             @media (--desktop){
+                flex-direction: column;
+
+            }
             &__company{
                 flex-grow:1;
                 margin-right:8px;
+                @media (--desktop){
+                    margin-right: 0px;
+                }
             }
             &__role{
                 flex-grow:1;
                 margin-left:8px;
                 margin-right:8px;
+                @media (--desktop){
+                    margin-left: 0px;
+                    margin-right: 0px;
+
+                }
             }
             &__phone{
                 flex-grow:1;
                 margin-left:8px;
+                 @media (--desktop){
+                    margin-left: 0px;
+                }
             }
         }
     }
@@ -136,30 +209,52 @@
                 &__one{
                     display:flex;
                     flex-direction:row;
+                    @media (--desktop){
+                        flex-direction: column;
+                    }
                     &__names{
                         flex-grow:1;
                         margin-right:8px;
+                        @media (--desktop){
+                            margin-right: 0px;
+                        }
                     }
                     &__ocupation{
                         flex-grow:1;
                         margin-left:8px;
+                        @media (--desktop){
+                            margin-left: 0px;
+                        }
                     }
                 }
                 &__two{
                     display:flex;
                     flex-direction:row;
+                    @media (--desktop){
+                        flex-direction: column;
+                    }
                     &__phoneHome{
                         flex-grow:1;
                         margin-right:8px;
+                        @media (--desktop){
+                            margin-right: 0px;
+                        }
                     }
                     &__phone{
                         flex-grow:1;
                         margin-right:8px;
                         margin-left:8px;
+                        @media (--desktop){
+                            margin-right: 0px;
+                            margin-left: 0px;
+                        }
                     }
                     &__address{
                         flex-grow:1;
                         margin-left:8px;
+                        @media (--desktop){
+                            margin-left: 0px;
+                        }
                     }
                 }
             }
@@ -170,30 +265,53 @@
                 &__one{
                     display:flex;
                     flex-direction:row;
+                    @media (--desktop){
+                        flex-direction: column;
+                    }
                     &__names{
                         flex-grow:1;
                         margin-right:8px;
+                        @media (--desktop){
+                            margin-right: 0px;
+                        }
                     }
                     &__ocupation{
                         flex-grow:1;
                         margin-left:8px;
+                        @media (--desktop){
+                            margin-left: 0px;
+                        }
                     }
                 }
                 &__two{
                     display:flex;
                     flex-direction:row;
+                    @media (--desktop){
+                        flex-direction: column;
+                    }
                     &__phoneHome{
                         flex-grow:1;
                         margin-right:8px;
+                        @media (--desktop){
+                            margin-right: 0px;
+                        }
+                        
                     }
                     &__phone{
                         flex-grow:1;
                         margin-right:8px;
                         margin-left:8px;
+                        @media (--desktop){
+                            margin-right: 0px;
+                            margin-left: 0px;
+                        }
                     }
                     &__address{
                         flex-grow:1;
                         margin-left:8px;
+                        @media (--desktop){
+                            margin-left: 0px;
+                        }
                     }
                 }
             }
@@ -203,27 +321,68 @@
             &__data{
                 display:flex;
                 flex-direction:row;
+                @media (--tablet-portrait-900){
+                    flex-wrap: wrap;                
+                }
+                @media (--tablet-portrait){
+                    flex-direction: column;           
+                }
                 &__names{
                     flex-grow:1;
                     margin-left:8px;
+                    @media (--tablet-portrait-963){
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    @media (--tablet-portrait){
+                        margin-left:0px;
+                    }
 
                 }
                 &__date{
                     flex-grow:1;
                     margin-left:8px;
                     margin-right:8px;
+                    @media (--tablet-portrait-963){
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    @media (--tablet-portrait){
+                        margin-left:0px;
+                        margin-right:0px;
+                    }
 
                 }
                 &__phone{
                     flex-grow:1;
                     margin-left:8px;
                     margin-right:8px;
+                    @media (--tablet-portrait-963){
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    @media (--tablet-portrait){
+                        margin-left:0px;
+                        margin-right:0px;
+                    }
 
                 }
                 &__email{
                     flex-grow:1;
                     margin-left:8px;
                     margin-right:8px;
+                    @media (--tablet-portrait-963){
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    @media (--tablet-portrait){
+                        margin-left:0px;
+                        margin-right:0px;
+                    }
 
                 }
                 &__relations{
@@ -232,14 +391,32 @@
                     margin-right:8px;
                     margin-top: 24px;
                     width:16%;
+                    @media (--tablet-portrait-963){
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    @media (--tablet-portrait){
+                        width:100%;
+                        margin-left:0px;
+                        margin-right:0px;
+                    }
                 }
                 &__save{
                     flex-grow:1;
                     margin-right:8px;
                     margin-top: 24px;
+                    @media (--tablet-portrait){
+                        margin-right:0px;
+                    }
 
                 }
             }  
+            &__table{
+                @media (--tablet-portrait){
+                    overflow: auto;
+                }
+            }
         }
     }
     &__generalInfo{
@@ -247,13 +424,29 @@
             &__one{
                 display:flex;
                 flex-direction: row;
+                @media (--tablet-portrait-900){
+                    flex-wrap: wrap;                
+                }
+                @media (--tablet-portrait){
+                    flex-direction: column;
+                }
                 &__whoIntiveMe{
                     flex-grow:3;
                     margin-right:8px;
+                    @media (--tablet-portrait){
+                        margin-right:0px;
+
+                    }
+                    
                 }
                 &__whoIntiveMeNumber{
                     flex-grow:1;
                     margin-left:8px;
+                    @media (--tablet-portrait){
+                        margin-left:0px;
+                        
+                    }
+                    
                 }
             }
         }
@@ -266,10 +459,18 @@
         &__register{
             width:50%;
             margin: 4px auto;
+            @media (--tablet-portrait){
+                width:100%;
+
+            }
         }
         &__error{
             width:50%;
             margin: 4px auto;
+            @media (--tablet-portrait){
+                width:100%;
+
+            }
         }
     }
 }
