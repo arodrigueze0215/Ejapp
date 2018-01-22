@@ -228,7 +228,7 @@ def inscriptions_add(request):
                     if Fds.is_active==True:
                         if Fds.is_form_active==True:                            
                             if settings.DEBUG == True:
-                                print "Fds está vigente"
+                                print "Fds esta vigente"
                                 print "RELATIONS: ", Brothers._RELATIONS
                                 print "Is active: ", Fds.is_active
                             
@@ -253,7 +253,7 @@ def inscriptions_add(request):
                         return HttpResponse(templateNoFound.render(contextNoFds, request))
                 elif now > Fds.date_end:
                     if settings.DEBUG == True:
-                        print "Fds pasó"
+                        print "Fds vencido"
                     contextNoFds = {
                         'title': 'Hola',
                         'message': 'Desafortunádamente la fecha limite para inscripción ha pasado.',
