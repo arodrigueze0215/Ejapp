@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded",function(){
     let date=$('input[type=date][name=data-brothers-date]');
     let phone=$('input[type=tel][name=data-brothers-phone]');
     let email=$('input[type=email][name=data-brothers-email]');
-    let relation=$('select[name=relation]');
+    let relation=$('select[name=relation] option:selected');
     let relationText=$('select[name=relation] option:selected').text();
     let brother = {};
     if(names!=''&&names!='undefined'&&names!=null){
@@ -291,7 +291,7 @@ document.addEventListener("DOMContentLoaded",function(){
     let relaText='';
     if(relation!=''&&relation!='undefined'&&relation!=null){
       relaText = relationText;
-      brother.relation=relation;
+      brother.relation=relation.index()+1;
     }else
       brother.relation='';
     let row = $(addRowOnTable(brother.names, brother.date, brother.phone, brother.email, relaText));

@@ -3,7 +3,6 @@ static
 migrations
 db.sqlite3
 *.pyc
-*pyc
 package-lock.json
 /Ejappenv/
 /.vscode/
