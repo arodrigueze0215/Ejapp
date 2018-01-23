@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
-import gBaseUrl from './apiConfig.js'
+import getBaseUrl from './apiConfig.js'
 
-const baseUrl = gBaseUrl;
+const baseUrl = getBaseUrl;
 var api = {
     apiAuth:{
         async getApiAuth(){
