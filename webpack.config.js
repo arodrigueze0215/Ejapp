@@ -3,7 +3,6 @@ module.exports = {
     entry:"./src-static/js/app.js",
     output:{
         filename:"./static/js/app.bundle.js"
-        //filename:"../static/js/app.bundle.js"
     },
     module:{
         rules:[
