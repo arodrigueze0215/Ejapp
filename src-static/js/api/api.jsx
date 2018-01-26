@@ -1,15 +1,26 @@
 import fetch from 'isomorphic-fetch';
-import getBaseUrl from './apiConfig.js'
+const http= "http://";
+const DOMAIN = "";
+const IP = "159.203.32.194";
+let getBaseUrl = ()=>{
+    if(DOMAIN!==""){
+        return `${http}${DOMAIN}`;
+    }else
+        return `${http}${IP}`;
 
-const baseUrl = getBaseUrl;
+}
+
+const baseUrl = getBaseUrl();
+let endpoint = "";
 var api = {
     apiAuth:{
         async getApiAuth(){
             let options = {
                 credentials: "same-origin",
             } 
+            endpoint=`${baseUrl}/api/apiauth/`;
             const response = await fetch(
-                `${baseUrl}/api/apiauth/`,
+                endpoint,
                 options
             );
             const data = await response.json();
@@ -21,10 +32,11 @@ var api = {
         async getInscriptionList(){
             let searchParams = window.location.search;
             let options = {
-                credentials: "same-origin",
+                credentials: "same-origin"
             } 
+            endpoint = `${baseUrl}/api/inscriptions/${searchParams}`;
             const response = await fetch(
-                `${baseUrl}/api/inscriptions/${searchParams}`,
+                endpoint,
                 options
             );
             const data = await response.json();
@@ -33,10 +45,11 @@ var api = {
         async getYoungDetail(){
             const params = window.location.search;
             let options = {
-                credentials: "same-origin",
+                credentials: "same-origin"
             } 
+            endpoint = `${baseUrl}/api/inscriptions/details/${params}`;
             const response = await fetch(
-                `${baseUrl}/api/inscriptions/details/${params}`,
+                endpoint,
                 options
             );
             const data = await response.json();
@@ -49,7 +62,7 @@ var api = {
         async getParentsList(){
             const params = window.location.search;
             let options = {
-                credentials: "same-origin",
+                credentials: "same-origin"
             } 
             const response = await fetch(
                 `${baseUrl}/api/parentlist/${params}`,
@@ -64,7 +77,7 @@ var api = {
         async getBrothersList(){
             const params = window.location.search;
             let options = {
-                credentials: "same-origin",
+                credentials: "same-origin"
             } 
             const response = await fetch(
                 `${baseUrl}/api/brotherslist/${params}`,
@@ -77,5 +90,5 @@ var api = {
     }
 
 }
-
+console.log(api);
 export default api;

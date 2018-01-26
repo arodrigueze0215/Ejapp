@@ -20,40 +20,26 @@ class Nav extends Component{
     
     async componentDidMount(){
         const user = await api.apiAuth.getApiAuth();
-        this.setState({
-            user,
-        });
+        console.log(user)
+        if (user.result==='ok'&& user.status===200) {
+            this.setState({
+                user,
+            });            
+        }
     }
     render(){
-        if (this.state.user.result==='ok'&& this.state.user.status===200) {
-            return(
-                <header>
-                    <nav className="navEj">
-                        <div className="top-bar">
-                            <NavLogo/>
-                            <UlNav user={this.state.user}/>
-                            <Hamburger/>
-                        </div>
-                    </nav>
-                    <MenuSlide user={this.state.user}/>
-                </header>
-            );
-
-        }else{
-            return(
-                <header>
-                    <nav className="navEj">
-                        <div className="top-bar">
-                            <NavLogo/>
-                            <UlNav user={this.state.user}/>
-                            <Hamburger/>
-                        </div>
-                    </nav>
-                    <MenuSlide user={this.state.user}/>
-                </header>
-            );
-        }
-
+        return(
+            <header>
+                <nav className="navEj">
+                    <div className="top-bar">
+                        <NavLogo/>
+                        <UlNav user={this.state.user}/>
+                        <Hamburger/>
+                    </div>
+                </nav>
+                <MenuSlide user={this.state.user}/>
+            </header>
+        );
     }
 }
 

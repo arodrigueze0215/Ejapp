@@ -14,6 +14,7 @@ class InscriptionsList extends Component{
     }
     async componentDidMount(){
         const data = await api.inscriptions.getInscriptionList();
+        console.log(data);
         this.setState({
             data, // no necesito decir data=data es2017 me comprime y obvia el data del state con la de la api
         });

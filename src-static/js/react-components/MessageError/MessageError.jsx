@@ -12,8 +12,8 @@ class MessageError extends Component{
     render(){
         return(
             <div>
-                <h2>Error {props.status}</h2>
-                <h3>{props.statusText}</h3>
+                <h2>Error {this.props.status}</h2>
+                <h3>{this.props.statusText}</h3>
             </div>
         );
     }
