@@ -49,8 +49,7 @@
         width: 100%;
         margin: auto 10%;
         @media (--smart-landscape){
-            margin: auto 3%;
-            
+            margin: auto 3%;            
         }
         &__listItem{
             @media (--tablet-portrait-963){

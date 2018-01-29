@@ -90,5 +90,4 @@ var api = {
     }
 
 }
-console.log(api);
 export default api;
