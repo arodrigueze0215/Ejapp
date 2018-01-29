@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded",function(){
   let getDataFromInputs = ()=>{
     let data = {};
     let current_date=$('input[type=date][name=current_date]').val();
-    let gender=$('input[type=radio][name=gender]').is(':checked')? "true": "false";
+    let gender=$('#gender_male').is(':checked')? "true": "false";
     let personal_names=$('input[type=text][name=personal_names]').val();
     let personal_lastnames=$('input[type=text][name=personal_lastnames]').val();
     let personal_dateborn=$('input[type=date][name=personal_dateborn]').val();
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded",function(){
     let personal_mobilephone=$('input[type=tel][name=personal_mobilephone]').val();
     let personal_address=$('input[type=text][name=personal_address]').val();
     let personal_email=$('input[type=email][name=personal_email]').val();
-    let personal_prodession=$('input[type=text][name=personal_profession]').val();
+    let personal_profession=$('input[type=text][name=personal_profession]').val();
     let personal_occupation=$('input[type=text][name=personal_occupation]').val();
     data.current_date = current_date;
     data.personal_gender = gender;
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded",function(){
     data.personal_mobilephone = personal_mobilephone;
     data.personal_address = personal_address;
     data.personal_email = personal_email;
-    data.personal_prodession = personal_prodession;
+    data.personal_profession = personal_profession;
     data.personal_occupation = personal_occupation;
     data.life_with_gran = $('#life_with_gran').is(':checked')? "true": "false";
     data.life_with_parent = $('#life_with_parent').is(':checked')? "true": "false";
@@ -192,13 +192,13 @@ document.addEventListener("DOMContentLoaded",function(){
     data.life_with_cousins = $('#life_with_cousins').is(':checked')? "true": "false";
     data.life_with_brothers = $('#life_with_brothers').is(':checked')? "true": "false";
     data.life_with_alone = $('#life_with_alone').is(':checked')? "true": "false";
-    let study=$('input[type=radio][name=study]').is(':checked')? "true": "false";
+    let study=$('#study_yes').is(':checked')? "true": "false";
     let study_carrer=$('input[type=text][name=study_carrer]').val();
     let study_where=$('input[type=text][name=study_where]').val();
     data.study = study;
     data.study_carrer = study_carrer;
     data.study_where = study_where;
-    let work=$('input[type=radio][name=work]').is(':checked')? "true": "false";
+    let work=$('#work_yes').is(':checked')? "true": "false";
     let work_company=$('input[type=text][name=work_company]').val();
     let work_role=$('input[type=text][name=work_role]').val();
     let work_phone=$('input[type=text][name=work_phone]').val();
@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded",function(){
     data.work_company = work_company;
     data.work_role = work_role;
     data.work_phone = work_phone;
-    let dad=$('input[type=radio][name=dad]').is(':checked')? "true": "false";
+    let dad=$('#dad_yes').is(':checked')? "true": "false";
     let dad_names=$('input[type=text][name=dad_names]').val();
     let dad_ocupation=$('input[type=text][name=dad_ocupation]').val();
     let dad_phone_home=$('input[type=tel][name=dad_phone_home]').val();
@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded",function(){
     data.dad_phone_home = dad_phone_home;
     data.dad_phone = dad_phone;
     data.dad_address = dad_address;
-    let mom=$('input[type=radio][name=mom]').is(':checked')? "true": "false";
+    let mom=$('#mom_yes').is(':checked')? "true": "false";
     let mom_names=$('input[type=text][name=mom_names]').val();
     let mom_ocupation=$('input[type=text][name=mom_ocupation]').val();
     let mom_phone_home=$('input[type=tel][name=mom_phone_home]').val();

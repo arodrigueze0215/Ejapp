@@ -161,8 +161,8 @@ def inscriptions_add(request):
                     mom_parent.young = young
                     mom_parent.relationship = "1"
                     mom_parent.name_parent = mom_names
-                    if mom=='true':
-                        mom_parent.isalive = True
+                    if mom=='false':
+                        mom_parent.isalive = False
                     if mom_ocupation:
                         mom_parent.occupation = mom_ocupation
                     if mom_phone_home:
@@ -178,8 +178,8 @@ def inscriptions_add(request):
                     dad_parent.young = young
                     dad_parent.relationship = "2"
                     dad_parent.name_parent = dad_names
-                    if dad=='true':
-                        dad_parent.isalive = True
+                    if dad=='false':
+                        dad_parent.isalive = False
                     if dad_ocupation:
                         dad_parent.occupation = dad_ocupation
                     if dad_phone_home:
