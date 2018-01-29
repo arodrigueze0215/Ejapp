@@ -88,6 +88,12 @@ let Hamburger = ()=>{
 
 }
 let MenuSlide = (props) =>{
+    let handleTouchStart = (e)=>{
+        let $prfile = document.getElementById('menuSlide__content__listItem__myProfile');
+        let $logout = document.getElementById('menuSlide__content__listItem__logout');
+        $prfile.classList.toggle('menuSlide__content__listItem__item--active');        
+        $logout.classList.toggle('menuSlide__content__listItem__item--active');        
+    }
     let userAuth= `${props.user.authUser.young.user.first_name} ${props.user.authUser.young.user.last_name}`;
     return(
         <nav id="menuSlide" className="menuSlide">
@@ -100,9 +106,11 @@ let MenuSlide = (props) =>{
                     <li><a href="#">Profundos</a></li>
                     <li><a href="#">Consejeros</a></li>
                     <li>
-                         <a>{userAuth}</a>
+                         <a onTouchStart={handleTouchStart}>{userAuth}</a>
                         
                     </li>
+                    <li id="menuSlide__content__listItem__myProfile" className="menuSlide__content__listItem__myProfile menuSlide__content__listItem__item--active"><a href="#">MI perfil</a></li>
+                    <li id = "menuSlide__content__listItem__logout" className="menuSlide__content__listItem__logout menuSlide__content__listItem__item--active"><a href="/logout/">Salir</a></li>
                 </ul>
             </div>
         </nav>
