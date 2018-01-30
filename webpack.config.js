@@ -46,8 +46,14 @@ module.exports = {
                 use: 'file-loader?name=static/fonts/[name].[ext]'
             },
             {
-                test: /\.(png)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                use: 'file-loader?name=static/media/[name].[ext]'
+                test: /\.(png|jp(e*)g|svg)$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: { 
+                        limit: 8000, // Convert images < 8kb to base64 strings
+                        name: 'images/[hash]-[name].[ext]'
+                    } 
+                }]
             }
         ]
 

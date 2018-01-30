@@ -1,5 +1,6 @@
 import React, {Component } from "react";
 import api from '../../api/api.jsx';
+import hamburger from '../../../images/hamburger.png';
 
 class Nav extends Component{
     constructor(props){
@@ -82,7 +83,7 @@ let Hamburger = ()=>{
     }
     return(
        <div id="navEj__hamburger" className="top-bar-right navEj__hamburger" onClick={onClickHamburger}>
-            <img className="navEj__hamburger__image" src="/s/media/hamburger.png" alt="icon"/>
+            <img className="navEj__hamburger__image" src={hamburger} alt="icon"/>
        </div>
     );
 
