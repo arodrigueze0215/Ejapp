@@ -8,6 +8,7 @@ urlpatterns=[
     url(r'^inscrito/detalle/', views.inscription_detail),
     url(r'^fds/', views.list_fds, name='list_fds'),
     url(r'^formenable/', views.enable_inscriptions, name='form_enable'),
+    url(r'^geturl/', views.get_url_inscription, name='get_url_inscription'),
     url(r'^resultado/', views.result_inscription, name='result_inscription'),
     url(r'^', include('login.urls', namespace='login')),
 ]

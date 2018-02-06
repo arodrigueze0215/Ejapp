@@ -409,6 +409,44 @@ def enable_inscriptions(request):
                 return JsonResponse({'result': 'error', 'message':'El Fds seleccionado no es valido', 'active':'false'})
 
 @login_required(login_url='/login/')
+def get_url_inscription(request):
+    if request.method == 'POST':
+        if request.is_ajax():
+            fds_id = request.POST.get('fds_id', None)
+            if settings.DEBUG == True:
+                print "fds_id", fds_id
+
+            if fds_id is not None:
+                Fds = get_object_or_404(FdsEvents, id=fds_id)
+                if settings.DEBUG == True:
+                    print "Fds found to enable inscription", Fds
+                if Fds:
+                    path = reverse("main:get_url_inscription")+"?fds="+Fds.number_fds+";ciudad="+Fds.city_fds
+                    url = request.META['HTTP_ORIGIN']+path
+                        
+                    if settings.DEBUG == True:
+                        print "Fds get url: ", Fds
+                        print "request META: ", request.META
+                        print "url: ", url
+                    return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción habilitada', 'url':url})
+                else:
+                    Fds.is_form_active = False
+                    Fds.save()
+                    if settings.DEBUG == True:
+                        print "Fds saved False: ", Fds
+                    return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción deshabilitada'})
+
+            else:
+                """El Fds no es valido"""
+                return JsonResponse({'result': 'error', 'message':'El Fds seleccionado no es valido'})
+        else:
+            """ Datos de post no son validos"""
+            return JsonResponse({'result': 'error', 'message':'El Fds seleccionado no es valido'})
+    else:
+        """ Datos de post no son validos"""
+        return JsonResponse({'result': 'error', 'message':'El Fds seleccionado no es valido'})
+
+@login_required(login_url='/login/')
 def inscriptions_list(request):
     return render(request, 'inscriptions_list.html')
 

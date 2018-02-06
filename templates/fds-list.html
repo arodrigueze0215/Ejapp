@@ -73,15 +73,15 @@
                     </thead>
                     <tbody>
                         {% for fds in fdsList %}
-                            <tr id="listFdsTableRow{{fds.id}}">
+                            <tr id="listFdsTableRow{{fds.id}}" data-row-id="{{fds.id}}">
                                 <td>FDS {{fds.number_fds}}</td>
                                 <td>{{fds.name}}</td>
                                 <td>{{fds.date_start|date:"M d, Y"}}</td>
                                 <td>{{fds.date_end|date:"M d, Y"}}</td>
                                 {% if fds.is_form_active%}
-                                <td><span class="label success">Habilitado</span></td>
+                                <td class="listFds__getUrl"><span class="label success">Habilitado</span></td>
                                 {%else%}
-                                <td><span class="label secondary">Deshabilitado</span></td>
+                                <td class="listFds__getUrl"><span class="label secondary">Deshabilitado</span></td>
                                 {%endif%}
                                 <td>
                                     <ul class="dropdown menu" data-dropdown-menu>

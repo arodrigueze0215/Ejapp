@@ -76,6 +76,16 @@ document.addEventListener("DOMContentLoaded",function(){
         var id = $(ev.currentTarget).parent().data('row-id');
         enableInscription(id, "False", ev);
     });
+    listFdsTable.on('click','td.listFds__getUrl', (ev)=>{
+        ev.preventDefault();
+        var id = $(ev.currentTarget).parent().data('row-id');
+        getUrlInscription(id, ev);
+    });
+    listFdsTable.on('touch','td.listFds__getUrl', (ev)=>{
+        ev.preventDefault();
+        var id = $(ev.currentTarget).parent().data('row-id');
+        getUrlInscription(id, ev);
+    });
     
     /**
      * Event that set a post to edit a isncription form
@@ -198,6 +208,29 @@ document.addEventListener("DOMContentLoaded",function(){
                         $(ev.currentTarget).removeClass('listFds__menuAction__disable').addClass('listFds__menuAction__enable');
 
                     }
+                } else{
+                    console.log(data);
+                }         
+                
+            });
+        }
+        /**
+         * Get url of inscriptions to share with anyone
+         * @param {*id fds} id 
+         * @param {* event } ev 
+         */
+        let getUrlInscription = (id, ev) =>{
+            let data = {fds_id:id, csrfmiddlewaretoken: csrftoken};
+            let postAjax = $.ajax({
+                url : '/geturl/',
+                type : 'POST',
+                data : data
+            });
+            postAjax.done((data) =>{
+                if (data.result==='ok') {
+                    $('#copyUrlInscription').foundation('open');
+                    console.log(data.url);
+                    $('input[type=url][name=urlInscription]').val(data.url);
                 } else{
                     console.log(data);
                 }         
