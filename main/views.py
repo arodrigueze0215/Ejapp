@@ -421,7 +421,7 @@ def get_url_inscription(request):
                 if settings.DEBUG == True:
                     print "Fds found to enable inscription", Fds
                 if Fds:
-                    path = reverse("main:get_url_inscription")+"?fds="+Fds.number_fds+";ciudad="+Fds.city_fds
+                    path = reverse("main:inscriptions_add")+"?fds="+Fds.number_fds+";ciudad="+Fds.city_fds
                     url = request.META['HTTP_ORIGIN']+path
                         
                     if settings.DEBUG == True:
