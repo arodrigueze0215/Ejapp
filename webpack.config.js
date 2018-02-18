@@ -60,7 +60,7 @@ module.exports = {
     },
     target: 'web',
     plugins: [
-    new ExtractTextPlugin('./static/css/app.bundle.css'),
-  ]
+        new ExtractTextPlugin('./static/css/app.bundle.css'),
+    ]
 
 }
