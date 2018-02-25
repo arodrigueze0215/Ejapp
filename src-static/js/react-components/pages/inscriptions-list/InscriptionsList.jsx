@@ -49,23 +49,16 @@ class InscriptionsList extends Component{
                     status={this.state.data.status} 
                     statusText={this.state.data.statusText}
                 />
-            );            
+            );
         } else{
             return(
-               <MessageLoading/>
-            );            
+               <ContentLoading/>
+            );
             
         }
     }
 }
-let MessageLoading=(props) =>{
-    return(
-        <div>
-            <h2>Cargando...</h2>
-        </div>
-    );
-    
-}
+
 let RenderTable=(props)=> {
     let id = props.id;
     let rows = props.data;

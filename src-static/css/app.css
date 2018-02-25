@@ -6,6 +6,8 @@
 @import "login.css";
 @import "nofound.css";
 @import "../js/react-components/nav/nav.css";
+@import "../js/react-components/ContentLoading/ContentLoading.css";
+@import "../js/react-components/MessageError/MessageError.css";
 @import "../js/react-components/pages/inscriptions-list/index.css";
 @import "../js/react-components/pages/inscriptionDetail/index.css";
 @import "../js/react-components/ResultsTemplate/index.css";

@@ -10,8 +10,9 @@ class ContentLoading extends Component{
     }
     render(){
         return(
-            <div>
-                <h2>Cargando...</h2>
+            <div className="loadingComponent">
+                <div className="loadingComponent__loader"></div>
+                <h2>Cargando el contenido...</h2>
             </div>
         );
     }
