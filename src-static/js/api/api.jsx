@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 const http= "http://";
-const DOMAIN = "dev.encuentrojuvenil.co";//dev
+const DOMAIN = "app.encuentrojuvenil.co";//dev
 //const IP = "192.168.1.15:8000";//local
 const IP = "159.203.32.194:8000";
 let getBaseUrl = ()=>{
