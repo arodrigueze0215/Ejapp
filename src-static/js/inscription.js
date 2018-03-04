@@ -1,4 +1,5 @@
 import * as csrftoken from './libs/csrftoken.js';
+
 document.addEventListener("DOMContentLoaded",function(){
   let brothers = new Array();
   let today = ()=> {
@@ -10,7 +11,15 @@ document.addEventListener("DOMContentLoaded",function(){
     if(mm<10) mm = '0'+mm;    
     return  `${yyyy}-${mm}-${dd}`;
   }
+  //init the current date. The date that would be fill by itself
   $('input[type=date][name=current_date]').val(today());
+  if ( $('input[type="date"]').prop('type') != 'date' ) {
+      $('input[type="date"]').fdatepicker({
+        format: 'yyyy-mm-dd',
+        leftArrow:'<<',
+        rightArrow:'>>'
+      });
+  }
 
 
    $('input[type=radio][name=study]').change(function(){
