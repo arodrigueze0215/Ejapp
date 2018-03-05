@@ -28,7 +28,7 @@ class FdsEvents(models.Model):
     is_form_active = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     def __str__(self):
-        return self.name+", FDS"+self.number_fds+", "+self.city_fds+", "+str(self.is_form_active)
+        return self.name+", FDS"+self.number_fds+", "+self.city_fds+", formInscription: "+str(self.is_form_active)
 
 class Inscription(models.Model):
     _PIECE = (
@@ -65,6 +65,8 @@ class Inscription(models.Model):
     other_experiences = models.BooleanField(default=False)
     experiences_which = models.CharField(max_length=999, blank=True)
     pieces_save = models.CharField(max_length=50, choices=_PIECE, default="1")
+    person_mostimportant_name = models.CharField(max_length=255, blank=False, default="No")
+    person_mostimportant_number = models.CharField(max_length=50, blank=False, default="No")
 
 class  Parents(models.Model):
     _RELATION = (

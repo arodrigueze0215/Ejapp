@@ -1,8 +1,11 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
 module.exports = {
     entry:"./src-static/js/app.js",
     output:{
-        filename:"./static/js/app.bundle.js"
+        path:path.resolve(__dirname,'static'),
+        filename:'js/app.bundle.js',
+        publicPath: './static/'
     },
     module:{
         rules:[
@@ -38,19 +41,21 @@ module.exports = {
                 }
             },
             {
-                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: 'url-loader'
-            },
-            {
-                test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                use: 'file-loader?name=static/fonts/[name].[ext]'
+                test: /\.(ttf|eot|woff(2)|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: { 
+                        limit: 10000, // Convert images < 8kb to base64 strings
+                        name: 'fonts/[hash]-[name].[ext]'
+                    } 
+                }]
             },
             {
                 test: /\.(png|jp(e*)g|svg)$/,
                 use: [{
                     loader: 'url-loader',
                     options: { 
-                        limit: 8000, // Convert images < 8kb to base64 strings
+                        limit: 10000, // Convert images < 10kb to base64 strings
                         name: 'images/[hash]-[name].[ext]'
                     } 
                 }]
@@ -60,7 +65,7 @@ module.exports = {
     },
     target: 'web',
     plugins: [
-    new ExtractTextPlugin('./static/css/app.bundle.css'),
+    new ExtractTextPlugin('css/app.bundle.css'),
   ]
 
 }
