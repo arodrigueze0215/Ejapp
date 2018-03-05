@@ -1,4 +1,5 @@
 import * as csrftoken from './libs/csrftoken.js';
+
 document.addEventListener("DOMContentLoaded",function(){
   let brothers = new Array();
   let today = ()=> {
@@ -10,7 +11,15 @@ document.addEventListener("DOMContentLoaded",function(){
     if(mm<10) mm = '0'+mm;    
     return  `${yyyy}-${mm}-${dd}`;
   }
+  //init the current date. The date that would be fill by itself
   $('input[type=date][name=current_date]').val(today());
+  if ( $('input[type="date"]').prop('type') != 'date' ) {
+      $('input[type="date"]').fdatepicker({
+        format: 'yyyy-mm-dd',
+        leftArrow:'<<',
+        rightArrow:'>>'
+      });
+  }
 
 
    $('input[type=radio][name=study]').change(function(){
@@ -231,6 +240,10 @@ document.addEventListener("DOMContentLoaded",function(){
     data.mom_phone = mom_phone;
     data.mom_address = mom_address;
     
+    let person_mostimportant_name=$('input[type=text][name=person_mostimportant_name]').val();
+    let person_mostimportant_number=$('input[type=tel][name=person_mostimportant_number]').val();
+    data.person_mostimportant_name = person_mostimportant_name;
+    data.person_mostimportant_number = person_mostimportant_number;
     
     let health_illnes=$('input[type=text][name=health-illnes]').val();
     let health_food=$('input[type=text][name=health-food]').val();

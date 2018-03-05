@@ -66,6 +66,8 @@ def inscriptions_add(request):
         wantFds = request.POST.get('wantFds', None)
         otherExperiences = request.POST.get('otherExperiences', None)
         otherExperiences_which = request.POST.get('otherExperiences_which', None)
+        person_mostimportant_name = request.POST.get('person_mostimportant_name', None)
+        person_mostimportant_number = request.POST.get('person_mostimportant_number', None)
         if personal_names and personal_lastnames and personal_email and personal_dateborn:
             if User.objects.filter(username=personal_email).exists():
                 return JsonResponse({'result': 'error','message': 'Ya existe un usuario con este correo', 'data_register':{'name': personal_names, 'email': personal_email}})
@@ -151,8 +153,15 @@ def inscriptions_add(request):
                     inscription.other_experiences = True
                 if otherExperiences_which:
                     inscription.experiences_which = otherExperiences_which
-                if settings.DEBUG == True:
-                    print "inscription: ", inscription.life_with_alone
+                if person_mostimportant_name:
+                    inscription.person_mostimportant_name = person_mostimportant_name
+                else:
+                    inscription.person_mostimportant_name = 'person_mostimportant_name'
+                    
+                if person_mostimportant_number:
+                    inscription.person_mostimportant_number = person_mostimportant_number
+                else:
+                    inscription.person_mostimportant_number = '000'
                 inscription.save()
 
                 """add mom"""

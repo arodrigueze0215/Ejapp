@@ -51,6 +51,7 @@ let Details = (props) =>{
             <Job {...props.data}/>
             <ParentsList/> 
             <BrothersList/> 
+            <MostImportant {...props.data}/>
             <SpecialFood {...props.data}/>
             <WhoInviteMe {...props.data}/>
             <AboutFDS {...props.data}/>
@@ -159,6 +160,27 @@ let SpecialFood = (props)=>{
                     <tr>
                         {props.illness.length>0?(<td>{props.illness}</td>):(<td>No tiene</td>)}
                         {props.especial_food.length>0?(<td>{props.especial_food}</td>):(<td>No necesita</td>)}
+                    </tr>
+                </tbody>
+            </table>
+        </article>
+    );
+}
+let MostImportant = (props)=>{
+    return(
+        <article className="content__inscriptionDetail__mostImportant">
+            <h3>La persona mas importante en tu vida</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Nombre</td>
+                        <td>Número de contacto</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {props.person_mostimportant_name.length>0?(<td>{props.person_mostimportant_name}</td>):(<td>No tiene</td>)}
+                        {props.person_mostimportant_number.length>0?(<td>{props.person_mostimportant_number}</td>):(<td>No tiene</td>)}
                     </tr>
                 </tbody>
             </table>

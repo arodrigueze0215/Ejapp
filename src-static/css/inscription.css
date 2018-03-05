@@ -418,6 +418,26 @@
                 }
             }
         }
+        &__mostImportant{
+            display: flex;
+            flex-direction: row;
+            &__name{
+                flex-grow: 2;
+                margin-right: 8px;
+                @media (--desktop){
+                    margin-right: 0px;
+                }
+
+            }
+            &__number{
+                flex-grow: 1;
+                margin-left: 8px;
+                @media (--desktop){
+                    margin-left: 0px;
+                }
+            }
+
+        }
     }
     &__generalInfo{
         &__data{

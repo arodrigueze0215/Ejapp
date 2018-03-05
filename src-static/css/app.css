@@ -1,4 +1,6 @@
 @import "foundation.css";
+@import "fontawesome-all.css";
+@import "foundation-datepicker.css";
 @import "inscription.css";
 @import "override-foundation.css";
 @import "datatable.net.css";

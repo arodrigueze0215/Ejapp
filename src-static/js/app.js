@@ -17,6 +17,7 @@ require('moment');
 require("babel-core/register");
 require("babel-polyfill");
 require("./libs/foundation.min.js");
+require("foundation-datepicker");
 require("./fds-list.js");
 require("./inscription.js");
 require("./login.js");

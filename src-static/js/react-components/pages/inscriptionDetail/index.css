@@ -45,6 +45,9 @@
         &__whoLives{
             overflow: auto;
         }
+        &__mostImportant{
+            overflow: auto;
+        }
         &__specialFood{
             overflow: auto;
         }
