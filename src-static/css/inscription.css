@@ -421,6 +421,9 @@
         &__mostImportant{
             display: flex;
             flex-direction: row;
+            @media (--desktop){
+                flex-direction: column;
+            }
             &__name{
                 flex-grow: 2;
                 margin-right: 8px;
