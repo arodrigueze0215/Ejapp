@@ -1,10 +1,9 @@
 import fetch from 'isomorphic-fetch';
-const http= "http://";
-const DOMAIN = "dev.encuentrojuvenil.co";//dev
-//const DOMAIN = "app.encuentrojuvenil.co";//app
+//const DOMAIN = "dev.encuentrojuvenil.co";//dev
+const DOMAIN = window.location.origin;//app
 //const DOMAIN = "192.168.1.15:8000";//local
 let getBaseUrl = ()=>{
-    return `${http}${DOMAIN}`;
+    return `${DOMAIN}`;
 
 }
 
