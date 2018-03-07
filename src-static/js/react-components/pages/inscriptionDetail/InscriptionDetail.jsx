@@ -153,13 +153,17 @@ let SpecialFood = (props)=>{
                 <thead>
                     <tr>
                         <td>Enfermedades</td>
-                        <td>Alimentación especial</td>
+                        <td>Alimentación que NO puede comer</td>
+                        <td>Medicina especial</td>
+                        <td>EPS</td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         {props.illness.length>0?(<td>{props.illness}</td>):(<td>No tiene</td>)}
                         {props.especial_food.length>0?(<td>{props.especial_food}</td>):(<td>No necesita</td>)}
+                        {props.special_medicine.length>0?(<td>{props.special_medicine}</td>):(<td>No necesita</td>)}
+                        {props.eps.length>0?(<td>{props.eps}</td>):(<td>No tiene</td>)}
                     </tr>
                 </tbody>
             </table>

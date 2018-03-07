@@ -1,5 +1,3 @@
-import * as csrftoken from './libs/csrftoken.js';
-
 document.addEventListener("DOMContentLoaded",function(){
   let brothers = new Array();
   let today = ()=> {
@@ -249,6 +247,10 @@ document.addEventListener("DOMContentLoaded",function(){
     let health_food=$('input[type=text][name=health-food]').val();
     data.health_illnes = health_illnes;
     data.health_food = health_food;
+    let health_medicine=$('input[type=text][name=health_medicine]').val();
+    let health_eps=$('input[type=text][name=health_eps]').val();
+    data.health_medicine = health_medicine;
+    data.health_eps = health_eps;
     
     let whoIntiveMe=$('input[type=text][name=whoIntiveMe]').val();
     let whoIntiveMeNumber=$('input[type=tel][name=whoIntiveMeNumber]').val();

@@ -70,7 +70,7 @@ let NavLogo = (props) =>{
     return(
         <div className="top-bar-left">
             <ul className="menu">
-                <li className="menu-text">Site Title</li>
+                <li className="menu-text">EJ</li>
             </ul>
         </div>
     );

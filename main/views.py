@@ -68,6 +68,8 @@ def inscriptions_add(request):
         otherExperiences_which = request.POST.get('otherExperiences_which', None)
         person_mostimportant_name = request.POST.get('person_mostimportant_name', None)
         person_mostimportant_number = request.POST.get('person_mostimportant_number', None)
+        health_medicine = request.POST.get('health_medicine', None)
+        health_eps = request.POST.get('health_eps', None)
         if personal_names and personal_lastnames and personal_email and personal_dateborn:
             if User.objects.filter(username=personal_email).exists():
                 return JsonResponse({'result': 'error','message': 'Ya existe un usuario con este correo', 'data_register':{'name': personal_names, 'email': personal_email}})
@@ -140,7 +142,11 @@ def inscriptions_add(request):
                 if health_illnes:
                     inscription.illness = health_illnes     
                 if health_food:
-                    inscription.health_food = health_food     
+                    inscription.especial_food = health_food     
+                if health_medicine:
+                    inscription.special_medicine = health_medicine
+                if health_eps:
+                    inscription.eps = health_eps
                 if whoIntiveMe:
                     inscription.who_invite_me = whoIntiveMe     
                 if whoIntiveMeNumber:
