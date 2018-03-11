@@ -1,10 +1,26 @@
 .navEj{
+
+    & .dropdown.menu .is-active > a{
+        color:var(--yellowPrimaryColor);
+    }
+    & .dropdown.menu > li.is-dropdown-submenu-parent> a::after{
+        border-color: white transparent;
+    }
+    & .dropdown.menu > li.is-dropdown-submenu-parent.is-active > a::after{
+        border-color: var(--yellowPrimaryColor) transparent;
+    }
     position:fixed;
     left:0;
     top:0;
     width:100%;
     z-index:1000;
     &__menuOptions{
+        & a{
+            color: white;
+        }
+        & a:hover{
+           color: var(--yellowPrimaryColor);
+        }
         @media (--tablet-portrait-963){
             display: none;
         }
@@ -23,7 +39,7 @@
         }
     }
     &__itemMenuSelected{
-        color:var(--grayHover);
+        color:var(--yellowPrimaryColor) !important;
     }
 }
 .menuSlide{
