@@ -9,169 +9,171 @@
         <title>Lista de FDS</title>
     </head>
     <body>
-        <nav class="navEj">
-            <div class="top-bar ">
-                <div class="top-bar-left">
-                    <ul class="menu">
-                        <li class="menu-text">Site Title</li>
-                    </ul>
-                </div>
-                <div class="top-bar-right navEj__menuOptions">
-                    <ul class="dropdown menu" data-dropdown-menu>
-                        <li><a href="#">Inicio</a></li>
-                        <li><a href="#">Asitencia</a></li>
-                        <li><a href="#">Talleres</a></li>
-                        <li><a class="navEj__itemMenuSelected"href="#">FDS</a></li>
-                        <li><a href="#">Profundos</a></li>
-                        <li><a href="#">Consejeros</a></li>
-                        <li>
-                            {% if user.is_authenticated %}
-                                <a >{{user.first_name}} {{user.last_name}}</a>
-                                <ul class="menu vertical">
-                                    <li><a href="#">Perfil</a></li>
-                                    <li><a href="{% url 'main:login:logout' %}">Salir</a></li>
-                                </ul>
-                            {% endif%}
-                        </li>
-                    </ul>
-                </div>
-                <div id="navEj__hamburgers" class="top-bar-right navEj__hamburger">
-                    <img class="navEj__hamburger__image" src="{% static 'media/hamburger.png' %}" alt="icon">
-                </div>
-            </div>
-        </nav>
-        <nav id="menuSlide" class="menuSlide">
-            <ul class="menu menuSlide__content__listItem" data-dropdown-menu>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Asitencia</a></li>
-                <li><a href="#">Talleres</a></li>
-                <li><a class="navEj__itemMenuSelected"href="#">FDS</a></li>
-                <li><a href="#">Profundos</a></li>
-                <li><a href="#">Consejeros</a></li>
-                <li>
-                    {% if user.is_authenticated %}
-                    <a id="userAuthenticated">{{user.first_name}} {{user.last_name}}</a>
-                    {% endif%}
-                </li>
-                <li class="menuSlide__content__listItem__myProfile menuSlide__content__listItem__item--active"><a href="#">MI perfil</a></li>
-                <li class="menuSlide__content__listItem__logout menuSlide__content__listItem__item--active"><a href="/logout/">Salir</a></li>
-            </ul>
-        </nav>
-        <div class="Main">
-            <section class="listFds">
-                <h2>Fines de semana</h2>
-                <table id="listFdsTable" style="width:100%;" >
-                    <thead>
-                        <tr>
-                            <th>FDS</th>
-                            <th>Nombre</th>
-                            <th>Inicia</th>
-                            <th>Termina</th>
-                            <th>Inscripción</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for fds in fdsList %}
-                            <tr id="listFdsTableRow{{fds.id}}" data-row-id="{{fds.id}}">
-                                <td>FDS {{fds.number_fds}}</td>
-                                <td>{{fds.name}}</td>
-                                <td>{{fds.date_start|date:"M d, Y"}}</td>
-                                <td>{{fds.date_end|date:"M d, Y"}}</td>
-                                {% if fds.is_form_active%}
-                                <td class="listFds__getUrl"><span class="label success">Habilitado</span></td>
-                                {%else%}
-                                <td class="listFds__getUrl"><span class="label secondary">Deshabilitado</span></td>
-                                {%endif%}
-                                <td>
-                                    <ul class="dropdown menu" data-dropdown-menu>
-                                        <li>
-                                            <a>Mas</a>
-                                            <ul data-row-id="{{fds.id}}" data-row-numberfds="{{fds.number_fds}}" 
-                                            data-row-name="{{fds.name}}" data-row-datestart ="{{fds.date_start|date:'Y-m-d'}}"
-                                            data-row-fds="{{fds.number_fds}}"  data-row-city="{{fds.city_fds}}"data-row-dateend ="{{fds.date_end|date:'Y-m-d'}}" 
-                                            class="menu vertical listFds__menuAction">
-                                                <li class="listFds__menuAction__edit"><a>Editar Fds</a></li>
-                                                <li class="listFds__menuAction__delete"><a>Eliminar Fds</a></li>
-                                                {% if fds.is_form_active%}
-                                                <li class="listFds__menuAction__disable"><a>Deshabilitar inscripción</a></li>
-                                                {%else%}
-                                                <li class="listFds__menuAction__enable"><a>Habilitar inscripción</a></li>
-                                                {%endif%}
-                                                <li class="listFds__menuAction__listInscribed"><a>Lista de inscritos</a></li>
-                                            </ul>
-                                        </li>
+        <div class="wrapper__body">
+            <nav class="navEj">
+                <div class="top-bar ">
+                    <div class="top-bar-left">
+                        <ul class="menu">
+                            <li class="menu-text">Site Title</li>
+                        </ul>
+                    </div>
+                    <div class="top-bar-right navEj__menuOptions">
+                        <ul class="dropdown menu" data-dropdown-menu>
+                            <li><a href="#">Inicio</a></li>
+                            <li><a href="#">Asitencia</a></li>
+                            <li><a href="#">Talleres</a></li>
+                            <li><a class="navEj__itemMenuSelected"href="#">FDS</a></li>
+                            <li><a href="#">Profundos</a></li>
+                            <li><a href="#">Consejeros</a></li>
+                            <li>
+                                {% if user.is_authenticated %}
+                                    <a >{{user.first_name}} {{user.last_name}}</a>
+                                    <ul class="menu vertical">
+                                        <li><a href="#">Perfil</a></li>
+                                        <li><a href="{% url 'main:login:logout' %}">Salir</a></li>
                                     </ul>
-                                    </td>
+                                {% endif%}
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="navEj__hamburgers" class="top-bar-right navEj__hamburger">
+                        <img class="navEj__hamburger__image" src="{% static 'media/hamburger.png' %}" alt="icon">
+                    </div>
+                </div>
+            </nav>
+            <nav id="menuSlide" class="menuSlide">
+                <ul class="menu menuSlide__content__listItem" data-dropdown-menu>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Asitencia</a></li>
+                    <li><a href="#">Talleres</a></li>
+                    <li><a class="navEj__itemMenuSelected"href="#">FDS</a></li>
+                    <li><a href="#">Profundos</a></li>
+                    <li><a href="#">Consejeros</a></li>
+                    <li>
+                        {% if user.is_authenticated %}
+                        <a id="userAuthenticated">{{user.first_name}} {{user.last_name}}</a>
+                        {% endif%}
+                    </li>
+                    <li class="menuSlide__content__listItem__myProfile menuSlide__content__listItem__item--active"><a href="#">MI perfil</a></li>
+                    <li class="menuSlide__content__listItem__logout menuSlide__content__listItem__item--active"><a href="/logout/">Salir</a></li>
+                </ul>
+            </nav>
+            <div class="Main">
+                <section class="listFds">
+                    <h2>Fines de semana</h2>
+                    <table id="listFdsTable" style="width:100%;" >
+                        <thead>
+                            <tr>
+                                <th>FDS</th>
+                                <th>Nombre</th>
+                                <th>Inicia</th>
+                                <th>Termina</th>
+                                <th>Inscripción</th>
+                                <th>Acciones</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </section>
-            <div class="reveal" id="newFdsModal" data-reveal>
-                <h1>Nuevo Fds.</h1>
-                <form id="postNewFds" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="method" value="POST">
-                    <label>Nombre de la temática
-                        <input type="text" name="name_fds" placeholder="Nombre">
+                        </thead>
+                        <tbody>
+                            {% for fds in fdsList %}
+                                <tr id="listFdsTableRow{{fds.id}}" data-row-id="{{fds.id}}">
+                                    <td>FDS {{fds.number_fds}}</td>
+                                    <td>{{fds.name}}</td>
+                                    <td>{{fds.date_start|date:"M d, Y"}}</td>
+                                    <td>{{fds.date_end|date:"M d, Y"}}</td>
+                                    {% if fds.is_form_active%}
+                                    <td class="listFds__getUrl"><span class="label success">Habilitado</span></td>
+                                    {%else%}
+                                    <td class="listFds__getUrl"><span class="label secondary">Deshabilitado</span></td>
+                                    {%endif%}
+                                    <td>
+                                        <ul class="dropdown menu" data-dropdown-menu>
+                                            <li>
+                                                <a>Mas</a>
+                                                <ul data-row-id="{{fds.id}}" data-row-numberfds="{{fds.number_fds}}" 
+                                                data-row-name="{{fds.name}}" data-row-datestart ="{{fds.date_start|date:'Y-m-d'}}"
+                                                data-row-fds="{{fds.number_fds}}"  data-row-city="{{fds.city_fds}}"data-row-dateend ="{{fds.date_end|date:'Y-m-d'}}" 
+                                                class="menu vertical listFds__menuAction">
+                                                    <li class="listFds__menuAction__edit"><a>Editar Fds</a></li>
+                                                    <li class="listFds__menuAction__delete"><a>Eliminar Fds</a></li>
+                                                    {% if fds.is_form_active%}
+                                                    <li class="listFds__menuAction__disable"><a>Deshabilitar inscripción</a></li>
+                                                    {%else%}
+                                                    <li class="listFds__menuAction__enable"><a>Habilitar inscripción</a></li>
+                                                    {%endif%}
+                                                    <li class="listFds__menuAction__listInscribed"><a>Lista de inscritos</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+                <div class="reveal" id="newFdsModal" data-reveal>
+                    <h1>Nuevo Fds.</h1>
+                    <form id="postNewFds" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="method" value="POST">
+                        <label>Nombre de la temática
+                            <input type="text" name="name_fds" placeholder="Nombre">
+                        </label>
+                        <label>Número de FDS
+                            <input type="number" name="number_fds" placeholder="Consecutivo">
+                        </label>
+                        <label>Fecha de inicio
+                            <input type="date" name="startdate_fds" placeholder="fecha">
+                        </label>
+                        <label>Fecha que finaliza
+                            <input type="date"  name="enddate_fds" placeholder="fecha">
+                        </label>
+                        <button class="button" type="submit">Crear</button>
+                    </form>
+                    <button class="close-button" data-close aria-label="Close modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="reveal" id="updateFdsModal" data-reveal>
+                    <h1>Modificar Fds.</h1>
+                    <form id="putNewFds" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="method" value="PUT">
+                        <input type="hidden" name="id_fds">
+                        <label>Nombre de la temática
+                            <input type="text" name="name_fds" placeholder="Nombre">
+                        </label>
+                        <label>Número de FDS
+                            <input type="number" name="number_fds" placeholder="Consecutivo">
+                        </label>
+                        <label>Fecha de inicio
+                            <input type="date" name="startdate_fds" placeholder="fecha">
+                        </label>
+                        <label>Fecha que finaliza
+                            <input type="date"  name="enddate_fds" placeholder="fecha">
+                        </label>
+                        <button class="button" type="submit">Actualizar</button>
+                    </form>
+                    <button class="close-button" data-close aria-label="Close modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="reveal" id="copyUrlInscription" data-reveal>
+                    <h3>Enlace para la ficha de inscripción es:</h3>
+                    <label>Copia este enlace y compartelo con los participantes para que se puedan inscribir al FDS.
+                        <input type="url" name="urlInscription">
                     </label>
-                    <label>Número de FDS
-                        <input type="number" name="number_fds" placeholder="Consecutivo">
-                    </label>
-                    <label>Fecha de inicio
-                        <input type="date" name="startdate_fds" placeholder="fecha">
-                    </label>
-                    <label>Fecha que finaliza
-                        <input type="date"  name="enddate_fds" placeholder="fecha">
-                    </label>
-                    <button class="button" type="submit">Crear</button>
-                </form>
-                <button class="close-button" data-close aria-label="Close modal" type="button">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="reveal" id="updateFdsModal" data-reveal>
-                <h1>Modificar Fds.</h1>
-                <form id="putNewFds" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="method" value="PUT">
-                    <input type="hidden" name="id_fds">
-                    <label>Nombre de la temática
-                        <input type="text" name="name_fds" placeholder="Nombre">
-                    </label>
-                    <label>Número de FDS
-                        <input type="number" name="number_fds" placeholder="Consecutivo">
-                    </label>
-                    <label>Fecha de inicio
-                        <input type="date" name="startdate_fds" placeholder="fecha">
-                    </label>
-                    <label>Fecha que finaliza
-                        <input type="date"  name="enddate_fds" placeholder="fecha">
-                    </label>
-                    <button class="button" type="submit">Actualizar</button>
-                </form>
-                <button class="close-button" data-close aria-label="Close modal" type="button">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="reveal" id="copyUrlInscription" data-reveal>
-                <h3>Enlace para la ficha de inscripción es:</h3>
-                <label>Copia este enlace y compartelo con los participantes para que se puedan inscribir al FDS.
-                    <input type="url" name="urlInscription">
-                </label>
-                <button class="close-button" data-close aria-label="Close modal" type="button">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="reveal" id="deleteFds" data-reveal>
-                <h1>Eliminar</h1>
-                <div id="deleteFds_content"> </div>
-                <button type="button" class="button" name="delete_fds">Eliminar</button>
-                <button type="button" class="button" name="cancel_delete" data-close aria-label="Close modal">Cancelar</button>
-                <button class="close-button" data-close aria-label="Close modal" type="button">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    <button class="close-button" data-close aria-label="Close modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="reveal" id="deleteFds" data-reveal>
+                    <h1>Eliminar</h1>
+                    <div id="deleteFds_content"> </div>
+                    <button type="button" class="button" name="delete_fds">Eliminar</button>
+                    <button type="button" class="button" name="cancel_delete" data-close aria-label="Close modal">Cancelar</button>
+                    <button class="close-button" data-close aria-label="Close modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             </div>
         </div>
         <script src="{% static 'js/app.bundle.js' %}"></script>

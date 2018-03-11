@@ -11,3 +11,6 @@ a:hover, a:focus{
 table.dataTable tbody th, table.dataTable tbody td{
     text-align:center;
 }
+html.is-reveal-open, html.is-reveal-open body{
+    position: relative;
+}
