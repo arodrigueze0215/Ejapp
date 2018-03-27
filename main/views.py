@@ -241,7 +241,7 @@ def inscriptions_add(request):
             if Fds:
                 if now < Fds.date_start:
                     if Fds.is_active==True:
-                        if Fds.is_form_active==True:                            
+                        if Fds.is_form_active==True:
                             if settings.DEBUG == True:
                                 print "Fds esta vigente"
                                 print "RELATIONS: ", Brothers._RELATIONS
@@ -271,27 +271,28 @@ def inscriptions_add(request):
                         print "Fds vencido"
                     contextNoFds = {
                         'title': 'Hola',
-                        'message': 'Desafortunádamente la fecha limite para inscripción ha pasado.',
+                        'message': 'Desafortunádamente la fecha limite para inscripción ha pasado. El FDS ya terminó',
                     }
                     return HttpResponse(templateNoFound.render(contextNoFds, request))
                 else:
                     if settings.DEBUG == True:
                         print "Fds en progreso"
+                        print str(now) +" == "+str(Fds.date_start)+" == "+str(Fds.date_end)
                     contextNoFds = {
                         'title': 'Hola',
-                        'message': 'Desafortunádamente la fecha limite para inscripción ha pasado.',
+                        'message': 'Desafortunádamente la fecha limite para inscripción ha pasado. El FDS está en curso.',
                     }
                     return HttpResponse(templateNoFound.render(contextNoFds, request))
             else:
                 contextNoFds = {
                     'title': 'Hola',
-                    'message': 'Desafortunádamente la fecha limite para inscripción ha pasado.',
+                    'message': 'Desafortunádamente El FDS no existe.',
                 }
                 return HttpResponse(templateNoFound.render(contextNoFds, request))
         except FdsEvents.DoesNotExist:
             contextNoFds = {
                 'title': 'Hola',
-                'message': 'Desafortunádamente la fecha limite para inscripción ha pasado.',
+                'message': 'Desafortunádamente El FDS no existe.',
             }
             return HttpResponse(templateNoFound.render(contextNoFds, request))
 
