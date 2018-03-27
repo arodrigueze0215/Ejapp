@@ -1,7 +1,7 @@
 import React, {Componet, Component} from 'react';
 import api from '../../../api/api.jsx';
-import MessageError from '../../MessageError/MessageError.jsx';
-import ContentLoading from '../../ContentLoading/ContentLoading.jsx';
+import MessageError from '../../Commons/MessageError/MessageError.jsx';
+import ContentLoading from '../../Commons/ContentLoading/ContentLoading.jsx';
 import HeaderYoungDetail from './HeaderYoungDetail.jsx';
 import ParentsList from './ParentsList.jsx';
 import BrothersList from './BrothersList.jsx';

@@ -1,7 +1,7 @@
 import React from 'react';
-import InscriptionsList from './InscriptionsList.jsx';
 import {render} from 'react-dom';
-import Nav from '../../nav/Nav.jsx';
+import InscriptionsList from './InscriptionsList.jsx';
+import Nav from '../../Commons/nav/Nav.jsx';
 var target = document.getElementById('react-target-inscriptionslist');
 
 let Main = (props) =>{

@@ -1,10 +1,27 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
 module.exports = {
-    entry:"./src-static/js/app.js",
+    entry:{
+        
+        common:[
+            'react',
+            'react-dom',
+            'moment',
+            'jquery',
+            
+        ],
+        
+        app: path.resolve(__dirname,'src-static/js/app.js'),
+        inscription: path.resolve(__dirname,'src-static/js/inscription.js'),
+        fds: path.resolve(__dirname,'src-static/js/fds-list.js'),
+        login: path.resolve(__dirname,'src-static/js/login.js'),
+        inscriptionsList: path.resolve(__dirname,'src-static/js/react-components/pages/inscriptions-list/index.jsx'),
+        inscriptionDetail: path.resolve(__dirname,'src-static/js/react-components/pages/inscriptionDetail/index.jsx')
+    },
     output:{
         path:path.resolve(__dirname,'static'),
-        filename:'js/app.bundle.js',
+        filename:'js/[name].js',
         publicPath: './static/'
     },
     module:{
@@ -65,7 +82,11 @@ module.exports = {
     },
     target: 'web',
     plugins: [
-    new ExtractTextPlugin('css/app.bundle.css'),
-  ]
+        new ExtractTextPlugin('css/app.bundle.css'),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'common',
+            minChunks: Infinity
+        })
+    ]
 
 }

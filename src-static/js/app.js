@@ -13,16 +13,12 @@ window.maxWidth640 = '(max-width: 640px)';
 window.maxWidth480 = '(max-width: 480px)';
 window.maxWidth300 = '(max-width: 300px)';
 
-require('moment');
+
 require("babel-core/register");
 require("babel-polyfill");
 require("./libs/foundation.min.js");
 require("foundation-datepicker");
-require("./fds-list.js");
-require("./inscription.js");
-require("./login.js");
 require('./api/api.jsx')
-require("./react-components/pages/inscriptions-list/index.jsx");
-require("./react-components/pages/inscriptionDetail/index.jsx");
-require("./react-components/ResultsTemplate/index.jsx");
+require("./react-components/Commons/ResultsTemplate/index.jsx");
+require("./fds-list.js");
 $(document).foundation();
