@@ -1,14 +1,18 @@
 @import "foundation.css";
+@import "fontawesome-all.css";
+@import "foundation-datepicker.css";
 @import "inscription.css";
 @import "override-foundation.css";
 @import "datatable.net.css";
 @import "fds-list.css";
 @import "login.css";
 @import "nofound.css";
-@import "../js/react-components/nav/nav.css";
+@import "../js/react-components/Commons/nav/nav.css";
+@import "../js/react-components/Commons/ContentLoading/ContentLoading.css";
+@import "../js/react-components/Commons/MessageError/MessageError.css";
+@import "../js/react-components/Commons/ResultsTemplate/index.css";
 @import "../js/react-components/pages/inscriptions-list/index.css";
 @import "../js/react-components/pages/inscriptionDetail/index.css";
-@import "../js/react-components/ResultsTemplate/index.css";
 :root{
     --primaryColor:#CD2B26;
     --grayHover:#D5D5D5;

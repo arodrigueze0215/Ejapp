@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import api from '../../../api/api.jsx';
-import MessageError from '../../MessageError/MessageError.jsx';
-import ContentLoading from '../../ContentLoading/ContentLoading.jsx';
+import MessageError from '../../Commons/MessageError/MessageError.jsx';
+import ContentLoading from '../../Commons/ContentLoading/ContentLoading.jsx';
 class BrothersList extends Component{
     constructor(props){
         super(props);

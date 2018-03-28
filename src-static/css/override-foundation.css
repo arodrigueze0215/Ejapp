@@ -1,13 +1,20 @@
 .top-bar, .top-bar ul{
     background-color:var(--primaryColor);
 }
-a{
-    color:white;
+
+.dropdown.menu > li.is-dropdown-submenu-parent > a::after{
+    border-color: black transparent;
 }
-a:hover, a:focus{
-    color:var(--grayHover);
+a, a:hover, a:focus{
+    color: black;
+}
+.dropdown.menu .is-active> a{
+    color: black;
 }
 
 table.dataTable tbody th, table.dataTable tbody td{
     text-align:center;
+}
+html.is-reveal-open, html.is-reveal-open body{
+    position: relative;
 }

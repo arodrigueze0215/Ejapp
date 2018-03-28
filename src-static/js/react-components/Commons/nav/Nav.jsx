@@ -1,6 +1,6 @@
 import React, {Component } from "react";
-import api from '../../api/api.jsx';
-import hamburger from '../../../images/hamburger.png';
+import api from '../../../api/api.jsx';
+import hamburger from '../../../../images/hamburger.png';
 
 class Nav extends Component{
     constructor(props){
@@ -29,6 +29,7 @@ class Nav extends Component{
         }
     }
     render(){
+        $(document).foundation();
         return(
             <header>
                 <nav className="navEj">
@@ -70,7 +71,7 @@ let NavLogo = (props) =>{
     return(
         <div className="top-bar-left">
             <ul className="menu">
-                <li className="menu-text">Site Title</li>
+                <li className="menu-text">EJ</li>
             </ul>
         </div>
     );

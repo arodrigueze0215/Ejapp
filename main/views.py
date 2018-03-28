@@ -66,6 +66,10 @@ def inscriptions_add(request):
         wantFds = request.POST.get('wantFds', None)
         otherExperiences = request.POST.get('otherExperiences', None)
         otherExperiences_which = request.POST.get('otherExperiences_which', None)
+        person_mostimportant_name = request.POST.get('person_mostimportant_name', None)
+        person_mostimportant_number = request.POST.get('person_mostimportant_number', None)
+        health_medicine = request.POST.get('health_medicine', None)
+        health_eps = request.POST.get('health_eps', None)
         if personal_names and personal_lastnames and personal_email and personal_dateborn:
             if User.objects.filter(username=personal_email).exists():
                 return JsonResponse({'result': 'error','message': 'Ya existe un usuario con este correo', 'data_register':{'name': personal_names, 'email': personal_email}})
@@ -138,7 +142,11 @@ def inscriptions_add(request):
                 if health_illnes:
                     inscription.illness = health_illnes     
                 if health_food:
-                    inscription.health_food = health_food     
+                    inscription.especial_food = health_food     
+                if health_medicine:
+                    inscription.special_medicine = health_medicine
+                if health_eps:
+                    inscription.eps = health_eps
                 if whoIntiveMe:
                     inscription.who_invite_me = whoIntiveMe     
                 if whoIntiveMeNumber:
@@ -151,8 +159,15 @@ def inscriptions_add(request):
                     inscription.other_experiences = True
                 if otherExperiences_which:
                     inscription.experiences_which = otherExperiences_which
-                if settings.DEBUG == True:
-                    print "inscription: ", inscription.life_with_alone
+                if person_mostimportant_name:
+                    inscription.person_mostimportant_name = person_mostimportant_name
+                else:
+                    inscription.person_mostimportant_name = 'person_mostimportant_name'
+                    
+                if person_mostimportant_number:
+                    inscription.person_mostimportant_number = person_mostimportant_number
+                else:
+                    inscription.person_mostimportant_number = '000'
                 inscription.save()
 
                 """add mom"""
@@ -226,7 +241,7 @@ def inscriptions_add(request):
             if Fds:
                 if now < Fds.date_start:
                     if Fds.is_active==True:
-                        if Fds.is_form_active==True:                            
+                        if Fds.is_form_active==True:
                             if settings.DEBUG == True:
                                 print "Fds esta vigente"
                                 print "RELATIONS: ", Brothers._RELATIONS
@@ -256,27 +271,28 @@ def inscriptions_add(request):
                         print "Fds vencido"
                     contextNoFds = {
                         'title': 'Hola',
-                        'message': 'Desafortunádamente la fecha limite para inscripción ha pasado.',
+                        'message': 'Desafortunádamente la fecha limite para inscripción ha pasado. El FDS ya terminó',
                     }
                     return HttpResponse(templateNoFound.render(contextNoFds, request))
                 else:
                     if settings.DEBUG == True:
                         print "Fds en progreso"
+                        print str(now) +" == "+str(Fds.date_start)+" == "+str(Fds.date_end)
                     contextNoFds = {
                         'title': 'Hola',
-                        'message': 'Desafortunádamente la fecha limite para inscripción ha pasado.',
+                        'message': 'Desafortunádamente la fecha limite para inscripción ha pasado. El FDS está en curso.',
                     }
                     return HttpResponse(templateNoFound.render(contextNoFds, request))
             else:
                 contextNoFds = {
                     'title': 'Hola',
-                    'message': 'Desafortunádamente la fecha limite para inscripción ha pasado.',
+                    'message': 'Desafortunádamente El FDS no existe.',
                 }
                 return HttpResponse(templateNoFound.render(contextNoFds, request))
         except FdsEvents.DoesNotExist:
             contextNoFds = {
                 'title': 'Hola',
-                'message': 'Desafortunádamente la fecha limite para inscripción ha pasado.',
+                'message': 'Desafortunádamente El FDS no existe.',
             }
             return HttpResponse(templateNoFound.render(contextNoFds, request))
 

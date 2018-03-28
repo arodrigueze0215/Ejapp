@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import api from '../../../api/api.jsx';
-import MessageError from '../../MessageError/MessageError.jsx';
-import ContentLoading from '../../ContentLoading/ContentLoading.jsx';
+import MessageError from '../../Commons/MessageError/MessageError.jsx';
+import ContentLoading from '../../Commons/ContentLoading/ContentLoading.jsx';
 import initDatatable from './initDatatable.js';
 import moment from 'moment';
 
@@ -49,23 +49,16 @@ class InscriptionsList extends Component{
                     status={this.state.data.status} 
                     statusText={this.state.data.statusText}
                 />
-            );            
+            );
         } else{
             return(
-               <MessageLoading/>
-            );            
+               <ContentLoading/>
+            );
             
         }
     }
 }
-let MessageLoading=(props) =>{
-    return(
-        <div>
-            <h2>Cargando...</h2>
-        </div>
-    );
-    
-}
+
 let RenderTable=(props)=> {
     let id = props.id;
     let rows = props.data;

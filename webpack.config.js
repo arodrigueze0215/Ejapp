@@ -1,8 +1,28 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
 module.exports = {
-    entry:"./src-static/js/app.js",
+    entry:{
+        
+        common:[
+            'react',
+            'react-dom',
+            'moment',
+            'jquery',
+            
+        ],
+        
+        app: path.resolve(__dirname,'src-static/js/app.js'),
+        inscription: path.resolve(__dirname,'src-static/js/inscription.js'),
+        fds: path.resolve(__dirname,'src-static/js/fds-list.js'),
+        login: path.resolve(__dirname,'src-static/js/login.js'),
+        inscriptionsList: path.resolve(__dirname,'src-static/js/react-components/pages/inscriptions-list/index.jsx'),
+        inscriptionDetail: path.resolve(__dirname,'src-static/js/react-components/pages/inscriptionDetail/index.jsx')
+    },
     output:{
-        filename:"./static/js/app.bundle.js"
+        path:path.resolve(__dirname,'static'),
+        filename:'js/[name].js',
+        publicPath: './static/'
     },
     module:{
         rules:[
@@ -38,19 +58,21 @@ module.exports = {
                 }
             },
             {
-                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: 'url-loader'
-            },
-            {
-                test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                use: 'file-loader?name=static/fonts/[name].[ext]'
+                test: /\.(ttf|eot|woff(2)|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: { 
+                        limit: 10000, // Convert images < 8kb to base64 strings
+                        name: 'fonts/[hash]-[name].[ext]'
+                    } 
+                }]
             },
             {
                 test: /\.(png|jp(e*)g|svg)$/,
                 use: [{
                     loader: 'url-loader',
                     options: { 
-                        limit: 8000, // Convert images < 8kb to base64 strings
+                        limit: 10000, // Convert images < 10kb to base64 strings
                         name: 'images/[hash]-[name].[ext]'
                     } 
                 }]
@@ -60,7 +82,11 @@ module.exports = {
     },
     target: 'web',
     plugins: [
-        new ExtractTextPlugin('./static/css/app.bundle.css'),
+        new ExtractTextPlugin('css/app.bundle.css'),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'common',
+            minChunks: Infinity
+        })
     ]
 
 }
