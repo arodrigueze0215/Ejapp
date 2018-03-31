@@ -3,15 +3,12 @@ const path = require('path');
 const webpack = require('webpack');
 module.exports = {
     entry:{
-        
         common:[
             'react',
             'react-dom',
             'moment',
-            'jquery',
-            
-        ],
-        
+            'jquery',            
+        ],        
         app: path.resolve(__dirname,'src-static/js/app.js'),
         inscription: path.resolve(__dirname,'src-static/js/inscription.js'),
         fds: path.resolve(__dirname,'src-static/js/fds-list.js'),
@@ -62,7 +59,7 @@ module.exports = {
                 use: [{
                     loader: 'url-loader',
                     options: { 
-                        limit: 10000, // Convert images < 8kb to base64 strings
+                        limit: 1000, // Convert images < 1kb to base64 strings
                         name: 'fonts/[hash]-[name].[ext]'
                     } 
                 }]
@@ -72,7 +69,7 @@ module.exports = {
                 use: [{
                     loader: 'url-loader',
                     options: { 
-                        limit: 10000, // Convert images < 10kb to base64 strings
+                        limit: 1000, // Convert images < 1kb to base64 strings
                         name: 'images/[hash]-[name].[ext]'
                     } 
                 }]
