@@ -1,7 +1,6 @@
 import * as csrf from './libs/csrftoken.js';
 document.addEventListener("DOMContentLoaded",function(){
-    var csrftoken = csrf.csrfToken('csrftoken');
-    
+    var csrftoken = csrf.csrfToken('csrftoken');    
     var listFdsTable = $('#listFdsTable').DataTable({
         "columns": [
             null,
@@ -10,6 +9,21 @@ document.addEventListener("DOMContentLoaded",function(){
             null,
             null,
             { "orderable": false },
+        ],
+        "columnDefs": [
+            { 
+                targets: 2,
+                render: $.fn.dataTable.render.moment('MMM DD, YYYY','MMMM DD, YYYY')
+            },
+            { 
+                targets: 3,
+                render: $.fn.dataTable.render.moment('MMM DD, YYYY','MMMM DD, YYYY')
+            },
+            {
+                targets:5,
+                orderable: false,
+                serchable:false
+            }
         ],
         "scrollX": false,
         "language": { 

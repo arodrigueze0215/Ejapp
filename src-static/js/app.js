@@ -2,6 +2,8 @@ import styles from '../css/app.css';
 var $ = window.$ = window.jQuery= require("jquery");
 import dt from 'datatables.net';
 import csrftoken from './libs/csrftoken.js';
+import moment from 'moment';
+window.moment = moment;
 
 /* global variables to mediaqueries responsive*/
 window.maxWidth1240 = '(max-width: 1240px)';
@@ -14,6 +16,8 @@ window.maxWidth480 = '(max-width: 480px)';
 window.maxWidth300 = '(max-width: 300px)';
 
 
+require("./libs/datetime-moment.js");
+require("./libs/datetime.js");
 require("babel-core/register");
 require("babel-polyfill");
 require("./libs/foundation.min.js");

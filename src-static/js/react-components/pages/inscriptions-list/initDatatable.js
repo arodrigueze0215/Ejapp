@@ -1,13 +1,18 @@
 
 function initDatatable(params) {
+
     let inscriptionList = $('#inscriptionList');
     inscriptionList= $('#inscriptionList').DataTable({
-        "columns": [
-            null,
-            null,
-            null,
-            null,
-            { "orderable": false },
+        "columnDefs": [
+            { 
+                targets: 1,
+                render: $.fn.dataTable.render.moment('MMMM Do YYYY','MMMM DD, YYYY')
+            },
+            {
+                targets:4,
+                orderable: false,
+                serchable:false
+            }
         ],
         "scrollX": false,
         "language": { 
