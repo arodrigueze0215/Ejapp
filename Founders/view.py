@@ -222,3 +222,22 @@ def NewFoundEmpty(request, **params):
     else:
         data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! algunos datos son obligatorios.','code':status.HTTP_200_OK }
         return  data 
+
+def GetSingleFound(request, **params):
+    idFound = params.get("pk", None)
+    try:
+        if idFound:
+            found = Found.objects.get(id=idFound)
+            if found:
+                foundSerializer = FoundSerializer(found, context= {'request': request})
+                data = {'bodyObject': foundSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
+                return data
+            else:
+                data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! No encontramos ningun dato en la busqueda.','code':status.HTTP_200_OK }
+                return  data 
+        else:
+            data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+            return  data 
+    except Found.DoesNotExist:
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+        return  data 

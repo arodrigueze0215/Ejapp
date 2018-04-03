@@ -65,7 +65,7 @@ class NewFoundWithYoung(APIView):
                     password=password)        
         return Response(data, status.HTTP_200_OK)
 
-class NewFoundEmpty(APIView):
+class Founds(APIView):
 
     def post(self, request, format=None):
         
@@ -106,5 +106,10 @@ class NewFoundEmpty(APIView):
                     personal_names=personal_names,
                     personal_gender=personal_gender
                 )
+        return Response(data, status.HTTP_200_OK)
+    
+    def get(self, request, format=None):
+        idfound = request.query_params.get('id')
+        data = Fview.GetSingleFound(request, pk=idfound)        
         return Response(data, status.HTTP_200_OK)
 
