@@ -6,7 +6,7 @@ from .views import (InscriptionsList,
                     UserAuth, 
                     YoungList, 
                     NewFoundWithYoung,
-                    Founds
+                    Found
                 )
 
 urlpatterns = [
@@ -17,5 +17,5 @@ urlpatterns = [
     url(r'^brotherslist/$', BrothersList.as_view(),name='brothers_list'),
     url(r'^younglist/filtered/$', YoungList.as_view(),name='young_list_filtered'),
     url(r'^newfound/$', NewFoundWithYoung.as_view(),name='new_found_young'),
-    url(r'^founds/$', Founds.as_view(),name='new_found_empty'),
+    url(r'^founds/$', Found.as_view(),name='new_found_empty'),
 ]

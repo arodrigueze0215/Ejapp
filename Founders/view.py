@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from rest_framework import status
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 from main.models import (Young, Found, Areas)
 from api.serializers import YoungSerializer, FoundSerializer
 
@@ -69,10 +70,13 @@ def newFoundWithYoung(request, **params):
                     data = {'bodyObject':{}, 'result': 'error','statusText': 'Ya existe alguien registrado como encontrado con estos datos. ¿Para que quieres registrarte otra vez?','code':status.HTTP_200_OK }
                     return data
                 else:
+                    user = young.user
                     if password:
-                        user = young.user
                         user.set_password(password)
-                        user.save()
+                    if active_city:
+                        mGroup = Group.objects.get(name=active_city)
+                        mGroup.user_set.add(user)
+                    user.save()
 
                     found = Found()
                     found.young = young
@@ -239,5 +243,45 @@ def GetSingleFound(request, **params):
             data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
             return  data 
     except Found.DoesNotExist:
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+        return  data 
+
+def GetListFound(request):
+    try:
+        user= User.objects.get(email=request.user)
+        if user:
+            young = Young.objects.get(user=user)
+            if young:
+                found = Found.objects.get(young=young)
+                if found:
+                    active_city = found.active_city
+                    group = Group.objects.get(name=active_city)
+                    foundList = Found.objects.filter(active_city=group)
+                    if foundList:
+                        foundSerializer = FoundSerializer(found, many=True, context= {'request': request})
+                        data = {'bodyObject': foundSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
+                        return data
+                    else:
+                        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! No encontramos ningun dato en la busqueda.','code':status.HTTP_200_OK }
+                        return  data 
+                else:
+                    data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+                    return  data 
+            else:
+                data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+                return  data 
+        else:
+            data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+            return  data 
+    except User.DoesNotExist:
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+        return  data 
+    except Young.DoesNotExist:
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+        return  data 
+    except Found.DoesNotExist:
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+        return  data 
+    except Group.DoesNotExist:
         data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
         return  data 
