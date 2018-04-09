@@ -80,7 +80,7 @@ def newFoundWithYoung(request, **params):
 
                     found = Found()
                     found.young = young
-                    if state:
+                    if int(state) >=1 and int(state) <=2:
                         found.state = state
                     else:
                         found.state = "1"

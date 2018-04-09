@@ -62,7 +62,8 @@ class NewFoundWithYoung(APIView):
                     active_city=active_city, 
                     area=area, 
                     name_parent_fds=name_parent_fds, 
-                    password=password)        
+                    password=password
+                )        
         return Response(data, status.HTTP_200_OK)
 
 class Found(APIView):
