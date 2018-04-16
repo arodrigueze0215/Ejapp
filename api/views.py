@@ -84,7 +84,7 @@ class Found(APIView):
         state = request.data.get("state")
         number_fds = request.data.get("number_fds")
         city_fds = request.data.get("city_fds")
-        active_city = request.data.get("active_fds")
+        active_city = request.data.get("active_city")
         area = request.data.get("area")
         name_parent_fds = request.data.get("name_parent_fds")
         password = request.data.get("password")

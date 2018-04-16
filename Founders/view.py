@@ -80,10 +80,10 @@ def newFoundWithYoung(request, **params):
 
                     found = Found()
                     found.young = young
-                    if int(state) >=1 and int(state) <=2:
-                        found.state = state
-                    else:
-                        found.state = "1"
+                    if state:
+                        intS = int(state)
+                        if intS>=1 and intS <=2:
+                            found.state = intS
 
                     if number_fds:
                         found.number_fds = number_fds
@@ -135,16 +135,17 @@ def NewFoundEmpty(request, **params):
     """
     young
     """
-    personal_gender = request.POST.get('personal_gender', None)
-    personal_names = request.POST.get('personal_names', None)
-    personal_lastnames = request.POST.get('personal_lastnames', None)
-    personal_dateborn = request.POST.get('personal_dateborn', None)
-    personal_homephone = request.POST.get('personal_homephone', None)
-    personal_mobilephone = request.POST.get('personal_mobilephone', None)
-    personal_address = request.POST.get('personal_address', None)
-    personal_email = request.POST.get('personal_email', None)
-    personal_occupation = request.POST.get('personal_occupation', None)
-    personal_profession = request.POST.get('personal_profession', None)
+
+    personal_gender = params.get('personal_gender', None)
+    personal_names = params.get('personal_names', None)
+    personal_lastnames = params.get('personal_lastnames', None)
+    personal_dateborn = params.get('personal_dateborn', None)
+    personal_homephone = params.get('personal_homephone', None)
+    personal_mobilephone = params.get('personal_mobilephone', None)
+    personal_address = params.get('personal_address', None)
+    personal_email = params.get('personal_email', None)
+    personal_occupation = params.get('personal_occupation', None)
+    personal_profession = params.get('personal_profession', None)
 
 
     """
@@ -157,8 +158,7 @@ def NewFoundEmpty(request, **params):
     area = params.get("area", None)
     name_parent_fds = params.get("name_parent_fds", None)
     password = params.get("password", None)
-
-    if personal_names and personal_lastnames and personal_email and personal_dateborn and password:
+    if personal_names and personal_lastnames and personal_email and personal_dateborn and password and active_city:
         if User.objects.filter(username=personal_email).exists():
             msj = 'Hola %s ya existes como usuario dentro del sistema tu registro esta con el correo: %s' %(personal_names, personal_email)
             data = {'bodyObject':{}, 'result': 'error','statusText': msj,'code':status.HTTP_200_OK }
@@ -168,6 +168,8 @@ def NewFoundEmpty(request, **params):
             user.first_name = personal_names
             user.last_name = personal_lastnames
             user.set_password(password)
+            mGroup = Group.objects.get(name=active_city)
+            mGroup.user_set.add(user)
             user.save()
 
             young = Young()
@@ -211,12 +213,11 @@ def NewFoundEmpty(request, **params):
                 found.city_fds = city_fds
             else:
                 found.city_fds = "NN"
-
-            if active_city:
-                found.active_city = active_city
-
+            
             if name_parent_fds:
                 found.name_parent_fds = name_parent_fds
+ 
+            found.active_city = active_city
             found.save()
             """Todo salio bien"""
             foundSerializer = FoundSerializer(found, context= {'request': request})

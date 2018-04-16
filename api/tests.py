@@ -26,7 +26,6 @@ class FoundsTests(APITestCase):
                         gender="1"
 
                     )
-        
 
     def test_newFoundWithYoung(self):
         """
@@ -35,7 +34,7 @@ class FoundsTests(APITestCase):
         url = reverse("api:new_found_young")
         data = {
             'idyoung': self.young.id,
-            'state': '2',
+            'state': '1',
             'number_fds': '36',
             'city_fds': 'Pereira',
             'active_fds': 'Pereira',
@@ -63,7 +62,7 @@ class FoundsTests(APITestCase):
         self.assertEqual(jsonRes.get("status",None), 200)
         self.assertEqual(jsonRes.get("result",None), "ok")
         self.assertEqual(bodyObject.get("id",None), 1)
-        self.assertEqual(bodyObject.get("state",None), "1")
+        self.assertEqual(int(bodyObject.get("state",None)) <= 2, True)
         self.assertEqual(bodyObject.get("number_fds",None), "36")
         self.assertEqual(bodyObject.get("city_fds",None), "Pereira")
         self.assertEqual(bodyObject.get("active_city",None), "Pereira")
@@ -118,3 +117,97 @@ class FoundsTests(APITestCase):
                 "result": "ok"
             }
         """
+
+    def test_youngEmpty(self):
+        url = reverse("api:new_found_young")
+        data = {
+            'idyoung': 2,
+            'state': '1',
+            'number_fds': '36',
+            'city_fds': 'Pereira',
+            'active_fds': 'Pereira',
+            'area': '1',
+            'name_parent_fds': 'Echeverry',
+            'password':'test_ejapp',
+        }
+        response = self.client.post(url, data, format='json')
+        response_content = response.content
+        if six.PY3:
+            response_content = str(response_content, encoding='utf8')
+        
+        """ Parser JSON"""
+        jsonRes = json.loads(response_content)
+        print "jsonRes (Young Empty_): ", jsonRes
+        bodyObject =jsonRes.get("bodyObject",None)
+        code =jsonRes.get("code",None)
+        result =jsonRes.get("result",None)
+        statusText =jsonRes.get("statusText",None)
+        self.assertEqual(len(bodyObject)==0, True)
+        self.assertEqual(code, 200)
+        self.assertEqual(result, "error")
+        self.assertEqual(statusText, "Los datos que seleccionaste, no parecen estar dentro de nuestros registros.")
+
+    def test_youngNone(self):
+        url = reverse("api:new_found_young")
+        data = {
+            'idyoung': None,
+            'state': '1',
+            'number_fds': '36',
+            'city_fds': 'Pereira',
+            'active_fds': 'Pereira',
+            'area': '1',
+            'name_parent_fds': 'Echeverry',
+            'password':'test_ejapp',
+        }
+        response = self.client.post(url, data, format='json')
+        response_content = response.content
+        if six.PY3:
+            response_content = str(response_content, encoding='utf8')
+        
+        """ Parser JSON"""
+        jsonRes = json.loads(response_content)
+        print "jsonRes (Young None): ", jsonRes
+        bodyObject =jsonRes.get("bodyObject",None)
+        code =jsonRes.get("code",None)
+        result =jsonRes.get("result",None)
+        statusText =jsonRes.get("statusText",None)
+        self.assertEqual(len(bodyObject)==0, True)
+        self.assertEqual(code==200, True)
+        self.assertEqual(result, "error")
+        self.assertEqual(statusText, "Los datos que seleccionaste, no parecen estar dentro de nuestros registros.")
+
+class NewFoundEmptyTest(APITestCase):
+    def setUp(self):
+        Areas.objects.create(name="Pre")
+        Group.objects.create(name="Manizales")
+
+    def test_newFoundEmpty(self):
+        url = reverse("api:new_found_empty")
+        data = {
+            'personal_names':'Sofia',
+            'personal_lastnames': 'Cardona',
+            'personal_email': 'so.ca@gmail.com',
+            'personal_gender': '2',
+            'personal_dateborn': '1994-05-24',
+            'personal_homephone': '3393487',
+            'personal_mobilephone': '3044643222',
+            'personal_address': 'Manzana 15 casa 138 Villa campestre, Dosquebradas',
+            'personal_occupation': 'Gerente Hospital',
+            'personal_profession': 'Medico',
+            'state': '1',
+            'number_fds': '36',
+            'city_fds': 'Pereira',
+            'active_city': 'Manizales',
+            'area': '1',
+            'name_parent_fds': 'Echeverry',
+            'password':'test_ejapp',
+        }
+        response = self.client.post(url, data, format='json')
+        response_content = response.content
+        if six.PY3:
+            response_content = str(response_content, encoding='utf8')
+        
+        """ Parser JSON"""
+        jsonRes = json.loads(response_content)
+        print "jsonRes (New found Empty): ", jsonRes
+        
