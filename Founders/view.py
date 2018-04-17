@@ -39,11 +39,11 @@ def getListYoung(request, **params):
             youngSerializer = YoungSerializer(youngs, many=True, context= {'request': request})
             data = {'bodyObject': youngSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
             return data
-        data = {'bodyObject':{}, 'result': 'error','statusText': 'No se encontro ningun dato','code':status.HTTP_200_OK }
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'No se encontro ningun dato','status':status.HTTP_200_OK }
         return  data
 
     except Young.DoesNotExist:
-        data = {'bodyObject':{}, 'result': 'error','statusText': 'No se encontro ningun dato','code':status.HTTP_200_OK }
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'No se encontro ningun dato','status':status.HTTP_200_OK }
         return  data
 
 def newFoundWithYoung(request, **params):
@@ -67,7 +67,7 @@ def newFoundWithYoung(request, **params):
             young = Young.objects.get(id=idyoung)
             if young:
                 if Found.objects.filter(young=young).exists():
-                    data = {'bodyObject':{}, 'result': 'error','statusText': 'Ya existe alguien registrado como encontrado con estos datos. ¿Para que quieres registrarte otra vez?','code':status.HTTP_200_OK }
+                    data = {'bodyObject':{}, 'result': 'error','statusText': 'Ya existe alguien registrado como encontrado con estos datos. ¿Para que quieres registrarte otra vez?','status':status.HTTP_200_OK }
                     return data
                 else:
                     user = young.user
@@ -116,16 +116,16 @@ def newFoundWithYoung(request, **params):
 
             else:
                 """young no found, maybe the id is broken"""
-                data = {'bodyObject':{}, 'result': 'error','statusText': 'Los datos que seleccionaste, no parecen estar dentro de nuestros registros.','code':status.HTTP_200_OK }
+                data = {'bodyObject':{}, 'result': 'error','statusText': 'Los datos que seleccionaste, no parecen estar dentro de nuestros registros.','status':status.HTTP_200_OK }
                 return  data 
 
         else:
             """Id that is comming from params is None"""    
-            data = {'bodyObject':{}, 'result': 'error','statusText': 'Los datos que seleccionaste, no parecen estar dentro de nuestros registros.','code':status.HTTP_200_OK }
+            data = {'bodyObject':{}, 'result': 'error','statusText': 'Los datos que seleccionaste, no parecen estar dentro de nuestros registros.','status':status.HTTP_200_OK }
             return  data 
 
     except Young.DoesNotExist:
-        data = {'bodyObject':{}, 'result': 'error','statusText': 'Los datos que seleccionaste, no parecen estar dentro de nuestros registros.','code':status.HTTP_200_OK }
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'Los datos que seleccionaste, no parecen estar dentro de nuestros registros.','status':status.HTTP_200_OK }
         return  data 
 
 def NewFoundEmpty(request, **params):
@@ -159,9 +159,9 @@ def NewFoundEmpty(request, **params):
     name_parent_fds = params.get("name_parent_fds", None)
     password = params.get("password", None)
     if personal_names and personal_lastnames and personal_email and personal_dateborn and password and active_city:
-        if User.objects.filter(username=personal_email).exists():
+        if User.objects.filter(email=personal_email).exists():
             msj = 'Hola %s ya existes como usuario dentro del sistema tu registro esta con el correo: %s' %(personal_names, personal_email)
-            data = {'bodyObject':{}, 'result': 'error','statusText': msj,'code':status.HTTP_200_OK }
+            data = {'bodyObject':{}, 'result': 'error','statusText': msj,'status':status.HTTP_200_OK }
             return data
         else:
             user = User.objects.create_user(username=personal_email, email=personal_email)
@@ -225,7 +225,7 @@ def NewFoundEmpty(request, **params):
             return data
 
     else:
-        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! algunos datos son obligatorios.','code':status.HTTP_200_OK }
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! algunos datos son obligatorios.','status':status.HTTP_200_OK }
         return  data 
 
 def GetSingleFound(request, **params):
@@ -238,13 +238,13 @@ def GetSingleFound(request, **params):
                 data = {'bodyObject': foundSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
                 return data
             else:
-                data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! No encontramos ningun dato en la busqueda.','code':status.HTTP_200_OK }
+                data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! No encontramos ningun dato en la busqueda.','status':status.HTTP_200_OK }
                 return  data 
         else:
-            data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+            data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
             return  data 
     except Found.DoesNotExist:
-        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado. Exception','status':status.HTTP_200_OK }
         return  data 
 
 def GetListFound(request):
@@ -263,26 +263,26 @@ def GetListFound(request):
                         data = {'bodyObject': foundSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
                         return data
                     else:
-                        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! No encontramos ningun dato en la busqueda.','code':status.HTTP_200_OK }
+                        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! No encontramos ningun dato en la busqueda.','status':status.HTTP_200_OK }
                         return  data 
                 else:
-                    data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+                    data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
                     return  data 
             else:
-                data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+                data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
                 return  data 
         else:
-            data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+            data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
             return  data 
     except User.DoesNotExist:
-        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
         return  data 
     except Young.DoesNotExist:
-        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
         return  data 
     except Found.DoesNotExist:
-        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
         return  data 
     except Group.DoesNotExist:
-        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','code':status.HTTP_200_OK }
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
         return  data 
