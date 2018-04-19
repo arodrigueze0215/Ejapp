@@ -116,6 +116,5 @@ class Found(APIView):
 
 class foundList(APIView):
     def get(self, request, format=None):
-        idfound = request.query_params.get('id')
-        data = Fview.GetSingleFound(request, pk=idfound)
+        data = Fview.GetListFound(request)
         return Response(data, status.HTTP_200_OK)

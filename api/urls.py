@@ -18,4 +18,5 @@ urlpatterns = [
     url(r'^younglist/filtered/$', YoungList.as_view(),name='young_list_filtered'),
     url(r'^newfound/$', NewFoundWithYoung.as_view(),name='new_found_young'),
     url(r'^founds/$', Found.as_view(),name='new_found_empty'),
+    url(r'^founds/list/$', Found.as_view(),name='list_founds'),
 ]
