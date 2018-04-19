@@ -244,7 +244,7 @@ def GetSingleFound(request, **params):
             data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
             return  data 
     except Found.DoesNotExist:
-        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado. Exception','status':status.HTTP_200_OK }
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! No encontramos ningun dato en la busqueda.','status':status.HTTP_200_OK }
         return  data 
 
 def GetListFound(request):

@@ -49,7 +49,7 @@ class FoundsTests(APITestCase):
         
         """ Parser JSON"""
         jsonRes = json.loads(response_content)
-        print "jsonRes: ", jsonRes
+        print "__TEST__ (New Found With Young): ", jsonRes
         bodyObject =jsonRes.get("bodyObject",None)
         jsonYoung = bodyObject.get("young", None)
         jsonArea = bodyObject.get("area", None)
@@ -137,36 +137,7 @@ class FoundsTests(APITestCase):
         
         """ Parser JSON"""
         jsonRes = json.loads(response_content)
-        print "___jsonRes (Young Empty_): ", jsonRes
-        bodyObject =jsonRes.get("bodyObject",None)
-        status =jsonRes.get("status",None)
-        result =jsonRes.get("result",None)
-        statusText =jsonRes.get("statusText",None)
-        self.assertEqual(len(bodyObject)==0, True)
-        self.assertEqual(status, 200)
-        self.assertEqual(result, "error")
-        self.assertEqual(statusText, "Los datos que seleccionaste, no parecen estar dentro de nuestros registros.")
-    
-    def test_youngNone(self):
-        url = reverse("api:new_found_young")
-        data = {
-            'idyoung': None,
-            'state': '1',
-            'number_fds': '36',
-            'city_fds': 'Pereira',
-            'active_fds': 'Pereira',
-            'area': '1',
-            'name_parent_fds': 'Echeverry',
-            'password':'test_ejapp',
-        }
-        response = self.client.post(url, data, format='json')
-        response_content = response.content
-        if six.PY3:
-            response_content = str(response_content, encoding='utf8')
-        
-        """ Parser JSON"""
-        jsonRes = json.loads(response_content)
-        print "___jsonRes (Young None): ", jsonRes
+        print "___TEST___ (Young None): ", jsonRes
         bodyObject =jsonRes.get("bodyObject",None)
         status =jsonRes.get("status",None)
         result =jsonRes.get("result",None)
@@ -202,16 +173,6 @@ class NewFoundEmptyTest(APITestCase):
                         name_parent_fds="Echeverry"
                 )
     
-    def test_getSingleFound(self):
-        url = reverse("api:new_found_empty")
-        response = self.client.get(url, format='json')
-        response_content = response.content
-        if six.PY3:
-            response_content = str(response_content, encoding='utf8')
-        
-        """ Parser JSON"""
-        jsonRes = json.loads(response_content)
-        print "___jsonRes (GET SINGLE FOUND): ", jsonRes
     
     def test_newFoundEmptyExist(self):
         url = reverse("api:new_found_empty")
@@ -241,7 +202,7 @@ class NewFoundEmptyTest(APITestCase):
         
         """ Parser JSON"""
         jsonRes = json.loads(response_content)
-        print "___jsonRes (New found Exist): ", jsonRes
+        print "___TEST___ (New found Exist): ", jsonRes
         status =jsonRes.get("status",None)
         bodyObject =jsonRes.get("bodyObject",None)
         result =jsonRes.get("result",None)
@@ -280,7 +241,7 @@ class NewFoundEmptyTest(APITestCase):
         
         """ Parser JSON"""
         jsonRes = json.loads(response_content)
-        print "___jsonRes (New found Empty): ", jsonRes
+        print "___TEST___ (New found Empty): ", jsonRes
         status =jsonRes.get("status",None)
         bodyObject =jsonRes.get("bodyObject",None)
         jsonYoung = bodyObject.get("young", None)
@@ -340,7 +301,7 @@ class NewFoundEmptyTest(APITestCase):
         
         """ Parser JSON"""
         jsonRes = json.loads(response_content)
-        print "___jsonRes (New found Fields Required): ", jsonRes
+        print "___TEST___ (New found Fields Required): ", jsonRes
         status =jsonRes.get("status",None)
         bodyObject =jsonRes.get("bodyObject",None)
         result =jsonRes.get("result",None)
@@ -351,4 +312,71 @@ class NewFoundEmptyTest(APITestCase):
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Lo sentimos!! algunos datos son obligatorios.")
     
+    def test_getSingleFound(self):
+        url = reverse("api:new_found_empty")
+        args = {'id':'1'}
+        response = self.client.get(url, args, format='json')
+        jsonRes = response.data
+        print "___TEST___ (GET SINGLE FOUND): ", jsonRes
+        status =jsonRes.get("status",None)
+        bodyObject =jsonRes.get("bodyObject",None)
+        jsonYoung = bodyObject.get("young", None)
+        jsonUser = jsonYoung.get("user", None)
+        jsonArea = bodyObject.get("area", None)
+
+        self.assertEqual(status==200, True)
+        self.assertEqual(bodyObject.get("id",None), 1)
+        self.assertEqual(int(bodyObject.get("state",None)) <= 2, True)
+        self.assertEqual(bodyObject.get("number_fds",None), "36")
+        self.assertEqual(bodyObject.get("city_fds",None), "Pereira")
+        self.assertEqual(bodyObject.get("active_city",None), "Manizales")
+        self.assertEqual(bodyObject.get("name_parent_fds",None), "Echeverry")
+
+        self.assertEqual(jsonArea.get("id",None), 1)
+        self.assertEqual(jsonArea.get("name",None), "Pre")
+
+        self.assertEqual(jsonYoung.get("id",None), 1)
+        self.assertEqual(jsonYoung.get("date_born",None), "1994-05-24")
+        self.assertEqual(jsonYoung.get("home_phone",None), "3428744")
+        self.assertEqual(jsonYoung.get("mobile_phone",None), "3044643222")
+        self.assertEqual(jsonYoung.get("address",None), "Manzana 15 casa 138 Villa campestre, Dosquebradas")
+        self.assertEqual(jsonYoung.get("occupation",None), "Desarrollador")
+        self.assertEqual(jsonYoung.get("profession",None), "Ingeniero de sistemas")
+
+        self.assertEqual(jsonUser.get("id",None), 1)
+        self.assertEqual(jsonUser.get("first_name",None), "Andres")
+        self.assertEqual(jsonUser.get("last_name",None), "Rodriguez")
+        self.assertEqual(jsonUser.get("email",None), "andres.rodriguez0215@gmail.com")
+        self.assertEqual(jsonUser.get("is_active",None), True)
     
+    def test_getSingleFoundIdNone(self):
+        url = reverse("api:new_found_empty")
+        args = {'id':''}
+        response = self.client.get(url, args, format='json')
+        jsonRes = response.data
+        print "___TEST___ (GET SINGLE FOUND ERROR ID): ", jsonRes
+        status =jsonRes.get("status",None)
+        bodyObject =jsonRes.get("bodyObject",None)
+        result =jsonRes.get("result",None)
+        statusText =jsonRes.get("statusText",None)
+
+        self.assertEqual(status==200, True)
+        self.assertEqual(len(bodyObject)==0, True)
+        self.assertEqual(result, "error")
+        self.assertEqual(statusText, "Lo sentimos!! Ocurrio un error validando el identificador del encontrado.")
+    
+    def test_getSingleFoundIdNone(self):
+        url = reverse("api:new_found_empty")
+        args = {'id':'0'}
+        response = self.client.get(url, args, format='json')
+        jsonRes = response.data
+        print "___TEST___ (GET SINGLE FOUND ERROR ID): ", jsonRes
+        status =jsonRes.get("status",None)
+        bodyObject =jsonRes.get("bodyObject",None)
+        result =jsonRes.get("result",None)
+        statusText =jsonRes.get("statusText",None)
+
+        self.assertEqual(status==200, True)
+        self.assertEqual(len(bodyObject)==0, True)
+        self.assertEqual(result, "error")
+        self.assertEqual(statusText, "Lo sentimos!! No encontramos ningun dato en la busqueda.")

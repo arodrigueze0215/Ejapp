@@ -111,8 +111,6 @@ class Found(APIView):
     
     def get(self, request, format=None):
         idfound = request.query_params.get('id')
-        print "__idfound: ",idfound
-        print "__query_params: ",request.query_params
         data = Fview.GetSingleFound(request, pk=idfound)
         return Response(data, status.HTTP_200_OK)
 
