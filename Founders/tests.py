@@ -4,9 +4,14 @@ from django.conf.urls import include
 from django.urls import reverse
 from django.utils import six
 import json
-from rest_framework.test import APITestCase
+from rest_framework.test import (
+    APITestCase,
+    APIRequestFactory,
+    force_authenticate
+)
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
+from api.views import foundList
 from main.models import (Young, Found, Areas)
 
 class FoundsTests(APITestCase):
@@ -49,7 +54,6 @@ class FoundsTests(APITestCase):
         
         """ Parser JSON"""
         jsonRes = json.loads(response_content)
-        print "__TEST__ (New Found With Young): ", jsonRes
         bodyObject =jsonRes.get("bodyObject",None)
         jsonYoung = bodyObject.get("young", None)
         jsonArea = bodyObject.get("area", None)
@@ -84,6 +88,7 @@ class FoundsTests(APITestCase):
         self.assertEqual(jsonUser.get("last_name",None), "Rodriguez")
         self.assertEqual(jsonUser.get("email",None), "andres.rodriguez0215@gmail.com")
         self.assertEqual(jsonUser.get("is_active",None), True)
+        print "test_newFoundWithYoung (New Found With Young): [OK]"
         """
             {
                 "status":200,
@@ -137,7 +142,6 @@ class FoundsTests(APITestCase):
         
         """ Parser JSON"""
         jsonRes = json.loads(response_content)
-        print "___TEST___ (Young None): ", jsonRes
         bodyObject =jsonRes.get("bodyObject",None)
         status =jsonRes.get("status",None)
         result =jsonRes.get("result",None)
@@ -146,6 +150,7 @@ class FoundsTests(APITestCase):
         self.assertEqual(status==200, True)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Los datos que seleccionaste, no parecen estar dentro de nuestros registros.")
+        print "test_youngEmpty (Young None): [OK]"
 
 class NewFoundEmptyTest(APITestCase):
     def setUp(self):
@@ -202,7 +207,6 @@ class NewFoundEmptyTest(APITestCase):
         
         """ Parser JSON"""
         jsonRes = json.loads(response_content)
-        print "___TEST___ (New found Exist): ", jsonRes
         status =jsonRes.get("status",None)
         bodyObject =jsonRes.get("bodyObject",None)
         result =jsonRes.get("result",None)
@@ -212,6 +216,7 @@ class NewFoundEmptyTest(APITestCase):
         self.assertEqual(len(bodyObject)==0, True)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Hola Andres ya existes como usuario dentro del sistema tu registro esta con el correo: andres.rodriguez0215@gmail.com")
+        print "test_newFoundEmptyExist (New found Exist): [OK]"
     
     def test_newFoundEmpty(self):
         url = reverse("api:new_found_empty")
@@ -241,7 +246,6 @@ class NewFoundEmptyTest(APITestCase):
         
         """ Parser JSON"""
         jsonRes = json.loads(response_content)
-        print "___TEST___ (New found Empty): ", jsonRes
         status =jsonRes.get("status",None)
         bodyObject =jsonRes.get("bodyObject",None)
         jsonYoung = bodyObject.get("young", None)
@@ -272,6 +276,7 @@ class NewFoundEmptyTest(APITestCase):
         self.assertEqual(jsonUser.get("last_name",None), "Cardona")
         self.assertEqual(jsonUser.get("email",None), "so.ca@gmail.com")
         self.assertEqual(jsonUser.get("is_active",None), True)
+        print "test_newFoundEmpty (New found Empty): [OK]"
     
     def test_newFoundEmptyFieldsRequired(self):
         url = reverse("api:new_found_empty")
@@ -301,7 +306,6 @@ class NewFoundEmptyTest(APITestCase):
         
         """ Parser JSON"""
         jsonRes = json.loads(response_content)
-        print "___TEST___ (New found Fields Required): ", jsonRes
         status =jsonRes.get("status",None)
         bodyObject =jsonRes.get("bodyObject",None)
         result =jsonRes.get("result",None)
@@ -311,13 +315,13 @@ class NewFoundEmptyTest(APITestCase):
         self.assertEqual(len(bodyObject)==0, True)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Lo sentimos!! algunos datos son obligatorios.")
+        print "test_newFoundEmptyFieldsRequired (New found Fields Required): [OK]"
     
     def test_getSingleFound(self):
         url = reverse("api:new_found_empty")
         args = {'id':'1'}
         response = self.client.get(url, args, format='json')
         jsonRes = response.data
-        print "___TEST___ (GET SINGLE FOUND): ", jsonRes
         status =jsonRes.get("status",None)
         bodyObject =jsonRes.get("bodyObject",None)
         jsonYoung = bodyObject.get("young", None)
@@ -348,13 +352,13 @@ class NewFoundEmptyTest(APITestCase):
         self.assertEqual(jsonUser.get("last_name",None), "Rodriguez")
         self.assertEqual(jsonUser.get("email",None), "andres.rodriguez0215@gmail.com")
         self.assertEqual(jsonUser.get("is_active",None), True)
+        print "test_getSingleFound (GET SINGLE FOUND): [OK]"
     
     def test_getSingleFoundIdNone(self):
         url = reverse("api:new_found_empty")
         args = {'id':''}
         response = self.client.get(url, args, format='json')
         jsonRes = response.data
-        print "___TEST___ (GET SINGLE FOUND ERROR ID): ", jsonRes
         status =jsonRes.get("status",None)
         bodyObject =jsonRes.get("bodyObject",None)
         result =jsonRes.get("result",None)
@@ -364,13 +368,13 @@ class NewFoundEmptyTest(APITestCase):
         self.assertEqual(len(bodyObject)==0, True)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Lo sentimos!! Ocurrio un error validando el identificador del encontrado.")
+        print "test_getSingleFoundIdNone (GET SINGLE FOUND ERROR ID): OK"
     
     def test_getSingleFoundIdNone(self):
         url = reverse("api:new_found_empty")
         args = {'id':'0'}
         response = self.client.get(url, args, format='json')
         jsonRes = response.data
-        print "___TEST___ (GET SINGLE FOUND ERROR ID): ", jsonRes
         status =jsonRes.get("status",None)
         bodyObject =jsonRes.get("bodyObject",None)
         result =jsonRes.get("result",None)
@@ -380,3 +384,93 @@ class NewFoundEmptyTest(APITestCase):
         self.assertEqual(len(bodyObject)==0, True)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Lo sentimos!! No encontramos ningun dato en la busqueda.")
+        print "test_getSingleFoundIdNone (GET SINGLE FOUND ERROR ID): [OK]" 
+
+class ListFoundsTest(APITestCase):
+    user = None
+    def setUp(self):
+        area = Areas.objects.create(name="Pre")
+        Group.objects.create(name="Pereira")
+        user2 = User.objects.create(username="rafa@gmail.com", email="rafa@gmail.com",first_name="Rafael", last_name="Rodriguez", password="test_ejapp1")
+        user1 = User.objects.create(username="tere.sa@gmail.com",email="tere.sa@gmail.com",first_name="Teresa", last_name="Agudelo", password="test_ejapp2")
+        self.user = User.objects.create(username="andres.rodriguez0215@gmail.com", email="andres.rodriguez0215@gmail.com")
+        self.user.first_name="Andres" 
+        self.user.last_name="Rodriguez"
+        self.user.set_password("test_ejapp")
+        self.user.save()
+        young = Young.objects.create(
+            user=self.user, 
+            date_born="1994-05-24", 
+            home_phone="3428744", 
+            mobile_phone="3044643222",
+            address="Manzana 15 casa 138 Villa campestre, Dosquebradas",
+            occupation="Desarrollador",
+            profession="Ingeniero de sistemas",
+            gender="1"
+        )
+        Found.objects.create(
+            young=young, 
+            state="1", 
+            number_fds="36", 
+            city_fds="Pereira",
+            active_city="Pereira",
+            area=area,
+            name_parent_fds="Echeverry"
+        )
+    
+        young1 = Young.objects.create(
+            user=user1, 
+            date_born="1994-05-24", 
+            home_phone="3428744", 
+            mobile_phone="3044643222",
+            address="Manzana 15 casa 138 Villa campestre, Dosquebradas",
+            occupation="Desarrollador",
+            profession="Ingeniera de sistemas",
+            gender="2"
+        )
+        Found.objects.create(
+            young=young1, 
+            state="1", 
+            number_fds="36", 
+            city_fds="Pereira",
+            active_city="Pereira",
+            area=area,
+            name_parent_fds="Torres"
+        )
+    
+        young2 = Young.objects.create(
+            user=user2, 
+            date_born="1994-05-24", 
+            home_phone="3428744", 
+            mobile_phone="3044643222",
+            address="Manzana 15 casa 138 Villa campestre, Dosquebradas",
+            occupation="Desarrollador",
+            profession="Ingeniero de sistemas",
+            gender="1"
+        )
+        Found.objects.create(
+            young=young2, 
+            state="1", 
+            number_fds="36", 
+            city_fds="Pereira",
+            active_city="Pereira",
+            area=area,
+            name_parent_fds="Andres"
+        )
+    
+        
+    def test_getListFounds(self):
+        factory = APIRequestFactory()
+        view = foundList.as_view()
+
+        request = factory.get(reverse("api:list_founds"))
+        request.user = self.user
+        force_authenticate(request, user=self.user)
+        
+        response = view(request)
+        jsonRes = response.data
+        status =jsonRes.get("status",None)
+        bodyObject =jsonRes.get("bodyObject",None)
+        result =jsonRes.get("result",None)
+        self.assertEqual(result, "ok")
+        print "test_getListFounds (GET LIST FOUND): [OK]"

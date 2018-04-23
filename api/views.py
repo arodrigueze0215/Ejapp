@@ -116,5 +116,6 @@ class Found(APIView):
 
 class foundList(APIView):
     def get(self, request, format=None):
+        print "APIView: ", request.user
         data = Fview.GetListFound(request)
         return Response(data, status.HTTP_200_OK)

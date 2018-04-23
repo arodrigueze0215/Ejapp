@@ -249,7 +249,7 @@ def GetSingleFound(request, **params):
 
 def GetListFound(request):
     try:
-        user= User.objects.get(email=request.user)
+        user= User.objects.get(email=request.user.email)
         if user:
             young = Young.objects.get(user=user)
             if young:
@@ -259,30 +259,30 @@ def GetListFound(request):
                     group = Group.objects.get(name=active_city)
                     foundList = Found.objects.filter(active_city=group)
                     if foundList:
-                        foundSerializer = FoundSerializer(found, many=True, context= {'request': request})
+                        foundSerializer = FoundSerializer(foundList, many=True, context= {'request': request})
                         data = {'bodyObject': foundSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
                         return data
                     else:
-                        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! No encontramos ningun dato en la busqueda.','status':status.HTTP_200_OK }
+                        data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! No encontramos ningun dato en la busqueda.','status':status.HTTP_200_OK }
                         return  data 
                 else:
-                    data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
+                    data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error con tu sesion y no el sistema no puede mostrar la informacion.','status':status.HTTP_200_OK }
                     return  data 
             else:
-                data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
+                data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error con tu sesion y no el sistema no puede mostrar la informacion.','status':status.HTTP_200_OK }
                 return  data 
         else:
-            data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
+            data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error con tu sesion y no el sistema no puede mostrar la informacion.','status':status.HTTP_200_OK }
             return  data 
     except User.DoesNotExist:
-        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
+        data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error con tu sesion y no el sistema no puede mostrar la informacion.','status':status.HTTP_200_OK }
         return  data 
     except Young.DoesNotExist:
-        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
+        data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error con tu sesion y no el sistema no puede mostrar la informacion.','status':status.HTTP_200_OK }
         return  data 
     except Found.DoesNotExist:
-        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
+        data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error con tu sesion y no el sistema no puede mostrar la informacion.','status':status.HTTP_200_OK }
         return  data 
     except Group.DoesNotExist:
-        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
+        data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error con tu sesion y no el sistema no puede mostrar la informacion.','status':status.HTTP_200_OK }
         return  data 
