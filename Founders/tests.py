@@ -11,8 +11,15 @@ from rest_framework.test import (
 )
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
-from api.views import foundList
-from main.models import (Young, Found, Areas)
+from api.views import (
+    FoundList,
+    Found as apiFound
+)
+from main.models import (
+    Young, 
+    Found, 
+    Areas
+)
 
 class FoundsTests(APITestCase):
     young = None
@@ -388,6 +395,7 @@ class NewFoundEmptyTest(APITestCase):
 
 class ListFoundsTest(APITestCase):
     user = None
+    found = None
     def setUp(self):
         area = Areas.objects.create(name="Pre")
         Group.objects.create(name="Pereira")
@@ -408,7 +416,7 @@ class ListFoundsTest(APITestCase):
             profession="Ingeniero de sistemas",
             gender="1"
         )
-        Found.objects.create(
+        self.found = Found.objects.create(
             young=young, 
             state="1", 
             number_fds="36", 
@@ -461,7 +469,7 @@ class ListFoundsTest(APITestCase):
         
     def test_getListFounds(self):
         factory = APIRequestFactory()
-        view = foundList.as_view()
+        view = FoundList.as_view()
 
         request = factory.get(reverse("api:list_founds"))
         request.user = self.user
@@ -474,3 +482,80 @@ class ListFoundsTest(APITestCase):
         result =jsonRes.get("result",None)
         self.assertEqual(result, "ok")
         print "test_getListFounds (GET LIST FOUND): [OK]"
+    
+    def test_getListFoundsEmptyGroup(self):
+        self.found.active_city = "Armenia"
+        self.found.save()
+        factory = APIRequestFactory()
+        view = FoundList.as_view()
+
+        request = factory.get(reverse("api:list_founds"))
+        request.user = self.found.young.user
+        force_authenticate(request, user=self.found.young.user)
+        
+        response = view(request)
+        jsonRes = response.data
+        status =jsonRes.get("status",None)
+        bodyObject =jsonRes.get("bodyObject",None)
+        result =jsonRes.get("result",None)
+        statusText =jsonRes.get("statusText",None)
+        self.assertEqual(status, 200)
+        self.assertEqual(len(bodyObject)==0, True)
+        self.assertEqual(statusText, "Lo sentimos!! Ocurrio un error validando la ciudad en la que estas activa.")
+        self.assertEqual(result, "error")
+        print "test_getListFoundsEmptyGroup (GET LIST FOUND, EMPTY GROUP): [OK]"
+
+class UpdateFoundTest(APITestCase):
+    def setUp(self):
+        area = Areas.objects.create(name="Pre")
+        self.user = User.objects.create(username="arodrigueze", email="andres.rodriguez0215@gmail.com")
+        self.user.first_name="Andres" 
+        self.user.last_name="Rodriguez"
+        self.user.set_password("test_ejapp")
+        self.user.save()
+        young = Young.objects.create(
+            user=self.user, 
+            date_born="1994-05-24", 
+            home_phone="3428744", 
+            mobile_phone="3044643222",
+            address="Manzana 15 casa 138 Villa campestre, Dosquebradas",
+            occupation="Desarrollador",
+            profession="Ingeniero de sistemas",
+            gender="1"
+        )
+        found = Found.objects.create(
+            young=young, 
+            state="1", 
+            number_fds="36", 
+            city_fds="Pereira",
+            active_city="Pereira",
+            area=area,
+            name_parent_fds="Echeverry"
+        )
+    def test_updateDataFound(self):
+        factory = APIRequestFactory()
+        view = apiFound.as_view()
+        data = {
+            'personal_names':'Andres R',
+            'personal_lastnames': 'Rodriguez Escudero',
+            'personal_email': 'andres.r@gmail.com',
+            'personal_gender': '1',
+            'personal_dateborn': '1989-02-15',
+            'personal_homephone': '3393487',
+            'personal_mobilephone': '3044643222',
+            'personal_address': 'Manzana 15 casa 138 Villa campestre, Dosquebradas',
+            'personal_occupation': 'Desarrollador',
+            'personal_profession': 'Ingeniero de sistemas',
+            'number_fds': '42',
+            'city_fds': 'Pereira',
+            'name_parent_fds': 'Echeverry',
+            'personal_username': 'arodrigueze',
+        }
+        request = factory.put(reverse("api:new_found_empty"), data)
+        request.user = self.user
+        force_authenticate(request, user=self.user)
+        
+        response = view(request)
+        jsonRes = response.data
+        print "test_updateDataFound: __ ", jsonRes
+    

@@ -88,7 +88,7 @@ class Found(APIView):
         area = request.data.get("area")
         name_parent_fds = request.data.get("name_parent_fds")
         password = request.data.get("password")
-        data = Fview.NewFoundEmpty(request,
+        data = Fview.newFoundEmpty(request,
                     state=state, 
                     number_fds=number_fds, 
                     city_fds=city_fds, 
@@ -111,11 +111,44 @@ class Found(APIView):
     
     def get(self, request, format=None):
         idfound = request.query_params.get('id')
-        data = Fview.GetSingleFound(request, pk=idfound)
+        data = Fview.getSingleFound(request, pk=idfound)
         return Response(data, status.HTTP_200_OK)
+    
+    def put(self, request, format=None):
+        personal_profession = request.data.get("personal_profession")
+        personal_occupation = request.data.get("personal_occupation")
+        personal_email = request.data.get("personal_email")
+        personal_address = request.data.get("personal_address")
+        personal_mobilephone = request.data.get("personal_mobilephone")
+        personal_homephone = request.data.get("personal_homephone")
+        personal_dateborn = request.data.get("personal_dateborn")
+        personal_lastnames = request.data.get("personal_lastnames")
+        personal_names = request.data.get("personal_names")
+        personal_gender = request.data.get("personal_gender")        
+        number_fds = request.data.get("number_fds")
+        city_fds = request.data.get("city_fds")        
+        name_parent_fds = request.data.get("name_parent_fds")
+        personal_username = request.data.get("personal_username")
+        data = Fview.updateFound(request,
+                    personal_username=personal_username,
+                    number_fds=number_fds, 
+                    city_fds=city_fds,
+                    name_parent_fds=name_parent_fds,
+                    personal_profession=personal_profession,
+                    personal_occupation=personal_occupation,
+                    personal_email=personal_email,
+                    personal_address=personal_address,
+                    personal_mobilephone=personal_mobilephone,
+                    personal_homephone=personal_homephone,
+                    personal_dateborn=personal_dateborn,
+                    personal_lastnames=personal_lastnames,
+                    personal_names=personal_names,
+                    personal_gender=personal_gender
+                )
+        return Response(data, status.HTTP_200_OK)
+        
 
-class foundList(APIView):
+class FoundList(APIView):
     def get(self, request, format=None):
-        print "APIView: ", request.user
-        data = Fview.GetListFound(request)
+        data = Fview.getListFound(request)
         return Response(data, status.HTTP_200_OK)

@@ -4,6 +4,7 @@ from rest_framework import status
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from main.models import (Young, Found, Areas)
+from Ejapp.controller import AuthUserApi
 from api.serializers import YoungSerializer, FoundSerializer
 
 """Return the list Youngs whos registered by inscriptions form before"""
@@ -128,7 +129,7 @@ def newFoundWithYoung(request, **params):
         data = {'bodyObject':{}, 'result': 'error','statusText': 'Los datos que seleccionaste, no parecen estar dentro de nuestros registros.','status':status.HTTP_200_OK }
         return  data 
 
-def NewFoundEmpty(request, **params):
+def newFoundEmpty(request, **params):
     """
     Si eres un poco mas antiguo, y nunca llenaste el formulario. Necesitas ingresar toda la informacion.
     """
@@ -228,7 +229,8 @@ def NewFoundEmpty(request, **params):
         data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! algunos datos son obligatorios.','status':status.HTTP_200_OK }
         return  data 
 
-def GetSingleFound(request, **params):
+def getSingleFound(request, **params):
+    """TODO: Missing a Auth User API validate"""
     idFound = params.get("pk", None)
     try:
         if idFound:
@@ -247,23 +249,28 @@ def GetSingleFound(request, **params):
         data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! No encontramos ningun dato en la busqueda.','status':status.HTTP_200_OK }
         return  data 
 
-def GetListFound(request):
+def getListFound(request):
     try:
-        user= User.objects.get(email=request.user.email)
-        if user:
-            young = Young.objects.get(user=user)
-            if young:
-                found = Found.objects.get(young=young)
-                if found:
-                    active_city = found.active_city
-                    group = Group.objects.get(name=active_city)
-                    foundList = Found.objects.filter(active_city=group)
-                    if foundList:
-                        foundSerializer = FoundSerializer(foundList, many=True, context= {'request': request})
-                        data = {'bodyObject': foundSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
-                        return data
+        auth = AuthUserApi(request)
+        if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
+            user= User.objects.get(email=request.user.email)
+            if user:
+                young = Young.objects.get(user=user)
+                if young:
+                    found = Found.objects.get(young=young)
+                    if found:
+                        active_city = found.active_city
+                        group = Group.objects.get(name=active_city)
+                        foundList = Found.objects.filter(active_city=group)
+                        if foundList and group:
+                            foundSerializer = FoundSerializer(foundList, many=True, context= {'request': request})
+                            data = {'bodyObject': foundSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
+                            return data
+                        else:
+                            data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! No encontramos ningun dato en la busqueda.','status':status.HTTP_200_OK }
+                            return  data 
                     else:
-                        data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! No encontramos ningun dato en la busqueda.','status':status.HTTP_200_OK }
+                        data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error con tu sesion y no el sistema no puede mostrar la informacion.','status':status.HTTP_200_OK }
                         return  data 
                 else:
                     data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error con tu sesion y no el sistema no puede mostrar la informacion.','status':status.HTTP_200_OK }
@@ -272,8 +279,7 @@ def GetListFound(request):
                 data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error con tu sesion y no el sistema no puede mostrar la informacion.','status':status.HTTP_200_OK }
                 return  data 
         else:
-            data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error con tu sesion y no el sistema no puede mostrar la informacion.','status':status.HTTP_200_OK }
-            return  data 
+            return  auth 
     except User.DoesNotExist:
         data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error con tu sesion y no el sistema no puede mostrar la informacion.','status':status.HTTP_200_OK }
         return  data 
@@ -284,5 +290,103 @@ def GetListFound(request):
         data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error con tu sesion y no el sistema no puede mostrar la informacion.','status':status.HTTP_200_OK }
         return  data 
     except Group.DoesNotExist:
-        data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error con tu sesion y no el sistema no puede mostrar la informacion.','status':status.HTTP_200_OK }
+        data = {'bodyObject':[], 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando la ciudad en la que estas activa.','status':status.HTTP_200_OK }
         return  data 
+
+def updateFound(request, **params):
+
+    """User"""
+    personal_names = params.get('personal_names', None)
+    personal_lastnames = params.get('personal_lastnames', None)
+    personal_email = params.get('personal_email', None)
+    personal_username = params.get('personal_username', None)
+
+    """
+    young
+    """
+    personal_gender = params.get('personal_gender', None)
+    personal_dateborn = params.get('personal_dateborn', None)
+    personal_homephone = params.get('personal_homephone', None)
+    personal_mobilephone = params.get('personal_mobilephone', None)
+    personal_address = params.get('personal_address', None)
+    personal_occupation = params.get('personal_occupation', None)
+    personal_profession = params.get('personal_profession', None)
+
+
+    """
+    found
+    """
+    number_fds = params.get("number_fds", None)
+    city_fds = params.get("city_fds", None)
+    name_parent_fds = params.get("name_parent_fds", None)
+
+    try:
+        auth = AuthUserApi(request)
+        if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
+            user = User.objects.get(email=request.user.email)
+            if user:
+                if personal_names or personal_lastnames or personal_email or personal_username:
+                    if personal_names and personal_names != user.first_name:
+                        user.first_name = personal_names
+                    if personal_lastnames  and personal_lastnames != user.last_name:
+                        user.last_name = personal_lastnames
+                    if personal_email and personal_email != user.email:
+                        if User.objects.filter(email=personal_email).exists():
+                            data = {'bodyObject':{}, 'result': 'error','statusText': 'Ya existe un usuario con este correo','status':status.HTTP_200_OK }
+                            return data
+                        else:
+                            user.email = personal_email
+                    if personal_username and personal_username != user.username:
+                        if User.objects.filter(username=personal_username).exists():
+                            data = {'bodyObject':{}, 'result': 'error','statusText': 'Ya existe un usuario con este username','status':status.HTTP_200_OK }
+                            return data
+                        else:
+                            user.username = personal_username
+                        
+                    user.save()
+                young = Young.objects.get(user=user)
+                if young:
+                    if personal_gender or personal_dateborn or personal_homephone or personal_mobilephone or personal_address or personal_occupation or personal_profession:
+                        if personal_gender != young.gender:
+                            young.gender = personal_gender
+                        if personal_dateborn != young.date_born:
+                            young.date_born = personal_dateborn
+                        if personal_homephone != young.home_phone:
+                            young.home_phone = personal_homephone
+                        if personal_mobilephone != young.mobile_phone:
+                            young.mobile_phone = personal_mobilephone
+                        if personal_address != young.address:
+                            young.address = personal_address
+                        if personal_occupation != young.occupation:
+                            young.occupation = personal_occupation
+                        if personal_profession != young.profession:
+                            young.profession = personal_profession
+                        young.save()
+                        found = Found.objects.get(young=young)
+                        if found:
+                            if number_fds or city_fds or name_parent_fds:
+                                if number_fds != found.number_fds:
+                                    found.number_fds = number_fds
+                                if city_fds != found.city_fds:
+                                    found.city_fds = city_fds
+                                if name_parent_fds != found.name_parent_fds:
+                                    found.name_parent_fds = name_parent_fds
+                                found.save()
+                                foundSerializer = FoundSerializer(found, context= {'request': request})
+                                data = {'bodyObject': foundSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
+                                return data
+                        
+                    
+            else:
+                data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando tu sesión activa.','status':status.HTTP_200_OK }
+                return data
+                """ los nombres, el correo, fecha nacimiento son obligatorios"""
+        else:
+            return auth
+    except User.DoesNotExist:
+            data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando tu sesión activa.','status':status.HTTP_200_OK }
+            return data
+
+
+def deleteFound(request, **params):
+    pass

@@ -37,14 +37,17 @@ def loginUser(request, **params):
 
 def AuthUserApi(request):
     try:
-        user= User.objects.get(email=request.user)
+        user= User.objects.get(email=request.user.email)
         if user:
-            young = Young.objects.get(user=user)
-            if young:
-                found = Found.objects.get(young=young)
-                if found:
-                    queryset = FoundSerializer(found, many=False, context={'request': request})
-                    return {'status':status.HTTP_200_OK ,'result': 'ok','authUser': queryset.data}
+            if user.is_active:
+                young = Young.objects.get(user=user)
+                if young:
+                    found = Found.objects.get(young=young)
+                    if found:
+                        queryset = FoundSerializer(found, many=False, context={'request': request})
+                        return {'status':status.HTTP_200_OK ,'result': 'ok','authUser': queryset.data}
+                    else:
+                        return {'status':status.HTTP_401_UNAUTHORIZED ,'result': 'error','statusText': 'Permisos restringidos.'}
                 else:
                     return {'status':status.HTTP_401_UNAUTHORIZED ,'result': 'error','statusText': 'Permisos restringidos.'}
             else:

@@ -10,7 +10,7 @@ class AreaSerializer(serializers.HyperlinkedModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'email', 'is_active', 'last_login', 'date_joined')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'is_active', 'last_login', 'date_joined')
 
 class YoungSerializer(serializers.HyperlinkedModelSerializer):
     user = UserSerializer(many=False, read_only=False)
