@@ -324,69 +324,61 @@ def updateFound(request, **params):
         auth = AuthUserApi(request)
         if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
             user = User.objects.get(email=request.user.email)
-            if user:
-                if personal_names or personal_lastnames or personal_email or personal_username:
-                    if personal_names and personal_names != user.first_name:
-                        user.first_name = personal_names
-                    if personal_lastnames  and personal_lastnames != user.last_name:
-                        user.last_name = personal_lastnames
-                    if personal_email and personal_email != user.email:
-                        if User.objects.filter(email=personal_email).exists():
-                            data = {'bodyObject':{}, 'result': 'error','statusText': 'Ya existe un usuario con este correo','status':status.HTTP_200_OK }
-                            return data
-                        else:
-                            user.email = personal_email
-                    if personal_username and personal_username != user.username:
-                        if User.objects.filter(username=personal_username).exists():
-                            data = {'bodyObject':{}, 'result': 'error','statusText': 'Ya existe un usuario con este username','status':status.HTTP_200_OK }
-                            return data
-                        else:
-                            user.username = personal_username
-                        
-                    user.save()
-                young = Young.objects.get(user=user)
-                if young:
-                    if personal_gender or personal_dateborn or personal_homephone or personal_mobilephone or personal_address or personal_occupation or personal_profession:
-                        if personal_gender != young.gender:
-                            young.gender = personal_gender
-                        if personal_dateborn != young.date_born:
-                            young.date_born = personal_dateborn
-                        if personal_homephone != young.home_phone:
-                            young.home_phone = personal_homephone
-                        if personal_mobilephone != young.mobile_phone:
-                            young.mobile_phone = personal_mobilephone
-                        if personal_address != young.address:
-                            young.address = personal_address
-                        if personal_occupation != young.occupation:
-                            young.occupation = personal_occupation
-                        if personal_profession != young.profession:
-                            young.profession = personal_profession
-                        young.save()
-                        found = Found.objects.get(young=young)
-                        if found:
-                            if number_fds or city_fds or name_parent_fds:
-                                if number_fds != found.number_fds:
-                                    found.number_fds = number_fds
-                                if city_fds != found.city_fds:
-                                    found.city_fds = city_fds
-                                if name_parent_fds != found.name_parent_fds:
-                                    found.name_parent_fds = name_parent_fds
-                                found.save()
-                                foundSerializer = FoundSerializer(found, context= {'request': request})
-                                data = {'bodyObject': foundSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
-                                return data
-                        
+            if personal_names or personal_lastnames or personal_email or personal_username:
+                if personal_names and personal_names != user.first_name:
+                    user.first_name = personal_names
+                if personal_lastnames  and personal_lastnames != user.last_name:
+                    user.last_name = personal_lastnames
+                if personal_email and personal_email != user.email:
+                    if User.objects.filter(email=personal_email).exists():
+                        data = {'bodyObject':{}, 'result': 'error','statusText': 'Ya existe un usuario con este correo','status':status.HTTP_200_OK }
+                        return data
+                    else:
+                        user.email = personal_email
+                if personal_username and personal_username != user.username:
+                    if User.objects.filter(username=personal_username).exists():
+                        data = {'bodyObject':{}, 'result': 'error','statusText': 'Ya existe un usuario con este username','status':status.HTTP_200_OK }
+                        return data
+                    else:
+                        user.username = personal_username
                     
-            else:
-                data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando tu sesión activa.','status':status.HTTP_200_OK }
-                return data
-                """ los nombres, el correo, fecha nacimiento son obligatorios"""
+                user.save()
+            young = Young.objects.get(user=user)
+            if young:
+                if personal_gender or personal_dateborn or personal_homephone or personal_mobilephone or personal_address or personal_occupation or personal_profession:
+                    if personal_gender != young.gender:
+                        young.gender = personal_gender
+                    if personal_dateborn != young.date_born:
+                        young.date_born = personal_dateborn
+                    if personal_homephone != young.home_phone:
+                        young.home_phone = personal_homephone
+                    if personal_mobilephone != young.mobile_phone:
+                        young.mobile_phone = personal_mobilephone
+                    if personal_address != young.address:
+                        young.address = personal_address
+                    if personal_occupation != young.occupation:
+                        young.occupation = personal_occupation
+                    if personal_profession != young.profession:
+                        young.profession = personal_profession
+                    young.save()
+                    found = Found.objects.get(young=young)
+                    if found:
+                        if number_fds or city_fds or name_parent_fds:
+                            if number_fds != found.number_fds:
+                                found.number_fds = number_fds
+                            if city_fds != found.city_fds:
+                                found.city_fds = city_fds
+                            if name_parent_fds != found.name_parent_fds:
+                                found.name_parent_fds = name_parent_fds
+                            found.save()
+                            foundSerializer = FoundSerializer(found, context= {'request': request})
+                            data = {'bodyObject': foundSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
+                            return data
         else:
             return auth
-    except User.DoesNotExist:
+    except DoesNotExist:
             data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando tu sesión activa.','status':status.HTTP_200_OK }
             return data
-
 
 def deleteFound(request, **params):
     pass

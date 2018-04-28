@@ -513,6 +513,11 @@ class UpdateFoundTest(APITestCase):
         self.user.last_name="Rodriguez"
         self.user.set_password("test_ejapp")
         self.user.save()
+        user1 = User.objects.create(username="arod", email="andres.ro@gmail.com")
+        user1.first_name="Andres" 
+        user1.last_name="Rodriguez"
+        user1.set_password("test_ejapp")
+        user1.save()
         young = Young.objects.create(
             user=self.user, 
             date_born="1994-05-24", 
@@ -524,8 +529,7 @@ class UpdateFoundTest(APITestCase):
             gender="1"
         )
         found = Found.objects.create(
-            young=young, 
-            state="1", 
+            young=young,  
             number_fds="36", 
             city_fds="Pereira",
             active_city="Pereira",
@@ -542,14 +546,14 @@ class UpdateFoundTest(APITestCase):
             'personal_gender': '1',
             'personal_dateborn': '1989-02-15',
             'personal_homephone': '3393487',
-            'personal_mobilephone': '3044643222',
-            'personal_address': 'Manzana 15 casa 138 Villa campestre, Dosquebradas',
-            'personal_occupation': 'Desarrollador',
+            'personal_mobilephone': '3044643221',
+            'personal_address': 'Manzana 03 casa 03 Quintas de Aragon, Dosquebradas',
+            'personal_occupation': 'Dev web',
             'personal_profession': 'Ingeniero de sistemas',
             'number_fds': '42',
             'city_fds': 'Pereira',
-            'name_parent_fds': 'Echeverry',
-            'personal_username': 'arodrigueze',
+            'name_parent_fds': 'Familia Echeverry',
+            'personal_username': 'Are0215',
         }
         request = factory.put(reverse("api:new_found_empty"), data)
         request.user = self.user
@@ -557,5 +561,98 @@ class UpdateFoundTest(APITestCase):
         
         response = view(request)
         jsonRes = response.data
-        print "test_updateDataFound: __ ", jsonRes
-    
+        status =jsonRes.get("status",None)
+        result =jsonRes.get("result",None)
+        bodyObject =jsonRes.get("bodyObject",None)
+        youngObj =bodyObject.get("young",None)
+        userObj =youngObj.get("user",None)
+
+        self.assertEqual(status, 200)
+        self.assertEqual(result, "ok")
+        self.assertEqual(userObj.get("username", None) != "arodrigueze", True)
+        self.assertEqual(userObj.get("username", None) == "Are0215", True)
+        self.assertEqual(userObj.get("first_name", None) != "Andres", True)
+        self.assertEqual(userObj.get("first_name", None) == "Andres R", True)
+        self.assertEqual(userObj.get("last_name", None) != "Rodriguez", True)
+        self.assertEqual(userObj.get("last_name", None) == "Rodriguez Escudero", True)
+        self.assertEqual(userObj.get("email", None) != "andres.rodriguez0215@gmail.com", True)
+        self.assertEqual(userObj.get("email", None) == "andres.r@gmail.com", True)
+
+        self.assertEqual(youngObj.get("date_born", None) != "1994-05-24", True)
+        self.assertEqual(youngObj.get("date_born", None) == "1989-02-15", True)
+        self.assertEqual(youngObj.get("home_phone", None) != "3428744", True)
+        self.assertEqual(youngObj.get("home_phone", None) == "3393487", True)
+        self.assertEqual(youngObj.get("mobile_phone", None) != "3044643222", True)
+        self.assertEqual(youngObj.get("mobile_phone", None) == "3044643221", True)
+        self.assertEqual(youngObj.get("address", None) != "Manzana 15 casa 138 Villa campestre, Dosquebradas", True)
+        self.assertEqual(youngObj.get("address", None) == "Manzana 03 casa 03 Quintas de Aragon, Dosquebradas", True)
+        self.assertEqual(youngObj.get("occupation", None) != "Desarrollador", True)
+        self.assertEqual(youngObj.get("occupation", None) == "Dev web", True)
+        self.assertEqual(bodyObject.get("number_fds", None), "42")
+        self.assertEqual(bodyObject.get("city_fds", None), "Pereira")
+        self.assertEqual(bodyObject.get("name_parent_fds", None), "Familia Echeverry")
+        print "test_updateDataFound (UPDATE FOUND): [OK]"
+
+    def test_userMailRequest(self):
+        factory = APIRequestFactory()
+        view = apiFound.as_view()
+        data = {
+            'personal_names':'Andres R',
+            'personal_lastnames': 'Rodriguez Escudero',
+            'personal_email': 'andres.ro@gmail.com',
+            'personal_gender': '1',
+            'personal_dateborn': '1989-02-15',
+            'personal_homephone': '3393487',
+            'personal_mobilephone': '3044643221',
+            'personal_address': 'Manzana 03 casa 03 Quintas de Aragon, Dosquebradas',
+            'personal_occupation': 'Dev web',
+            'personal_profession': 'Ingeniero de sistemas',
+            'number_fds': '42',
+            'city_fds': 'Pereira',
+            'name_parent_fds': 'Familia Echeverry',
+            'personal_username': 'Are0215',
+        }
+        request = factory.put(reverse("api:new_found_empty"), data)
+        request.user = self.user
+        force_authenticate(request, user=self.user)
+        response = view(request)
+        jsonRes = response.data
+        status =jsonRes.get("status",None)
+        statusText =jsonRes.get("statusText",None)
+        result =jsonRes.get("result",None)
+        self.assertEqual(status, 200)
+        self.assertEqual(result, "error")
+        self.assertEqual(statusText, "Ya existe un usuario con este correo")
+        print "test_userMailRequest (UPDATE FOUND, USER DOES EXIST): [OK]"
+
+    def test_userNameRequest(self):
+        factory = APIRequestFactory()
+        view = apiFound.as_view()
+        data = {
+            'personal_names':'Andres R',
+            'personal_lastnames': 'Rodriguez Escudero',
+            'personal_email': 'andres.r@gmail.com',
+            'personal_gender': '1',
+            'personal_dateborn': '1989-02-15',
+            'personal_homephone': '3393487',
+            'personal_mobilephone': '3044643221',
+            'personal_address': 'Manzana 03 casa 03 Quintas de Aragon, Dosquebradas',
+            'personal_occupation': 'Dev web',
+            'personal_profession': 'Ingeniero de sistemas',
+            'number_fds': '42',
+            'city_fds': 'Pereira',
+            'name_parent_fds': 'Familia Echeverry',
+            'personal_username': 'arod',
+        }
+        request = factory.put(reverse("api:new_found_empty"), data)
+        request.user = self.user
+        force_authenticate(request, user=self.user)
+        response = view(request)
+        jsonRes = response.data
+        status =jsonRes.get("status",None)
+        statusText =jsonRes.get("statusText",None)
+        result =jsonRes.get("result",None)
+        self.assertEqual(status, 200)
+        self.assertEqual(result, "error")
+        self.assertEqual(statusText, "Ya existe un usuario con este username")
+        print "test_userNameRequest (UPDATE FOUND, USER DOES EXIST): [OK]"
