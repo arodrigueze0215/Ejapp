@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from rest_framework import status
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import Group
 from main.models import (Young, Found, Areas)
 from Ejapp.controller import AuthUserApi
@@ -376,9 +377,41 @@ def updateFound(request, **params):
                             return data
         else:
             return auth
-    except DoesNotExist:
+    except ObjectDoesNotExist:
             data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando tu sesión activa.','status':status.HTTP_200_OK }
             return data
 
 def deleteFound(request, **params):
-    pass
+    
+    try:
+        auth = AuthUserApi(request)
+        if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
+            idFound = params.get("pk", None)
+            if idFound:
+                found = Found.objects.get(id=idFound)
+                if found:
+                    user = User.objects.get(email=request.user.email)
+                    fUser = found.young.user
+                    if user == fUser:
+                        fUser.is_active = False
+                        fUser.save()
+                        found.young.user = fUser
+                        found.save()
+                        msg = 'Hola %s. Tu perfil ha sido inhabilitado, Nos entristese que lo hayas decidido asi. Si deseas habilitar tu cuenta de nuevo, ponte en contanto con el consejo de tu ciudad.' %(found.young.user.first_name)
+                        data = {'bodyObject': {}, 'result': 'ok', 'statusText': msg, 'status':status.HTTP_200_OK }
+                        return data
+                    else:
+                        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! No tienes permisos para realizar esta accion.','status':status.HTTP_200_OK }
+                        return data
+                else:
+                    data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! No tienes permisos para realizar esta accion.','status':status.HTTP_200_OK }
+                    return data
+            else:
+                data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! No tienes permisos para realizar esta accion.','status':status.HTTP_200_OK }
+                return data
+        else:
+            return auth
+
+    except ObjectDoesNotExist:
+        data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el usuario a eliminar.','status':status.HTTP_200_OK }
+        return data

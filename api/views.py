@@ -146,7 +146,11 @@ class Found(APIView):
                     personal_gender=personal_gender
                 )
         return Response(data, status.HTTP_200_OK)
-        
+    
+    def delete(self, request, format=None):
+        idfound = request.data.get('id')
+        data = Fview.deleteFound(request, pk=idfound)
+        return Response(data, status.HTTP_200_OK)
 
 class FoundList(APIView):
     def get(self, request, format=None):

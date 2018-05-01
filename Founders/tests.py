@@ -656,3 +656,103 @@ class UpdateFoundTest(APITestCase):
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Ya existe un usuario con este username")
         print "test_userNameRequest (UPDATE FOUND, USER DOES EXIST): [OK]"
+
+class DeletFoundTest(APITestCase):
+    def setUp(self):
+        area = Areas.objects.create(name="Pre")
+        self.user = User.objects.create(username="arodrigueze", email="andres.rodriguez0215@gmail.com")
+        self.user.first_name="Andres" 
+        self.user.last_name="Rodriguez"
+        self.user.set_password("test_ejapp")
+        self.user.save()
+        user1 = User.objects.create(username="daniCasta", email="dani.casta@gmail.com")
+        user1.first_name="Daniela" 
+        user1.last_name="Rodriguez"
+        user1.set_password("test_ejapp")
+        user1.save()
+        young = Young.objects.create(
+            user=self.user, 
+            date_born="1994-05-24", 
+            home_phone="3428744", 
+            mobile_phone="3044643222",
+            address="Manzana 15 casa 138 Villa campestre, Dosquebradas",
+            occupation="Desarrollador",
+            profession="Ingeniero de sistemas",
+            gender="1"
+        )
+        Found.objects.create(
+            young=young,  
+            number_fds="36", 
+            city_fds="Pereira",
+            active_city="Pereira",
+            area=area,
+            name_parent_fds="Echeverry"
+        )
+        young1 = Young.objects.create(
+            user=user1, 
+            date_born="1994-05-24", 
+            home_phone="3428744", 
+            mobile_phone="3044643222",
+            address="Manzana 15 casa 138 Villa campestre, Dosquebradas",
+            occupation="Desarrollador",
+            profession="Ingeniero de sistemas",
+            gender="1"
+        )
+        Found.objects.create(
+            young=young1,  
+            number_fds="36", 
+            city_fds="Pereira",
+            active_city="Pereira",
+            area=area,
+            name_parent_fds="Echeverry"
+        )
+    def test_deleteFound(self):
+        factory = APIRequestFactory()
+        view = apiFound.as_view()
+        params = {'id':'1'}
+        request = factory.delete(reverse("api:new_found_empty"), params)        
+        request.user = self.user
+        force_authenticate(request, user=self.user)
+        response = view(request)
+        jsonRes = response.data
+        print "delete: ", jsonRes
+        status =jsonRes.get("status",None)
+        statusText =jsonRes.get("statusText",None)
+        result =jsonRes.get("result",None)
+        self.assertEqual(status, 200)
+        self.assertEqual(result, "ok")
+        self.assertEqual(statusText, "Hola Andres. Tu perfil ha sido inhabilitado, Nos entristese que lo hayas decidido asi. Si deseas habilitar tu cuenta de nuevo, ponte en contanto con el consejo de tu ciudad.")
+    
+    def test_deleteFoundObjectDoesNotExist(self):
+        factory = APIRequestFactory()
+        view = apiFound.as_view()
+        params = {'id':'3'}
+        request = factory.delete(reverse("api:new_found_empty"), params)        
+        request.user = self.user
+        force_authenticate(request, user=self.user)
+        response = view(request)
+        jsonRes = response.data
+        print "delete: ", jsonRes
+        status =jsonRes.get("status",None)
+        statusText =jsonRes.get("statusText",None)
+        result =jsonRes.get("result",None)
+        self.assertEqual(status, 200)
+        self.assertEqual(result, "error")
+        self.assertEqual(statusText, "Lo sentimos!! Ocurrio un error validando el usuario a eliminar.")
+    
+    def test_deleteFoundIdNotFound(self):
+        factory = APIRequestFactory()
+        view = apiFound.as_view()
+        params = {'id':'2'}
+        request = factory.delete(reverse("api:new_found_empty"), params)        
+        request.user = self.user
+        force_authenticate(request, user=self.user)
+        response = view(request)
+        jsonRes = response.data
+        print "delete: ", jsonRes
+        status =jsonRes.get("status",None)
+        statusText =jsonRes.get("statusText",None)
+        result =jsonRes.get("result",None)
+        self.assertEqual(status, 200)
+        self.assertEqual(result, "error")
+        self.assertEqual(statusText, "Lo sentimos!! No tienes permisos para realizar esta accion.")
