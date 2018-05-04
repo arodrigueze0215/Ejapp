@@ -10,5 +10,6 @@ urlpatterns=[
     url(r'^formenable/', views.enable_inscriptions, name='form_enable'),
     url(r'^geturl/', views.get_url_inscription, name='get_url_inscription'),
     url(r'^resultado/', views.result_inscription, name='result_inscription'),
+    url(r'^nuevo/', views.formNewEmptyFounder, name='form_new_empty_founder'),
     url(r'^', include('login.urls', namespace='login')),
 ]

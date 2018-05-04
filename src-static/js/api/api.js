@@ -2,12 +2,7 @@ import fetch from 'isomorphic-fetch';
 //const DOMAIN = "dev.encuentrojuvenil.co";//dev
 const DOMAIN = window.location.origin;//app
 //const DOMAIN = "192.168.1.15:8000";//local
-let getBaseUrl = ()=>{
-    return `${DOMAIN}`;
 
-}
-
-const baseUrl = getBaseUrl();
 let endpoint = "";
 var api = {
     apiAuth:{
@@ -15,7 +10,7 @@ var api = {
             let options = {
                 credentials: "same-origin",
             } 
-            endpoint=`${baseUrl}/api/apiauth/`;
+            endpoint=`${DOMAIN}/api/apiauth/`;
             const response = await fetch(
                 endpoint,
                 options
@@ -31,7 +26,7 @@ var api = {
             let options = {
                 credentials: "same-origin"
             } 
-            endpoint = `${baseUrl}/api/inscriptions/${searchParams}`;
+            endpoint = `${DOMAIN}/api/inscriptions/${searchParams}`;
             const response = await fetch(
                 endpoint,
                 options
@@ -44,7 +39,7 @@ var api = {
             let options = {
                 credentials: "same-origin"
             } 
-            endpoint = `${baseUrl}/api/inscriptions/details/${params}`;
+            endpoint = `${DOMAIN}/api/inscriptions/details/${params}`;
             const response = await fetch(
                 endpoint,
                 options
@@ -62,7 +57,7 @@ var api = {
                 credentials: "same-origin"
             } 
             const response = await fetch(
-                `${baseUrl}/api/parentlist/${params}`,
+                `${DOMAIN}/api/parentlist/${params}`,
                 options
             );
             const data = await response.json();
@@ -77,7 +72,7 @@ var api = {
                 credentials: "same-origin"
             } 
             const response = await fetch(
-                `${baseUrl}/api/brotherslist/${params}`,
+                `${DOMAIN}/api/brotherslist/${params}`,
                 options
             );
             const data = await response.json();

@@ -1,5 +1,5 @@
 import React, {Componet, Component} from 'react';
-import api from '../../../api/api.jsx';
+import api from '../../../api/api.js';
 import MessageError from '../../Commons/MessageError/MessageError.jsx';
 import ContentLoading from '../../Commons/ContentLoading/ContentLoading.jsx';
 import HeaderYoungDetail from './HeaderYoungDetail.jsx';

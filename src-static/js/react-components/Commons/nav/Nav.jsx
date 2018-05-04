@@ -1,5 +1,5 @@
 import React, {Component } from "react";
-import api from '../../../api/api.jsx';
+import api from '../../../api/api.js';
 import hamburger from '../../../../images/hamburger.png';
 
 class Nav extends Component{
