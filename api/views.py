@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from Ejapp import controller
 from Founders import view as Fview
+from Areas import views as Aview
 
 class InscriptionsList(APIView):
     def get(self, request, format=None):
@@ -155,4 +156,8 @@ class Found(APIView):
 class FoundList(APIView):
     def get(self, request, format=None):
         data = Fview.getListFound(request)
+        return Response(data, status.HTTP_200_OK)
+class AreasList(APIView):
+    def get(self, request, format=None):
+        data = Aview.listAreas(request)
         return Response(data, status.HTTP_200_OK)

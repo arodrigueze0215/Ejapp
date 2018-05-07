@@ -715,13 +715,13 @@ class DeletFoundTest(APITestCase):
         force_authenticate(request, user=self.user)
         response = view(request)
         jsonRes = response.data
-        print "delete: ", jsonRes
         status =jsonRes.get("status",None)
         statusText =jsonRes.get("statusText",None)
         result =jsonRes.get("result",None)
         self.assertEqual(status, 200)
         self.assertEqual(result, "ok")
         self.assertEqual(statusText, "Hola Andres. Tu perfil ha sido inhabilitado, Nos entristese que lo hayas decidido asi. Si deseas habilitar tu cuenta de nuevo, ponte en contanto con el consejo de tu ciudad.")
+        print "test_deleteFound (DISABLE FOUNDER): [OK]"
     
     def test_deleteFoundObjectDoesNotExist(self):
         factory = APIRequestFactory()
@@ -732,13 +732,13 @@ class DeletFoundTest(APITestCase):
         force_authenticate(request, user=self.user)
         response = view(request)
         jsonRes = response.data
-        print "delete: ", jsonRes
         status =jsonRes.get("status",None)
         statusText =jsonRes.get("statusText",None)
         result =jsonRes.get("result",None)
         self.assertEqual(status, 200)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Lo sentimos!! Ocurrio un error validando el usuario a eliminar.")
+        print "test_deleteFoundObjectDoesNotExist (DISABLE FOUNDER, OBJECT DOES EXIST): [OK]"
     
     def test_deleteFoundIdNotFound(self):
         factory = APIRequestFactory()
@@ -749,10 +749,10 @@ class DeletFoundTest(APITestCase):
         force_authenticate(request, user=self.user)
         response = view(request)
         jsonRes = response.data
-        print "delete: ", jsonRes
         status =jsonRes.get("status",None)
         statusText =jsonRes.get("statusText",None)
         result =jsonRes.get("result",None)
         self.assertEqual(status, 200)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Lo sentimos!! No tienes permisos para realizar esta accion.")
+        print "test_deleteFoundIdNotFound (DISABLE FOUNDER, FOUNDER DOES EXIST): [OK]"
