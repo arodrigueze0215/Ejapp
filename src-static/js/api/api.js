@@ -79,6 +79,19 @@ var api = {
             return data;
 
         }
+    },
+    areas: {
+        async getAreasList() {
+            let options = {
+                credentials: "same-origin"
+            } 
+            const response = await fetch(
+                `${DOMAIN}/api/areas/`,
+                options
+            );
+            const data = await response.json();
+            return data;
+        }
     }
 
 }

@@ -6,6 +6,7 @@ from rest_framework import status
 from Ejapp import controller
 from Founders import view as Fview
 from Areas import views as Aview
+from Cities import views as Cview
 
 class InscriptionsList(APIView):
     def get(self, request, format=None):
@@ -160,4 +161,8 @@ class FoundList(APIView):
 class AreasList(APIView):
     def get(self, request, format=None):
         data = Aview.listAreas(request)
+        return Response(data, status.HTTP_200_OK)
+class CitiesList(APIView):
+    def get(self, request, format=None):
+        data = Cview.listCities(request)
         return Response(data, status.HTTP_200_OK)

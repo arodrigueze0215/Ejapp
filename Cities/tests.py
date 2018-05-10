@@ -7,21 +7,22 @@ from rest_framework.test import (
     force_authenticate
 )
 from django.urls import reverse
-from api.views import AreasList
+
 from main.models import (
     Areas,
     Young,
-    Found
+    Found,
+    EjCities
 )
+from api.views import CitiesList
 from django.contrib.auth.models import User
 
-class ListAreasTest(APITestCase):
+class ListCitiesTest(APITestCase):
     def setUp(self):
         area = Areas.objects.create(name="Pre")
-        Areas.objects.create(name="Post")
-        Areas.objects.create(name="Padres")
-        Areas.objects.create(name="Apostolado")
-        Areas.objects.create(name="Ninguna")
+        cities = EjCities.objects.create(name="Pereira")
+        EjCities.objects.create(name="Manizales")
+        EjCities.objects.create(name="Armenia")
         self.user = User.objects.create(username="arodrigueze", email="andres.rodriguez0215@gmail.com")
         young = Young.objects.create(
             user=self.user, 
@@ -41,11 +42,10 @@ class ListAreasTest(APITestCase):
             area=area,
             name_parent_fds="Echeverry"
         )
-
-    def test_listAreas(self):
-        url = reverse("api:list_areas")
+    def test_listCities(self):
+        url = reverse("api:list_cities")
         factory = APIRequestFactory()
-        view = AreasList.as_view()
+        view = CitiesList.as_view()
         request = factory.get(url)        
         request.user = self.user
         force_authenticate(request, user=self.user)
@@ -58,5 +58,5 @@ class ListAreasTest(APITestCase):
         self.assertEqual(result, "ok")
         self.assertEqual(len(bodyObject)>0, True)
         self.assertEqual(bodyObject[0].get("id"), 1)
-        self.assertEqual(bodyObject[0].get("name"), "Pre")
-        print "test_listAreas [OK]"
+        self.assertEqual(bodyObject[0].get("name"), "Pereira")
+        print "test_lisCities [OK]"

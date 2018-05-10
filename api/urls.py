@@ -8,7 +8,8 @@ from .views import (InscriptionsList,
                     NewFoundWithYoung,
                     Found,
                     FoundList,
-                    AreasList
+                    AreasList,
+                    CitiesList
                 )
 
 urlpatterns = [
@@ -21,5 +22,6 @@ urlpatterns = [
     url(r'^newfound/$', NewFoundWithYoung.as_view(),name='new_found_young'),
     url(r'^founds/$', Found.as_view(),name='new_found_empty'),
     url(r'^founds/list/$', FoundList.as_view(),name='list_founds'),
-    url(r'^areas/$', AreasList.as_view(),name='list_areas')
+    url(r'^areas/$', AreasList.as_view(),name='list_areas'),
+    url(r'^cities/$', CitiesList.as_view(),name='list_cities')
 ]

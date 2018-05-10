@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import SelectAreas from '../../../Commons/SelectAreas/SelectAreas.jsx';
 
 class DataFound extends Component {
     constructor(props) {
@@ -17,8 +18,13 @@ class DataFound extends Component {
                 </div>
                 <div>
                     <label className="Main__dataFound__nameParentFds">Nombre de tu Papá / Mamá de FDS
-                        <input type="text" value={this.props.nameparent} placeholder="Número de FDS que viviste" 
+                        <input type="text" value={this.props.nameparent} placeholder="Nombre y apellido" 
                                 onChange={this.props.handleNameParentChange} />
+                    </label>
+                </div>
+                <div>
+                    <label className="Main__dataFound__selectArea"> Selecciona el área al que perteneces.
+                        <SelectAreas/>
                     </label>
                 </div>
                 <div>

@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from main.models import (Young, Found, Inscription, Parents, Brothers, FdsEvents, Areas)
+from main.models import (Young, Found, Inscription, Parents, Brothers, FdsEvents, Areas, EjCities)
 
+class CitySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = EjCities
+        fields = ('id', 'name')
 class AreaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Areas
