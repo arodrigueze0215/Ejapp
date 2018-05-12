@@ -92,6 +92,19 @@ var api = {
             const data = await response.json();
             return data;
         }
+    },
+    cities: {
+        async getCitiesList() {
+            let options = {
+                credentials: "same-origin"
+            } 
+            const response = await fetch(
+                `${DOMAIN}/api/cities/`,
+                options
+            );
+            const data = await response.json();
+            return data;
+        }
     }
 
 }

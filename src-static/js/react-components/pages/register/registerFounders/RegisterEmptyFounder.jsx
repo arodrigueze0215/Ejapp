@@ -6,18 +6,24 @@ class RegisterEmptyFounder extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            gender:'true',
-            names:'',
-            lastnames: '',
-            dateborn: '',
-            homephone: '',
-            mobilephone: '',
-            address: '',
-            email: '',
-            username: '',
-            fds: '',
+            personal_gender:'true',
+            personal_names:'',
+            personal_lastnames: '',
+            personal_dateborn: '',
+            personal_homephone: '',
+            personal_mobilephone: '',
+            personal_address: '',
+            personal_email: '',
+            personal_username: '',
+            personal_profession: '',
+            personal_occupation: '',
+            state: '',
+            number_fds: '',
+            city_fds: '0',
+            active_city: '0',
+            area: '0',
+            password: '',
             nameparent: '',
-            password: ''
         }
         this.handleGenderChange = this.handleGenderChange.bind(this);
         this.handleNamesChange = this.handleNamesChange.bind(this);
@@ -27,18 +33,54 @@ class RegisterEmptyFounder extends Component {
         this.handleMobilePhoneChange = this.handleMobilePhoneChange.bind(this);
         this.handleAddressChange = this.handleAddressChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handleProfessionChange = this.handleProfessionChange.bind(this);
+        this.handleOccupationChange = this.handleOccupationChange.bind(this);
         this.handleUserNameChange = this.handleUserNameChange.bind(this);
         this.handleFdsNumberChange = this.handleFdsNumberChange.bind(this);
         this.handleNameParentChange = this.handleNameParentChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleStateChange = this.handleStateChange.bind(this);
+        this.handleSelectAreaChange = this.handleSelectAreaChange.bind(this);
+        this.handleSelectCityActiveChange = this.handleSelectCityActiveChange.bind(this);
+        this.handleSelectCityFdsChange = this.handleSelectCityFdsChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleGenderChange (event){
         const value = event.target.value;
         this.setState({
-            gender: value,
+            personal_gender: value,
         });
 
+    }
+    handleSelectCityFdsChange(event) {
+        this.setState({
+            city_fds:event.target.value
+        });
+    }
+    handleSelectCityActiveChange(event) {
+        this.setState({
+            active_city:event.target.value
+        });
+    }
+    handleSelectAreaChange(event) {
+        this.setState({
+            area:event.target.value
+        });
+    }
+    handleStateChange(event) {
+        this.setState({
+            state:event.target.value
+        });
+    }
+    handleOccupationChange(event) {
+        this.setState({
+            personal_occupation:event.target.value
+        });
+    }
+    handleProfessionChange(event) {
+        this.setState({
+            personal_profession:event.target.value
+        });
     }
     handlePasswordChange(event) {
         this.setState({
@@ -52,47 +94,47 @@ class RegisterEmptyFounder extends Component {
     }
     handleFdsNumberChange(event) {
         this.setState({
-            fds:event.target.value
+            number_fds:event.target.value
         });
     }
     handleNamesChange(event) {
         this.setState({
-            names:event.target.value
+            personal_names:event.target.value
         });
     }
     handleLastNamesChange(event) {
         this.setState({
-            lastnames: event.target.value
+            personal_lastnames: event.target.value
         });
     }
     handleDateBornChange(event) {
         this.setState({
-            dateborn: event.target.value
+            personal_dateborn: event.target.value
         });
     }
     handleHomePhoneChange(event) {
         this.setState({
-            homephone: event.target.value
+            personal_homephone: event.target.value
         });
     }
     handleMobilePhoneChange(event) {
         this.setState({
-            mobilephone: event.target.value
+            personal_mobilephone: event.target.value
         });
     }
     handleAddressChange(event) {
         this.setState({
-            address: event.target.value
+            personal_address: event.target.value
         });
     }
     handleEmailChange(event) {
         this.setState({
-            email: event.target.value
+            personal_email: event.target.value
         });
     }
     handleUserNameChange(event) {
         this.setState({
-            username: event.target.value
+            personal_username: event.target.value
         });
     }
     handleSubmit(event) {
@@ -116,17 +158,26 @@ class RegisterEmptyFounder extends Component {
                 handleHomePhoneChange={this.handleHomePhoneChange}
                 handleMobilePhoneChange={this.handleMobilePhoneChange}
                 handleAddressChange={this.handleAddressChange}
-                handleEmailChange={this.handleEmailChange}
-                handleUserNameChange={this.handleUserNameChange}
+                handleProfessionChange={this.handleProfessionChange}
+                handleOccupationChange={this.handleOccupationChange}
                 />
             <DataFound
                 {...this.state}
+                handleStateChange={this.handleStateChange}
+                handleEmailChange={this.handleEmailChange}
+                handleUserNameChange={this.handleUserNameChange}
                 handleFdsNumberChange={this.handleFdsNumberChange}
                 handleNameParentChange={this.handleNameParentChange}
                 handlePasswordChange={this.handlePasswordChange}
+                handleSelectAreaChange = {this.handleSelectAreaChange}
+                handleSelectCityActiveChange = {this.handleSelectCityActiveChange}
+                handleSelectCityFdsChange = {this.handleSelectCityFdsChange}
             />
                 <section className="Main__submit">
-                    <button type="submit" value="submit" className="Main__submit__register button">Registrarme</button>
+                    <button type="submit" 
+                        value="submit" 
+                        className="Main__submit__register button">Registrarme
+                    </button>
                 </section>
             </form>
         );

@@ -22,40 +22,40 @@ class DataYoung extends Component {
                             </div>
                             <div className="Main__dataYoung__names">
                                 <label className="Main__dataYoung__names__name">Nombres
-                                    <input type="text" value={this.props.names} placeholder="Nombres" 
+                                    <input type="text" value={this.props.personal_names} placeholder="Nombres" 
                                            onChange={this.props.handleNamesChange} required/>
                                     
                                 </label>
                                 <label className="Main__dataYoung__names__lastName">Apellidos
-                                    <input type="text" value={this.props.lastnames} placeholder="Apellidos"
+                                    <input type="text" value={this.props.personal_lastnames} placeholder="Apellidos"
                                            onChange={this.props.handleLastNamesChange} required/>
 
                                 </label>
                                 <label className="Main__dataYoung__names__dateBorn">Fecha nacimiento
-                                    <input type="date" value={this.props.dateborn} placeholder="2000-02-15" 
+                                    <input type="date" value={this.props.personal_dateborn} placeholder="2000-02-15" 
                                            onChange={this.props.handleDateBornChange} required/>
                                 </label>
                             </div>
                             <div className="Main__dataYoung__contact">
                                 <label className="Main__dataYoung__contact__homePhone">Telefono
-                                    <input type="text" value={this.props.homephone} placeholder="Nombres"
+                                    <input type="tel" value={this.props.personal_homephone} placeholder="Nombres"
                                             onChange={this.props.handleHomePhoneChange}/>
                                 </label>
                                 <label className="Main__dataYoung__contact__mobilePhone">Móvil
-                                    <input type="text" value={this.props.mobilephone} placeholder="Número telefónico de tu casa"
+                                    <input type="tel" value={this.props.personal_mobilephone} placeholder="Número telefónico de tu casa"
                                              onChange={this.props.handleMobilePhoneChange}/>
                                 </label>
                                 <label className="Main__dataYoung__contact__address">Dirección
-                                    <input type="text" value={this.props.address} placeholder="Dirección de residencia"
+                                    <input type="text" value={this.props.personal_address} placeholder="Dirección de residencia"
                                            onChange={this.props.handleAddressChange}/>
                                 </label>
-                                <label className="Main__dataYoung__contact__email">Correo electrónico
-                                    <input type="email" value={this.props.email} placeholder="encontrado@gmail.com" 
-                                            onChange={this.props.handleEmailChange} required/>
+                                <label className="Main__dataYoung__contact__profession">Profesión
+                                    <input type="text" placeholder="Profesión" value={this.props.personal_profession}
+                                        onChange={this.props.handleProfessionChange}/>
                                 </label>
-                                <label className="Main__dataYoung__contact__username">nickname
-                                    <input type="text" value={this.props.username} placeholder="Apodo" 
-                                            onChange={this.props.handleUserNameChange} required/>
+                                <label className="Main__dataYoung__contact__occupation">Ocupación
+                                    <input type="text" placeholder="Ocupación" value={this.props.personal_occupation}
+                                        onChange={this.props.handleOccupationChange}/>
                                 </label>
                             </div>
                 </section>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import api from '../../../api/api.js';
 import MessageError from '../../Commons/MessageError/MessageError.jsx';
-import ContentLoading from '../../Commons/ContentLoading/ContentLoading.jsx';
+
 
 class SelectAreas extends Component {
     constructor(props) {
@@ -23,9 +23,9 @@ class SelectAreas extends Component {
             const options = this.state.data.bodyObject.map((area) => 
                 <option key={area.id} value={area.id}>{area.name}</option>
             );
-            console.log(options);
             return(
-                <select>
+                <select value={this.props.area} onChange={this.props.selectAreas}>
+                    <option key='0' value='0' >Selecciona un área</option>
                     {options}
                 </select>
             );
@@ -37,7 +37,7 @@ class SelectAreas extends Component {
             
         } else {
             return(
-                <ContentLoading/>
+                <span>Cargando Areas...</span>
                 );  
         }
     }
