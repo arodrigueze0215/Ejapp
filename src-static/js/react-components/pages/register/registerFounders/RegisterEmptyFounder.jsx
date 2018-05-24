@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import DataYoung from '../DataYoung.jsx'
 import DataFound from './DataFound.jsx'
+import api from '../../../../api/api.js';
+import ContentLoading from '../../../Commons/ContentLoading/ContentLoading.jsx';
 
 class RegisterEmptyFounder extends Component {
     constructor(props) {
@@ -24,6 +26,13 @@ class RegisterEmptyFounder extends Component {
             area: '0',
             password: '',
             nameparent: '',
+            loading: "Registrarme",
+            datacities: {},
+            fieldsRequired: {
+                names: true,
+                lastnames: true,
+                dateborn: true,
+            }
         }
         this.handleGenderChange = this.handleGenderChange.bind(this);
         this.handleNamesChange = this.handleNamesChange.bind(this);
@@ -45,12 +54,72 @@ class RegisterEmptyFounder extends Component {
         this.handleSelectCityFdsChange = this.handleSelectCityFdsChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+    async componentDidMount() {
+        const datacities = await api.cities.getCitiesList();
+        this.setState({
+            datacities
+        });
+    }
+
+    render(){
+        const style = {
+            display: 'none'
+        }
+        if (this.state.datacities.result==='ok'&& this.state.datacities.status>=200 && this.state.datacities.status<=207) {
+
+            return(
+                <form onSubmit={this.handleSubmit}>
+                    <h2>Registrate como encontrado.</h2>
+                
+                <DataYoung 
+                    {...this.state}
+                    handleGenderChange={this.handleGenderChange}
+                    handleNamesChange={this.handleNamesChange}
+                    handleLastNamesChange={this.handleLastNamesChange}
+                    handleDateBornChange={this.handleDateBornChange}
+                    handleHomePhoneChange={this.handleHomePhoneChange}
+                    handleMobilePhoneChange={this.handleMobilePhoneChange}
+                    handleAddressChange={this.handleAddressChange}
+                    handleProfessionChange={this.handleProfessionChange}
+                    handleOccupationChange={this.handleOccupationChange}
+                    />
+                <DataFound
+                    {...this.state}
+                    handleStateChange={this.handleStateChange}
+                    handleEmailChange={this.handleEmailChange}
+                    handleUserNameChange={this.handleUserNameChange}
+                    handleFdsNumberChange={this.handleFdsNumberChange}
+                    handleNameParentChange={this.handleNameParentChange}
+                    handlePasswordChange={this.handlePasswordChange}
+                    handleSelectAreaChange = {this.handleSelectAreaChange}
+                    handleSelectCityActiveChange = {this.handleSelectCityActiveChange}
+                    handleSelectCityFdsChange = {this.handleSelectCityFdsChange}
+                />
+                    <section className="Main__submit">
+                        <button type="submit" 
+                            value="submit" 
+                            className="Main__submit__register button">{this.state.loading}
+                        </button>
+                    </section>
+                </form>
+            );
+        } else if (this.state.datacities.result==='error') {
+            return(
+                <MessageError status={this.state.datacities.status} statusText={this.state.datacities.statusText}/>
+                );  
+            
+        } else {
+            return(
+                <ContentLoading/>
+                );  
+        }
+    }
+
     handleGenderChange (event){
         const value = event.target.value;
         this.setState({
             personal_gender: value,
         });
-
     }
     handleSelectCityFdsChange(event) {
         this.setState({
@@ -137,51 +206,59 @@ class RegisterEmptyFounder extends Component {
             personal_username: event.target.value
         });
     }
-    handleSubmit(event) {
-        console.log(this.state);
+    async handleSubmit(event) {
         event.preventDefault();
-    }
-    render(){
-        const style = {
-            display: 'none'
-        }
-        return(
-            <form onSubmit={this.handleSubmit}>
-                <h2>Registrate como encontrado.</h2>
+        let data = this.prepareDateToSend(this.state);
+        this.setState({
+            loading:"Enviando..."
+        });
+        if (data!=='') {
+            const response = await api.founds.postEmptyFounder(data);
+            console.log("response: ", response);
             
-            <DataYoung 
-                {...this.state}
-                handleGenderChange={this.handleGenderChange}
-                handleNamesChange={this.handleNamesChange}
-                handleLastNamesChange={this.handleLastNamesChange}
-                handleDateBornChange={this.handleDateBornChange}
-                handleHomePhoneChange={this.handleHomePhoneChange}
-                handleMobilePhoneChange={this.handleMobilePhoneChange}
-                handleAddressChange={this.handleAddressChange}
-                handleProfessionChange={this.handleProfessionChange}
-                handleOccupationChange={this.handleOccupationChange}
-                />
-            <DataFound
-                {...this.state}
-                handleStateChange={this.handleStateChange}
-                handleEmailChange={this.handleEmailChange}
-                handleUserNameChange={this.handleUserNameChange}
-                handleFdsNumberChange={this.handleFdsNumberChange}
-                handleNameParentChange={this.handleNameParentChange}
-                handlePasswordChange={this.handlePasswordChange}
-                handleSelectAreaChange = {this.handleSelectAreaChange}
-                handleSelectCityActiveChange = {this.handleSelectCityActiveChange}
-                handleSelectCityFdsChange = {this.handleSelectCityFdsChange}
-            />
-                <section className="Main__submit">
-                    <button type="submit" 
-                        value="submit" 
-                        className="Main__submit__register button">Registrarme
-                    </button>
-                </section>
-            </form>
-        );
+        }
+        this.setState({
+            loading:"Registrarme"
+        });
+
+
     }
     
+    prepareDateToSend(state={}){
+        let obj = {}
+        obj.personal_gender = state.personal_gender;
+        obj.personal_names = state.personal_names;
+        obj.personal_lastnames = state.personal_lastnames;
+        obj.personal_dateborn = state.personal_dateborn;
+        obj.personal_homephone = state.personal_homephone;
+        obj.personal_mobilephone = state.personal_mobilephone;
+        obj.personal_address = state.personal_address;
+        obj.personal_email = state.personal_email;
+        obj.personal_username = state.personal_username;
+        obj.personal_profession = state.personal_profession;
+        obj.personal_occupation = state.personal_occupation;
+        obj.state = state.state;
+        obj.number_fds = state.number_fds;
+        obj.city_fds = state.city_fds;
+        obj.active_city = state.active_city;
+        obj.area = state.area;
+        obj.password = state.password;
+        obj.nameparent = state.nameparent;
+        console.log("data obj: ", obj);
+        if (obj.personal_names.length===0) {
+            this.setState({
+                fieldsRequired: { 
+                    names: false,
+                    lastnames: true,
+                    dateborn: true,
+                } ,
+            });
+            return '';
+        }else{
+            return obj;
+
+        } 
+    }
 }
+
 export default RegisterEmptyFounder;

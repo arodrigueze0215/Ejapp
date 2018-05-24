@@ -6,6 +6,9 @@ class DataYoung extends Component {
 
     }
     render() {
+        const styleRequired = {
+            color: 'red'
+        }
         return(
             <section className="Main__dataYoung">
                     <h3> Datos personales</h3>
@@ -21,19 +24,20 @@ class DataYoung extends Component {
                                 </fieldset>
                             </div>
                             <div className="Main__dataYoung__names">
-                                <label className="Main__dataYoung__names__name">Nombres
-                                    <input type="text" value={this.props.personal_names} placeholder="Nombres" 
-                                           onChange={this.props.handleNamesChange} required/>
-                                    
-                                </label>
+                                
+                                    <label className="Main__dataYoung__names__name" style={!this.props.fieldsRequired.names? styleRequired:{}}>Nombres{!this.props.fieldsRequired.names? " (ESTE CAMPO ES OBLIGATORIO)":""}
+                                        <input type="text" value={this.props.personal_names} placeholder="Nombres" 
+                                            onChange={this.props.handleNamesChange}/>
+                                    </label>
+
                                 <label className="Main__dataYoung__names__lastName">Apellidos
                                     <input type="text" value={this.props.personal_lastnames} placeholder="Apellidos"
-                                           onChange={this.props.handleLastNamesChange} required/>
+                                           onChange={this.props.handleLastNamesChange} />
 
                                 </label>
                                 <label className="Main__dataYoung__names__dateBorn">Fecha nacimiento
                                     <input type="date" value={this.props.personal_dateborn} placeholder="2000-02-15" 
-                                           onChange={this.props.handleDateBornChange} required/>
+                                           onChange={this.props.handleDateBornChange} />
                                 </label>
                             </div>
                             <div className="Main__dataYoung__contact">

@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import { csrfToken } from '../libs/csrftoken';
 //const DOMAIN = "dev.encuentrojuvenil.co";//dev
 const DOMAIN = window.location.origin;//app
 //const DOMAIN = "192.168.1.15:8000";//local
@@ -103,6 +104,27 @@ var api = {
                 options
             );
             const data = await response.json();
+            return data;
+        }
+    },
+    founds: {
+        async postEmptyFounder(found = {}) {
+            let json = JSON.stringify(found);
+            let options = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken('csrftoken')
+                },
+                method: 'POST',
+                credentials: "same-origin",
+                body: json
+            } 
+            const response = await fetch(
+                `${DOMAIN}/api/founds/`,
+                options
+            );
+            const data = response.json();
             return data;
         }
     }

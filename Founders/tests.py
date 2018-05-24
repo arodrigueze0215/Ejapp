@@ -18,7 +18,7 @@ from api.views import (
 from main.models import (
     Young, 
     Found, 
-    Areas
+    Areas,EjCities
 )
 
 class FoundsTests(APITestCase):
@@ -162,6 +162,8 @@ class FoundsTests(APITestCase):
 class NewFoundEmptyTest(APITestCase):
     def setUp(self):
         area = Areas.objects.create(name="Pre")
+        EjCities.objects.create(name="Pereira")
+        EjCities.objects.create(name="Manizales")
         Group.objects.create(name="Manizales")
 
         user=User.objects.create(first_name="Andres", last_name="Rodriguez", email="andres.rodriguez0215@gmail.com")
