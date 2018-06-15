@@ -24,7 +24,7 @@ class SelectAreas extends Component {
                 <option key={area.id} value={area.id}>{area.name}</option>
             );
             return(
-                <select value={this.props.area} onChange={this.props.selectAreas}>
+                <select {...this.props}>
                     <option key='0' value='0' >Selecciona un área</option>
                     {options}
                 </select>

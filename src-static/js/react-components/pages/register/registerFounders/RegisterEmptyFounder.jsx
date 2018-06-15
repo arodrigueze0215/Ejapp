@@ -1,57 +1,32 @@
 import React, {Component} from 'react';
-import DataYoung from '../DataYoung.jsx'
-import DataFound from './DataFound.jsx'
+import DataYoung from './DataYoung.jsx'
+import DataFound from '../DataFound.jsx'
 import api from '../../../../api/api.js';
 import ContentLoading from '../../../Commons/ContentLoading/ContentLoading.jsx';
 
 class RegisterEmptyFounder extends Component {
     constructor(props) {
         super(props);
+        this.dataToSend = {}
         this.state = {
-            personal_gender:'true',
-            personal_names:'',
-            personal_lastnames: '',
-            personal_dateborn: '',
-            personal_homephone: '',
-            personal_mobilephone: '',
-            personal_address: '',
-            personal_email: '',
-            personal_username: '',
-            personal_profession: '',
-            personal_occupation: '',
-            state: '',
-            number_fds: '',
-            city_fds: '0',
-            active_city: '0',
-            area: '0',
-            password: '',
-            nameparent: '',
             loading: "Registrarme",
             datacities: {},
             fieldsRequired: {
-                names: true,
-                lastnames: true,
-                dateborn: true,
+                personal_gender: true,
+                personal_names: true,
+                personal_lastnames: true,
+                personal_dateborn: true,
+                personal_email: true,
+                personal_username: true,
+                number_fds: true,
+                state: true,
+                city_fds: true,
+                active_city: true,
+                area: true,
+                password: true,
             }
+            
         }
-        this.handleGenderChange = this.handleGenderChange.bind(this);
-        this.handleNamesChange = this.handleNamesChange.bind(this);
-        this.handleLastNamesChange = this.handleLastNamesChange.bind(this);
-        this.handleDateBornChange = this.handleDateBornChange.bind(this);
-        this.handleHomePhoneChange = this.handleHomePhoneChange.bind(this);
-        this.handleMobilePhoneChange = this.handleMobilePhoneChange.bind(this);
-        this.handleAddressChange = this.handleAddressChange.bind(this);
-        this.handleEmailChange = this.handleEmailChange.bind(this);
-        this.handleProfessionChange = this.handleProfessionChange.bind(this);
-        this.handleOccupationChange = this.handleOccupationChange.bind(this);
-        this.handleUserNameChange = this.handleUserNameChange.bind(this);
-        this.handleFdsNumberChange = this.handleFdsNumberChange.bind(this);
-        this.handleNameParentChange = this.handleNameParentChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.handleStateChange = this.handleStateChange.bind(this);
-        this.handleSelectAreaChange = this.handleSelectAreaChange.bind(this);
-        this.handleSelectCityActiveChange = this.handleSelectCityActiveChange.bind(this);
-        this.handleSelectCityFdsChange = this.handleSelectCityFdsChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     async componentDidMount() {
@@ -73,27 +48,10 @@ class RegisterEmptyFounder extends Component {
                 
                 <DataYoung 
                     {...this.state}
-                    handleGenderChange={this.handleGenderChange}
-                    handleNamesChange={this.handleNamesChange}
-                    handleLastNamesChange={this.handleLastNamesChange}
-                    handleDateBornChange={this.handleDateBornChange}
-                    handleHomePhoneChange={this.handleHomePhoneChange}
-                    handleMobilePhoneChange={this.handleMobilePhoneChange}
-                    handleAddressChange={this.handleAddressChange}
-                    handleProfessionChange={this.handleProfessionChange}
-                    handleOccupationChange={this.handleOccupationChange}
-                    />
+                />
                 <DataFound
                     {...this.state}
                     handleStateChange={this.handleStateChange}
-                    handleEmailChange={this.handleEmailChange}
-                    handleUserNameChange={this.handleUserNameChange}
-                    handleFdsNumberChange={this.handleFdsNumberChange}
-                    handleNameParentChange={this.handleNameParentChange}
-                    handlePasswordChange={this.handlePasswordChange}
-                    handleSelectAreaChange = {this.handleSelectAreaChange}
-                    handleSelectCityActiveChange = {this.handleSelectCityActiveChange}
-                    handleSelectCityFdsChange = {this.handleSelectCityFdsChange}
                 />
                     <section className="Main__submit">
                         <button type="submit" 
@@ -114,101 +72,9 @@ class RegisterEmptyFounder extends Component {
                 );  
         }
     }
-
-    handleGenderChange (event){
-        const value = event.target.value;
-        this.setState({
-            personal_gender: value,
-        });
-    }
-    handleSelectCityFdsChange(event) {
-        this.setState({
-            city_fds:event.target.value
-        });
-    }
-    handleSelectCityActiveChange(event) {
-        this.setState({
-            active_city:event.target.value
-        });
-    }
-    handleSelectAreaChange(event) {
-        this.setState({
-            area:event.target.value
-        });
-    }
-    handleStateChange(event) {
-        this.setState({
-            state:event.target.value
-        });
-    }
-    handleOccupationChange(event) {
-        this.setState({
-            personal_occupation:event.target.value
-        });
-    }
-    handleProfessionChange(event) {
-        this.setState({
-            personal_profession:event.target.value
-        });
-    }
-    handlePasswordChange(event) {
-        this.setState({
-            password:event.target.value
-        });
-    }
-    handleNameParentChange(event) {
-        this.setState({
-            nameparent:event.target.value
-        });
-    }
-    handleFdsNumberChange(event) {
-        this.setState({
-            number_fds:event.target.value
-        });
-    }
-    handleNamesChange(event) {
-        this.setState({
-            personal_names:event.target.value
-        });
-    }
-    handleLastNamesChange(event) {
-        this.setState({
-            personal_lastnames: event.target.value
-        });
-    }
-    handleDateBornChange(event) {
-        this.setState({
-            personal_dateborn: event.target.value
-        });
-    }
-    handleHomePhoneChange(event) {
-        this.setState({
-            personal_homephone: event.target.value
-        });
-    }
-    handleMobilePhoneChange(event) {
-        this.setState({
-            personal_mobilephone: event.target.value
-        });
-    }
-    handleAddressChange(event) {
-        this.setState({
-            personal_address: event.target.value
-        });
-    }
-    handleEmailChange(event) {
-        this.setState({
-            personal_email: event.target.value
-        });
-    }
-    handleUserNameChange(event) {
-        this.setState({
-            personal_username: event.target.value
-        });
-    }
     async handleSubmit(event) {
         event.preventDefault();
-        let data = this.prepareDateToSend(this.state);
+        let data = this.prepareDateToSend(event);
         this.setState({
             loading:"Enviando..."
         });
@@ -224,40 +90,108 @@ class RegisterEmptyFounder extends Component {
 
     }
     
-    prepareDateToSend(state={}){
-        let obj = {}
-        obj.personal_gender = state.personal_gender;
-        obj.personal_names = state.personal_names;
-        obj.personal_lastnames = state.personal_lastnames;
-        obj.personal_dateborn = state.personal_dateborn;
-        obj.personal_homephone = state.personal_homephone;
-        obj.personal_mobilephone = state.personal_mobilephone;
-        obj.personal_address = state.personal_address;
-        obj.personal_email = state.personal_email;
-        obj.personal_username = state.personal_username;
-        obj.personal_profession = state.personal_profession;
-        obj.personal_occupation = state.personal_occupation;
-        obj.state = state.state;
-        obj.number_fds = state.number_fds;
-        obj.city_fds = state.city_fds;
-        obj.active_city = state.active_city;
-        obj.area = state.area;
-        obj.password = state.password;
-        obj.nameparent = state.nameparent;
-        console.log("data obj: ", obj);
-        if (obj.personal_names.length===0) {
+    prepareDateToSend(event){
+        this.dataToSend.personal_gender = event.target.elements['personal_gender'].value;
+        this.dataToSend.personal_names = event.target.elements['personal_names'].value;
+        this.dataToSend.personal_lastnames = event.target.elements['personal_lastnames'].value;
+        this.dataToSend.personal_dateborn = event.target.elements['personal_dateborn'].value;
+        this.dataToSend.personal_homephone = event.target.elements['personal_homephone'].value;
+        this.dataToSend.personal_mobilephone = event.target.elements['personal_mobilephone'].value;
+        this.dataToSend.personal_address = event.target.elements['personal_address'].value;
+        this.dataToSend.personal_email = event.target.elements['personal_email'].value;
+        this.dataToSend.personal_username = event.target.elements['personal_username'].value;
+        this.dataToSend.personal_profession = event.target.elements['personal_profession'].value;
+        this.dataToSend.personal_occupation = event.target.elements['personal_occupation'].value;
+        this.dataToSend.state = event.target.elements['state'].value;
+        this.dataToSend.number_fds = event.target.elements['number_fds'].value;
+        this.dataToSend.city_fds = event.target.elements['city_fds'].value;
+        this.dataToSend.active_city = event.target.elements['active_city'].value;
+        this.dataToSend.area = event.target.elements['area'].value;
+        this.dataToSend.password = event.target.elements['password'].value;
+        this.dataToSend.nameparent = event.target.elements['nameparent'].value;
+        console.log("dataToSend: ", this.dataToSend.personal_dateborn);
+        let i = 0;
+        let fieldsRequired = this.state.fieldsRequired;
+        if (this.dataToSend.personal_gender.length===0) {
+            fieldsRequired['personal_gender'] = false;
+            i++;
+        } else {
+            fieldsRequired['personal_gender'] = true;
+        }
+        if (this.dataToSend.personal_names.length===0) {
+            fieldsRequired['personal_names'] = false;
+            i++;
+        }else {
+            fieldsRequired['personal_names'] = true;
+        }
+        if (this.dataToSend.personal_lastnames.length===0) {
+            fieldsRequired['personal_lastnames'] = false;
+            i++;
+        } else {
+            fieldsRequired['personal_lastnames'] = true;
+        }
+        if (this.dataToSend.personal_dateborn.length===0) {
+            fieldsRequired['personal_dateborn'] = false;
+            i++;
+        } else {
+            fieldsRequired['personal_dateborn'] = true;
+        }
+        if (this.dataToSend.personal_email.length===0) {
+            fieldsRequired['personal_email'] = false;
+            i++;
+        } else {
+            fieldsRequired['personal_email'] = true;
+        }
+        if (this.dataToSend.personal_username.length===0) {
+            fieldsRequired['personal_username'] = false;
+            i++;
+        } else {
+            fieldsRequired['personal_username'] = true;
+        }
+        if (this.dataToSend.number_fds.length===0) {
+            fieldsRequired['number_fds'] = false;
+            i++;
+        } else {
+            fieldsRequired['number_fds'] = true;
+        }
+        if (this.dataToSend.city_fds=='0') {
+            fieldsRequired['city_fds'] = false;
+            i++;
+        } else {
+            fieldsRequired['city_fds'] = true;
+        }
+        if (this.dataToSend.active_city=='0') {
+            fieldsRequired['active_city'] = false;
+            i++;
+        } else {
+            fieldsRequired['active_city'] = true;
+        }
+        if (this.dataToSend.area=='0') {
+            fieldsRequired['area'] = false;
+            i++;
+        } else {
+            fieldsRequired['area'] = true;
+        }
+        if (this.dataToSend.password.length===0) {
+            fieldsRequired['password'] = false;
+            i++;
+        } else {
+            fieldsRequired['password'] = true;
+        }
+        if (this.dataToSend.state=='0') {
+            fieldsRequired['state'] = false;
+            i++;
+        } else {
+            fieldsRequired['state'] = true;
+        }
+        if (i>0) {
             this.setState({
-                fieldsRequired: { 
-                    names: false,
-                    lastnames: true,
-                    dateborn: true,
-                } ,
-            });
+                fieldsRequired
+            })
             return '';
-        }else{
-            return obj;
-
-        } 
+        }else {
+            return this.dataToSend;
+        }
     }
 }
 

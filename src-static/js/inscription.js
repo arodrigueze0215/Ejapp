@@ -353,7 +353,7 @@ document.addEventListener("DOMContentLoaded",function(){
       $('#messageResultInscription').foundation('open');
         if (data.result==='ok') {
           //$('#messageResultInscriptionContent').append($(addMesageResult(data.data_register.name, data.data_register.fds, data.message)));
-          let url = `/resultado/?result=${data.result}&message=${data.message}&personal_name=${data.data_register.name}&fds=${data.data_register.fds}`
+          let url = `/resultado/?result=${data.result}&message=${data.message}&personal_name=${data.data_register.name}&fds=${data.data_register.fds}&type=inscription`
           console.log(url);  
           window.location.href = url;
         } else{
