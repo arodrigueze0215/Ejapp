@@ -8,9 +8,9 @@ let ResultInscriptionTemplate = (props) =>{
     return(        
         <div className="Main">
             <ResultsTemplate {...props}>
-                    <strong>{props.name}</strong>
+                    <strong>{props.name} </strong>
                     te has inscrito para el 
-                    <strong>FDS#{props.fds}</strong>
+                    <strong> FDS#{props.fds} </strong>
                     pronto nos comunicaremos contigo para darte todas las instrucciones
             </ResultsTemplate>
         </div>
