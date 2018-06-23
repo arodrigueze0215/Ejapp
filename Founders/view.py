@@ -225,7 +225,7 @@ def newFoundEmpty(request, **params):
                 found.save()
                 """Todo salio bien"""
                 foundSerializer = FoundSerializer(found, context= {'request': request})
-                data = {'bodyObject': foundSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
+                data = {'bodyObject': foundSerializer.data, 'statusText': 'Te has registrado satisfactoriamente.', 'result': 'ok', 'status':status.HTTP_200_OK }
                 return data
 
         else:
