@@ -3,12 +3,15 @@ import DataYoung from './DataYoung.jsx'
 import DataFound from '../DataFound.jsx'
 import api from '../../../../api/api.js';
 import ContentLoading from '../../../Commons/ContentLoading/ContentLoading.jsx';
+import ModalLayout from 'react-responsive-modal';
+
 
 class RegisterEmptyFounder extends Component {
     constructor(props) {
         super(props);
         this.dataToSend = {}
         this.state = {
+            openModal: true,
             loading: "Registrarme",
             datacities: {},
             fieldsRequired: {
@@ -24,10 +27,14 @@ class RegisterEmptyFounder extends Component {
                 active_city: true,
                 area: true,
                 password: true,
+            },
+            msgerror: {
+
             }
             
         }
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onCloseModal = this.onCloseModal.bind(this);
     }
     async componentDidMount() {
         const datacities = await api.cities.getCitiesList();
@@ -43,23 +50,32 @@ class RegisterEmptyFounder extends Component {
         if (this.state.datacities.result==='ok'&& this.state.datacities.status>=200 && this.state.datacities.status<=207) {
 
             return(
-                <form onSubmit={this.handleSubmit}>
-                    <h2>Registrate como encontrado.</h2>
-                
-                <DataYoung 
-                    {...this.state}
-                />
-                <DataFound
-                    {...this.state}
-                    handleStateChange={this.handleStateChange}
-                />
-                    <section className="Main__submit">
-                        <button type="submit" 
-                            value="submit" 
-                            className="Main__submit__register button">{this.state.loading}
-                        </button>
-                    </section>
-                </form>
+                <section>
+                    <div>
+                        <form onSubmit={this.handleSubmit}>
+                            <h2>Registrate como encontrado.</h2>
+                        
+                            <DataYoung 
+                                {...this.state}
+                            />
+                            <DataFound
+                                {...this.state}
+                                handleStateChange={this.handleStateChange}
+                            />
+                            <section className="Main__submit">
+                                <button type="submit" 
+                                    value="submit" 
+                                    className="Main__submit__register button">{this.state.loading}
+                                </button>
+                            </section>
+                        </form>
+                    </div>
+                    <div>
+                        <ModalLayout open={this.state.openModal} onClose={this.onCloseModal} center>
+                            <h2>Simple centered modal</h2>
+                        </ModalLayout>
+                    </div>
+                </section>
             );
         } else if (this.state.datacities.result==='error') {
             return(
@@ -74,6 +90,8 @@ class RegisterEmptyFounder extends Component {
     }
     async handleSubmit(event) {
         event.preventDefault();
+        this.setState({ openModal: true });
+        
         let data = this.prepareDateToSend(event);
         this.setState({
             loading:"Enviando..."
@@ -81,11 +99,19 @@ class RegisterEmptyFounder extends Component {
         if (data!=='') {
             const response = await api.founds.postEmptyFounder(data);
             console.log("response: ", response);
+            if (response.result=='ok'&& response.status>=200 && response.status<=207) {
+                let url = `/resultado/?result=${response.result}&message=${response.message}&personal_name=${response.bodyObject.young.user.name}&type=registerfound`
+                console.log(url);  
+                window.location.href = url;
+            }else {
+                //Mensaje si sale error
+            }
             
         }
         this.setState({
             loading:"Registrarme"
         });
+        
 
 
     }
@@ -193,6 +219,9 @@ class RegisterEmptyFounder extends Component {
             return this.dataToSend;
         }
     }
+    onCloseModal() {
+        this.setState({ openModal: false });
+    };
 }
 
 export default RegisterEmptyFounder;
