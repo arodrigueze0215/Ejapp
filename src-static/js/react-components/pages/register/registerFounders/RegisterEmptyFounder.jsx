@@ -11,7 +11,7 @@ class RegisterEmptyFounder extends Component {
         super(props);
         this.dataToSend = {}
         this.state = {
-            openModal: true,
+            openModal: false,
             loading: "Registrarme",
             datacities: {},
             fieldsRequired: {
@@ -28,9 +28,7 @@ class RegisterEmptyFounder extends Component {
                 area: true,
                 password: true,
             },
-            msgerror: {
-
-            }
+            msgerror: ''
             
         }
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -70,11 +68,12 @@ class RegisterEmptyFounder extends Component {
                             </section>
                         </form>
                     </div>
-                    <div>
-                        <ModalLayout open={this.state.openModal} onClose={this.onCloseModal} center>
-                            <h2>Simple centered modal</h2>
-                        </ModalLayout>
-                    </div>
+                    <ModalLayout
+                        open={this.state.openModal} 
+                        onClose={this.onCloseModal} 
+                        center>
+                            <span> {this.state.MessageError}</span>
+                    </ModalLayout>
                 </section>
             );
         } else if (this.state.datacities.result==='error') {
@@ -90,7 +89,6 @@ class RegisterEmptyFounder extends Component {
     }
     async handleSubmit(event) {
         event.preventDefault();
-        this.setState({ openModal: true });
         
         let data = this.prepareDateToSend(event);
         this.setState({
@@ -98,13 +96,14 @@ class RegisterEmptyFounder extends Component {
         });
         if (data!=='') {
             const response = await api.founds.postEmptyFounder(data);
-            console.log("response: ", response);
             if (response.result=='ok'&& response.status>=200 && response.status<=207) {
-                let url = `/resultado/?result=${response.result}&message=${response.message}&personal_name=${response.bodyObject.young.user.name}&type=registerfound`
-                console.log(url);  
+                let url = `/resultado/?result=${response.result}&message=${response.statusText}&personal_name=${response.bodyObject.young.user.first_name}&type=registerfound`
                 window.location.href = url;
             }else {
-                //Mensaje si sale error
+                this.setState({
+                    open:true,
+                    MessageError: response.statusText
+                });
             }
             
         }
@@ -135,7 +134,6 @@ class RegisterEmptyFounder extends Component {
         this.dataToSend.area = event.target.elements['area'].value;
         this.dataToSend.password = event.target.elements['password'].value;
         this.dataToSend.nameparent = event.target.elements['nameparent'].value;
-        console.log("dataToSend: ", this.dataToSend.personal_dateborn);
         let i = 0;
         let fieldsRequired = this.state.fieldsRequired;
         if (this.dataToSend.personal_gender.length===0) {
