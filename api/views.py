@@ -4,6 +4,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from Ejapp import controller
+from Founders import view as Fview
+from Areas import views as Aview
+from Cities import views as Cview
 
 class InscriptionsList(APIView):
     def get(self, request, format=None):
@@ -33,4 +36,133 @@ class BrothersList(APIView):
         idyoung = request.query_params.get('idyoung')
         data = controller.GetBrothers(request, pk=idyoung)        
         return Response(data, status.HTTP_200_OK)
+class YoungList(APIView):
 
+    def post(self, request, format=None):
+        fName = request.data.get("first_name")
+        lName = request.data.get("last_name")
+        email = request.data.get("email")
+        data = Fview.getListYoung(request, first_name=fName, last_name=lName, email=email)        
+        return Response(data, status.HTTP_200_OK)
+
+class NewFoundWithYoung(APIView):
+
+    def post(self, request, format=None):
+        idyoung = request.data.get("idyoung")
+        state = request.data.get("state")
+        number_fds = request.data.get("number_fds")
+        city_fds = request.data.get("city_fds")
+        active_city = request.data.get("active_fds")
+        area = request.data.get("area")
+        name_parent_fds = request.data.get("name_parent_fds")
+        password = request.data.get("password")
+        data = Fview.newFoundWithYoung(request, 
+                    idyoung=idyoung,
+                    state=state, 
+                    number_fds=number_fds, 
+                    city_fds=city_fds, 
+                    active_city=active_city, 
+                    area=area, 
+                    name_parent_fds=name_parent_fds, 
+                    password=password
+                )        
+        return Response(data, status.HTTP_200_OK)
+
+class Found(APIView):
+
+    def post(self, request, format=None):
+        
+        personal_profession = request.data.get("personal_profession")
+        personal_occupation = request.data.get("personal_occupation")
+        personal_email = request.data.get("personal_email")
+        personal_address = request.data.get("personal_address")
+        personal_mobilephone = request.data.get("personal_mobilephone")
+        personal_homephone = request.data.get("personal_homephone")
+        personal_dateborn = request.data.get("personal_dateborn")
+        personal_lastnames = request.data.get("personal_lastnames")
+        personal_names = request.data.get("personal_names")
+        personal_gender = request.data.get("personal_gender")
+
+        state = request.data.get("state")
+        number_fds = request.data.get("number_fds")
+        city_fds = request.data.get("city_fds")
+        active_city = request.data.get("active_city")
+        area = request.data.get("area")
+        name_parent_fds = request.data.get("name_parent_fds")
+        password = request.data.get("password")
+        data = Fview.newFoundEmpty(request,
+                    state=state, 
+                    number_fds=number_fds, 
+                    city_fds=city_fds, 
+                    active_city=active_city, 
+                    area=area, 
+                    name_parent_fds=name_parent_fds, 
+                    password=password,
+                    personal_profession=personal_profession,
+                    personal_occupation=personal_occupation,
+                    personal_email=personal_email,
+                    personal_address=personal_address,
+                    personal_mobilephone=personal_mobilephone,
+                    personal_homephone=personal_homephone,
+                    personal_dateborn=personal_dateborn,
+                    personal_lastnames=personal_lastnames,
+                    personal_names=personal_names,
+                    personal_gender=personal_gender
+                )
+        return Response(data, status.HTTP_200_OK)
+    
+    def get(self, request, format=None):
+        idfound = request.query_params.get('id')
+        data = Fview.getSingleFound(request, pk=idfound)
+        return Response(data, status.HTTP_200_OK)
+    
+    def put(self, request, format=None):
+        personal_profession = request.data.get("personal_profession")
+        personal_occupation = request.data.get("personal_occupation")
+        personal_email = request.data.get("personal_email")
+        personal_address = request.data.get("personal_address")
+        personal_mobilephone = request.data.get("personal_mobilephone")
+        personal_homephone = request.data.get("personal_homephone")
+        personal_dateborn = request.data.get("personal_dateborn")
+        personal_lastnames = request.data.get("personal_lastnames")
+        personal_names = request.data.get("personal_names")
+        personal_gender = request.data.get("personal_gender")        
+        number_fds = request.data.get("number_fds")
+        city_fds = request.data.get("city_fds")        
+        name_parent_fds = request.data.get("name_parent_fds")
+        personal_username = request.data.get("personal_username")
+        data = Fview.updateFound(request,
+                    personal_username=personal_username,
+                    number_fds=number_fds, 
+                    city_fds=city_fds,
+                    name_parent_fds=name_parent_fds,
+                    personal_profession=personal_profession,
+                    personal_occupation=personal_occupation,
+                    personal_email=personal_email,
+                    personal_address=personal_address,
+                    personal_mobilephone=personal_mobilephone,
+                    personal_homephone=personal_homephone,
+                    personal_dateborn=personal_dateborn,
+                    personal_lastnames=personal_lastnames,
+                    personal_names=personal_names,
+                    personal_gender=personal_gender
+                )
+        return Response(data, status.HTTP_200_OK)
+    
+    def delete(self, request, format=None):
+        idfound = request.data.get('id')
+        data = Fview.deleteFound(request, pk=idfound)
+        return Response(data, status.HTTP_200_OK)
+
+class FoundList(APIView):
+    def get(self, request, format=None):
+        data = Fview.getListFound(request)
+        return Response(data, status.HTTP_200_OK)
+class AreasList(APIView):
+    def get(self, request, format=None):
+        data = Aview.listAreas(request)
+        return Response(data, status.HTTP_200_OK)
+class CitiesList(APIView):
+    def get(self, request, format=None):
+        data = Cview.listCities(request)
+        return Response(data, status.HTTP_200_OK)

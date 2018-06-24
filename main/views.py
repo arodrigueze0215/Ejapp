@@ -472,3 +472,7 @@ def inscription_detail(request):
 
 def result_inscription(request):
     return render(request, 'result_inscription.html')
+    
+@login_required(login_url='/login/')
+def formNewEmptyFounder(request):
+    return render(request, 'form_new_empty_founder.html')

@@ -22,7 +22,7 @@ require("babel-core/register");
 require("babel-polyfill");
 require("./libs/foundation.min.js");
 require("foundation-datepicker");
-require('./api/api.jsx')
+require('./api/api.js')
 require("./react-components/Commons/ResultsTemplate/index.jsx");
 require("./fds-list.js");
 $(document).foundation();

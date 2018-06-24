@@ -118,11 +118,11 @@ class Found(models.Model):
     state = models.CharField(max_length=50, choices=_STATES, default="1") 
     number_fds = models.CharField(max_length=10, blank=False)  
     city_fds = models.CharField(max_length=255, blank=False)
-    active_city = models.CharField(max_length=255, blank=True)
+    active_city = models.CharField(max_length=255, blank=False)
     area = models.ForeignKey(Areas,blank=False, default=None)
     name_parent_fds = models.CharField(max_length=255, blank=True)
     def __str__(self):
-        return self.state
+        return self.young.user.first_name.encode('utf-8')+ " - "+ self.young.user.last_name.encode('utf-8')+ " - FDS"+str(self.number_fds)
 
 
 
