@@ -7,6 +7,7 @@ from Ejapp import controller
 from Founders import view as Fview
 from Areas import views as Aview
 from Cities import views as Cview
+from inscriptions import views as Iview
 
 class InscriptionsList(APIView):
     def get(self, request, format=None):
@@ -23,7 +24,8 @@ class UserAuth(APIView):
 class InscriptionDetails(APIView):
     def get(self, request, format=None):
         pk = request.query_params.get('id')
-        data = controller.GetInscription(request, pk=pk)        
+        inscription = Iview.ControllerInscription()
+        data = inscription.get(request, pk=pk)        
         return Response(data, status.HTTP_200_OK)
     
 class ParentsList(APIView):
