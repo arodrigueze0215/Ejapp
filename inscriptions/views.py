@@ -31,6 +31,6 @@ class ControllerInscription():
         except Inscription.DoesNotExist:
                 data = {'bodyObject':{}, 'result': 'error', 'statusText': 'Inscripción no existe', 'status':status.HTTP_400_BAD_REQUEST}
                 return data
-    def edit(request, **params):
+    def edit(self, request, **params):
         pass
     
