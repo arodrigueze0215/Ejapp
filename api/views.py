@@ -8,6 +8,7 @@ from Founders import view as Fview
 from Areas import views as Aview
 from Cities import views as Cview
 from inscriptions import views as Iview
+from Family import views as familyView
 
 class InscriptionsList(APIView):
     def get(self, request, format=None):
@@ -24,14 +25,13 @@ class UserAuth(APIView):
 class InscriptionDetails(APIView):
     def get(self, request, format=None):
         pk = request.query_params.get('id')
-        inscription = Iview.ControllerInscription()
-        data = inscription.get(request, pk=pk)        
+        data = Iview.ControllerInscription().get(request, pk=pk)        
         return Response(data, status.HTTP_200_OK)
     
 class ParentsList(APIView):
     def get(self, request, format=None):
         idyoung = request.query_params.get('idyoung')
-        data = controller.GetParents(request, pk=idyoung)        
+        data = familyView.ParentController().get(request, pk=idyoung)        
         return Response(data, status.HTTP_200_OK)
 class BrothersList(APIView):
     def get(self, request, format=None):
