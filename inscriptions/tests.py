@@ -21,7 +21,7 @@ from api.views import (
 class InscriptionDetailsTest(APITestCase):
 
     def setUp(self):
-        print "INIT TEST --------> [InscriptionDetailsTest]"
+        print "INIT --------------------------------------- [InscriptionDetailsTest] ---------------------------------------"
         area = Areas.objects.create(name="Pre")
         self.user = User.objects.create(username="andres.rodriguez0215@gmail.com", email="andres.rodriguez0215@gmail.com")
         self.user.first_name="Andres" 
@@ -61,8 +61,8 @@ class InscriptionDetailsTest(APITestCase):
         fds=FdsEvents.objects.create(
             name="FDS Test",
             number_fds="1",
-            date_start="2018-08-09",
-            date_end="2018-08-12",
+            date_start="2018-08-09T03:52:30.076363Z",
+            date_end="2018-08-12T03:52:30.076363Z",
             city_fds="Pereira",
             is_form_active=True,
         )
@@ -86,6 +86,19 @@ class InscriptionDetailsTest(APITestCase):
         force_authenticate(request, user=self.user)
         response = view(request)
         jsonRes = response.data
-        print jsonRes
+        status =jsonRes.get("status",None)
+        result =jsonRes.get("result",None)
+        bodyObject =jsonRes.get("bodyObject",None)
+        youngObj =bodyObject.get("young",None)
+        userObj =youngObj.get("user",None)
+        self.assertEqual(status, 200)
+        self.assertEqual(result, "ok")
+        self.assertEqual(userObj.get("first_name", None), "consuelo")
+        self.assertEqual(userObj.get("last_name", None), "Rodriguez")
+        self.assertEqual(userObj.get("email", None), "concha@gmail.com")
+        self.assertEqual(youngObj.get("id", None), 2)
+        self.assertEqual(bodyObject.get("young", None)!=None, True)
+        self.assertEqual(bodyObject.get("who_invite_me", None), "Daniela Castaño")
+        print "test_getInscriptionDetail (GET INSCRIPTION): [OK]"
 
 
