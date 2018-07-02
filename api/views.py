@@ -36,7 +36,7 @@ class ParentsList(APIView):
 class BrothersList(APIView):
     def get(self, request, format=None):
         idyoung = request.query_params.get('idyoung')
-        data = controller.GetBrothers(request, pk=idyoung)        
+        data = familyView.BrothersController().get(request, pk=idyoung)        
         return Response(data, status.HTTP_200_OK)
 class YoungList(APIView):
 
