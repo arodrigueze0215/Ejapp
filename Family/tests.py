@@ -20,10 +20,12 @@ from api.views import (
     ParentsList,
     BrothersList
 )
+from Family import views as family_views
 
-class ListParentsTest(APITestCase):
+class ParentsTest(APITestCase):
     def setUp(self):
-        print "INIT --------------------------------------- [ListParentsTest] ---------------------------------------"
+        print "INIT --------------------------------------- [ParentsTest] ---------------------------------------"
+        self.factory = APIRequestFactory()
         area = Areas.objects.create(name="Pre")
         self.user = User.objects.create(username="andres.rodriguez0215@gmail.com", email="andres.rodriguez0215@gmail.com")
         self.user.first_name="Andres" 
@@ -72,12 +74,11 @@ class ListParentsTest(APITestCase):
         )
          
     def test_getListParents(self):
-        factory = APIRequestFactory()
         view = ParentsList.as_view()
         data = {
             'idyoung':2
         }
-        request = factory.get(reverse("api:brothers_list"), data)
+        request = self.factory.get(reverse("api:parents_list"), data)
         request.user = self.user
         force_authenticate(request, user=self.user)
         response = view(request)
@@ -103,9 +104,46 @@ class ListParentsTest(APITestCase):
             self.assertEqual(bodyObject[1].get("name_parent", None), "Don Jorge")
         print "test_getListParents (GET LIST PARENTS): [OK]"
 
-class ListBrotherTest(APITestCase):
+    def test_updateParent(self):
+        factory = APIRequestFactory()
+        view = ParentsList.as_view()
+        data = {
+            'idyoung':2
+        }
+        request = self.factory.get(reverse("api:parents_list"), data)
+        request.user = self.user
+        force_authenticate(request, user=self.user)
+        pController = family_views.ParentController()
+        result = pController.update(
+            request,
+            pk=2,
+            relationship_parent="1",
+            names_parent="Consuelo Perez",
+            occupation_parent="Ama de casa",
+            phone_home_parent="3428744",
+            phone_parent="3044643222",
+            address_parent="Manzana 15 casa 138 Villa campestre",
+            isalive_parent=True 
+        )
+        jsonRes = result
+        obj =jsonRes.get("bodyObject",None)
+        status =jsonRes.get("status",None)
+        result =jsonRes.get("result",None)
+        self.assertEqual(status, 200)
+        self.assertEqual(result, "ok")
+        self.assertEqual(obj.get("mobile_phone", None), "3044643222")
+        self.assertEqual(obj.get("isalive", None), True)
+        self.assertEqual(obj.get("relationship", None), "Mamá")
+        self.assertEqual(obj.get("home_phone", None), "3428744")
+        self.assertEqual(obj.get("address", None), "Manzana 15 casa 138 Villa campestre")
+        self.assertEqual(obj.get("name_parent", None), "Consuelo Perez")
+        self.assertEqual(obj.get("occupation", None), "Ama de casa")
+        print "test_updateBrother (UPDATE BROTHER): [OK]"
+
+class BrotherTest(APITestCase):
     def setUp(self):
-        print "INIT --------------------------------------- [ListBrotherTest] ---------------------------------------"
+        print "INIT --------------------------------------- [BrotherTest] ---------------------------------------"
+        self.factory = APIRequestFactory()
         area = Areas.objects.create(name="Pre")
         self.user = User.objects.create(username="andres.rodriguez0215@gmail.com", email="andres.rodriguez0215@gmail.com")
         self.user.first_name="Andres" 
@@ -155,12 +193,11 @@ class ListBrotherTest(APITestCase):
             date_born="1991-05-24"
         )
     def test_getListBrothers(self):
-        factory = APIRequestFactory()
         view = BrothersList.as_view()
         data = {
             'idyoung':2
         }
-        request = factory.get(reverse("api:parents_list"), data)
+        request = self.factory.get(reverse("api:parents_list"), data)
         request.user = self.user
         force_authenticate(request, user=self.user)
         response = view(request)

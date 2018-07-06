@@ -48,6 +48,55 @@ class ParentController():
         except Parents.DoesNotExist:
             data = {'object':{}, 'result': 'error','statusText': 'No existe joven', 'status':status.HTTP_400_BAD_REQUEST}
             return data
+        
+    def update(self, request, **params):
+        try:
+            auth = AuthUserApi(request)
+            if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
+                pk = params.get("pk")
+                if pk:
+                    young = Young.objects.get(id=pk)
+                    relationship = params.get("relationship_parent")
+                    parent = Parents.objects.get(young=young, relationship=relationship)
+                    if parent:
+                        name_parent_to_edit = params.get("names_parent")
+                        if name_parent_to_edit and name_parent_to_edit != parent.name_parent:
+                            parent.name_parent = name_parent_to_edit
+                        occupation_to_edit = params.get("occupation_parent")
+                        if occupation_to_edit and occupation_to_edit != parent.occupation:
+                            parent.occupation = occupation_to_edit
+                        phone_home_to_edit = params.get("phone_home_parent")
+                        if phone_home_to_edit and phone_home_to_edit != parent.home_phone:
+                            parent.home_phone = phone_home_to_edit
+                        phone_to_edit = params.get("phone_parent")
+                        if phone_to_edit and phone_to_edit != parent.mobile_phone:
+                            parent.mobile_phone = phone_to_edit
+                        address_to_edit = params.get("address_parent")
+                        if address_to_edit and address_to_edit != parent.address:
+                            parent.address = address_to_edit
+                        isalive_to_edit = params.get("isalive_parent")
+                        if isalive_to_edit and isalive_to_edit != parent.address:
+                            parent.isalive = isalive_to_edit
+                        parent.save()
+                        bodyObjectSerializer = ParentsSerializer(parent, context={'request': request})
+                        
+                        data = {'bodyObject':bodyObjectSerializer.data, 'result': 'ok','status':status.HTTP_200_OK}
+                        return data
+                    else:
+                        data = {'bodyObject':{}, 'statusText': 'No se puedo editar el padre porque no se encontró ninguno', 'result': 'ok', 'status':status.HTTP_204_NO_CONTENT}
+                        return data
+                else:
+                    data = {'bodyObject':{}, 'result': 'error','statusText': 'Parámetro incorrecto', 'status':status.HTTP_400_BAD_REQUEST}
+                    return data
+            else:
+                return auth
+
+        except Young.DoesNotExist:
+            data = {'bodyObject':{}, 'result': 'error','statusText': 'El usuario a modificar no existe', 'status':status.HTTP_400_BAD_REQUEST}
+            return data
+        except Parents.DoesNotExist:
+            data = {'bodyObject':{}, 'result': 'error','statusText': 'No existe ningún padre asignado para este usuario', 'status':status.HTTP_400_BAD_REQUEST}
+            return data
 
 class BrothersController():
     def get(self, request, **params):
