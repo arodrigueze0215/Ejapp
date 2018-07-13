@@ -84,7 +84,7 @@ class ParentController():
                         data = {'bodyObject':bodyObjectSerializer.data, 'result': 'ok','status':status.HTTP_200_OK}
                         return data
                     else:
-                        data = {'bodyObject':{}, 'statusText': 'No se puedo editar el padre porque no se encontró ninguno', 'result': 'ok', 'status':status.HTTP_204_NO_CONTENT}
+                        data = {'bodyObject':{}, 'statusText': 'No se puedo editar el padre porque no se encontró ninguno', 'result': 'error', 'status':status.HTTP_204_NO_CONTENT}
                         return data
                 else:
                     data = {'bodyObject':{}, 'result': 'error','statusText': 'Parámetro incorrecto', 'status':status.HTTP_400_BAD_REQUEST}
@@ -96,7 +96,7 @@ class ParentController():
             data = {'bodyObject':{}, 'result': 'error','statusText': 'El usuario a modificar no existe', 'status':status.HTTP_400_BAD_REQUEST}
             return data
         except Parents.DoesNotExist:
-            data = {'bodyObject':{}, 'result': 'error','statusText': 'No existe ningún padre asignado para este usuario', 'status':status.HTTP_400_BAD_REQUEST}
+            data = {'bodyObject':{}, 'result': 'error','statusText': 'No se puedo editar el padre porque no se encontró ninguno', 'status':status.HTTP_204_NO_CONTENT}
             return data
 
 class BrothersController():
