@@ -222,3 +222,17 @@ class BrotherTest(APITestCase):
             self.assertEqual(bodyObject[1].get("relationship", None), "hermana")
             self.assertEqual(bodyObject[1].get("name_brother", None), "Sofia")
         print "test_getListBrothers (GET LIST BROTHERS): [OK]"
+    
+    def test_addOrUpdateBrother(self):
+        factory = APIRequestFactory()
+        brotherString = '[{"id": 1, "young": 2, "relationship": "1", "name_brother": "tonio", "date_born": "1990-05-24", "mobile_phone": "3044643222", "email": "anto@gmail.com", "isalive": "true" },{"id": -1, "young": 2, "relationship": "2", "name_brother": "teresa", "date_born": "1993-05-24", "mobile_phone": "3044643221", "email": "tere@gmail.com", "isalive": "true" }]'
+        view = BrothersList.as_view()
+        data = {
+            'idyoung':1
+        }
+        request = self.factory.get(reverse("api:parents_list"), data)
+        request.user = self.user
+        force_authenticate(request, user=self.user)
+        pController = family_views.BrothersController()
+        result = pController.addOrUpdate(request, brothers=brotherString, idyoung=2)
+        print result
