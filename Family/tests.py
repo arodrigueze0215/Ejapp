@@ -138,7 +138,69 @@ class ParentsTest(APITestCase):
         self.assertEqual(obj.get("address", None), "Manzana 15 casa 138 Villa campestre")
         self.assertEqual(obj.get("name_parent", None), "Consuelo Perez")
         self.assertEqual(obj.get("occupation", None), "Ama de casa")
-        print "test_updateBrother (UPDATE BROTHER): [OK]"
+        print "test_updateParent (UPDATE PARENT): [OK]"
+
+    def test_updateParentYoungNoFound(self):
+        factory = APIRequestFactory()
+        view = ParentsList.as_view()
+        data = {
+            'idyoung':2
+        }
+        request = self.factory.get(reverse("api:parents_list"), data)
+        request.user = self.user
+        force_authenticate(request, user=self.user)
+        pController = family_views.ParentController()
+        result = pController.update(
+            request,
+            pk=3,
+            relationship_parent="1",
+            names_parent="Consuelo Perez",
+            occupation_parent="Ama de casa",
+            phone_home_parent="3428744",
+            phone_parent="3044643222",
+            address_parent="Manzana 15 casa 138 Villa campestre",
+            isalive_parent=True 
+        )
+        jsonRes = result
+        obj =jsonRes.get("bodyObject",None)
+        status =jsonRes.get("status",None)
+        result =jsonRes.get("result",None)
+        statusText =jsonRes.get("statusText",None)
+        self.assertEqual(status, 400)
+        self.assertEqual(result, "error")
+        self.assertEqual(statusText, "El usuario a modificar no existe")
+        print "test_updateParentYoungNoFound (UPDATE PARENT YOUNG NO FOUND): [OK]"
+        
+
+    def test_updateParentNoFound(self):
+        factory = APIRequestFactory()
+        view = ParentsList.as_view()
+        data = {
+            'idyoung':2
+        }
+        request = self.factory.get(reverse("api:parents_list"), data)
+        request.user = self.user
+        force_authenticate(request, user=self.user)
+        pController = family_views.ParentController()
+        result = pController.update(
+            request,
+            pk=2,
+            names_parent="Consuelo Perez",
+            occupation_parent="Ama de casa",
+            phone_home_parent="3428744",
+            phone_parent="3044643222",
+            address_parent="Manzana 15 casa 138 Villa campestre",
+            isalive_parent=True 
+        )
+        jsonRes = result
+        obj =jsonRes.get("bodyObject",None)
+        status =jsonRes.get("status",None)
+        result =jsonRes.get("result",None)
+        statusText =jsonRes.get("statusText",None)
+        self.assertEqual(status, 204)
+        self.assertEqual(result, "error")
+        self.assertEqual(statusText, "No se puedo editar el padre porque no se encontró ninguno")
+        print "test_updateParentYoungNoFound (UPDATE PARENT BUT NO FOUND): [OK]"
 
 class BrotherTest(APITestCase):
     def setUp(self):
