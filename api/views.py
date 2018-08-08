@@ -28,6 +28,31 @@ class InscriptionDetails(APIView):
         data = Iview.ControllerInscription().get(request, pk=pk)        
         return Response(data, status.HTTP_200_OK)
     
+    def put(self, request, format=None):
+        idyoung = request.data.get('idyoung')
+        idIns = request.data.get('idIns')
+        personal_names = request.data.get("personal_names")
+        personal_lastnames = request.data.get("personal_lastnames")
+        personal_email = request.data.get("personal_email")
+        personal_gender = request.data.get("personal_gender")
+        personal_dateborn = request.data.get("personal_dateborn")
+        personal_homephone = request.data.get("personal_homephone")
+        personal_mobilephone = request.data.get("personal_mobilephone")
+        personal_address = request.data.get("personal_address")
+        personal_occupation = request.data.get("personal_occupation")
+        personal_profession = request.data.get("personal_profession")
+        do_you_study = request.data.get("do_you_study")
+        carrer = request.data.get("carrer")
+        school = request.data.get("school")
+        do_you_work = request.data.get("do_you_work")
+        company = request.data.get("company")
+        position_job = request.data.get("position_job")
+        phone_company = request.data.get("phone_company")
+        life_with_gran = request.data.get("life_with_gran")
+        life_with_parent = request.data.get("life_with_parent")
+
+
+    
 class ParentsList(APIView):
     def get(self, request, format=None):
         idyoung = request.query_params.get('idyoung')
