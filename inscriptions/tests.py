@@ -101,4 +101,7 @@ class InscriptionDetailsTest(APITestCase):
         self.assertEqual(bodyObject.get("who_invite_me", None), "Daniela Castaño")
         print "test_getInscriptionDetail (GET INSCRIPTION): [OK]"
 
+    def test_updateInscription(self):
+        pass
+
 
