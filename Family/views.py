@@ -135,6 +135,8 @@ class BrothersController():
             
     def addOrUpdate(self, request, **params):
         """
+        update a brother of the young from a list set trought params, it search each brother and then updated it.
+        But if a list has a new brother, just add it as a new brother.
         params:
             brothers
             idyoung

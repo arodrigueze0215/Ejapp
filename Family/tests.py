@@ -297,4 +297,17 @@ class BrotherTest(APITestCase):
         force_authenticate(request, user=self.user)
         pController = family_views.BrothersController()
         result = pController.addOrUpdate(request, brothers=brotherString, idyoung=2)
-        print result
+        jsonRes = result
+        obj =jsonRes.get("bodyObject",None)
+        status =jsonRes.get("status",None)
+        result =jsonRes.get("result",None)
+        statusText =jsonRes.get("statusText",None)
+        self.assertEqual(status, 200)
+        self.assertEqual(result, "ok")
+        if len(obj) > 0:
+            self.assertEqual(obj[0].get("relationship", None), "hermano")
+            self.assertEqual(obj[0].get("name_brother", None), "tonio")
+            self.assertEqual(obj[1].get("relationship", None), "hermana")
+            self.assertEqual(obj[1].get("name_brother", None), "teresa")
+
+        print "test_addOrUpdateBrother [UPDATE AND ADDING BROTHERS]: [OK]"
