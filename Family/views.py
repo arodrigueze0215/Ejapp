@@ -76,8 +76,8 @@ class ParentController():
                         if address_to_edit and address_to_edit != parent.address:
                             parent.address = address_to_edit
                         isalive_to_edit = params.get("isalive_parent")
-                        if isalive_to_edit and isalive_to_edit != parent.address:
-                            parent.isalive = isalive_to_edit
+                        if isalive_to_edit and isalive_to_edit == "true":
+                            parent.isalive = True
                         parent.save()
                         bodyObjectSerializer = ParentsSerializer(parent, context={'request': request})
                         

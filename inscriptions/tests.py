@@ -102,6 +102,64 @@ class InscriptionDetailsTest(APITestCase):
         print "test_getInscriptionDetail (GET INSCRIPTION): [OK]"
 
     def test_updateInscription(self):
-        pass
+        factory = APIRequestFactory()
+        view = InscriptionDetails.as_view()
+        data = {
+            'personal_names': 'Consuelo',
+            'personal_lastnames': 'Rodriguez',
+            'personal_email': 'concha@gmail.com',
+            'personal_dateborn': '1994-05-24',
+            'personal_homephone':'3428744', 
+            'personal_mobilephone':'3044643222',
+            'personal_address':'Manzana 15 casa 138 Villa campestre, Dosquebradas',
+            'personal_occupation':'Desarrollador',
+            'personal_profession':'Ingeniero de sistemas',
+            'personal_gender':'2',
+            'do_you_study': 'true',
+            'carrer': 'Ingenieria de Sistemas',
+            'school': 'UCP',
+            'do_you_work': 'true',
+            'company': 'Veritran',
+            'position_job': 'Dev web',
+            'phone_company': '3112233',
+            'life_with_gran': 'false',
+            'life_with_parent': 'false',
+            'life_with_only_mother': 'true',
+            'life_with_only_father': 'false',
+            'life_with_uncles': 'false',
+            'life_with_friends': 'false',
+            'life_with_cousins': 'false',
+            'life_with_brothers': 'false',
+            'life_with_alone': 'false',
+            'illines': 'Ninguna hasta ahora',
+            'special_food': 'Vegetariana',
+            'special_medicine': 'Ninguna',
+            'eps': 'Sura',
+            'who_invite_me': 'Katherine G',
+            'who_invite_me_number': '3112233445',
+            'do_you_want_ej': 'true',
+            'why_ej': 'Me genera Intriga',
+            'other_experiences': 'true',
+            'experiences_which': 'EPJ',
+            'pieces_save': '1',
+            'person_mostimportant_name': 'Teresa Velez',
+            'person_mostimportant_number': '3112233445'
+        }
+        url = "{0}?id={1};idyoung={2}".format(reverse("api:inscription_details") ,1 ,2)
+        print "url: ", url
+
+        request = factory.put(url, data)
+        request.user = self.user
+        force_authenticate(request, user=self.user)
+        response = view(request)
+        jsonRes = response.data
+        print "jsonResss: ", jsonRes
+        status =jsonRes.get("status",None)
+        result =jsonRes.get("result",None)
+        bodyObject =jsonRes.get("bodyObject",None)
+        youngObj =bodyObject.get("young",None)
+        userObj =youngObj.get("user",None)
+        print "userObj: ", userObj
+
 
 

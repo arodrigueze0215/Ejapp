@@ -23,14 +23,15 @@ class UserAuth(APIView):
         return Response(data, status.HTTP_200_OK)
 
 class InscriptionDetails(APIView):
+    insController = Iview.ControllerInscription()
     def get(self, request, format=None):
         pk = request.query_params.get('id')
-        data = Iview.ControllerInscription().get(request, pk=pk)        
+        data = self.insController.get(request, pk=pk)        
         return Response(data, status.HTTP_200_OK)
     
     def put(self, request, format=None):
-        idyoung = request.data.get('idyoung')
-        idIns = request.data.get('idIns')
+        idyoung = request.query_params.get('idyoung')
+        idIns = request.query_params.get('id')
         personal_names = request.data.get("personal_names")
         personal_lastnames = request.data.get("personal_lastnames")
         personal_email = request.data.get("personal_email")
@@ -50,6 +51,70 @@ class InscriptionDetails(APIView):
         phone_company = request.data.get("phone_company")
         life_with_gran = request.data.get("life_with_gran")
         life_with_parent = request.data.get("life_with_parent")
+        life_with_only_mother = request.data.get("life_with_only_mother")
+        life_with_only_father = request.data.get("life_with_only_father")
+        life_with_uncles = request.data.get("life_with_uncles")
+        life_with_friends = request.data.get("life_with_friends")
+        life_with_cousins = request.data.get("life_with_cousins")
+        life_with_brothers = request.data.get("life_with_brothers")
+        life_with_alone = request.data.get("life_with_alone")
+        illness = request.data.get("illness")
+        especial_food = request.data.get("especial_food")
+        special_medicine = request.data.get("special_medicine")
+        eps = request.data.get("eps")
+        who_invite_me = request.data.get("who_invite_me")
+        who_invite_me_number = request.data.get("who_invite_me_number")
+        do_you_want_ej = request.data.get("do_you_want_ej")
+        why_fds = request.data.get("why_fds")
+        other_experiences = request.data.get("other_experiences")
+        experiences_which = request.data.get("experiences_which")
+        pieces_save = request.data.get("pieces_save")
+        person_mostimportant_name = request.data.get("person_mostimportant_name")
+        person_mostimportant_number = request.data.get("person_mostimportant_number")
+        data = self.insController.update(request, 
+            idIns = idIns,
+            idyoung = idyoung,
+            personal_names = personal_names,
+            personal_lastnames = personal_lastnames,
+            personal_email = personal_email,
+            personal_gender = personal_gender,
+            personal_dateborn = personal_dateborn,
+            personal_homephone = personal_homephone,
+            personal_mobilephone = personal_mobilephone,
+            personal_address = personal_address,
+            personal_occupation = personal_occupation,
+            personal_profession = personal_profession,
+            do_you_study = do_you_study,
+            carrer = carrer,
+            school = school,
+            do_you_work = do_you_work,
+            company = company,
+            position_job = position_job,
+            phone_company = phone_company,
+            life_with_gran = life_with_gran,
+            life_with_parent = life_with_parent,
+            life_with_only_mother = life_with_only_mother,
+            life_with_only_father = life_with_only_father,
+            life_with_uncles = life_with_uncles,
+            life_with_friends = life_with_friends,
+            life_with_cousins = life_with_cousins,
+            life_with_brothers = life_with_brothers,
+            life_with_alone = life_with_alone,
+            illness = illness,
+            especial_food = especial_food,
+            special_medicine = special_medicine,
+            eps = eps,
+            who_invite_me = who_invite_me,
+            who_invite_me_number = who_invite_me_number,
+            do_you_want_ej = do_you_want_ej,
+            why_fds = why_fds,
+            other_experiences = other_experiences,
+            experiences_which = experiences_which,
+            pieces_save = pieces_save,
+            person_mostimportant_name = person_mostimportant_name,
+            person_mostimportant_number = person_mostimportant_number
+        )        
+        return Response(data, status.HTTP_200_OK)
 
 
     

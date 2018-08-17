@@ -12,6 +12,7 @@ from api.serializers import (
     InscriptionSerializerAll
 )
 from Young.views import YoungController
+from Family.views import BrothersController, ParentController
 
 class ControllerInscription():
     def get(self, request, **params):
@@ -43,6 +44,7 @@ class ControllerInscription():
             auth = AuthUserApi(request)
             if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
                 idIns = params.get("idIns")
+                print "idIns: ", idIns
                 """User"""
                 personal_names = params.get('personal_names', None)
                 personal_lastnames = params.get('personal_lastnames', None)
@@ -62,11 +64,12 @@ class ControllerInscription():
                 personal_profession = params.get('personal_profession', None)
                 inscription = Inscription.objects.get(id=idIns)
                 
+                
                 """Inscription"""
                 do_you_study = params.get("do_you_study", None)
                 carrer = params.get("carrer", None)
                 school = params.get("school", None)
-                doy_you_work = params.get("do_you_work",None)
+                do_you_work = params.get("do_you_work",None)
                 company = params.get("company", None)
                 position_job = params.get("position_job", None)
                 phone_company = params.get("phone_company", None)
@@ -92,8 +95,9 @@ class ControllerInscription():
                 pieces_save = params.get("pieces_save", None)
                 person_mostimportant_name = params.get("person_mostimportant_name", None)
                 person_mostimportant_number = params.get("person_mostimportant_number", None)
+
                 if inscription:
-                    yupdated = YoungController.update(
+                    yupdated = YoungController().update(
                         idyoung = idyoung,
                         personal_names=personal_names,
                         personal_lastnames=personal_lastnames,
@@ -112,6 +116,7 @@ class ControllerInscription():
                         inscription.young = young
                     else:
                         return yupdated
+
                     if do_you_study and do_you_study == "true":
                         inscription.do_you_study = True 
                     if carrer and carrer == "true":
@@ -166,8 +171,8 @@ class ControllerInscription():
                         inscription.experiences_which = experiences_which
                     if pieces_save and pieces_save != inscription.pieces_save:
                         inscription.pieces_save = pieces_save
-                    if person_mostimportant_na and person_mostimportant_na != inscription.person_mostimportant_name:
-                        inscription.person_mostimportant_name = person_mostimportant_na
+                    if person_mostimportant_name and person_mostimportant_name != inscription.person_mostimportant_name:
+                        inscription.person_mostimportant_name = person_mostimportant_name
                     if person_mostimportant_number and person_mostimportant_number != inscription.person_mostimportant_number:
                         inscription.person_mostimportant_number = person_mostimportant_number
                     inscription.save()
