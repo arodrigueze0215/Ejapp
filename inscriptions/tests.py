@@ -131,14 +131,14 @@ class InscriptionDetailsTest(APITestCase):
             'life_with_cousins': 'false',
             'life_with_brothers': 'false',
             'life_with_alone': 'false',
-            'illines': 'Ninguna hasta ahora',
-            'special_food': 'Vegetariana',
+            'illness': 'Ninguna hasta ahora',
+            'especial_food': 'Vegetariana',
             'special_medicine': 'Ninguna',
             'eps': 'Sura',
             'who_invite_me': 'Katherine G',
             'who_invite_me_number': '3112233445',
             'do_you_want_ej': 'true',
-            'why_ej': 'Me genera Intriga',
+            'why_fds': 'Me genera Intriga',
             'other_experiences': 'true',
             'experiences_which': 'EPJ',
             'pieces_save': '1',
@@ -146,20 +146,64 @@ class InscriptionDetailsTest(APITestCase):
             'person_mostimportant_number': '3112233445'
         }
         url = "{0}?id={1};idyoung={2}".format(reverse("api:inscription_details") ,1 ,2)
-        print "url: ", url
 
         request = factory.put(url, data)
         request.user = self.user
         force_authenticate(request, user=self.user)
         response = view(request)
         jsonRes = response.data
-        print "jsonResss: ", jsonRes
         status =jsonRes.get("status",None)
         result =jsonRes.get("result",None)
         bodyObject =jsonRes.get("bodyObject",None)
         youngObj =bodyObject.get("young",None)
         userObj =youngObj.get("user",None)
-        print "userObj: ", userObj
+
+        self.assertEqual(status, 200)
+        self.assertEqual(result, "ok")
+
+        self.assertEqual(userObj.get("first_name", None), "Consuelo")
+        self.assertEqual(userObj.get("last_name", None), "Rodriguez")
+        self.assertEqual(userObj.get("email", None), "concha@gmail.com")
+
+        self.assertEqual(youngObj.get("date_born", None), "1994-05-24")
+        self.assertEqual(youngObj.get("home_phone", None), "3428744")
+        self.assertEqual(youngObj.get("mobile_phone", None), "3044643222")
+        self.assertEqual(youngObj.get("address", None), "Manzana 15 casa 138 Villa campestre, Dosquebradas")
+        self.assertEqual(youngObj.get("occupation", None), "Desarrollador")
+        self.assertEqual(youngObj.get("profession", None), "Ingeniero de sistemas")
+        self.assertEqual(youngObj.get("gender", None), "FEMENINO")
+
+        self.assertEqual(bodyObject.get("do_you_study", None), True)
+        self.assertEqual(bodyObject.get("carrer", None), "Ingenieria de Sistemas")
+        self.assertEqual(bodyObject.get("school", None), "UCP")
+        self.assertEqual(bodyObject.get("do_you_work", None), True)
+        self.assertEqual(bodyObject.get("company", None), "Veritran")
+        self.assertEqual(bodyObject.get("position_job", None), "Dev web")
+        self.assertEqual(bodyObject.get("phone_company", None), "3112233")
+        self.assertEqual(bodyObject.get("life_with_gran", None), False)
+        self.assertEqual(bodyObject.get("life_with_parent", None), False)
+        self.assertEqual(bodyObject.get("life_with_only_mother", None), True)
+        self.assertEqual(bodyObject.get("life_with_only_father", None), False)
+        self.assertEqual(bodyObject.get("life_with_uncles", None), False)
+        self.assertEqual(bodyObject.get("life_with_friends", None), False)
+        self.assertEqual(bodyObject.get("life_with_cousins", None), False)
+        self.assertEqual(bodyObject.get("life_with_brothers", None), False)
+        self.assertEqual(bodyObject.get("life_with_alone", None), False)
+        self.assertEqual(bodyObject.get("illness", None), "Ninguna hasta ahora")
+        self.assertEqual(bodyObject.get("especial_food", None), "Vegetariana")
+        self.assertEqual(bodyObject.get("special_medicine", None), "Ninguna")
+        self.assertEqual(bodyObject.get("eps", None), "Sura")
+        self.assertEqual(bodyObject.get("who_invite_me", None), "Katherine G")
+        self.assertEqual(bodyObject.get("who_invite_me_number", None), "3112233445")
+        self.assertEqual(bodyObject.get("do_you_want_ej", None), True)
+        self.assertEqual(bodyObject.get("why_fds", None), "Me genera Intriga")
+        self.assertEqual(bodyObject.get("other_experiences", None), True)
+        self.assertEqual(bodyObject.get("experiences_which", None), "EPJ")
+        self.assertEqual(bodyObject.get("pieces_save", None), "DEBE")
+        self.assertEqual(bodyObject.get("person_mostimportant_name", None), "Teresa Velez")
+        self.assertEqual(bodyObject.get("person_mostimportant_number", None), "3112233445")
+        print "test_updateInscription (UPDATE INSCRIPTION): [OK]"
+
 
 
 

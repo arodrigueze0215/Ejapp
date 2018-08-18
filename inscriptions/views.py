@@ -44,7 +44,6 @@ class ControllerInscription():
             auth = AuthUserApi(request)
             if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
                 idIns = params.get("idIns")
-                print "idIns: ", idIns
                 """User"""
                 personal_names = params.get('personal_names', None)
                 personal_lastnames = params.get('personal_lastnames', None)
@@ -119,8 +118,8 @@ class ControllerInscription():
 
                     if do_you_study and do_you_study == "true":
                         inscription.do_you_study = True 
-                    if carrer and carrer == "true":
-                        inscription.carrer = True
+                    if carrer and carrer != inscription.carrer:
+                        inscription.carrer = carrer
                     if school and school != inscription.school:
                         inscription.school = school
                     if do_you_work and do_you_work == "true":
