@@ -1,17 +1,20 @@
 from django.conf.urls import url
 from .views import (InscriptionsList, 
-                    InscriptionDetails,
-                    ParentsList, 
-                    BrothersList, 
-                    UserAuth, 
-                    YoungList, 
-                    NewFoundWithYoung,
-                    Found,
-                    FoundList,
-                    AreasList,
-                    CitiesList
-                )
+        InscriptionDetails,
+        ParentsList, 
+        BrothersList, 
+        UserAuth, 
+        YoungList, 
+        NewFoundWithYoung,
+        Found,
+        FoundList,
+        AreasList,
+        CitiesList
+)
 
+"""
+This is the url array who has all endpoint that the app need as a api
+"""
 urlpatterns = [
     url(r'^inscriptions/$', InscriptionsList.as_view()),
     url(r'^apiauth/$', UserAuth.as_view()),
