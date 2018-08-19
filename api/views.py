@@ -123,10 +123,40 @@ class ParentsList(APIView):
         idyoung = request.query_params.get('idyoung')
         data = familyView.ParentController().get(request, pk=idyoung)        
         return Response(data, status.HTTP_200_OK)
+
+    def put(self, request, format=None):
+        idyoung = request.query_params.get('idyoung')
+        relationship_parent = request.data.get('relationship_parent')
+        names_parent = request.data.get('names_parent')
+        occupation_parent = request.data.get('occupation_parent')
+        phone_home_parent = request.data.get('phone_home_parent')
+        phone_parent = request.data.get('phone_parent')
+        address_parent = request.data.get('address_parent')
+        isalive_parent = request.data.get('isalive_parent')
+        data = familyView.ParentController().update(request,
+            pk=idyoung, 
+            relationship_parent=relationship_parent,
+            names_parent=names_parent,
+            occupation_parent=occupation_parent,
+            phone_home_parent=phone_home_parent,
+            phone_parent=phone_parent,
+            address_parent=address_parent,
+            isalive_parent=isalive_parent            
+        )
+        return Response(data, status.HTTP_200_OK)
 class BrothersList(APIView):
     def get(self, request, format=None):
         idyoung = request.query_params.get('idyoung')
         data = familyView.BrothersController().get(request, pk=idyoung)        
+        return Response(data, status.HTTP_200_OK)
+
+    def put(self, request, format=None):
+        idyoung = request.query_params.get('idyoung')
+        brothers = request.data.get('brothers')
+        data = familyView.BrothersController().addOrUpdate(request,
+             brothers=brothers,
+             idyoung=idyoung
+        )
         return Response(data, status.HTTP_200_OK)
 class YoungList(APIView):
 

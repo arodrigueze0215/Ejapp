@@ -108,24 +108,20 @@ class ParentsTest(APITestCase):
         factory = APIRequestFactory()
         view = ParentsList.as_view()
         data = {
-            'idyoung':2
+            'relationship_parent':'1',
+            'names_parent':'Consuelo Perez',
+            'occupation_parent':'Ama de casa',
+            'phone_home_parent':'3428744',
+            'phone_parent':'3044643222',
+            'address_parent':'Manzana 15 casa 138 Villa campestre',
+            'isalive_parent':'true' 
         }
-        request = self.factory.get(reverse("api:parents_list"), data)
+        url = "{}/?idyoung={}".format(reverse("api:parents_list"), 2)
+        request = self.factory.put(url, data)
         request.user = self.user
         force_authenticate(request, user=self.user)
-        pController = family_views.ParentController()
-        result = pController.update(
-            request,
-            pk=2,
-            relationship_parent="1",
-            names_parent="Consuelo Perez",
-            occupation_parent="Ama de casa",
-            phone_home_parent="3428744",
-            phone_parent="3044643222",
-            address_parent="Manzana 15 casa 138 Villa campestre",
-            isalive_parent=True 
-        )
-        jsonRes = result
+        response = view(request)
+        jsonRes = response.data
         obj =jsonRes.get("bodyObject",None)
         status =jsonRes.get("status",None)
         result =jsonRes.get("result",None)
@@ -144,24 +140,20 @@ class ParentsTest(APITestCase):
         factory = APIRequestFactory()
         view = ParentsList.as_view()
         data = {
-            'idyoung':2
+            'relationship_parent':'1',
+            'names_parent':'Consuelo Perez',
+            'occupation_parent':'Ama de casa',
+            'phone_home_parent':'3428744',
+            'phone_parent':'3044643222',
+            'address_parent':'Manzana 15 casa 138 Villa campestre',
+            'isalive_parent':'true' 
         }
-        request = self.factory.get(reverse("api:parents_list"), data)
+        url = "{}/?idyoung={}".format(reverse("api:parents_list"), 3)
+        request = self.factory.put(url, data)
         request.user = self.user
         force_authenticate(request, user=self.user)
-        pController = family_views.ParentController()
-        result = pController.update(
-            request,
-            pk=3,
-            relationship_parent="1",
-            names_parent="Consuelo Perez",
-            occupation_parent="Ama de casa",
-            phone_home_parent="3428744",
-            phone_parent="3044643222",
-            address_parent="Manzana 15 casa 138 Villa campestre",
-            isalive_parent=True 
-        )
-        jsonRes = result
+        response = view(request)
+        jsonRes = response.data
         obj =jsonRes.get("bodyObject",None)
         status =jsonRes.get("status",None)
         result =jsonRes.get("result",None)
@@ -176,23 +168,19 @@ class ParentsTest(APITestCase):
         factory = APIRequestFactory()
         view = ParentsList.as_view()
         data = {
-            'idyoung':2
+            'names_parent':'Consuelo Perez',
+            'occupation_parent':'Ama de casa',
+            'phone_home_parent':'3428744',
+            'phone_parent':'3044643222',
+            'address_parent':'Manzana 15 casa 138 Villa campestre',
+            'isalive_parent':'true' 
         }
-        request = self.factory.get(reverse("api:parents_list"), data)
+        url = "{}/?idyoung={}".format(reverse("api:parents_list"), 2)
+        request = self.factory.put(url, data)
         request.user = self.user
         force_authenticate(request, user=self.user)
-        pController = family_views.ParentController()
-        result = pController.update(
-            request,
-            pk=2,
-            names_parent="Consuelo Perez",
-            occupation_parent="Ama de casa",
-            phone_home_parent="3428744",
-            phone_parent="3044643222",
-            address_parent="Manzana 15 casa 138 Villa campestre",
-            isalive_parent=True 
-        )
-        jsonRes = result
+        response = view(request)
+        jsonRes = response.data
         obj =jsonRes.get("bodyObject",None)
         status =jsonRes.get("status",None)
         result =jsonRes.get("result",None)
@@ -290,14 +278,16 @@ class BrotherTest(APITestCase):
         brotherString = '[{"id": 1, "young": 2, "relationship": "1", "name_brother": "tonio", "date_born": "1990-05-24", "mobile_phone": "3044643222", "email": "anto@gmail.com", "isalive": "true" },{"id": -1, "young": 2, "relationship": "2", "name_brother": "teresa", "date_born": "1993-05-24", "mobile_phone": "3044643221", "email": "tere@gmail.com", "isalive": "true" }]'
         view = BrothersList.as_view()
         data = {
-            'idyoung':1
+            'idyoung':1,
+            'brothers': brotherString
         }
-        request = self.factory.get(reverse("api:parents_list"), data)
+        url = "{}/?idyoung={}".format(reverse("api:brothers_list"), 2)
+        request = self.factory.put(url, data)
         request.user = self.user
         force_authenticate(request, user=self.user)
         pController = family_views.BrothersController()
-        result = pController.addOrUpdate(request, brothers=brotherString, idyoung=2)
-        jsonRes = result
+        response = view(request)
+        jsonRes = response.data
         obj =jsonRes.get("bodyObject",None)
         status =jsonRes.get("status",None)
         result =jsonRes.get("result",None)
