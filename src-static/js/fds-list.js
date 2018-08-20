@@ -1,57 +1,64 @@
 import * as csrf from './libs/csrftoken.js';
 document.addEventListener("DOMContentLoaded",function(){
-    var csrftoken = csrf.csrfToken('csrftoken');    
-    var listFdsTable = $('#listFdsTable').DataTable({
-        "columns": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            { "orderable": false },
-        ],
-        "columnDefs": [
-            { 
-                targets: 2,
-                render: $.fn.dataTable.render.moment('MMM DD, YYYY','MMMM DD, YYYY')
-            },
-            { 
-                targets: 3,
-                render: $.fn.dataTable.render.moment('MMM DD, YYYY','MMMM DD, YYYY')
-            },
-            {
-                targets:5,
-                orderable: false,
-                serchable:false
+    var csrftoken = csrf.csrfToken('csrftoken');  
+    var listFdsTable;
+    if ( $.fn.dataTable.isDataTable('#listFdsTable')) {
+        listFdsTable = $('#listFdsTable').DataTable();
+    }
+    else {
+        listFdsTable = $('#listFdsTable').DataTable({
+            "columns": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                { "orderable": false },
+            ],
+            "columnDefs": [
+                { 
+                    targets: 2,
+                    render: $.fn.dataTable.render.moment('MMM DD, YYYY','MMMM DD, YYYY')
+                },
+                { 
+                    targets: 3,
+                    render: $.fn.dataTable.render.moment('MMM DD, YYYY','MMMM DD, YYYY')
+                },
+                {
+                    targets:5,
+                    orderable: false,
+                    serchable:false
+                }
+            ],
+            "scrollX": false,
+            "language": { 
+                "decimal":        "",
+                "emptyTable":     "Ningun Fds creado en esta tabla",
+                "info":           "Mostrando _START_ a _END_ de _TOTAL_ en total",
+                "infoEmpty":      "Mostrando 0 a 0 de 0 en total",
+                "infoFiltered":   '(filtered from _MAX_ total entries)',
+                "infoPostFix":    "",
+                "thousands":      ",",
+                "lengthMenu":     " _MENU_ ",
+                "loadingRecords": "Cargando...",
+                "processing":     "Procesando...",
+                "search":         "",
+                "searchPlaceholder": "Buscar",
+                "zeroRecords":    "No se encontraron resultados",
+                "paginate": {
+                    "first":      "Primero",
+                    "last":       "último",
+                    "next":       "siguiente",
+                    "previous":   "anterior"
+                },
+                "aria": {
+                    "sortAscending":  ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                }
             }
-        ],
-        "scrollX": false,
-        "language": { 
-            "decimal":        "",
-            "emptyTable":     "Ningun Fds creado en esta tabla",
-            "info":           "Mostrando _START_ a _END_ de _TOTAL_ en total",
-            "infoEmpty":      "Mostrando 0 a 0 de 0 en total",
-            "infoFiltered":   '(filtered from _MAX_ total entries)',
-            "infoPostFix":    "",
-            "thousands":      ",",
-            "lengthMenu":     " _MENU_ ",
-            "loadingRecords": "Cargando...",
-            "processing":     "Procesando...",
-            "search":         "",
-            "searchPlaceholder": "Buscar",
-            "zeroRecords":    "No se encontraron resultados",
-            "paginate": {
-                "first":      "Primero",
-                "last":       "último",
-                "next":       "siguiente",
-                "previous":   "anterior"
-            },
-            "aria": {
-                "sortAscending":  ": activate to sort column ascending",
-                "sortDescending": ": activate to sort column descending"
-            }
-        }
-    });
+        });
+    }  
+    
     addButtonNew();
     function addButtonNew() {
         let btn = $(`<button id="openFormNewFds" type="button" class="button listFds__actions__new">Nuevo FDS</button>`);
