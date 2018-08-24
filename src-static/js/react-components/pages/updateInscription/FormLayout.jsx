@@ -3,7 +3,11 @@ import React from 'react';
 
 const FormLayout = (props) => {
     return (
-        <span>Hi</span>
+        <div>
+            <form>
+                {props.children}
+            </form>
+        </div>
     );
 };
 export default FormLayout;
