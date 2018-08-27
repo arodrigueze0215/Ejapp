@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-import FormUpdateInscription from './FormUpdateInscription.jsx';
+import FormUpdateInscription from './containers/FormUpdateInscription.jsx';
 const target = document.getElementById('reactTargetUpdateInscription');
 
 const UpdateInscription = (props) =>{
