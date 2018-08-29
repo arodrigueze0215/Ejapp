@@ -1,8 +1,7 @@
 import React from 'react';
 
 const DataStudyToUpdate = (props) => {
-    console.log(props.dataInscription.bodyObject)
-    console.log(props.enableStudyFields)
+    
     return(
         <section>
             <h3> Datos Universitarios</h3>

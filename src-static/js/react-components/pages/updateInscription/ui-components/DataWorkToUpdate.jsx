@@ -13,6 +13,8 @@ const DataWorkToUpdate = (props) => {
                         name="work" 
                         value="true" 
                         id="work_yes"
+                        defaultChecked={props.dataInscription.bodyObject.do_you_work}
+                        onChange={props.enableFields}
                     />
                     <label htmlFor="work_yes">Sí</label>
                     <input 
@@ -20,6 +22,8 @@ const DataWorkToUpdate = (props) => {
                         name="work" 
                         value="false" 
                         id="work_no"
+                        defaultChecked={!props.dataInscription.bodyObject.do_you_work}
+                        onChange={props.enableFields}
                     />
                     <label htmlFor="work_no">No</label>
                 </fieldset>
@@ -31,6 +35,8 @@ const DataWorkToUpdate = (props) => {
                         type="text"
                         name="work_company" 
                         placeholder="¿Nombre de la empresa o compañía?"
+                        defaultValue={props.dataInscription.bodyObject.company}
+                        disabled={props.enableWorkFields}
                     />
                 </label>
                 <label className="Main__work__data__role">Cargo
@@ -38,6 +44,8 @@ const DataWorkToUpdate = (props) => {
                         type="text"
                         name="work_role" 
                         placeholder="Cargo que desenpeñas"
+                        defaultValue={props.dataInscription.bodyObject.position_job}
+                        disabled={props.enableWorkFields}
                     />
                 </label>
                 <label className="Main__work__data__phone">Teléfono
@@ -45,6 +53,8 @@ const DataWorkToUpdate = (props) => {
                         type="tel"
                         name="work_phone" 
                         placeholder="Teléfono donde trabajas"
+                        defaultValue={props.dataInscription.bodyObject.phone_company}
+                        disabled={props.enableWorkFields}
                     />
                 </label>
             </div>

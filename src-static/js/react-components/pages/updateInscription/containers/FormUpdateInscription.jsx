@@ -27,11 +27,15 @@ class FormUpdateInscription extends Component {
                 personal_dateborn: true,
                 personal_email: true,
                 personal_username: true,
+                most_important_name: true,
+                most_important_number:true
             },
             dataInscription:{},
-            enableStudyFields:true
+            enableStudyFields:true,
+            enableWorkFields:true
         }
         this.enableStudyFields = this.enableStudyFields.bind(this);
+        this.enableWorkFields = this.enableWorkFields.bind(this);
     }
     async componentDidMount() {
         const detail =  await api.inscriptions.getYoungDetail();
@@ -49,7 +53,7 @@ class FormUpdateInscription extends Component {
                     <DataYoungToUpdate {...this.state}/>
                     <WhoLifeToUpdate {...this.state}/>
                     <DataStudyToUpdate {...this.state} enableFields={this.enableStudyFields}/>
-                    <DataWorkToUpdate {...this.state}/>
+                    <DataWorkToUpdate {...this.state} enableFields={this.enableWorkFields}/>
                     <DataParentsToUpdate {...this.state}/>
                     <DataBrothersToUpdate {...this.state}/>
                     <MostImportant {...this.state}/>
@@ -77,18 +81,25 @@ class FormUpdateInscription extends Component {
         
     }
 
-    /**
-     * Event to enable o disable the fields of the study information
-     * @param {Event} event 
-     */
-    enableStudyFields(event) {
+    enableStudyFields(event)  {
         if (event.target.value=='true') {
             this.setState({
-                enableStudyFields:true
+                enableStudyFields:false
             })            
         } else{
             this.setState({
-                enableStudyFields:false
+                enableStudyFields:true
+            })
+        }
+    }
+    enableWorkFields(event)  {
+        if (event.target.value=='true') {
+            this.setState({
+                enableWorkFields:false
+            })
+        } else{
+            this.setState({
+                enableWorkFields:true
             })
         }
     }
