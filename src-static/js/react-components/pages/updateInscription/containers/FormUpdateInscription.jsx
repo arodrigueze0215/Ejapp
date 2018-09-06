@@ -32,21 +32,28 @@ class FormUpdateInscription extends Component {
             },
             dataInscription:{},
             enableStudyFields:true,
-            enableWorkFields:true
+            enableWorkFields:true,
+            disableExperiencesWhichFields:true
         }
         this.enableStudyFields = this.enableStudyFields.bind(this);
         this.enableWorkFields = this.enableWorkFields.bind(this);
+        this.disableExperienceFields = this.disableExperienceFields.bind(this);
     }
     async componentDidMount() {
-        const detail =  await api.inscriptions.getYoungDetail();
+        const dataInscription =  await api.inscriptions.getYoungDetail();
+        const dataBrothers =  await api.brothers.getBrothersList();
         this.setState({
-            dataInscription: detail
-        })
+            dataInscription,
+            dataBrothers,
+            enableStudyFields:!dataInscription.bodyObject.do_you_study,
+            enableWorkFields:!dataInscription.bodyObject.do_you_work,
+            disableExperiencesWhichFields: !dataInscription.bodyObject.other_experiences,
+        });
 
     }
     render(){
 
-        if (this.state.dataInscription.result==='ok'&& this.state.dataInscription.status===200) {
+        if (this.state.dataInscription.result==='ok'&& this.state.dataInscription.status===200) {            
             return (
                 <FormLayout>
                     <h2>Editar ficha.</h2>
@@ -54,11 +61,11 @@ class FormUpdateInscription extends Component {
                     <WhoLifeToUpdate {...this.state}/>
                     <DataStudyToUpdate {...this.state} enableFields={this.enableStudyFields}/>
                     <DataWorkToUpdate {...this.state} enableFields={this.enableWorkFields}/>
-                    <DataParentsToUpdate {...this.state}/>
+                    <DataParentsToUpdate {...this.state} enableFields={this.disableParentsFields}/>
                     <DataBrothersToUpdate {...this.state}/>
                     <MostImportant {...this.state}/>
                     <HealthToUpdate {...this.state}/>
-                    <GeneralInfo {...this.state}/>
+                    <GeneralInfo {...this.state} enableFields={this.disableExperienceFields}/>
                     <section className="Main__submit">
                         <button type="submit" 
                             value="submit" 
@@ -97,11 +104,26 @@ class FormUpdateInscription extends Component {
             this.setState({
                 enableWorkFields:false
             })
+
         } else{
             this.setState({
                 enableWorkFields:true
             })
         }
     }
+    disableExperienceFields(event)  {
+        if (event.target.value=='true') {
+            this.setState({
+                disableExperiencesWhichFields:false
+            })
+
+        } else{
+            this.setState({
+                disableExperiencesWhichFields:true
+            })
+
+        }
+    }
+
 }
 export default FormUpdateInscription;

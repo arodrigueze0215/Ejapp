@@ -11,7 +11,7 @@ const DataWorkToUpdate = (props) => {
                     <input 
                         type="radio"
                         name="work" 
-                        value="true" 
+                        value={true}
                         id="work_yes"
                         defaultChecked={props.dataInscription.bodyObject.do_you_work}
                         onChange={props.enableFields}
@@ -20,7 +20,7 @@ const DataWorkToUpdate = (props) => {
                     <input 
                         type="radio"
                         name="work" 
-                        value="false" 
+                        value={false}
                         id="work_no"
                         defaultChecked={!props.dataInscription.bodyObject.do_you_work}
                         onChange={props.enableFields}

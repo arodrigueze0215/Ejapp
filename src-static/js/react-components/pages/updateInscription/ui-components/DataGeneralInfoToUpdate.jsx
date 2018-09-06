@@ -1,7 +1,6 @@
 import React from 'react';
 
 const GeneralInfo = (props) =>{
-    console.log(props.dataInscription.bodyObject)
     return(
         <section className="Main__generalInfo">
             <h2>Datos generales</h2>
@@ -42,7 +41,7 @@ const GeneralInfo = (props) =>{
                     name="wantFds" 
                     value="true" 
                     id="wantFds_yes"
-                    defaultChecked={props.dataInscription.bodyObject.other_experiences} 
+                    defaultChecked={props.dataInscription.bodyObject.do_you_want_ej} 
                     required
                 />
                 <label htmlFor="wantFds_yes">Sí</label>
@@ -51,7 +50,7 @@ const GeneralInfo = (props) =>{
                     name="wantFds" 
                     value="false" 
                     id="wantFds_no"
-                    defaultChecked={!props.dataInscription.bodyObject.other_experiences} 
+                    defaultChecked={!props.dataInscription.bodyObject.do_you_want_ej} 
                 />
                 <label htmlFor="wantFds_no">No</label>
             </div>
@@ -60,25 +59,30 @@ const GeneralInfo = (props) =>{
                 <input 
                     type="radio" 
                     name="otherExperiences" 
-                    value="true" 
+                    value={true}
                     id="otherExperiences_yes"
-                    defaultChecked={props.dataInscription.bodyObject.do_you_want_ej} 
+                    onChange={props.enableFields}
+                    defaultChecked={props.dataInscription.bodyObject.other_experiences} 
                 />
                 <label htmlFor="otherExperiences_yes">Sí</label>
+
                 <input 
                     type="radio" 
                     name="otherExperiences" 
-                    value="false" 
+                    value={false} 
                     id="otherExperiences_no"
+                    onChange={props.enableFields}
                     required
-                    defaultChecked={!props.dataInscription.bodyObject.do_you_want_ej} 
+                    defaultChecked={!props.dataInscription.bodyObject.other_experiences} 
+                    
                 />
                 <label htmlFor="otherExperiences_no">No</label>
+
                 <label className="Main__generalInfo__data__four__otherExperiences">Cuentanos ¿Cual?
                     <input 
                         type="text" 
                         name="otherExperiences-which" 
-                        disabled
+                        disabled={props.disableExperiencesWhichFields}
                         defaultValue={props.dataInscription.bodyObject.experiences_which} 
                     />
                 </label>

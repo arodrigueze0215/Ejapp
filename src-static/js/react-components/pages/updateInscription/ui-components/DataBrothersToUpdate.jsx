@@ -1,6 +1,21 @@
 import React from 'react';
 
 const DataBrothersToUpdate = (props) => {
+    console.log('dataBrothers', props.dataBrothers);
+    const {bodyObject} =props.dataBrothers.object;
+    const tr = bodyObject.map(brother => {
+        return(
+            <tr key={brother.id}>
+                <td>{brother.name_brother}</td>
+                {brother.date_born.length>0?(<td>{brother.date_born}</td>):(<td>No tiene</td>)}
+                {brother.mobile_phone.length>0?(<td>{brother.mobile_phone}</td>):(<td>No tiene</td>)}
+                {brother.email.length>0?(<td>{brother.email}</td>):(<td>No tiene</td>)}
+                <td>{brother.relationship}</td>
+                {brother.isalive?(<td>Sí</td>):(<td>No</td>)}
+            </tr>
+        )
+    })
+    
 
     return(
         <section className="Main__family__brothers">
@@ -14,10 +29,16 @@ const DataBrothersToUpdate = (props) => {
                 </div>
                 <div className="Main__family__brothers__data">
                     <label className="Main__family__brothers__data__names">Nombre completo
-                        <input type="text" name="data-brothers-names" placeholder="Nombres y apellidos"/>
+                        <input 
+                            type="text" 
+                            name="data-brothers-names" 
+                            placeholder="Nombres y apellidos"/>
                     </label>
                     <label className="Main__family__brothers__data__date">Fecha de nacimiento
-                        <input type="date" name="data-brothers-date" placeholder="2000-02-15"/>
+                        <input 
+                            type="date" 
+                            name="data-brothers-date" 
+                            placeholder="2000-02-15"/>
                     </label>
                     <label className="Main__family__brothers__data__phone">Telefono móvil
                         <input type="tel" name="data-brothers-phone" placeholder="# celular"/>
@@ -43,9 +64,11 @@ const DataBrothersToUpdate = (props) => {
                                 <th>Teléfono</th>
                                 <th>Correo Electrónico</th>
                                 <th>Relación</th>
+                                <th>Vivo</th>
                             </tr>
                         </thead>
                         <tbody>
+                            {tr}
                         </tbody>
                     </table>
                 </div>
