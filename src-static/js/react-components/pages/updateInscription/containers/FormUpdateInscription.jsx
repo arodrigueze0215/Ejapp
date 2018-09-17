@@ -41,10 +41,8 @@ class FormUpdateInscription extends Component {
     }
     async componentDidMount() {
         const dataInscription =  await api.inscriptions.getYoungDetail();
-        const dataBrothers =  await api.brothers.getBrothersList();
         this.setState({
             dataInscription,
-            dataBrothers,
             enableStudyFields:!dataInscription.bodyObject.do_you_study,
             enableWorkFields:!dataInscription.bodyObject.do_you_work,
             disableExperiencesWhichFields: !dataInscription.bodyObject.other_experiences,

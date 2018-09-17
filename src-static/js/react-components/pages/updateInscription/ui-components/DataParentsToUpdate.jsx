@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import MessageError from '../../../Commons/MessageError/MessageError.jsx';
 import api from '../../../../api/api.js';
+import MessageError from '../../../Commons/MessageError/MessageError.jsx';
 import ContentLoading from '../../../Commons/ContentLoading/ContentLoading.jsx';
 
 
@@ -19,9 +19,6 @@ class DataParentsToUpdate extends Component {
         let data =dataParents.object.bodyObject;
         let mom = data.filter(parent=> parent.relationship==='Mamá')[0];
         let dad = data.filter(parent=> parent.relationship==='Papá')[0];
-        console.log('data', data)
-        console.log('mom', mom)
-        console.log('dad', dad)
         this.setState({
             dataParents,
             dad,
