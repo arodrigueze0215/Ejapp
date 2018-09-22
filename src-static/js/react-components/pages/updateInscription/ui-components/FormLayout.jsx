@@ -4,7 +4,7 @@ import React from 'react';
 const FormLayout = (props) => {
     return (
         <div>
-            <form>
+            <form onSubmit={props.handleSubmit}>
                 {props.children}
             </form>
         </div>

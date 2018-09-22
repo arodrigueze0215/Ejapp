@@ -13,17 +13,17 @@ const DataStudyToUpdate = (props) => {
                     <input 
                         type="radio" 
                         name="do_you_study" 
-                        value={true}
                         id="study_yes" 
+                        value={true}
                         defaultChecked={props.dataInscription.bodyObject.do_you_study}
                         onChange={props.enableFields}
-                    />
+                        />
                     <label htmlFor="study_yes">Sí</label>
                     <input 
                         type="radio" 
                         name="do_you_study" 
+                        id="study_no" 
                         value={false}
-                        id="study_no"
                         defaultChecked={!props.dataInscription.bodyObject.do_you_study}
                         onChange={props.enableFields}
                     />

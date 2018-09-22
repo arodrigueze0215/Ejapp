@@ -7,7 +7,7 @@ const HealthToUpdate = (props) =>{
             <label className="Main__health__illness">¿Sufres de alguna enfermedad que debamos tener en cuenta?
                 <input 
                     type="text" 
-                    name="health-illnes" 
+                    name="health_illnes" 
                     placeholder="Cuéntanos cuales"
                     defaultValue={props.dataInscription.bodyObject.illnes}
                 />
@@ -15,7 +15,7 @@ const HealthToUpdate = (props) =>{
             <label className="Main__health__especialFood">¿Algún alimento que no debas o puedas comer y necesitemos saber?
                 <input 
                     type="text" 
-                    name="health-food" 
+                    name="health_food" 
                     placeholder="Cuéntanos cuales"
                     defaultValue={props.dataInscription.bodyObject.especial_food}
                 />

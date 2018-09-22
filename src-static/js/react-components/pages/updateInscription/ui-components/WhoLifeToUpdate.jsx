@@ -11,7 +11,7 @@ const WhoLifeToUpdate = (props) => {
                             <label>
                                 <input 
                                     defaultChecked={props.dataInscription.bodyObject.life_with_gran? true: false}
-                                    id="life_with_gran"
+                                    name="life_with_gran"
                                     type="checkbox"/>
                                     Abuelos
                             </label>
@@ -19,8 +19,8 @@ const WhoLifeToUpdate = (props) => {
                         <div className="Main__personal__whoLife__check__lifeWithParent">
                             <label>
                                 <input
-                                    defaultChecked={props.dataInscription.bodyObject.life_with_parent? true: false} 
-                                    id="life_with_parent"
+                                    defaultChecked={props.dataInscription.bodyObject.life_with_parent? true: false}
+                                    name="life_with_parent"
                                     type="checkbox"/>
                                     Ambos padres
                             </label>
@@ -29,8 +29,8 @@ const WhoLifeToUpdate = (props) => {
                         <div className="Main__personal__whoLife__check__lifeWithOnlyMother">
                             <label>
                                 <input 
-                                    defaultChecked={props.dataInscription.bodyObject.life_with_only_mother? true: false} 
-                                    id="life_with_only_mother"
+                                    defaultChecked={props.dataInscription.bodyObject.life_with_only_mother? true: false}
+                                    name="life_with_only_mother"
                                     type="checkbox"/>
                                     Solo madre                                    
                             </label>
@@ -38,8 +38,8 @@ const WhoLifeToUpdate = (props) => {
                         <div className="Main__personal__whoLife__check__lifeWithOnlyFather">
                             <label>
                                 <input 
-                                    defaultChecked={props.dataInscription.bodyObject.life_with_only_father? true: false} 
-                                    id="life_with_only_father"
+                                    defaultChecked={props.dataInscription.bodyObject.life_with_only_father? true: false}
+                                    name="life_with_only_father"
                                     type="checkbox"/>
                                     Solo padre
                             </label>
@@ -48,8 +48,8 @@ const WhoLifeToUpdate = (props) => {
                         <div className="Main__personal__whoLife__check__lifeWithUncles">
                             <label>
                                 <input
-                                    defaultChecked={props.dataInscription.bodyObject.life_with_uncles? true: false}  
-                                    id="life_with_uncles"
+                                    defaultChecked={props.dataInscription.bodyObject.life_with_uncles? true: false}
+                                    name="life_with_uncles"
                                     type="checkbox"/>
                                     Tíos(as)
                             </label>
@@ -58,8 +58,8 @@ const WhoLifeToUpdate = (props) => {
                         <div className="Main__personal__whoLife__check__lifeWithFriends">
                             <label>
                                 <input
-                                    defaultChecked={props.dataInscription.bodyObject.life_with_friends? true: false}   
-                                    id="life_with_friends"
+                                    defaultChecked={props.dataInscription.bodyObject.life_with_friends? true: false}
+                                    name="life_with_friends"
                                     type="checkbox"/>
                                     Amigos(as)
                             </label>
@@ -68,8 +68,8 @@ const WhoLifeToUpdate = (props) => {
                         <div className="Main__personal__whoLife__check__lifeWithCousins">
                             <label>
                                 <input 
-                                    defaultChecked={props.dataInscription.bodyObject.life_with_cousins? true: false}   
-                                    id="life_with_cousins"
+                                    defaultChecked={props.dataInscription.bodyObject.life_with_cousins? true: false}
+                                    name="life_with_cousins"
                                     type="checkbox"/>
                                     Primos(as)
                             </label>
@@ -78,8 +78,8 @@ const WhoLifeToUpdate = (props) => {
                         <div className="Main__personal__whoLife__check__lifeWithBrothers">
                             <label>
                                 <input
-                                    defaultChecked={props.dataInscription.bodyObject.life_with_brothers? true: false}    
-                                    id="life_with_brothers"
+                                    defaultChecked={props.dataInscription.bodyObject.life_with_brothers? true: false}
+                                    name="life_with_brothers"
                                     type="checkbox"/>
                                     Hermanos(as)
                             </label>
@@ -88,8 +88,8 @@ const WhoLifeToUpdate = (props) => {
                         <div className="Main__personal__whoLife__check__lifeWithAlone">
                             <label>
                                 <input 
-                                    defaultChecked={props.dataInscription.bodyObject.life_with_alone? true: false}   
-                                    id="life_with_alone"
+                                    defaultChecked={props.dataInscription.bodyObject.life_with_alone? true: false}
+                                    name="life_with_alone"
                                     type="checkbox"/>
                                     Solo(a)
                             </label>

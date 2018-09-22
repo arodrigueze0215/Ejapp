@@ -8,7 +8,7 @@ const GeneralInfo = (props) =>{
                 <label className="Main__generalInfo__data__one__whoIntiveMe">¿Quien te invitó al EJ?
                     <input 
                         type="text" 
-                        name="whoIntiveMe"
+                        name="who_intive_me"
                         placeholder="Nombre y apellido" 
                         required
                         defaultValue={props.dataInscription.bodyObject.who_invite_me}
@@ -17,7 +17,7 @@ const GeneralInfo = (props) =>{
                 <label className="Main__generalInfo__data__one__whoIntiveMeNumber">Teléfono móvil
                     <input 
                         type="tel" 
-                        name="whoIntiveMeNumber" 
+                        name="who_intive_me_number" 
                         placeholder="# de celular de quien te invitó" 
                         required
                         defaultValue={props.dataInscription.bodyObject.who_invite_me_number}
@@ -28,7 +28,7 @@ const GeneralInfo = (props) =>{
                 <label className="Main__generalInfo__data__two__whyFds">¿Por que quieres vivir FDS?
                     <input 
                         type="text" 
-                        name="whyFds"
+                        name="why_fds"
                         placeholder="Dejanos saber tu interes"
                         defaultValue={props.dataInscription.bodyObject.why_fds}
                     />
@@ -38,7 +38,7 @@ const GeneralInfo = (props) =>{
                 <h4>Aparte de vivir el fin de semana, ¿Te interesa pertenecer al encuentro juvenil Pereira?</h4>
                 <input 
                     type="radio" 
-                    name="wantFds" 
+                    name="want_fds" 
                     value="true" 
                     id="wantFds_yes"
                     defaultChecked={props.dataInscription.bodyObject.do_you_want_ej} 
@@ -47,7 +47,7 @@ const GeneralInfo = (props) =>{
                 <label htmlFor="wantFds_yes">Sí</label>
                 <input 
                     type="radio" 
-                    name="wantFds" 
+                    name="want_fds" 
                     value="false" 
                     id="wantFds_no"
                     defaultChecked={!props.dataInscription.bodyObject.do_you_want_ej} 
@@ -58,7 +58,7 @@ const GeneralInfo = (props) =>{
                 <h4>¿Has participado de alguna actividad de crecimiento personal, grupo o movimiento juvenil?</h4>
                 <input 
                     type="radio" 
-                    name="otherExperiences" 
+                    name="other_experiences" 
                     value={true}
                     id="otherExperiences_yes"
                     onChange={props.enableFields}
@@ -68,7 +68,7 @@ const GeneralInfo = (props) =>{
 
                 <input 
                     type="radio" 
-                    name="otherExperiences" 
+                    name="other_experiences" 
                     value={false} 
                     id="otherExperiences_no"
                     onChange={props.enableFields}
@@ -81,7 +81,7 @@ const GeneralInfo = (props) =>{
                 <label className="Main__generalInfo__data__four__otherExperiences">Cuentanos ¿Cual?
                     <input 
                         type="text" 
-                        name="otherExperiences-which" 
+                        name="other_experiences_which" 
                         disabled={props.disableExperiencesWhichFields}
                         defaultValue={props.dataInscription.bodyObject.experiences_which} 
                     />

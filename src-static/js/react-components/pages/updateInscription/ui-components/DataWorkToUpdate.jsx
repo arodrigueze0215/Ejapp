@@ -10,7 +10,7 @@ const DataWorkToUpdate = (props) => {
                     <legend>¿Trabajas?</legend>
                     <input 
                         type="radio"
-                        name="work" 
+                        name="do_you_work" 
                         value={true}
                         id="work_yes"
                         defaultChecked={props.dataInscription.bodyObject.do_you_work}
@@ -19,7 +19,7 @@ const DataWorkToUpdate = (props) => {
                     <label htmlFor="work_yes">Sí</label>
                     <input 
                         type="radio"
-                        name="work" 
+                        name="do_you_work" 
                         value={false}
                         id="work_no"
                         defaultChecked={!props.dataInscription.bodyObject.do_you_work}
