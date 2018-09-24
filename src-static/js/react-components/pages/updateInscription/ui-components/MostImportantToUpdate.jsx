@@ -4,7 +4,6 @@ const MostImportant = (props) =>{
     const styleRequired = {
         color: 'red'
     }
-
     return(
         <section>
             <h4>La persona mas importante en tu vida.</h4>
@@ -12,7 +11,7 @@ const MostImportant = (props) =>{
                 <label 
                     className="Main__family__mostImportant__name"
                     style={!props.fieldsRequired['most_important_name']? styleRequired:{}}>
-                    ¿Quién es la persona mas importante en tu vida?
+                    ¿Quién es la persona mas importante en tu vida? {!props.fieldsRequired['most_important_name']? " (ESTE CAMPO ES OBLIGATORIO)":""}
                     <input 
                         type="text" 
                         name="person_mostimportant_name" 
@@ -23,7 +22,7 @@ const MostImportant = (props) =>{
                 <label 
                     className="Main__family__mostImportant__number"
                     style={!props.fieldsRequired['most_important_number']? styleRequired:{}}>
-                    Indicanos su número telefónico de contacto.
+                    Indicanos su número telefónico de contacto. {!props.fieldsRequired['most_important_number']? " (ESTE CAMPO ES OBLIGATORIO)":""}
                     <input
                         type="tel" 
                         name="person_mostimportant_number" 

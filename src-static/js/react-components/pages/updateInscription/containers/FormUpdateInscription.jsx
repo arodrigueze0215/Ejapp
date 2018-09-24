@@ -27,9 +27,18 @@ class FormUpdateInscription extends Component {
                 personal_lastnames: true,
                 personal_dateborn: true,
                 personal_email: true,
-                personal_username: true,
+                isIstudent:true,
+                hasJob:true,
+                hasDad:true,
+                hasMom:true,
+                hasDadName:true,
+                hasMomName:true,
                 most_important_name: true,
-                most_important_number:true
+                most_important_number:true,
+                who_intive_me:true,
+                who_intive_me_number:true,
+                why_fds:true,
+                other_experiences:true
             },
             dataInscription:{},
             enableStudyFields:true,
@@ -127,7 +136,7 @@ class FormUpdateInscription extends Component {
     handleSubmit(event){
         event.preventDefault();
         let d = this.prepareDataToSend(event);
-        console.log(d)
+        console.log('dataToSend',d)
 
     }
 
@@ -184,14 +193,125 @@ class FormUpdateInscription extends Component {
         this.dataToSend.health_food = event.target.elements['health_food'].value;
         this.dataToSend.health_medicine = event.target.elements['health_medicine'].value;
         this.dataToSend.health_eps = event.target.elements['health_eps'].value;
-        this.dataToSend.health_eps = event.target.elements['health_eps'].value;
         //DataGeneralInfoToUpdate
         this.dataToSend.who_intive_me = event.target.elements['who_intive_me'].value;
+        this.dataToSend.who_intive_me_number = event.target.elements['who_intive_me_number'].value;
         this.dataToSend.why_fds = event.target.elements['why_fds'].value;
         this.dataToSend.want_fds = event.target.elements['want_fds'].value=='true'?true:false;
         this.dataToSend.other_experiences = event.target.elements['other_experiences'].value=='true'?true:false;
         this.dataToSend.other_experiences_which = event.target.elements['other_experiences_which'].value;
-        return this.dataToSend;
+        let i = 0;
+        let fieldsRequired = this.state.fieldsRequired;
+        if (this.dataToSend.personal_gender.length===0) {
+            fieldsRequired['personal_gender'] = false;
+            i++;
+        } else {
+            fieldsRequired['personal_gender'] = true;
+        }
+        if (this.dataToSend.personal_names.length===0) {
+            fieldsRequired['personal_names'] = false;
+            i++;
+        }else {
+            fieldsRequired['personal_names'] = true;
+        }
+        if (this.dataToSend.personal_lastnames.length===0) {
+            fieldsRequired['personal_lastnames'] = false;
+            i++;
+        } else {
+            fieldsRequired['personal_lastnames'] = true;
+        }
+        if (this.dataToSend.personal_dateborn.length===0) {
+            fieldsRequired['personal_dateborn'] = false;
+            i++;
+        } else {
+            fieldsRequired['personal_dateborn'] = true;
+        }
+        if (this.dataToSend.personal_email.length===0) {
+            fieldsRequired['personal_email'] = false;
+            i++;
+        } else {
+            fieldsRequired['personal_email'] = true;
+        }
+        if (this.dataToSend.do_you_study.length===0) {
+            fieldsRequired['isIstudent'] = false;
+            i++;
+        } else {
+            fieldsRequired['isIstudent'] = true;
+        }
+        if (this.dataToSend.do_you_work.length===0) {
+            fieldsRequired['hasJob'] = false;
+            i++;
+        } else {
+            fieldsRequired['hasJob'] = true;
+        }
+        if (this.dataToSend.dad.length===0) {
+            fieldsRequired['hasDad'] = false;
+            i++;
+        } else {
+            fieldsRequired['hasDad'] = true;
+        }
+        if (this.dataToSend.mom.length===0) {
+            fieldsRequired['hasMom'] = false;
+            i++;
+        } else {
+            fieldsRequired['hasMom'] = true;
+        }
+        if (this.dataToSend.dad_names.length===0) {
+            fieldsRequired['hasDadName'] = false;
+            i++;
+        } else {
+            fieldsRequired['hasDadName'] = true;
+        }
+        if (this.dataToSend.mom_names.length===0) {
+            fieldsRequired['hasMomName'] = false;
+            i++;
+        } else {
+            fieldsRequired['hasMomName'] = true;
+        }
+        if (this.dataToSend.person_mostimportant_name.length===0) {
+            fieldsRequired['most_important_name'] = false;
+            i++;
+        } else {
+            fieldsRequired['most_important_name'] = true;
+        }
+        if (this.dataToSend.person_mostimportant_number.length===0) {
+            fieldsRequired['most_important_number'] = false;
+            i++;
+        } else {
+            fieldsRequired['most_important_number'] = true;
+        }
+        if (this.dataToSend.who_intive_me.length===0) {
+            fieldsRequired['who_intive_me'] = false;
+            i++;
+        } else {
+            fieldsRequired['who_intive_me'] = true;
+        }
+        if (this.dataToSend.who_intive_me_number.length===0) {
+            fieldsRequired['who_intive_me_number'] = false;
+            i++;
+        } else {
+            fieldsRequired['who_intive_me_number'] = true;
+        }
+        if (this.dataToSend.why_fds.length===0) {
+            fieldsRequired['why_fds'] = false;
+            i++;
+        } else {
+            fieldsRequired['why_fds'] = true;
+        }
+        if (this.dataToSend.other_experiences.length===0) {
+            fieldsRequired['other_experiences'] = false;
+            i++;
+        } else {
+            fieldsRequired['other_experiences'] = true;
+        }
+        if (i>0) {
+            this.setState({
+                fieldsRequired
+            })
+            return '';
+        }else {
+            return this.dataToSend;
+        }
     }
 
 }

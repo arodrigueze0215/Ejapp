@@ -6,6 +6,7 @@ import ContentLoading from '../../../Commons/ContentLoading/ContentLoading.jsx';
 
 
 class DataParentsToUpdate extends Component {
+    
     constructor(props){
         super(props);
         this.state = {
@@ -55,6 +56,9 @@ class DataParentsToUpdate extends Component {
         }
     }
     render(){
+        const styleRequired = {
+            color: 'red'
+        }
         if (this.state.dataParents.result==='ok'&& this.state.dataParents.status===200) {
             return(
                 <section className="Main__family">
@@ -62,8 +66,10 @@ class DataParentsToUpdate extends Component {
                     <div className="Main__family__dad">
                         <h4> Datos de tu papá</h4>
                         <div className="Main__family__dad__question">
-                            <fieldset className="large-6 columns">
-                                <legend>¿Aún vive?</legend>
+                            <fieldset className="large-6 columns" >
+                                <legend style={!this.props.fieldsRequired['hasDad']? styleRequired:{}}>
+                                    ¿Aún vive?{!this.props.fieldsRequired['hasDad']? " (ESTE CAMPO ES OBLIGATORIO)":""}
+                                </legend>
                                 <input 
                                     type="radio" 
                                     name="dad" 
@@ -87,13 +93,15 @@ class DataParentsToUpdate extends Component {
                             </fieldset>                        
                         </div>
                         <div className="Main__family__dad__data__one">
-                            <label className="Main__family__dad__data__one__names">Nombre completo
+                            <label 
+                                className="Main__family__dad__data__one__names"
+                                style={!this.props.fieldsRequired['hasDadName']? styleRequired:{}}>
+                                Nombre completo {!this.props.fieldsRequired['hasDadName']? " (ESTE CAMPO ES OBLIGATORIO)":""}
                                 <input 
                                     type="text" 
                                     name="dad_names" 
                                     placeholder="Nombres y apellidos"
                                     defaultValue={this.state.dad.name_parent}
-                                    required
                                 />
                             </label>
                             <label className="Main__family__dad__data__one__ocupation">Ocupación
@@ -140,7 +148,9 @@ class DataParentsToUpdate extends Component {
                         <h4> Datos de tu mamá</h4>
                         <div className="Main__family__mom__question">
                             <fieldset className="large-6 columns">
-                                <legend>¿Aún vive?</legend>
+                                <legend style={!this.props.fieldsRequired['hasMom']? styleRequired:{}}>
+                                    ¿Aún vive? {!this.props.fieldsRequired['hasMom']? " (ESTE CAMPO ES OBLIGATORIO)":""}
+                                </legend>
                                 <input 
                                     type="radio" 
                                     name="mom" value={true} 
@@ -162,12 +172,14 @@ class DataParentsToUpdate extends Component {
                             </fieldset>                        
                         </div>
                         <div className="Main__family__mom__data__one">
-                            <label className="Main__family__mom__data__one__names">Nombre completo
+                            <label 
+                                className="Main__family__mom__data__one__names"
+                                style={!this.props.fieldsRequired['hasMomName']? styleRequired:{}}>
+                                Nombre completo {!this.props.fieldsRequired['hasMomName']? " (ESTE CAMPO ES OBLIGATORIO)":""}
                                 <input 
                                     type="text" 
                                     name="mom_names" 
                                     placeholder="Nombres y apellidos" 
-                                    required 
                                     defaultValue={this.state.mom.name_parent}
                                 />
                                     

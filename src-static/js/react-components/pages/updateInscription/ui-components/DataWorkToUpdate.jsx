@@ -1,13 +1,17 @@
 import React from 'react';
 
 const DataWorkToUpdate = (props) => {
-
+    const styleRequired = {
+        color: 'red'
+    }
     return(
         <section className="Main__work">
             <h2> Datos Laborares</h2>
             <div className="Main__work__question">
                 <fieldset className="large-6 columns">
-                    <legend>¿Trabajas?</legend>
+                    <legend style={!props.fieldsRequired['isIstudent']? styleRequired:{}}>
+                        ¿Trabajas?{!props.fieldsRequired['hasJob']? " (ESTE CAMPO ES OBLIGATORIO)":""}
+                    </legend>
                     <input 
                         type="radio"
                         name="do_you_work" 

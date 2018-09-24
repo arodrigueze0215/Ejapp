@@ -1,14 +1,18 @@
 import React from 'react';
 
 const DataStudyToUpdate = (props) => {
+    const styleRequired = {
+        color: 'red'
+    }
     
     return(
         <section>
             <h3> Datos Universitarios</h3>
             <div className="Main__personal__study">
                 <fieldset className="large-6 columns">
-                    <legend>
-                        ¿Estudias?
+                    <legend
+                        style={!props.fieldsRequired['isIstudent']? styleRequired:{}}>
+                        ¿Estudias? {!props.fieldsRequired['isIstudent']? " (ESTE CAMPO ES OBLIGATORIO)":""}
                     </legend>
                     <input 
                         type="radio" 
