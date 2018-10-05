@@ -4,28 +4,29 @@ const GeneralInfo = (props) =>{
     const styleRequired = {
         color: 'red'
     }
+    console.log('other_experiences',props.dataInscription.bodyObject.other_experiences);
     return(
         <section className="Main__generalInfo">
             <h2>Datos generales</h2>
             <div className="Main__generalInfo__data__one">
                 <label 
                     className="Main__generalInfo__data__one__whoIntiveMe" 
-                    style={!props.fieldsRequired['who_intive_me']? styleRequired:{}}>
-                    ¿Quien te invitó al EJ? {!props.fieldsRequired['who_intive_me']? " (ESTE CAMPO ES OBLIGATORIO)":""}
+                    style={!props.fieldsRequired['who_invite_me']? styleRequired:{}}>
+                    ¿Quien te invitó al EJ? {!props.fieldsRequired['who_invite_me']? " (ESTE CAMPO ES OBLIGATORIO)":""}
                     <input 
                         type="text" 
-                        name="who_intive_me"
+                        name="who_invite_me"
                         placeholder="Nombre y apellido" 
                         defaultValue={props.dataInscription.bodyObject.who_invite_me}
                     />
                 </label>
                 <label 
                     className="Main__generalInfo__data__one__whoIntiveMeNumber"
-                    style={!props.fieldsRequired['who_intive_me_number']? styleRequired:{}}>
-                    Teléfono móvil {!props.fieldsRequired['who_intive_me_number']? " (ESTE CAMPO ES OBLIGATORIO)":""}
+                    style={!props.fieldsRequired['who_invite_me_number']? styleRequired:{}}>
+                    Teléfono móvil {!props.fieldsRequired['who_invite_me_number']? " (ESTE CAMPO ES OBLIGATORIO)":""}
                     <input 
                         type="tel" 
-                        name="who_intive_me_number" 
+                        name="who_invite_me_number" 
                         placeholder="# de celular de quien te invitó" 
                         defaultValue={props.dataInscription.bodyObject.who_invite_me_number}
                     />
@@ -51,8 +52,8 @@ const GeneralInfo = (props) =>{
                 </h4>
                 <input 
                     type="radio" 
-                    name="want_fds" 
-                    value="true" 
+                    name="do_you_want_ej" 
+                    value={true} 
                     id="wantFds_yes"
                     defaultChecked={props.dataInscription.bodyObject.do_you_want_ej} 
                     required
@@ -60,8 +61,8 @@ const GeneralInfo = (props) =>{
                 <label htmlFor="wantFds_yes">Sí</label>
                 <input 
                     type="radio" 
-                    name="want_fds" 
-                    value="false" 
+                    name="do_you_want_ej" 
+                    value={false} 
                     id="wantFds_no"
                     defaultChecked={!props.dataInscription.bodyObject.do_you_want_ej} 
                 />
@@ -97,7 +98,7 @@ const GeneralInfo = (props) =>{
                 <label className="Main__generalInfo__data__four__otherExperiences">Cuentanos ¿Cual?
                     <input 
                         type="text" 
-                        name="other_experiences_which" 
+                        name="experiences_which" 
                         disabled={props.disableExperiencesWhichFields}
                         defaultValue={props.dataInscription.bodyObject.experiences_which} 
                     />

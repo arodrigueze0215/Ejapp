@@ -116,38 +116,38 @@ class ControllerInscription():
                     else:
                         return yupdated
 
-                    if do_you_study and do_you_study == "true":
-                        inscription.do_you_study = True 
+                    if do_you_study:
+                        inscription.do_you_study = do_you_study 
                     if carrer and carrer != inscription.carrer:
                         inscription.carrer = carrer
                     if school and school != inscription.school:
                         inscription.school = school
-                    if do_you_work and do_you_work == "true":
-                        inscription.do_you_work = True 
+                    if do_you_work:
+                        inscription.do_you_work = do_you_work 
                     if company and company != inscription.company:
                         inscription.company = company
                     if position_job and position_job != inscription.position_job:
                         inscription.position_job = position_job
                     if phone_company and phone_company != inscription.phone_company:
                         inscription.phone_company = phone_company
-                    if life_with_gran and life_with_gran == "true":
-                        inscription.life_with_gran = True 
-                    if life_with_parent and life_with_parent == "true":
-                        inscription.life_with_parent = True 
-                    if life_with_only_mother and life_with_only_mother == "true":
-                        inscription.life_with_only_mother = True 
-                    if life_with_only_father and life_with_only_father == "true":
-                        inscription.life_with_only_father = True 
-                    if life_with_uncles and life_with_uncles == "true":
-                        inscription.life_with_uncles = True 
-                    if life_with_friends and life_with_friends == "true":
-                        inscription.life_with_friends = True 
-                    if life_with_cousins and life_with_cousins == "true":
-                        inscription.life_with_cousins = True 
-                    if life_with_brothers and life_with_brothers == "true":
-                        inscription.life_with_brothers = True 
-                    if life_with_alone and life_with_alone == "true":
-                        inscription.life_with_alone = True 
+                    if life_with_gran:
+                        inscription.life_with_gran = life_with_gran 
+                    if life_with_parent:
+                        inscription.life_with_parent = life_with_parent 
+                    if life_with_only_mother:
+                        inscription.life_with_only_mother = life_with_only_mother 
+                    if life_with_only_father:
+                        inscription.life_with_only_father = life_with_only_father 
+                    if life_with_uncles:
+                        inscription.life_with_uncles = life_with_uncles 
+                    if life_with_friends:
+                        inscription.life_with_friends = life_with_friends 
+                    if life_with_cousins:
+                        inscription.life_with_cousins = life_with_cousins 
+                    if life_with_brothers:
+                        inscription.life_with_brothers = life_with_brothers 
+                    if life_with_alone:
+                        inscription.life_with_alone = life_with_alone
                     if illness and illness != inscription.illness:
                         inscription.illness = illness
                     if especial_food and especial_food != inscription.especial_food:
@@ -160,12 +160,15 @@ class ControllerInscription():
                         inscription.who_invite_me = who_invite_me
                     if who_invite_me_number and who_invite_me_number != inscription.who_invite_me_number:
                         inscription.who_invite_me_number = who_invite_me_number
-                    if do_you_want_ej and do_you_want_ej == "true":
-                        inscription.do_you_want_ej = True 
+                    print "do_you_want_ej: ", do_you_want_ej
+                    if do_you_want_ej:
+                        print "do_you_want_ej_: ", do_you_want_ej
+                        inscription.do_you_want_ej = do_you_want_ej 
                     if why_fds and why_fds != inscription.why_fds:
                         inscription.why_fds = why_fds
-                    if other_experiences and other_experiences == "true":
-                        inscription.other_experiences = True 
+                    
+                    if other_experiences:
+                        inscription.other_experiences = other_experiences 
                     if experiences_which and experiences_which != inscription.experiences_which:
                         inscription.experiences_which = experiences_which
                     if pieces_save and pieces_save != inscription.pieces_save:
@@ -174,7 +177,8 @@ class ControllerInscription():
                         inscription.person_mostimportant_name = person_mostimportant_name
                     if person_mostimportant_number and person_mostimportant_number != inscription.person_mostimportant_number:
                         inscription.person_mostimportant_number = person_mostimportant_number
-                    inscription.save()
+                    inscription.save() 
+                    print "do_you_want_ej__: ", inscription.do_you_want_ej
                     insSerializer = InscriptionSerializerAll(inscription)
                     data = {'bodyObject': insSerializer.data, 'statusText': 'Se ha actualizado exitosamente.', 'result': 'ok', 'status':status.HTTP_200_OK }
                     return data

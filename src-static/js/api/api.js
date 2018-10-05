@@ -47,9 +47,27 @@ var api = {
             );
             const data = await response.json();
             return data;
-
-        }      
-
+        },
+        async updateInscription(nIns={}) {
+            const params = window.location.search;
+            const json = JSON.stringify(nIns);
+            const options = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken('csrftoken')
+                },
+                method: 'PUT',
+                credentials: "same-origin",
+                body: json
+            }
+            const response = await fetch(
+                `${DOMAIN}/api/inscriptions/details/${params}`,
+                options
+            );
+            const data = response.json();
+            return data;
+        }
     },
     parents:{
         async getParentsList(){

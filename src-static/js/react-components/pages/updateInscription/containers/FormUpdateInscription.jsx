@@ -35,8 +35,8 @@ class FormUpdateInscription extends Component {
                 hasMomName:true,
                 most_important_name: true,
                 most_important_number:true,
-                who_intive_me:true,
-                who_intive_me_number:true,
+                who_invite_me:true,
+                who_invite_me_number:true,
                 why_fds:true,
                 other_experiences:true
             },
@@ -133,16 +133,25 @@ class FormUpdateInscription extends Component {
 
         }
     }
-    handleSubmit(event){
+    async handleSubmit(event){
         event.preventDefault();
-        let d = this.prepareDataToSend(event);
-        console.log('dataToSend',d)
+        let nIns = this.prepareDataToSend(event);
+        console.log('dataToSend',nIns);
+        if (nIns) {
+            const response = await api.inscriptions.updateInscription(nIns);
+            console.log('response',response); 
+            if (response['result']=='ok' && response['status']==200) {
+                console.log('text',response['statusText']); 
+                
+            }           
+        }
+
 
     }
 
     prepareDataToSend(event) {
         //DataYoungToUpdate
-        this.dataToSend.personal_gender = event.target.elements['personal_gender'].value=='true'?true:false;
+        this.dataToSend.personal_gender = event.target.elements['personal_gender'].value;
         this.dataToSend.personal_names = event.target.elements['personal_names'].value;
         this.dataToSend.personal_lastnames = event.target.elements['personal_lastnames'].value;
         this.dataToSend.personal_dateborn = event.target.elements['personal_dateborn'].value;
@@ -189,17 +198,17 @@ class FormUpdateInscription extends Component {
         this.dataToSend.person_mostimportant_name = event.target.elements['person_mostimportant_name'].value;
         this.dataToSend.person_mostimportant_number = event.target.elements['person_mostimportant_number'].value;
         //DataHealthToUpdate
-        this.dataToSend.health_illnes = event.target.elements['health_illnes'].value;
-        this.dataToSend.health_food = event.target.elements['health_food'].value;
-        this.dataToSend.health_medicine = event.target.elements['health_medicine'].value;
-        this.dataToSend.health_eps = event.target.elements['health_eps'].value;
+        this.dataToSend.illness = event.target.elements['illness'].value;
+        this.dataToSend.especial_food = event.target.elements['especial_food'].value;
+        this.dataToSend.special_medicine = event.target.elements['special_medicine'].value;
+        this.dataToSend.eps = event.target.elements['eps'].value;
         //DataGeneralInfoToUpdate
-        this.dataToSend.who_intive_me = event.target.elements['who_intive_me'].value;
-        this.dataToSend.who_intive_me_number = event.target.elements['who_intive_me_number'].value;
+        this.dataToSend.who_invite_me = event.target.elements['who_invite_me'].value;
+        this.dataToSend.who_invite_me_number = event.target.elements['who_invite_me_number'].value;
         this.dataToSend.why_fds = event.target.elements['why_fds'].value;
-        this.dataToSend.want_fds = event.target.elements['want_fds'].value=='true'?true:false;
+        this.dataToSend.do_you_want_ej = event.target.elements['do_you_want_ej'].value=='true'?true:false;
         this.dataToSend.other_experiences = event.target.elements['other_experiences'].value=='true'?true:false;
-        this.dataToSend.other_experiences_which = event.target.elements['other_experiences_which'].value;
+        this.dataToSend.experiences_which = event.target.elements['experiences_which'].value;
         let i = 0;
         let fieldsRequired = this.state.fieldsRequired;
         if (this.dataToSend.personal_gender.length===0) {
@@ -280,17 +289,17 @@ class FormUpdateInscription extends Component {
         } else {
             fieldsRequired['most_important_number'] = true;
         }
-        if (this.dataToSend.who_intive_me.length===0) {
-            fieldsRequired['who_intive_me'] = false;
+        if (this.dataToSend.who_invite_me.length===0) {
+            fieldsRequired['who_invite_me'] = false;
             i++;
         } else {
-            fieldsRequired['who_intive_me'] = true;
+            fieldsRequired['who_invite_me'] = true;
         }
-        if (this.dataToSend.who_intive_me_number.length===0) {
-            fieldsRequired['who_intive_me_number'] = false;
+        if (this.dataToSend.who_invite_me_number.length===0) {
+            fieldsRequired['who_invite_me_number'] = false;
             i++;
         } else {
-            fieldsRequired['who_intive_me_number'] = true;
+            fieldsRequired['who_invite_me_number'] = true;
         }
         if (this.dataToSend.why_fds.length===0) {
             fieldsRequired['why_fds'] = false;
@@ -308,7 +317,7 @@ class FormUpdateInscription extends Component {
             this.setState({
                 fieldsRequired
             })
-            return '';
+            return;
         }else {
             return this.dataToSend;
         }

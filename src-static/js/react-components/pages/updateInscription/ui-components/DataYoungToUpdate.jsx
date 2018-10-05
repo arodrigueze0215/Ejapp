@@ -17,16 +17,16 @@ const DataYoungToUpdate = (props) => {
                     <input 
                         type="radio" 
                         name="personal_gender" 
-                        value={props.dataInscription.bodyObject.young.gender? 'true': 'false'}
-                        defaultChecked={props.dataInscription.bodyObject.young.gender? 'true': 'false'}
+                        value={1}
+                        defaultChecked={props.dataInscription.bodyObject.young.gender=='MASCULINO'? true: false}
                         id="gender_male" 
                     />
                     <label htmlFor="gender_male">Masculino</label>
                     <input 
                         type="radio" 
                         name="personal_gender" 
-                        value="false"
-                        defaultChecked={props.dataInscription.bodyObject.young.gender? 'true': 'false'}
+                        value={2}
+                        defaultChecked={props.dataInscription.bodyObject.young.gender=='FEMENINO'? true: false}
                         id="gender_female"
                     />
                     <label htmlFor="gender_female">Femenino</label>

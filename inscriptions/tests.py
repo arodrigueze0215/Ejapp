@@ -115,31 +115,31 @@ class InscriptionDetailsTest(APITestCase):
             'personal_occupation':'Desarrollador',
             'personal_profession':'Ingeniero de sistemas',
             'personal_gender':'2',
-            'do_you_study': 'true',
+            'do_you_study': True,
             'carrer': 'Ingenieria de Sistemas',
             'school': 'UCP',
-            'do_you_work': 'true',
+            'do_you_work': False,
             'company': 'Veritran',
             'position_job': 'Dev web',
             'phone_company': '3112233',
-            'life_with_gran': 'false',
-            'life_with_parent': 'false',
-            'life_with_only_mother': 'true',
-            'life_with_only_father': 'false',
-            'life_with_uncles': 'false',
-            'life_with_friends': 'false',
-            'life_with_cousins': 'false',
-            'life_with_brothers': 'false',
-            'life_with_alone': 'false',
+            'life_with_gran': False,
+            'life_with_parent': False,
+            'life_with_only_mother': True,
+            'life_with_only_father': False,
+            'life_with_uncles': False,
+            'life_with_friends': False,
+            'life_with_cousins': False,
+            'life_with_brothers': False,
+            'life_with_alone': False,
             'illness': 'Ninguna hasta ahora',
             'especial_food': 'Vegetariana',
             'special_medicine': 'Ninguna',
             'eps': 'Sura',
             'who_invite_me': 'Katherine G',
             'who_invite_me_number': '3112233445',
-            'do_you_want_ej': 'true',
+            'do_you_want_ej': True,
             'why_fds': 'Me genera Intriga',
-            'other_experiences': 'true',
+            'other_experiences': True,
             'experiences_which': 'EPJ',
             'pieces_save': '1',
             'person_mostimportant_name': 'Teresa Velez',
@@ -173,10 +173,11 @@ class InscriptionDetailsTest(APITestCase):
         self.assertEqual(youngObj.get("profession", None), "Ingeniero de sistemas")
         self.assertEqual(youngObj.get("gender", None), "FEMENINO")
 
+
         self.assertEqual(bodyObject.get("do_you_study", None), True)
         self.assertEqual(bodyObject.get("carrer", None), "Ingenieria de Sistemas")
         self.assertEqual(bodyObject.get("school", None), "UCP")
-        self.assertEqual(bodyObject.get("do_you_work", None), True)
+        self.assertEqual(bodyObject.get("do_you_work", None), False)
         self.assertEqual(bodyObject.get("company", None), "Veritran")
         self.assertEqual(bodyObject.get("position_job", None), "Dev web")
         self.assertEqual(bodyObject.get("phone_company", None), "3112233")
