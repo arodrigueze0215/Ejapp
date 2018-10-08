@@ -2,6 +2,7 @@ import * as csrf from './libs/csrftoken.js';
 document.addEventListener("DOMContentLoaded",function(){
     var csrftoken = csrf.csrfToken('csrftoken');  
     var listFdsTable;
+    let btnNewFds = null;
     if ( $.fn.dataTable.isDataTable('#listFdsTable')) {
         listFdsTable = $('#listFdsTable').DataTable();
     }
@@ -30,6 +31,9 @@ document.addEventListener("DOMContentLoaded",function(){
                     serchable:false
                 }
             ],
+            "initComplete": (settings, json)=>{
+                addButtonNew();
+            },
             "scrollX": false,
             "language": { 
                 "decimal":        "",
@@ -59,10 +63,12 @@ document.addEventListener("DOMContentLoaded",function(){
         });
     }  
     
-    addButtonNew();
+   
     function addButtonNew() {
-        let btn = $(`<button id="openFormNewFds" type="button" class="button listFds__actions__new">Nuevo FDS</button>`);
-        $('#listFdsTable_wrapper').prepend(btn);
+        if (btnNewFds==null) {
+            btnNewFds = $(`<button id="openFormNewFds" type="button" class="button listFds__actions__new">Nuevo FDS</button>`);
+        }
+        $('#listFdsTable_wrapper').prepend(btnNewFds);            
 
     }
     /**Events */
@@ -145,7 +151,6 @@ document.addEventListener("DOMContentLoaded",function(){
         let city = $(ev.currentTarget).parent().data('row-city');
         let url = window.location.origin;
         url = `${url}/inscritos/lista/?fds=${fds};city=${city}`
-        console.log(url);
 
         window.location.href = url;
     });
