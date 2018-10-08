@@ -81,7 +81,7 @@ class ParentController():
                         parent.save()
                         bodyObjectSerializer = ParentsSerializer(parent, context={'request': request})
                         
-                        data = {'bodyObject':bodyObjectSerializer.data, 'result': 'ok','status':status.HTTP_200_OK}
+                        data = {'bodyObject':bodyObjectSerializer.data, 'result': 'ok','status':status.HTTP_200_OK, 'statusText': 'Se actualizó satisfactoriamente.'}
                         return data
                     else:
                         data = {'bodyObject':{}, 'statusText': 'No se puedo editar el padre porque no se encontró ninguno', 'result': 'error', 'status':status.HTTP_204_NO_CONTENT}
@@ -146,6 +146,7 @@ class BrothersController():
             if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
                 young = Young.objects.get(id=params.get("idyoung"))
                 brothers = params.get("brothers")
+                print "brothers: ",brothers
                 if brothers:
                     brothers = json.loads(brothers)
                     newListBrothers = []

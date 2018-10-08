@@ -151,6 +151,7 @@ class BrothersList(APIView):
         return Response(data, status.HTTP_200_OK)
 
     def put(self, request, format=None):
+        print "body, ", request.body
         idyoung = request.query_params.get('idyoung')
         brothers = request.data.get('brothers')
         data = familyView.BrothersController().addOrUpdate(request,

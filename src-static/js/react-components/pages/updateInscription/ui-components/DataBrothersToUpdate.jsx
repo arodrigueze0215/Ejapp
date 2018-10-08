@@ -151,6 +151,7 @@ class DataBrothersToUpdate extends Component {
         let nBrothers = this.state.brothers
         nBrothers.push(bro);
         let compact = JSON.stringify(nBrothers);
+        console.log('compact', compact)
         this.setState({
             brothers: nBrothers,
             brother_compact: compact

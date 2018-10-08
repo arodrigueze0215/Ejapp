@@ -178,7 +178,6 @@ class ControllerInscription():
                     if person_mostimportant_number and person_mostimportant_number != inscription.person_mostimportant_number:
                         inscription.person_mostimportant_number = person_mostimportant_number
                     inscription.save() 
-                    print "do_you_want_ej__: ", inscription.do_you_want_ej
                     insSerializer = InscriptionSerializerAll(inscription)
                     data = {'bodyObject': insSerializer.data, 'statusText': 'Se ha actualizado exitosamente.', 'result': 'ok', 'status':status.HTTP_200_OK }
                     return data

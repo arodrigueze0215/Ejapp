@@ -82,6 +82,26 @@ var api = {
             const data = await response.json();
             return data;
 
+        },
+        async updateParent(nParent={}) {
+            const params = window.location.search;
+            const json = JSON.stringify(nParent);
+            const options = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken('csrftoken')
+                },
+                method: 'PUT',
+                credentials: "same-origin",
+                body: json
+            }
+            const response = await fetch(
+                `${DOMAIN}/api/parentlist/${params}`,
+                options
+            );
+            const data = response.json();
+            return data;
         }
     },
     brothers:{
@@ -97,6 +117,26 @@ var api = {
             const data = await response.json();
             return data;
 
+        },
+        async updateBrothers(nbrothers=null) {
+            console.log('nbrothers', nbrothers);
+            const params = window.location.search;
+            const options = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'text/plain',
+                    'X-CSRFToken': csrfToken('csrftoken')
+                },
+                method: 'PUT',
+                credentials: "same-origin",
+                body: nbrothers
+            }
+            const response = await fetch(
+                `${DOMAIN}/api/brotherslist/${params}`,
+                options
+            );
+            const data = response.json();
+            return data;
         }
     },
     areas: {

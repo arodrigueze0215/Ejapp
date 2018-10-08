@@ -136,14 +136,30 @@ class FormUpdateInscription extends Component {
     async handleSubmit(event){
         event.preventDefault();
         let nIns = this.prepareDataToSend(event);
-        console.log('dataToSend',nIns);
         if (nIns) {
-            const response = await api.inscriptions.updateInscription(nIns);
-            console.log('response',response); 
-            if (response['result']=='ok' && response['status']==200) {
-                console.log('text',response['statusText']); 
-                
-            }           
+            console.log('dataToSend',this.dataToSend);
+            const {description} = this.dataToSend;
+            const {mom} = this.dataToSend;
+            const {dad} = this.dataToSend;
+            const {brothers} = this.dataToSend;
+            const responseIns = await api.inscriptions.updateInscription(description);
+            if (responseIns['result']=='ok' && responseIns['status']==200) {
+                const responsedad = await api.parents.updateParent(dad);
+                if (responsedad['result']=='ok' && responsedad['status']==200) {
+                    console.log('dad',responsedad['statusText']);
+                }
+                const responsemom = await api.parents.updateParent(mom);
+                if (responsemom['result']=='ok' && responsemom['status']==200) {
+                    console.log('mom',responsemom['statusText']);
+                }
+                console.log('str_brothers', brothers['brothers']);
+                const responsebrothers = await api.brothers.updateBrothers(brothers);
+                console.log('brothers',responsebrothers);
+                if (responsebrothers['result']=='ok' && responsebrothers['status']==200) {
+                    console.log('brothers',responsebrothers['statusText']);
+                }
+            }
+            
         }
 
 
@@ -151,163 +167,170 @@ class FormUpdateInscription extends Component {
 
     prepareDataToSend(event) {
         //DataYoungToUpdate
-        this.dataToSend.personal_gender = event.target.elements['personal_gender'].value;
-        this.dataToSend.personal_names = event.target.elements['personal_names'].value;
-        this.dataToSend.personal_lastnames = event.target.elements['personal_lastnames'].value;
-        this.dataToSend.personal_dateborn = event.target.elements['personal_dateborn'].value;
-        this.dataToSend.personal_homephone = event.target.elements['personal_homephone'].value;
-        this.dataToSend.personal_mobilephone = event.target.elements['personal_mobilephone'].value;
-        this.dataToSend.personal_address = event.target.elements['personal_address'].value;
-        this.dataToSend.personal_email = event.target.elements['personal_email'].value;
-        this.dataToSend.personal_profession = event.target.elements['personal_profession'].value;
-        this.dataToSend.personal_occupation = event.target.elements['personal_occupation'].value;
+        let description = {}
+        description.personal_gender = event.target.elements['personal_gender'].value;
+        description.personal_names = event.target.elements['personal_names'].value;
+        description.personal_lastnames = event.target.elements['personal_lastnames'].value;
+        description.personal_dateborn = event.target.elements['personal_dateborn'].value;
+        description.personal_homephone = event.target.elements['personal_homephone'].value;
+        description.personal_mobilephone = event.target.elements['personal_mobilephone'].value;
+        description.personal_address = event.target.elements['personal_address'].value;
+        description.personal_email = event.target.elements['personal_email'].value;
+        description.personal_profession = event.target.elements['personal_profession'].value;
+        description.personal_occupation = event.target.elements['personal_occupation'].value;
         //WhoLifeToUpdate
-        this.dataToSend.life_with_gran = event.target.elements['life_with_gran'].checked;
-        this.dataToSend.life_with_parent = event.target.elements['life_with_parent'].checked;
-        this.dataToSend.life_with_only_mother = event.target.elements['life_with_only_mother'].checked;
-        this.dataToSend.life_with_only_father = event.target.elements['life_with_only_father'].checked;
-        this.dataToSend.life_with_uncles = event.target.elements['life_with_uncles'].checked;
-        this.dataToSend.life_with_friends = event.target.elements['life_with_friends'].checked;
-        this.dataToSend.life_with_cousins = event.target.elements['life_with_cousins'].checked;
-        this.dataToSend.life_with_brothers = event.target.elements['life_with_brothers'].checked;
-        this.dataToSend.life_with_alone = event.target.elements['life_with_alone'].checked;
+        description.life_with_gran = event.target.elements['life_with_gran'].checked;
+        description.life_with_parent = event.target.elements['life_with_parent'].checked;
+        description.life_with_only_mother = event.target.elements['life_with_only_mother'].checked;
+        description.life_with_only_father = event.target.elements['life_with_only_father'].checked;
+        description.life_with_uncles = event.target.elements['life_with_uncles'].checked;
+        description.life_with_friends = event.target.elements['life_with_friends'].checked;
+        description.life_with_cousins = event.target.elements['life_with_cousins'].checked;
+        description.life_with_brothers = event.target.elements['life_with_brothers'].checked;
+        description.life_with_alone = event.target.elements['life_with_alone'].checked;
         //DataStudyToUpdate
-        this.dataToSend.do_you_study = event.target.elements['do_you_study'].value=='true'?true:false;
-        this.dataToSend.study_carrer = event.target.elements['study_carrer'].value;
-        this.dataToSend.study_where = event.target.elements['study_where'].value;
+        description.do_you_study = event.target.elements['do_you_study'].value=='true'?true:false;
+        description.study_carrer = event.target.elements['study_carrer'].value;
+        description.study_where = event.target.elements['study_where'].value;
 
-        this.dataToSend.do_you_work = event.target.elements['do_you_work'].value=='true'?true:false;
-        this.dataToSend.work_company = event.target.elements['work_company'].value;
-        this.dataToSend.work_role = event.target.elements['work_role'].value;
+        description.do_you_work = event.target.elements['do_you_work'].value=='true'?true:false;
+        description.work_company = event.target.elements['work_company'].value;
+        description.work_role = event.target.elements['work_role'].value;
         //DataParentsToUpdate
-        this.dataToSend.dad = event.target.elements['dad'].value=='true'?true:false;
-        this.dataToSend.dad_names = event.target.elements['dad_names'].value;
-        this.dataToSend.dad_ocupation = event.target.elements['dad_ocupation'].value;
-        this.dataToSend.dad_phone_home = event.target.elements['dad_phone_home'].value;
-        this.dataToSend.dad_phone = event.target.elements['dad_phone'].value;
-        this.dataToSend.dad_address = event.target.elements['dad_address'].value;
-        this.dataToSend.mom = event.target.elements['mom'].value=='true'?true:false;
-        this.dataToSend.mom_names = event.target.elements['mom_names'].value;
-        this.dataToSend.mom_ocupation = event.target.elements['mom_ocupation'].value;
-        this.dataToSend.mom_phone_home = event.target.elements['mom_phone_home'].value;
-        this.dataToSend.mom_phone = event.target.elements['mom_phone'].value;
-        this.dataToSend.mom_address = event.target.elements['mom_address'].value;
+        let dad = {}
+        let mom = {}
+        dad.isalive_parent = event.target.elements['dad'].value=='true'?true:false;
+        dad.relationship_parent = '2';
+        dad.names_parent = event.target.elements['dad_names'].value;
+        dad.occupation_parent = event.target.elements['dad_ocupation'].value;
+        dad.phone_home_parent = event.target.elements['dad_phone_home'].value;
+        dad.phone_parent = event.target.elements['dad_phone'].value;
+        dad.address_parent = event.target.elements['dad_address'].value;
+        mom.isalive_parent = event.target.elements['mom'].value=='true'?true:false;
+        mom.relationship_parent = '1';
+        mom.names_parent = event.target.elements['mom_names'].value;
+        mom.occupation_parent = event.target.elements['mom_ocupation'].value;
+        mom.phone_home_parent = event.target.elements['mom_phone_home'].value;
+        mom.phone_parent = event.target.elements['mom_phone'].value;
+        mom.address_parent = event.target.elements['mom_address'].value;
         //DataBrothersToUpdate
-        this.dataToSend.list_brothers = event.target.elements['list_brothers'].value;
+        let brotherslist = {}
+        brotherslist.brothers = event.target.elements['list_brothers'].value;
+        console.log('brohterlist', brotherslist)
         //MostImportantToUpdate
-        this.dataToSend.person_mostimportant_name = event.target.elements['person_mostimportant_name'].value;
-        this.dataToSend.person_mostimportant_number = event.target.elements['person_mostimportant_number'].value;
+        description.person_mostimportant_name = event.target.elements['person_mostimportant_name'].value;
+        description.person_mostimportant_number = event.target.elements['person_mostimportant_number'].value;
         //DataHealthToUpdate
-        this.dataToSend.illness = event.target.elements['illness'].value;
-        this.dataToSend.especial_food = event.target.elements['especial_food'].value;
-        this.dataToSend.special_medicine = event.target.elements['special_medicine'].value;
-        this.dataToSend.eps = event.target.elements['eps'].value;
+        description.illness = event.target.elements['illness'].value;
+        description.especial_food = event.target.elements['especial_food'].value;
+        description.special_medicine = event.target.elements['special_medicine'].value;
+        description.eps = event.target.elements['eps'].value;
         //DataGeneralInfoToUpdate
-        this.dataToSend.who_invite_me = event.target.elements['who_invite_me'].value;
-        this.dataToSend.who_invite_me_number = event.target.elements['who_invite_me_number'].value;
-        this.dataToSend.why_fds = event.target.elements['why_fds'].value;
-        this.dataToSend.do_you_want_ej = event.target.elements['do_you_want_ej'].value=='true'?true:false;
-        this.dataToSend.other_experiences = event.target.elements['other_experiences'].value=='true'?true:false;
-        this.dataToSend.experiences_which = event.target.elements['experiences_which'].value;
+        description.who_invite_me = event.target.elements['who_invite_me'].value;
+        description.who_invite_me_number = event.target.elements['who_invite_me_number'].value;
+        description.why_fds = event.target.elements['why_fds'].value;
+        description.do_you_want_ej = event.target.elements['do_you_want_ej'].value=='true'?true:false;
+        description.other_experiences = event.target.elements['other_experiences'].value=='true'?true:false;
+        description.experiences_which = event.target.elements['experiences_which'].value;
         let i = 0;
         let fieldsRequired = this.state.fieldsRequired;
-        if (this.dataToSend.personal_gender.length===0) {
+        if (description.personal_gender.length===0) {
             fieldsRequired['personal_gender'] = false;
             i++;
         } else {
             fieldsRequired['personal_gender'] = true;
         }
-        if (this.dataToSend.personal_names.length===0) {
+        if (description.personal_names.length===0) {
             fieldsRequired['personal_names'] = false;
             i++;
         }else {
             fieldsRequired['personal_names'] = true;
         }
-        if (this.dataToSend.personal_lastnames.length===0) {
+        if (description.personal_lastnames.length===0) {
             fieldsRequired['personal_lastnames'] = false;
             i++;
         } else {
             fieldsRequired['personal_lastnames'] = true;
         }
-        if (this.dataToSend.personal_dateborn.length===0) {
+        if (description.personal_dateborn.length===0) {
             fieldsRequired['personal_dateborn'] = false;
             i++;
         } else {
             fieldsRequired['personal_dateborn'] = true;
         }
-        if (this.dataToSend.personal_email.length===0) {
+        if (description.personal_email.length===0) {
             fieldsRequired['personal_email'] = false;
             i++;
         } else {
             fieldsRequired['personal_email'] = true;
         }
-        if (this.dataToSend.do_you_study.length===0) {
+        if (description.do_you_study.length===0) {
             fieldsRequired['isIstudent'] = false;
             i++;
         } else {
             fieldsRequired['isIstudent'] = true;
         }
-        if (this.dataToSend.do_you_work.length===0) {
+        if (description.do_you_work.length===0) {
             fieldsRequired['hasJob'] = false;
             i++;
         } else {
             fieldsRequired['hasJob'] = true;
         }
-        if (this.dataToSend.dad.length===0) {
+        if (dad.isalive_parent.length===0) {
             fieldsRequired['hasDad'] = false;
             i++;
         } else {
             fieldsRequired['hasDad'] = true;
         }
-        if (this.dataToSend.mom.length===0) {
+        if (mom.isalive_parent.length===0) {
             fieldsRequired['hasMom'] = false;
             i++;
         } else {
             fieldsRequired['hasMom'] = true;
         }
-        if (this.dataToSend.dad_names.length===0) {
+        if (dad.names_parent.length===0) {
             fieldsRequired['hasDadName'] = false;
             i++;
         } else {
             fieldsRequired['hasDadName'] = true;
         }
-        if (this.dataToSend.mom_names.length===0) {
+        if (mom.names_parent.length===0) {
             fieldsRequired['hasMomName'] = false;
             i++;
         } else {
             fieldsRequired['hasMomName'] = true;
         }
-        if (this.dataToSend.person_mostimportant_name.length===0) {
+        if (description.person_mostimportant_name.length===0) {
             fieldsRequired['most_important_name'] = false;
             i++;
         } else {
             fieldsRequired['most_important_name'] = true;
         }
-        if (this.dataToSend.person_mostimportant_number.length===0) {
+        if (description.person_mostimportant_number.length===0) {
             fieldsRequired['most_important_number'] = false;
             i++;
         } else {
             fieldsRequired['most_important_number'] = true;
         }
-        if (this.dataToSend.who_invite_me.length===0) {
+        if (description.who_invite_me.length===0) {
             fieldsRequired['who_invite_me'] = false;
             i++;
         } else {
             fieldsRequired['who_invite_me'] = true;
         }
-        if (this.dataToSend.who_invite_me_number.length===0) {
+        if (description.who_invite_me_number.length===0) {
             fieldsRequired['who_invite_me_number'] = false;
             i++;
         } else {
             fieldsRequired['who_invite_me_number'] = true;
         }
-        if (this.dataToSend.why_fds.length===0) {
+        if (description.why_fds.length===0) {
             fieldsRequired['why_fds'] = false;
             i++;
         } else {
             fieldsRequired['why_fds'] = true;
         }
-        if (this.dataToSend.other_experiences.length===0) {
+        if (description.other_experiences.length===0) {
             fieldsRequired['other_experiences'] = false;
             i++;
         } else {
@@ -317,9 +340,13 @@ class FormUpdateInscription extends Component {
             this.setState({
                 fieldsRequired
             })
-            return;
+            return false;
         }else {
-            return this.dataToSend;
+            this.dataToSend.description = description;
+            this.dataToSend.dad = dad;
+            this.dataToSend.mom = mom;
+            this.dataToSend.brothers = brotherslist;
+            return true;
         }
     }
 

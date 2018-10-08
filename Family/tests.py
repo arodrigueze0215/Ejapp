@@ -125,8 +125,10 @@ class ParentsTest(APITestCase):
         obj =jsonRes.get("bodyObject",None)
         status =jsonRes.get("status",None)
         result =jsonRes.get("result",None)
+        statusText =jsonRes.get("statusText",None)
         self.assertEqual(status, 200)
         self.assertEqual(result, "ok")
+        self.assertEqual(statusText, "Se actualizó satisfactoriamente.")
         self.assertEqual(obj.get("mobile_phone", None), "3044643222")
         self.assertEqual(obj.get("isalive", None), True)
         self.assertEqual(obj.get("relationship", None), "Mamá")
@@ -278,7 +280,6 @@ class BrotherTest(APITestCase):
         brotherString = '[{"id": 1, "young": 2, "relationship": "1", "name_brother": "tonio", "date_born": "1990-05-24", "mobile_phone": "3044643222", "email": "anto@gmail.com", "isalive": "true" },{"id": -1, "young": 2, "relationship": "2", "name_brother": "teresa", "date_born": "1993-05-24", "mobile_phone": "3044643221", "email": "tere@gmail.com", "isalive": "true" }]'
         view = BrothersList.as_view()
         data = {
-            'idyoung':1,
             'brothers': brotherString
         }
         url = "{}/?idyoung={}".format(reverse("api:brothers_list"), 2)
