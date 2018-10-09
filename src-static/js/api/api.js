@@ -124,7 +124,7 @@ var api = {
             const options = {
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'text/plain',
+                    'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken('csrftoken')
                 },
                 method: 'PUT',

@@ -146,9 +146,9 @@ class BrothersController():
             if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
                 young = Young.objects.get(id=params.get("idyoung"))
                 brothers = params.get("brothers")
-                print "brothers: ",brothers
+                print "brothers___: ",brothers
                 if brothers:
-                    brothers = json.loads(brothers)
+                    
                     newListBrothers = []
                     for bro in brothers:
                         pk = bro['id'] 

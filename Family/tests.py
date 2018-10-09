@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.urls import reverse
+import json
 from rest_framework.test import (
     APITestCase,
     APIRequestFactory,
@@ -278,12 +279,10 @@ class BrotherTest(APITestCase):
     def test_addOrUpdateBrother(self):
         factory = APIRequestFactory()
         brotherString = '[{"id": 1, "young": 2, "relationship": "1", "name_brother": "tonio", "date_born": "1990-05-24", "mobile_phone": "3044643222", "email": "anto@gmail.com", "isalive": "true" },{"id": -1, "young": 2, "relationship": "2", "name_brother": "teresa", "date_born": "1993-05-24", "mobile_phone": "3044643221", "email": "tere@gmail.com", "isalive": "true" }]'
+        brotherString = json.loads(brotherString)
         view = BrothersList.as_view()
-        data = {
-            'brothers': brotherString
-        }
         url = "{}/?idyoung={}".format(reverse("api:brothers_list"), 2)
-        request = self.factory.put(url, data)
+        request = self.factory.put(url, brotherString, format="json")
         request.user = self.user
         force_authenticate(request, user=self.user)
         pController = family_views.BrothersController()

@@ -41,7 +41,7 @@ class DataBrothersToUpdate extends Component {
     }
 
     render(){
-        if (this.state.resultResponse==='ok'&& this.state.statusResponse===200) {
+        if (this.state.resultResponse==='ok'&& this.state.statusResponse>=200 && this.state.statusResponse<=207) { 
             const brothers = this.state.brothers;            
             return(
                 <section className="Main__family__brothers">

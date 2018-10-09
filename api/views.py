@@ -153,7 +153,7 @@ class BrothersList(APIView):
     def put(self, request, format=None):
         print "body, ", request.body
         idyoung = request.query_params.get('idyoung')
-        brothers = request.data.get('brothers')
+        brothers = request.data
         data = familyView.BrothersController().addOrUpdate(request,
              brothers=brothers,
              idyoung=idyoung

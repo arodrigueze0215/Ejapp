@@ -153,8 +153,8 @@ class FormUpdateInscription extends Component {
                     console.log('mom',responsemom['statusText']);
                 }
                 console.log('str_brothers', brothers['brothers']);
-                const responsebrothers = await api.brothers.updateBrothers(brothers);
-                console.log('brothers',responsebrothers);
+                const responsebrothers = await api.brothers.updateBrothers(brothers['brothers']);
+                console.log('brothers response',responsebrothers);
                 if (responsebrothers['result']=='ok' && responsebrothers['status']==200) {
                     console.log('brothers',responsebrothers['statusText']);
                 }
