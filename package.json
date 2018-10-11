@@ -39,7 +39,7 @@
     "postcss-nested": "^2.1.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-responsive-modal": "^3.0.3",
+    "react-responsive-modal": "^3.4.0",
     "resolve-url-loader": "^2.3.0",
     "style-css": "^1.0.2",
     "style-loader": "^0.18.2",

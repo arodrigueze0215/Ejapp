@@ -13,6 +13,7 @@ import GeneralInfo from '../ui-components/DataGeneralInfoToUpdate.jsx';
 import api from '../../../../api/api';
 import MessageError from '../../../Commons/MessageError/MessageError.jsx';
 import ContentLoading from '../../../Commons/ContentLoading/ContentLoading.jsx';
+import ModalLayout from 'react-responsive-modal';
 
 
 
@@ -43,12 +44,18 @@ class FormUpdateInscription extends Component {
             dataInscription:{},
             enableStudyFields:true,
             enableWorkFields:true,
-            disableExperiencesWhichFields:true
+            disableExperiencesWhichFields:true,
+            msgModalIns: '',
+            msgModalDad: '',
+            msgModalMom: '',
+            msgModalBro: '',
+            openModal: false,
         }
         this.enableStudyFields = this.enableStudyFields.bind(this);
         this.enableWorkFields = this.enableWorkFields.bind(this);
         this.disableExperienceFields = this.disableExperienceFields.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onCloseModal = this.onCloseModal.bind(this);
     }
     async componentDidMount() {
         const dataInscription =  await api.inscriptions.getYoungDetail();
@@ -64,24 +71,39 @@ class FormUpdateInscription extends Component {
 
         if (this.state.dataInscription.result==='ok'&& this.state.dataInscription.status===200) {            
             return (
-                <FormLayout handleSubmit={this.handleSubmit}>
-                    <h2>Editar ficha.</h2>
-                    <DataYoungToUpdate {...this.state}/>
-                    <WhoLifeToUpdate {...this.state}/>
-                    <DataStudyToUpdate {...this.state} enableFields={this.enableStudyFields}/>
-                    <DataWorkToUpdate {...this.state} enableFields={this.enableWorkFields}/>
-                    <DataParentsToUpdate {...this.state} enableFields={this.disableParentsFields}/>
-                    <DataBrothersToUpdate {...this.state}/>
-                    <MostImportant {...this.state}/>
-                    <HealthToUpdate {...this.state}/>
-                    <GeneralInfo {...this.state} enableFields={this.disableExperienceFields}/>
-                    <section className="Main__submit">
-                        <button type="submit" 
-                            value="submit" 
-                            className="Main__submit__updateInscription button">Actualizar
-                        </button>
-                    </section>
-                </FormLayout>
+                <div>
+                    <FormLayout handleSubmit={this.handleSubmit}>
+                        <h2>Editar ficha.</h2>
+                        <DataYoungToUpdate {...this.state}/>
+                        <WhoLifeToUpdate {...this.state}/>
+                        <DataStudyToUpdate {...this.state} enableFields={this.enableStudyFields}/>
+                        <DataWorkToUpdate {...this.state} enableFields={this.enableWorkFields}/>
+                        <DataParentsToUpdate {...this.state} enableFields={this.disableParentsFields}/>
+                        <DataBrothersToUpdate {...this.state}/>
+                        <MostImportant {...this.state}/>
+                        <HealthToUpdate {...this.state}/>
+                        <GeneralInfo {...this.state} enableFields={this.disableExperienceFields}/>
+                        <section className="Main__submit">
+                            <button type="submit" 
+                                value="submit" 
+                                className="Main__submit__updateInscription button">Actualizar
+                            </button>
+                        </section>
+                    </FormLayout>
+                    <ModalLayout
+                        open={this.state.openModal} 
+                        onClose={this.onCloseModal} 
+                        center>
+                            <br/>
+                            <span> {this.state.msgModalIns}</span>
+                            <br/>
+                            <span> {this.state.msgModalDad}</span>
+                            <br/>
+                            <span> {this.state.msgModalMom}</span>
+                            <br/>
+                            <span> {this.state.msgModalBro}</span>
+                    </ModalLayout>
+                </div>
             );
         } else if(this.state.dataInscription.result==='error'){
         
@@ -137,27 +159,56 @@ class FormUpdateInscription extends Component {
         event.preventDefault();
         let nIns = this.prepareDataToSend(event);
         if (nIns) {
-            console.log('dataToSend',this.dataToSend);
+            this.setState({
+                
+                openModal:true,
+            });
             const {description} = this.dataToSend;
             const {mom} = this.dataToSend;
             const {dad} = this.dataToSend;
             const {brothers} = this.dataToSend;
             const responseIns = await api.inscriptions.updateInscription(description);
             if (responseIns['result']=='ok' && responseIns['status']==200) {
+                this.setState({
+                    msgModalIns:`La información general, ${responseIns['statusText']}`,
+                });
                 const responsedad = await api.parents.updateParent(dad);
                 if (responsedad['result']=='ok' && responsedad['status']==200) {
-                    console.log('dad',responsedad['statusText']);
+                    this.setState({
+                        msgModalDad:`La información de Papá, ${responsedad['statusText']}`,
+                    });
+                }else{
+                    this.setState({
+                        msgModalDad:responsedad['statusText'],
+                    });
                 }
                 const responsemom = await api.parents.updateParent(mom);
                 if (responsemom['result']=='ok' && responsemom['status']==200) {
-                    console.log('mom',responsemom['statusText']);
+                    this.setState({
+                        msgModalMom:`La información de Mamá, ${responsemom['statusText']}`,
+                    });
+                }else{
+                    this.setState({
+                        msgModalMom:responsemom['statusText'],
+                    });
                 }
-                console.log('str_brothers', brothers['brothers']);
-                const responsebrothers = await api.brothers.updateBrothers(brothers['brothers']);
-                console.log('brothers response',responsebrothers);
-                if (responsebrothers['result']=='ok' && responsebrothers['status']==200) {
-                    console.log('brothers',responsebrothers['statusText']);
+                if (brothers['brothers']) {
+                    const responsebrothers = await api.brothers.updateBrothers(brothers['brothers']);
+                    if (responsebrothers['result']=='ok' && responsebrothers['status']==200) {
+                        this.setState({
+                            msgModalBro:`La información de Hermanos (as) /primos (as), ${responsemom['statusText']}`,
+                        });
+                    }else{
+                        this.setState({
+                            msgModalBro:responsebrothers['statusText'],
+                        });
+                    }
                 }
+            } else{
+                this.setState({
+                    openModal:false,
+                    msgModalIns:responseIns['statusText'],
+                });
             }
             
         }
@@ -216,7 +267,6 @@ class FormUpdateInscription extends Component {
         //DataBrothersToUpdate
         let brotherslist = {}
         brotherslist.brothers = event.target.elements['list_brothers'].value;
-        console.log('brohterlist', brotherslist)
         //MostImportantToUpdate
         description.person_mostimportant_name = event.target.elements['person_mostimportant_name'].value;
         description.person_mostimportant_number = event.target.elements['person_mostimportant_number'].value;
@@ -349,6 +399,16 @@ class FormUpdateInscription extends Component {
             return true;
         }
     }
+
+    onCloseModal() {
+        this.setState({ 
+            openModal: false,            
+            msgModalIns: '',
+            msgModalDad: '',
+            msgModalMom: '',
+            msgModalBro: '',
+        });
+    };
 
 }
 export default FormUpdateInscription;

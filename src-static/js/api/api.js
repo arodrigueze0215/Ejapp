@@ -119,7 +119,6 @@ var api = {
 
         },
         async updateBrothers(nbrothers=null) {
-            console.log('nbrothers', nbrothers);
             const params = window.location.search;
             const options = {
                 headers: {
