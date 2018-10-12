@@ -26,7 +26,7 @@ class InscriptionDetail extends Component{
     render(){
         if (this.state.detail.result==='ok'&& this.state.detail.status===200) {
             return(
-                <Details {...this.props} data={this.state.detail.bodyObject}/>
+                <Details {...this.props} data={this.state.detail.bodyObject} eventEdit={this.eventEdit.bind(this)}/>
             );
         } else if(this.state.detail.result==='error'){
         
@@ -40,11 +40,18 @@ class InscriptionDetail extends Component{
             
         }
     }
+    eventEdit(){
+        const url = `/inscrito/editar/${window.location.search}`
+        window.location.href = url;
+    }
 }
 
 let Details = (props) =>{
     return(
         <section className={props.classSection}>
+            <section className={props.classSection+"__content"}>
+                <button className={props.classSection+"__content__btnEdit button"} onClick={props.eventEdit}>Editar</button>
+            </section>
             <HeaderYoungDetail {...props.data.young}/>
             <WhoLives {...props.data}/>
             <Study {...props.data}/>

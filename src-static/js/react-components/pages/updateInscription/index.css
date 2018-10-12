@@ -1,0 +1,26 @@
+.Main{
+    &__submit{
+        display:flex;
+        justify-content: center;
+        flex-direction:column-reverse;
+        &__updateInscription{
+            width:50%;
+            margin: 4px auto;
+            background-color: var(--primaryColor);
+            &:hover{
+                color: var(--yellowPrimaryColor);
+                background-color: #9e1813;
+
+            }       
+            &:focus{
+                color: var(--yellowPrimaryColor);
+                background-color: #9e1813;
+
+            }    
+            @media (--tablet-portrait){
+                width:100%;
+
+            }
+        }
+    }
+}

@@ -4,7 +4,6 @@ const GeneralInfo = (props) =>{
     const styleRequired = {
         color: 'red'
     }
-    console.log('other_experiences',props.dataInscription.bodyObject.other_experiences);
     return(
         <section className="Main__generalInfo">
             <h2>Datos generales</h2>

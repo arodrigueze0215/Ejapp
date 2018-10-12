@@ -21,7 +21,6 @@ class Nav extends Component{
     
     async componentDidMount(){
         const user = await api.apiAuth.getApiAuth();
-        console.log(user)
         if (user.result==='ok'&& user.status===200) {
             this.setState({
                 user,

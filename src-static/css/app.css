@@ -13,6 +13,7 @@
 @import "../js/react-components/Commons/ResultsTemplate/index.css";
 @import "../js/react-components/pages/inscriptions-list/index.css";
 @import "../js/react-components/pages/inscriptionDetail/index.css";
+@import "../js/react-components/pages/updateInscription/index.css";
 :root{
     --primaryColor:#CD2B26;
     --grayHover:#D5D5D5;
