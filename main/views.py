@@ -476,3 +476,6 @@ def result_inscription(request):
 @login_required(login_url='/login/')
 def formNewEmptyFounder(request):
     return render(request, 'form_new_empty_founder.html')
+@login_required(login_url='/login/')
+def updateInscription(request):
+    return render(request, 'update_inscriptions.html')

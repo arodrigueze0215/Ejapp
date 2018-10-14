@@ -28,7 +28,7 @@ class FdsEvents(models.Model):
     is_form_active = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     def __str__(self):
-        return self.name+", FDS"+self.number_fds+", "+self.city_fds+", formInscription: "+str(self.is_form_active)
+        return self.name.encode('utf-8')+", FDS"+self.number_fds+", "+self.city_fds+", formInscription: "+str(self.is_form_active)
 
 class Inscription(models.Model):
     _PIECE = (

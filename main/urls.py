@@ -6,6 +6,7 @@ urlpatterns=[
     url(r'^inscripciones/', views.inscriptions_add, name='inscriptions_add'),
     url(r'^inscritos/lista/', views.inscriptions_list),
     url(r'^inscrito/detalle/', views.inscription_detail),
+    url(r'^inscrito/editar/', views.updateInscription),
     url(r'^fds/', views.list_fds, name='list_fds'),
     url(r'^formenable/', views.enable_inscriptions, name='form_enable'),
     url(r'^geturl/', views.get_url_inscription, name='get_url_inscription'),

@@ -29,6 +29,26 @@
         @media (--smart-portrait){
             margin-top:28%;
         }
+        &__content{
+            display:flex;
+            flex-direction: column;
+            align-items: flex-end;
+            &__btnEdit{
+                width: 10%;
+                background-color: var(--primaryColor);
+                &:hover{
+                    color: var(--yellowPrimaryColor);
+                    background-color: #9e1813;
+
+                }       
+                &:focus{
+                    color: var(--yellowPrimaryColor);
+                    background-color: #9e1813;
+
+                }       
+        
+            }        
+        }
         &__basic{
             overflow: auto;
         
