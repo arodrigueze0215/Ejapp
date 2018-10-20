@@ -21,7 +21,7 @@ from api.views import (
 class InscriptionDetailsTest(APITestCase):
 
     def setUp(self):
-        print "INIT --------------------------------------- [InscriptionDetailsTest] ---------------------------------------"
+        print("::[INIT]:: --- [InscriptionDetailsTest]")
         area = Areas.objects.create(name="Pre")
         self.user = User.objects.create(username="andres.rodriguez0215@gmail.com", email="andres.rodriguez0215@gmail.com")
         self.user.first_name="Andres" 
@@ -99,7 +99,7 @@ class InscriptionDetailsTest(APITestCase):
         self.assertEqual(youngObj.get("id", None), 2)
         self.assertEqual(bodyObject.get("young", None)!=None, True)
         self.assertEqual(bodyObject.get("who_invite_me", None), "Daniela Castaño")
-        print "test_getInscriptionDetail (GET INSCRIPTION): [OK]"
+        print("::[OK]:: test_getInscriptionDetail")
 
     def test_updateInscription(self):
         factory = APIRequestFactory()
@@ -203,7 +203,7 @@ class InscriptionDetailsTest(APITestCase):
         self.assertEqual(bodyObject.get("pieces_save", None), "DEBE")
         self.assertEqual(bodyObject.get("person_mostimportant_name", None), "Teresa Velez")
         self.assertEqual(bodyObject.get("person_mostimportant_number", None), "3112233445")
-        print "test_updateInscription (UPDATE INSCRIPTION): [OK]"
+        print("::[OK]:: test_updateInscription")
 
 
 

@@ -12,12 +12,12 @@ from Ejapp import controller
 
 def loginUser(request):
     if settings.DEBUG == True:
-       print "POST: ", request
+       print("POST: ", request)
     if request.method=='POST':
         email= request.POST.get('login_email',None)
         password= request.POST.get('login_password',None)
         json = JsonResponse(controller.loginUser(request, email=email, password=password))
-        print json
+        print(json)
         return json
     else:
         #template= loader.get_template('login.html')

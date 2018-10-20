@@ -59,4 +59,4 @@ class ListCitiesTest(APITestCase):
         self.assertEqual(len(bodyObject)>0, True)
         self.assertEqual(bodyObject[0].get("id"), 1)
         self.assertEqual(bodyObject[0].get("name"), "Pereira")
-        print "test_lisCities [OK]"
+        print ("::[OK]:: test_lisCities")

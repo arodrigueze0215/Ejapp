@@ -59,4 +59,4 @@ class ListAreasTest(APITestCase):
         self.assertEqual(len(bodyObject)>0, True)
         self.assertEqual(bodyObject[0].get("id"), 1)
         self.assertEqual(bodyObject[0].get("name"), "Pre")
-        print "test_listAreas [OK]"
+        print ("::[OK]:: test_listAreas")

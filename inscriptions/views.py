@@ -160,9 +160,7 @@ class ControllerInscription():
                         inscription.who_invite_me = who_invite_me
                     if who_invite_me_number and who_invite_me_number != inscription.who_invite_me_number:
                         inscription.who_invite_me_number = who_invite_me_number
-                    print "do_you_want_ej: ", do_you_want_ej
                     if do_you_want_ej:
-                        print "do_you_want_ej_: ", do_you_want_ej
                         inscription.do_you_want_ej = do_you_want_ej 
                     if why_fds and why_fds != inscription.why_fds:
                         inscription.why_fds = why_fds

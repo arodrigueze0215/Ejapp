@@ -95,40 +95,7 @@ class FoundsTests(APITestCase):
         self.assertEqual(jsonUser.get("last_name",None), "Rodriguez")
         self.assertEqual(jsonUser.get("email",None), "andres.rodriguez0215@gmail.com")
         self.assertEqual(jsonUser.get("is_active",None), True)
-        print "test_newFoundWithYoung (New Found With Young): [OK]"
-        """
-            {
-                "status":200,
-                "bodyObject":{
-                    "id":1,
-                    "young":{
-                        "id":1,
-                        "user":{
-                            "id":1,
-                            "first_name":"Andrés",
-                            "last_name":"Rodriguez",
-                            "email":"andres.rodriguez0215@gmail.com",
-                            "is_active":True,
-                            "last_login":self.young.user.last_login,
-                            "date_joined":self.young.user.date_joined
-                        },
-                        "date_born":self.young.date_born,
-                        "home_phone":self.young.home_phone,
-                        "mobile_phone":self.young.mobile_phone,
-                        "address":self.young.address,
-                        "occupation":self.young.occupation,
-                        "profession":self.young.profession,
-                        "gender": "true"
-                    },
-                    "state": "1",
-                    "number_fds": "36",
-                    "city_fds": "Pereira",
-                    "active_city": "Pereira",
-                    "name_parent_fds": "Echeverry"
-                },
-                "result": "ok"
-            }
-        """
+        print ("::[OK]:: test_newFoundWithYoung")
     
     def test_youngEmpty(self):
         url = reverse("api:new_found_young")
@@ -157,7 +124,7 @@ class FoundsTests(APITestCase):
         self.assertEqual(status==200, True)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Los datos que seleccionaste, no parecen estar dentro de nuestros registros.")
-        print "test_youngEmpty (Young None): [OK]"
+        print ("::[OK]:: test_youngEmpty")
 
 class NewFoundEmptyTest(APITestCase):
     def setUp(self):
@@ -225,7 +192,7 @@ class NewFoundEmptyTest(APITestCase):
         self.assertEqual(len(bodyObject)==0, True)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Hola Andres ya existes como usuario dentro del sistema tu registro esta con el correo: andres.rodriguez0215@gmail.com")
-        print "test_newFoundEmptyExist (New found Exist): [OK]"
+        print ("::[OK]:: test_newFoundEmptyExist")
     
     def test_newFoundEmpty(self):
         url = reverse("api:new_found_empty")
@@ -285,7 +252,7 @@ class NewFoundEmptyTest(APITestCase):
         self.assertEqual(jsonUser.get("last_name",None), "Cardona")
         self.assertEqual(jsonUser.get("email",None), "so.ca@gmail.com")
         self.assertEqual(jsonUser.get("is_active",None), True)
-        print "test_newFoundEmpty (New found Empty): [OK]"
+        print ("::[OK]:: test_newFoundEmpty")
     
     def test_newFoundEmptyFieldsRequired(self):
         url = reverse("api:new_found_empty")
@@ -324,7 +291,7 @@ class NewFoundEmptyTest(APITestCase):
         self.assertEqual(len(bodyObject)==0, True)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Lo sentimos!! algunos datos son obligatorios.")
-        print "test_newFoundEmptyFieldsRequired (New found Fields Required): [OK]"
+        print ("::[OK]:: test_newFoundEmptyFieldsRequired")
     
     def test_getSingleFound(self):
         url = reverse("api:new_found_empty")
@@ -361,7 +328,7 @@ class NewFoundEmptyTest(APITestCase):
         self.assertEqual(jsonUser.get("last_name",None), "Rodriguez")
         self.assertEqual(jsonUser.get("email",None), "andres.rodriguez0215@gmail.com")
         self.assertEqual(jsonUser.get("is_active",None), True)
-        print "test_getSingleFound (GET SINGLE FOUND): [OK]"
+        print ("::[OK]:: test_getSingleFound")
     
     def test_getSingleFoundIdNone(self):
         url = reverse("api:new_found_empty")
@@ -377,7 +344,7 @@ class NewFoundEmptyTest(APITestCase):
         self.assertEqual(len(bodyObject)==0, True)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Lo sentimos!! Ocurrio un error validando el identificador del encontrado.")
-        print "test_getSingleFoundIdNone (GET SINGLE FOUND ERROR ID): OK"
+        print ("::[OK]:: test_getSingleFoundIdNone")
     
     def test_getSingleFoundIdNone(self):
         url = reverse("api:new_found_empty")
@@ -393,7 +360,7 @@ class NewFoundEmptyTest(APITestCase):
         self.assertEqual(len(bodyObject)==0, True)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Lo sentimos!! No encontramos ningun dato en la busqueda.")
-        print "test_getSingleFoundIdNone (GET SINGLE FOUND ERROR ID): [OK]" 
+        print ("::[OK]:: test_getSingleFoundIdNone") 
 
 class ListFoundsTest(APITestCase):
     user = None
@@ -483,7 +450,7 @@ class ListFoundsTest(APITestCase):
         bodyObject =jsonRes.get("bodyObject",None)
         result =jsonRes.get("result",None)
         self.assertEqual(result, "ok")
-        print "test_getListFounds (GET LIST FOUND): [OK]"
+        print ("::[OK]:: test_getListFounds")
     
     def test_getListFoundsEmptyGroup(self):
         self.found.active_city = "Armenia"
@@ -505,7 +472,7 @@ class ListFoundsTest(APITestCase):
         self.assertEqual(len(bodyObject)==0, True)
         self.assertEqual(statusText, "Lo sentimos!! Ocurrio un error validando la ciudad en la que estas activa.")
         self.assertEqual(result, "error")
-        print "test_getListFoundsEmptyGroup (GET LIST FOUND, EMPTY GROUP): [OK]"
+        print ("::[OK]:: test_getListFoundsEmptyGroup")
 
 class UpdateFoundTest(APITestCase):
     def setUp(self):
@@ -593,7 +560,7 @@ class UpdateFoundTest(APITestCase):
         self.assertEqual(bodyObject.get("number_fds", None), "42")
         self.assertEqual(bodyObject.get("city_fds", None), "Pereira")
         self.assertEqual(bodyObject.get("name_parent_fds", None), "Familia Echeverry")
-        print "test_updateDataFound (UPDATE FOUND): [OK]"
+        print ("::[OK]:: test_updateDataFound")
 
     def test_userMailRequest(self):
         factory = APIRequestFactory()
@@ -625,7 +592,7 @@ class UpdateFoundTest(APITestCase):
         self.assertEqual(status, 200)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Ya existe un usuario con este correo")
-        print "test_userMailRequest (UPDATE FOUND, USER DOES EXIST): [OK]"
+        print ("::[OK]:: test_userMailRequest")
 
     def test_userNameRequest(self):
         factory = APIRequestFactory()
@@ -657,7 +624,7 @@ class UpdateFoundTest(APITestCase):
         self.assertEqual(status, 200)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Ya existe un usuario con este username")
-        print "test_userNameRequest (UPDATE FOUND, USER DOES EXIST): [OK]"
+        print ("::[OK]:: test_userNameRequest")
 
 class DeletFoundTest(APITestCase):
     def setUp(self):
@@ -723,7 +690,7 @@ class DeletFoundTest(APITestCase):
         self.assertEqual(status, 200)
         self.assertEqual(result, "ok")
         self.assertEqual(statusText, "Hola Andres. Tu perfil ha sido inhabilitado, Nos entristese que lo hayas decidido asi. Si deseas habilitar tu cuenta de nuevo, ponte en contanto con el consejo de tu ciudad.")
-        print "test_deleteFound (DISABLE FOUNDER): [OK]"
+        print ("::[OK]:: test_deleteFound")
     
     def test_deleteFoundObjectDoesNotExist(self):
         factory = APIRequestFactory()
@@ -740,7 +707,7 @@ class DeletFoundTest(APITestCase):
         self.assertEqual(status, 200)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Lo sentimos!! Ocurrio un error validando el usuario a eliminar.")
-        print "test_deleteFoundObjectDoesNotExist (DISABLE FOUNDER, OBJECT DOES EXIST): [OK]"
+        print ("::[OK]:: test_deleteFoundObjectDoesNotExist")
     
     def test_deleteFoundIdNotFound(self):
         factory = APIRequestFactory()
@@ -757,4 +724,4 @@ class DeletFoundTest(APITestCase):
         self.assertEqual(status, 200)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "Lo sentimos!! No tienes permisos para realizar esta accion.")
-        print "test_deleteFoundIdNotFound (DISABLE FOUNDER, FOUNDER DOES EXIST): [OK]"
+        print ("::[OK]:: test_deleteFoundIdNotFound")

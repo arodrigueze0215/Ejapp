@@ -67,8 +67,6 @@ def GetInscriptions(request, **params):
         if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
             city = params.get("city")
             fdsNum = params.get("fds")
-            print "Params fds: ", fdsNum
-            print "Params city: ", city
             if fdsNum and city:
                 fds = FdsEvents.objects.get(number_fds=fdsNum)
                 if fds:

@@ -25,7 +25,7 @@ from Family import views as family_views
 
 class ParentsTest(APITestCase):
     def setUp(self):
-        print "INIT --------------------------------------- [ParentsTest] ---------------------------------------"
+        print ("::[INIT]:: --- [ParentsTest]")
         self.factory = APIRequestFactory()
         area = Areas.objects.create(name="Pre")
         self.user = User.objects.create(username="andres.rodriguez0215@gmail.com", email="andres.rodriguez0215@gmail.com")
@@ -103,7 +103,7 @@ class ParentsTest(APITestCase):
             self.assertEqual(bodyObject[0].get("name_parent", None), "Doña Consuelo")
             self.assertEqual(bodyObject[1].get("relationship", None), "Papá")
             self.assertEqual(bodyObject[1].get("name_parent", None), "Don Jorge")
-        print "test_getListParents (GET LIST PARENTS): [OK]"
+        print ("::[OK]:: test_getListParents")
 
     def test_updateParent(self):
         factory = APIRequestFactory()
@@ -137,7 +137,7 @@ class ParentsTest(APITestCase):
         self.assertEqual(obj.get("address", None), "Manzana 15 casa 138 Villa campestre")
         self.assertEqual(obj.get("name_parent", None), "Consuelo Perez")
         self.assertEqual(obj.get("occupation", None), "Ama de casa")
-        print "test_updateParent (UPDATE PARENT): [OK]"
+        print ("::[OK]:: test_updateParent")
 
     def test_updateParentYoungNoFound(self):
         factory = APIRequestFactory()
@@ -164,7 +164,7 @@ class ParentsTest(APITestCase):
         self.assertEqual(status, 400)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "El usuario a modificar no existe")
-        print "test_updateParentYoungNoFound (UPDATE PARENT YOUNG NO FOUND): [OK]"
+        print ("::[OK]:: test_updateParentYoungNoFound")
         
 
     def test_updateParentNoFound(self):
@@ -191,11 +191,11 @@ class ParentsTest(APITestCase):
         self.assertEqual(status, 204)
         self.assertEqual(result, "error")
         self.assertEqual(statusText, "No se puedo editar el padre porque no se encontró ninguno")
-        print "test_updateParentYoungNoFound (UPDATE PARENT BUT NO FOUND): [OK]"
+        print ("::[OK]:: test_updateParentYoungNoFound")
 
 class BrotherTest(APITestCase):
     def setUp(self):
-        print "INIT --------------------------------------- [BrotherTest] ---------------------------------------"
+        print ("::[INIT]:: --- [BrotherTest]")
         self.factory = APIRequestFactory()
         area = Areas.objects.create(name="Pre")
         self.user = User.objects.create(username="andres.rodriguez0215@gmail.com", email="andres.rodriguez0215@gmail.com")
@@ -274,7 +274,7 @@ class BrotherTest(APITestCase):
             self.assertEqual(bodyObject[0].get("name_brother", None), "Toño")
             self.assertEqual(bodyObject[1].get("relationship", None), "hermana")
             self.assertEqual(bodyObject[1].get("name_brother", None), "Sofia")
-        print "test_getListBrothers (GET LIST BROTHERS): [OK]"
+        print("::[OK]:: test_getListBrothers")
     
     def test_addOrUpdateBrother(self):
         factory = APIRequestFactory()
@@ -300,4 +300,4 @@ class BrotherTest(APITestCase):
             self.assertEqual(obj[1].get("relationship", None), "hermana")
             self.assertEqual(obj[1].get("name_brother", None), "teresa")
 
-        print "test_addOrUpdateBrother [UPDATE AND ADDING BROTHERS]: [OK]"
+        print ("::[OK]:: test_addOrUpdateBrother")
