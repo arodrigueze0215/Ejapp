@@ -392,7 +392,7 @@ def enable_inscriptions(request):
             fds_id = request.POST.get('fds_id', None)
             if settings.DEBUG == True:
                 print("is_form", is_form)
-                print("fds_id", fds_id)
+                print("fds_id", str(fds_id))
 
             if is_form is not None and fds_id is not None:
                 Fds = get_object_or_404(FdsEvents, id=fds_id)
@@ -406,9 +406,8 @@ def enable_inscriptions(request):
                         url = request.META['HTTP_ORIGIN']+path
                         
                         if settings.DEBUG == True:
-                            print("Fds saved True: ", Fds)
-                            print("request META: ", request.META)
-                            print("url: ", url)
+                            print("Fds saved True: ", str(Fds))
+                            print("url: ", str(url))
                         return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción habilitada', 'active':'true', 'url':url})
                     else:
                         Fds.is_form_active = False
@@ -430,26 +429,25 @@ def get_url_inscription(request):
         if request.is_ajax():
             fds_id = request.POST.get('fds_id', None)
             if settings.DEBUG == True:
-                print("fds_id", fds_id)
+                print("fds_id", str(fds_id))
 
             if fds_id is not None:
                 Fds = get_object_or_404(FdsEvents, id=fds_id)
                 if settings.DEBUG == True:
-                    print("Fds found to enable inscription", Fds)
+                    print("Fds found to enable inscription", str(Fds))
                 if Fds:
                     path = reverse("main:inscriptions_add")+"?fds="+Fds.number_fds+";ciudad="+Fds.city_fds
                     url = request.META['HTTP_ORIGIN']+path
                         
                     if settings.DEBUG == True:
-                        print("Fds get url: ", Fds)
-                        print("request META: ", request.META)
+                        print("Fds get url: ", str(Fds))
                         print("url: ", url)
                     return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción habilitada', 'url':url})
                 else:
                     Fds.is_form_active = False
                     Fds.save()
                     if settings.DEBUG == True:
-                        print("Fds saved False: ", Fds)
+                        print("Fds saved False: ", str(Fds))
                     return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción deshabilitada'})
 
             else:
