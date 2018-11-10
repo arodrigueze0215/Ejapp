@@ -8,3 +8,4 @@ package-lock.json
 /EjappenvPy3/
 /.vscode/
 *.DS_Store
+.eslintrc.js
