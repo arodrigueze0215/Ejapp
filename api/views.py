@@ -12,7 +12,6 @@ from Family import views as familyView
 
 class InscriptionsList(APIView):
     def get(self, request, format=None):
-        print "API: ",request.query_params
         city = request.query_params.get('city')
         fds = request.query_params.get('fds')
         data = controller.GetInscriptions(request, city=city,fds=fds)      
@@ -151,7 +150,6 @@ class BrothersList(APIView):
         return Response(data, status.HTTP_200_OK)
 
     def put(self, request, format=None):
-        print "body, ", request.body
         idyoung = request.query_params.get('idyoung')
         brothers = request.data
         data = familyView.BrothersController().addOrUpdate(request,

@@ -9,7 +9,7 @@ from main.models import (
 
 class YoungTest(TestCase):
     def setUp(self):
-        print "INIT --------------------------------------- [YoungTest] ---------------------------------------"
+        print ("INIT --- [YoungTest]")
         user=User.objects.create(first_name="Consuelo", last_name="Rodriguez", email="concha@gmail.com")
         young = Young.objects.create(
             user=user, 
@@ -39,4 +39,5 @@ class YoungTest(TestCase):
         self.assertEqual(userObj.get("first_name", None), "Consuelito Mercedez")
         self.assertEqual(userObj.get("last_name", None), "Rodriguez Escudero")
         self.assertEqual(userObj.get("email", None), "concha@gmail.com")
+        print("::[OK]:: test_updateYoung")
 

@@ -28,7 +28,7 @@ class FdsEvents(models.Model):
     is_form_active = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     def __str__(self):
-        return self.name.encode('utf-8')+", FDS"+self.number_fds+", "+self.city_fds+", formInscription: "+str(self.is_form_active)
+        return str(self.name.encode("utf-8")+str(", FDS").encode("utf-8")+str(self.number_fds).encode("utf-8")+str(", ").encode("utf-8")+self.city_fds.encode("utf-8"))
 
 class Inscription(models.Model):
     _PIECE = (
@@ -119,10 +119,10 @@ class Found(models.Model):
     number_fds = models.CharField(max_length=10, blank=False)  
     city_fds = models.CharField(max_length=255, blank=False)
     active_city = models.CharField(max_length=255, blank=False)
-    area = models.ForeignKey(Areas,blank=False, default=None)
+    area = models.ForeignKey(Areas,blank=False, default=None, on_delete=models.CASCADE)
     name_parent_fds = models.CharField(max_length=255, blank=True)
     def __str__(self):
-        return self.young.user.first_name.encode('utf-8')+ " - "+ self.young.user.last_name.encode('utf-8')+ " - FDS"+str(self.number_fds)
+        return self.young.user.first_name.encode("utf-8")+ b" - "+ self.young.user.last_name.encode("utf-8")+ b" - FDS"+str(self.number_fds).encode("utf-8")
 
 
 
@@ -131,8 +131,8 @@ class StaffRoleFds(models.Model):
     role = models.CharField(max_length=255, blank=False)
 
 class StaffFds(models.Model):
-    found = models.ForeignKey(Found,blank=False, default=None)
-    fds_event = models.ForeignKey(FdsEvents,blank=False, default=None)
-    staff = models.ForeignKey(StaffRoleFds,blank=False, default=None)
+    found = models.ForeignKey(Found,blank=False, default=None, on_delete=models.CASCADE)
+    fds_event = models.ForeignKey(FdsEvents,blank=False, default=None, on_delete=models.CASCADE)
+    staff = models.ForeignKey(StaffRoleFds,blank=False, default=None, on_delete=models.CASCADE)
 
 
