@@ -1,3 +1,10 @@
+const $ = window.$ = window.jQuery= require('jquery');
+let moment = require('moment');
+window.moment = moment;
+require('../../../libs/foundation.min.js');
+require('../../../libs/datetime-moment.js');
+require('datatables.net');
+require('../../../libs/datetime.js');
 import React, {Component } from "react";
 import api from '../../../api/api.js';
 import hamburger from '../../../../images/hamburger.png';
