@@ -12,5 +12,6 @@ urlpatterns=[
     url(r'^geturl/', views.get_url_inscription, name='get_url_inscription'),
     url(r'^resultado/', views.result_inscription, name='result_register'),
     url(r'^nuevo/', views.formNewEmptyFounder, name='form_new_empty_founder'),
+    url(r'^nuevoencontrado/', views.formNewFounder, name='form_new_founder'),
     url(r'^', include(('login.urls', 'login'), namespace='login',)),
 ]

@@ -1,0 +1,41 @@
+.Main{
+	&__newFounder{
+		margin:  24px auto;
+		display:flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		&__searchYoung{
+			width:50%;
+			&__submitSearch{
+				display:flex;
+				justify-content: center;
+				flex-direction:column-reverse;
+				&__search{
+					width:50%;
+					margin: 4px auto;
+					background-color: var(--primaryColor);
+					&:hover{
+						color: var(--yellowPrimaryColor);
+						background-color: #9e1813;
+
+					}       
+					&:focus{
+						color: var(--yellowPrimaryColor);
+						background-color: #9e1813;
+
+					}    
+					@media (--tablet-portrait){
+						width:100%;
+
+					}
+				}
+			}
+		}
+		&__youngSelected {
+			width: 50%;
+			height: 100px;
+			border: 1px solid black;
+		}
+	}
+}

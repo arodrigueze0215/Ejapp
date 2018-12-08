@@ -4,17 +4,14 @@ import DataFound from '../DataFound.jsx'
 import api from '../../../../api/api.js';
 import ContentLoading from '../../../Commons/ContentLoading/ContentLoading.jsx';
 import ModalLayout from 'react-responsive-modal';
-import SearchYoung from '../searchYoung/index.jsx';
 
 
 class RegisterEmptyFounder extends Component {
     constructor(props) {
         super(props);
         this.dataToSend = {}
-        this.modalToSearch = document.getElementById('modalToSearch');
         this.state = {
             openModal: false,
-            openSearcher: false,
             loading: "Registrarme",
             datacities: {},
             fieldsRequired: {
@@ -52,11 +49,6 @@ class RegisterEmptyFounder extends Component {
             return(
                 <section>
                     <div>
-                        <div>
-                            <button onClick={this.onOpenSearcher}>
-                                Autocompletar
-                            </button>
-                        </div>
                         <h2>Registrate como encontrado.</h2>
                         <form onSubmit={this.handleSubmit}>
                         
@@ -80,12 +72,6 @@ class RegisterEmptyFounder extends Component {
                         onClose={this.onCloseModal} 
                         center>
                             <span> {this.state.MessageError}</span>
-                    </ModalLayout>
-                    <ModalLayout
-                        open={this.state.openSearcher} 
-                        onClose={this.onCloseSearcher} 
-                        container={this.modalToSearch}>
-                        <SearchYoung/>
                     </ModalLayout>
                 </section>
             );
@@ -233,12 +219,6 @@ class RegisterEmptyFounder extends Component {
     onCloseModal() {
         this.setState({ openModal: false });
     };
-    onOpenSearcher(){
-        this.setState({ openSearcher: true });
-    }
-    onCloseSearcher(){
-        this.setState({ openSearcher: false });
-    }
 }
 
 export default RegisterEmptyFounder;
