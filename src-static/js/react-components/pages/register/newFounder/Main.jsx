@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {Component} from 'react';
 import Search from './Search.jsx';
 import YoungSelected from './YoungSelected.jsx';
@@ -24,14 +25,14 @@ export default class Main extends Component {
 				area: true,
 				password: true,
 			}
-		}
+		};
 	}
 	async componentDidMount() {
-        const datacities = await api.cities.getCitiesList();
-        this.setState({
-            datacities
-        });
-    }
+		const datacities = await api.cities.getCitiesList();
+		this.setState({
+			datacities
+		});
+	}
 	render() {
 		return(
 			<section className="Main__newFounder">
@@ -41,6 +42,6 @@ export default class Main extends Component {
 					<DataFound {...this.state}/>
 				</Form>
 			</section>
-		)
+		);
 	}
 }
