@@ -33,8 +33,6 @@ class RegisterEmptyFounder extends Component {
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onCloseModal = this.onCloseModal.bind(this);
-        this.onOpenSearcher = this.onOpenSearcher.bind(this)
-        this.onCloseSearcher = this.onCloseSearcher.bind(this)
     }
     async componentDidMount() {
         const datacities = await api.cities.getCitiesList();
