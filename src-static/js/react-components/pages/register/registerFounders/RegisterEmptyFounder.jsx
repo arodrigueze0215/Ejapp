@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import DataYoung from './DataYoung.jsx'
-import DataFound from '../DataFound.jsx'
+import DataYoung from './DataYoung.jsx';
+import DataFound from '../DataFound.jsx';
 import api from '../../../../api/api.js';
 import ContentLoading from '../../../Commons/ContentLoading/ContentLoading.jsx';
 import ModalLayout from 'react-responsive-modal';

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 
 const YoungSelected = () => {
@@ -8,6 +9,6 @@ const YoungSelected = () => {
 			</div>
 			
 		</section>
-	)
-}
+	);
+};
 export default YoungSelected;

@@ -5,6 +5,7 @@ import YoungSelected from './YoungSelected.jsx';
 import Form from './Form.jsx';
 import DataFound from '../DataFound.jsx';
 import api from '../../../../api/api.js';
+import ContentLoading from '../../../Commons/ContentLoading/ContentLoading.jsx';
 
 export default class Main extends Component {
 	constructor(props) {
@@ -34,14 +35,24 @@ export default class Main extends Component {
 		});
 	}
 	render() {
-		return(
-			<section className="Main__newFounder">
-				<Search/>
-				<YoungSelected/>
-				<Form>
-					<DataFound {...this.state}/>
-				</Form>
-			</section>
-		);
+		if (this.state.datacities.result==='ok'&& this.state.datacities.status>=200 && this.state.datacities.status<=207) {
+			return(
+				<section className="Main__newFounder">
+					<Search/>
+					<YoungSelected/>
+					<Form>
+						<DataFound {...this.state}/>
+					</Form>
+				</section>
+			);
+		} else if (this.state.datacities.result==='error') {
+			return(
+				<MessageError status={this.state.datacities.status} statusText={this.state.datacities.statusText}/>
+			);
+		} else {
+			return(
+				<ContentLoading/>
+			);
+		}
 	}
 }

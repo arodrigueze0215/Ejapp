@@ -184,6 +184,11 @@ var api = {
 			const data = response.json();
 			return data;
 		}
+	},
+	young: {
+		searchYoung() {
+			//${DOMAIN}api/younglist/filtered/
+		}
 	}
 
 };

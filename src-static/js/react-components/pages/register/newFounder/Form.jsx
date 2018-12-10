@@ -12,6 +12,6 @@ export default class Form extends Component {
 					{this.props.children}
 				</form>
 			</section>
-		)
+		);
 	}
 }

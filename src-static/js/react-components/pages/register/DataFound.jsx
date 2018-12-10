@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import SelectAreas from '../../Commons/SelectAreas/SelectAreas.jsx';
 import CityFds from '../../Commons/SelectCities/SelectFunctionalCities/CityFds.jsx';
@@ -12,8 +13,7 @@ function DataFound(props){
 			<section>
 				<h3>Datos como encontrado</h3>
 				<div>
-					<label className="Main__dataFound__state"style={!props.fieldsRequired['state']? styleRequired:{}}>
-                        ¿Eres un encontrado activo? # FDS {!props.fieldsRequired['state']? ' (ESTE CAMPO ES OBLIGATORIO)':''}
+					<label className="Main__dataFound__state"style={!props.fieldsRequired['state']? styleRequired:{}}>¿Eres un encontrado activo? # FDS {!props.fieldsRequired['state']? ' (ESTE CAMPO ES OBLIGATORIO)':''}
 						<select name="state">
 							<option value="0">Selecciona una opción</option>
 							<option value="1">Activo</option>
@@ -79,7 +79,12 @@ function DataFound(props){
 						style={!props.fieldsRequired['personal_email']? styleRequired:{}}>
                     Correo electrónico
 						{!props.fieldsRequired['personal_email']? ' (ESTE CAMPO ES OBLIGATORIO)':''}
-						<input type="email" placeholder="encontrado@gmail.com" name="personal_email"/>
+						<input type="email" 
+							placeholder="encontrado@gmail.com" 
+							name="personal_email"
+							disabled={props.disableEmail}
+							defaultValue={props.defaultEmail}
+						/>
 					</label>
 					<label className="Main__dataRegister__password"
 						style={!props.fieldsRequired['password']? styleRequired:{}}>
