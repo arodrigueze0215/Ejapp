@@ -15,6 +15,8 @@ import MessageError from '../../../Commons/MessageError/MessageError.jsx';
 import ContentLoading from '../../../Commons/ContentLoading/ContentLoading.jsx';
 import ModalLayout from 'react-responsive-modal';
 
+const $ = window.$ = window.jQuery= require('jquery');
+
 
 
 class FormUpdateInscription extends Component {

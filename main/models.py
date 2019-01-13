@@ -17,7 +17,7 @@ class Young(models.Model):
     profession = models.CharField(max_length=255, blank=True)
     gender = models.CharField(max_length=50, choices=_GENDER, default="2")
     def __str__(self):
-        return self.user.username.encode('utf-8')
+        return self.user.get_full_name()
 
 class FdsEvents(models.Model):
     name = models.CharField(max_length=255, blank=False)
@@ -28,7 +28,7 @@ class FdsEvents(models.Model):
     is_form_active = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     def __str__(self):
-        return str(self.name.encode("utf-8")+str(", FDS").encode("utf-8")+str(self.number_fds).encode("utf-8")+str(", ").encode("utf-8")+self.city_fds.encode("utf-8"))
+        return str(self.name+str(", FDS")+str(self.number_fds)+str(", ")+self.city_fds)
 
 class Inscription(models.Model):
     _PIECE = (
@@ -122,7 +122,7 @@ class Found(models.Model):
     area = models.ForeignKey(Areas,blank=False, default=None, on_delete=models.CASCADE)
     name_parent_fds = models.CharField(max_length=255, blank=True)
     def __str__(self):
-        return self.young.user.first_name.encode("utf-8")+ b" - "+ self.young.user.last_name.encode("utf-8")+ b" - FDS"+str(self.number_fds).encode("utf-8")
+        return self.young.user.get_full_name()+" - FDS"+str(self.number_fds)
 
 
 

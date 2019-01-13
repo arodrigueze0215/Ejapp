@@ -27,6 +27,7 @@ class Nav extends Component{
     }
     
     async componentDidMount(){
+        $(document).foundation();
         const user = await api.apiAuth.getApiAuth();
         if (user.result==='ok'&& user.status===200) {
             this.setState({
@@ -35,7 +36,6 @@ class Nav extends Component{
         }
     }
     render(){
-        $(document).foundation();
         return(
             <header>
                 <nav className="navEj">
