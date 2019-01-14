@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, {Component} from 'react';
+import api from '../../../../api/api.js';
 
 export default class Search extends Component {
 	constructor(props) {
 		super(props);
 		this.searchName = React.createRef();
-		this.searchFullname = React.createRef();
+		this.searchLastname = React.createRef();
 		this.searchEmail = React.createRef();
 
 		this.searchClick = this.searchClick.bind(this);
@@ -24,7 +25,7 @@ export default class Search extends Component {
 				<div>
 					<label>
 						<input type="text" 
-							ref={this.searchFullname}
+							ref={this.searchLastname}
 							placeholder="Apellidos"/>
 					</label>
 				</div>
@@ -47,7 +48,9 @@ export default class Search extends Component {
 		);
 	}
 	searchClick() {
-		//console.log(this.searchName.current.value);
+		const name = this.searchName.current.value
+		const lastname = this.searchLastname.current.value
+		const email = this.searchEmail.current.value
 	}
 
 	

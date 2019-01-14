@@ -79,3 +79,42 @@ class YoungController():
         except Young.DoesNotExist:
             data = {'bodyObject':{}, 'result': 'error','statusText': 'El joven a modificar no existe', 'status':status.HTTP_400_BAD_REQUEST}
             return data
+    
+    def listFiltered(self,**params):
+        try:
+            fName = params.get("first_name",None)
+            lName = params.get("last_name", None)
+            email = params.get("email", None)
+            users = []
+            youngs = []
+            if fName is not None and lName is not None and email is not None:
+                users = User.objects.filter(first_name__contains=fName, last_name__contains=lName, email__contains=email)
+            elif fName is not None and lName is not None:
+                users = User.objects.filter(first_name__contains=fName, last_name__contains=lName)
+            elif fName is not None and email is not None:
+                users = User.objects.filter(first_name__contains=fName, email__contains=email)
+            elif lName is not None and email is not None:
+                users = User.objects.filter(last_name__contains=lName, email__contains=email)
+            elif fName is not None:
+                users = User.objects.filter(first_name__contains=fName)
+            elif lName is not None:
+                users = User.objects.filter(last_name__contains=lName)
+            elif email is not None:
+                users = User.objects.filter(email__contains=email)
+            else:
+                users = []
+            if len(users) > 0:
+                for u in users:
+                    young = Young.objects.get(user=u)
+                    if young is not None:
+                        youngs.append(young)
+            if len(youngs)>0:
+                youngSerializer = YoungSerializer(youngs, many=True)
+                data = {'bodyObject': youngSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
+                return data
+            data = {'bodyObject':{}, 'result': 'error','statusText': 'No se encontro ningun dato','status':status.HTTP_200_OK }
+            return  data
+
+        except Young.DoesNotExist:
+            data = {'bodyObject':{}, 'result': 'error','statusText': 'No se encontro ningun dato','status':status.HTTP_200_OK }
+            return  data

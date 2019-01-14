@@ -13,7 +13,9 @@ function DataFound(props){
 			<section>
 				<h3>Datos como encontrado</h3>
 				<div>
-					<label className="Main__dataFound__state"style={!props.fieldsRequired['state']? styleRequired:{}}>¿Eres un encontrado activo? # FDS {!props.fieldsRequired['state']? ' (ESTE CAMPO ES OBLIGATORIO)':''}
+					<label 
+						className="Main__dataFound__state"
+						style={!props.fieldsRequired['state']? styleRequired:{}}>¿Eres un encontrado activo? # FDS {!props.fieldsRequired['state']? ' (ESTE CAMPO ES OBLIGATORIO)':''}
 						<select name="state">
 							<option value="0">Selecciona una opción</option>
 							<option value="1">Activo</option>
