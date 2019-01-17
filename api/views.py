@@ -159,14 +159,14 @@ class BrothersList(APIView):
         )
         return Response(data, status.HTTP_200_OK)
 class YoungList(APIView):
-    def __init__():
+    def __init__(self):
         self.youngC = Yview.YoungController()
 
     def post(self, request, format=None):
         fName = request.data.get("first_name")
         lName = request.data.get("last_name")
         email = request.data.get("email")
-        data = self.youngC.getListFiltered(first_name=fName, last_name=lName, email=email)        
+        data = self.youngC.listFiltered(first_name=fName, last_name=lName, email=email)        
         return Response(data, status.HTTP_200_OK)
 
 class NewFoundWithYoung(APIView):
