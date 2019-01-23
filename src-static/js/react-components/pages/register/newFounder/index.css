@@ -38,4 +38,30 @@
 			border: 1px solid black;
 		}
 	}
+	&__searchModal{
+		margin-top: 24px;
+		& > ul {
+			margin-left: 0px;
+			list-style-type: none; 
+		}
+		&__item{
+			display: flex;
+			flex-direction: column;
+			margin-top: 16px;
+			padding-right: 28px;
+			border-bottom: 1px solid black;
+			&:focus{
+				color: var(--yellowPrimaryColor);
+			}
+			&:hover{
+				background-color: var(--yellowPrimaryColor);
+
+			}    
+			&__fullname {
+				font-size: 24px;
+				
+			}     
+			
+		}
+	}
 }
