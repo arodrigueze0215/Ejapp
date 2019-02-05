@@ -37,6 +37,7 @@ export default class Main extends Component {
 		this.onclickSearch = this.onclickSearch.bind(this);
 		this.onFilteredChange = this.onFilteredChange.bind(this);
 		this.onCloseModal = this.onCloseModal.bind(this);
+		this.onClickItem = this.onClickItem.bind(this);
 	}
 	async componentDidMount() {
 		const datacities = await api.cities.getCitiesList();
@@ -58,7 +59,7 @@ export default class Main extends Component {
 						<DataFound {...this.state}/>
 					</Form>
 					<Modal open={open} onClose={this.onCloseModal} center>
-						<ListYoung data_filtered={this.state.data_filtered}/>
+						<ListYoung data_filtered={this.state.data_filtered} clickItem={this.onClickItem}/>
 					</Modal>
 				</section>
 			);
@@ -83,7 +84,6 @@ export default class Main extends Component {
 			email
 		}
 		let data_filtered = await api.young.searchYoung(data);
-		console.log('data_filtered', data_filtered)
 		this.setState({
 			open: true,
 			data_filtered
@@ -115,6 +115,15 @@ export default class Main extends Component {
 				break;
 		}
 		
+	}
+	onClickItem(event){
+		event.stopPropagation();
+		this.onCloseModal();
+		const { bodyObject } = this.state.data_filtered;
+		let itemSelected = bodyObject.filter(item => item.id == event.currentTarget.id);
+		const { user } = itemSelected[0];
+		console.log('itemSelected',`${user.first_name} ${user.last_name}`);
+
 	}
 
 	onCloseModal() {

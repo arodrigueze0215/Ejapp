@@ -6,10 +6,12 @@ const listYoung = (props) => {
 		const dataList = data.bodyObject;
 		const element = dataList.map(element => {
 			return (
-				<li key={element.id}>
+				<li key={element.id} onClick={props.clickItem} id={element.id}>
 					<div className="Main__searchModal__item">
 						<span className="Main__searchModal__item__fullname">{element.user.first_name} {element.user.last_name}</span>
-						<span className="Main__searchModal__item__email">{element.user.email}</span>
+						<span className="Main__searchModal__item__email"><strong>Correo:</strong> {element.user.email}</span>
+						<span className="Main__searchModal__item__email"><strong>Fecha nacimiento:</strong> {element.date_born}</span>
+						<span className="Main__searchModal__item__email"><strong>Dirección:</strong> {element.address}</span>
 					</div>
 				</li>
 			);			
@@ -17,6 +19,9 @@ const listYoung = (props) => {
 
 		return(
 			<section>
+				<div className="Main__searchModal__title">
+					<h5>Selecciona tu nombre</h5>
+				</div>
 				<div className="Main__searchModal">
 					<ul>
 						{element}
@@ -26,7 +31,9 @@ const listYoung = (props) => {
 		);
 	} else if(data.result==='error'){
 		return(
-			<span>{data.statusText}</span>
+			<div className="Main__searchModal__noFound">
+				<span>{data.statusText}</span>
+			</div>
 		)
 	}
 }

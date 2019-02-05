@@ -35,7 +35,9 @@
 		&__youngSelected {
 			width: 50%;
 			height: 100px;
-			border: 1px solid black;
+			border: 1px solid #BDBDBD;
+			border-radius: 3px;
+			box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
 		}
 	}
 	&__searchModal{
@@ -43,22 +45,40 @@
 		& > ul {
 			margin-left: 0px;
 			list-style-type: none; 
+			margin-bottom: 0px;
+		}
+		&__noFound {
+			display: flex;
+			flex-direction: column;
+			padding-top: 16px;
+			padding-right: 28px;
 		}
 		&__item{
 			display: flex;
 			flex-direction: column;
-			margin-top: 16px;
+			padding-top: 16px;
 			padding-right: 28px;
-			border-bottom: 1px solid black;
+			cursor: pointer;
 			&:focus{
-				color: var(--yellowPrimaryColor);
+				color: #E0E0E0;
+				box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
+				border-radius: 3px;
 			}
 			&:hover{
-				background-color: var(--yellowPrimaryColor);
+				background-color: #E0E0E0;
+				box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
+				border-radius: 3px;
 
 			}    
 			&__fullname {
 				font-size: 24px;
+				color: black;
+				font-family: system-ui;
+				
+			}     
+			&__email {
+				font-size: 14px;
+				color: #757575;
 				
 			}     
 			
