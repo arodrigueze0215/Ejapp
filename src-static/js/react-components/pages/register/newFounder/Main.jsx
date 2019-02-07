@@ -14,6 +14,7 @@ export default class Main extends Component {
 		super(props);
 		this.state = {
 			open:false,
+			show_form:false,
 			filter_first_name:'',
 			filter_last_name:'',
 			filter_email:'',
@@ -32,12 +33,15 @@ export default class Main extends Component {
 				area: true,
 				password: true,
 			},
-			data_filtered:{}
+			data_filtered:{},
+			user_selected:{}
+
 		};
 		this.onclickSearch = this.onclickSearch.bind(this);
 		this.onFilteredChange = this.onFilteredChange.bind(this);
 		this.onCloseModal = this.onCloseModal.bind(this);
 		this.onClickItem = this.onClickItem.bind(this);
+		this.onCompleteForm = this.onCompleteForm.bind(this);
 	}
 	async componentDidMount() {
 		const datacities = await api.cities.getCitiesList();
@@ -48,16 +52,29 @@ export default class Main extends Component {
 	render() {
 		if (this.state.datacities.result==='ok'&& this.state.datacities.status>=200 && this.state.datacities.status<=207) {
 			const { open } = this.state;
+			const { user_selected } = this.state;
+			const { show_form } = this.state;
+			console.log(user_selected);
 			return(
 				<section className="Main__newFounder">
-					<Search 
-						onClick={this.onclickSearch} 
-						onFilteredChange={this.onFilteredChange}
-					/>
-					<YoungSelected/>
-					<Form>
-						<DataFound {...this.state}/>
-					</Form>
+					{ !show_form &&
+						<Search 
+							onClick={this.onclickSearch} 
+							onFilteredChange={this.onFilteredChange}
+						/>
+					}
+					
+					{ !show_form && Object.keys(user_selected).length > 0 &&
+						<YoungSelected 
+							user={this.state.user_selected}
+							click={this.onCompleteForm}
+						/>
+					}
+					{ show_form &&
+						<Form>
+							<DataFound {...this.state}/>
+						</Form>
+					}
 					<Modal open={open} onClose={this.onCloseModal} center>
 						<ListYoung data_filtered={this.state.data_filtered} clickItem={this.onClickItem}/>
 					</Modal>
@@ -122,11 +139,19 @@ export default class Main extends Component {
 		const { bodyObject } = this.state.data_filtered;
 		let itemSelected = bodyObject.filter(item => item.id == event.currentTarget.id);
 		const { user } = itemSelected[0];
+		const user_selected = user
 		console.log('itemSelected',`${user.first_name} ${user.last_name}`);
+		this.setState({ user_selected });
 
+
+	}
+	onCompleteForm() {
+		const show_form = true;
+		this.setState({ show_form });
 	}
 
 	onCloseModal() {
-		this.setState({ open: false });
+		const open = false;
+		this.setState({ open });
 	};
 }
