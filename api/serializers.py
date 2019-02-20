@@ -1,12 +1,20 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from main.models import (Young, Found, Inscription, Parents, Brothers, FdsEvents)
+from main.models import (Young, Found, Inscription, Parents, Brothers, FdsEvents, Areas, EjCities)
 
+class CitySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = EjCities
+        fields = ('id', 'name')
+class AreaSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Areas
+        fields = ('id', 'name')
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'email', 'is_active', 'last_login', 'date_joined')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'is_active', 'last_login', 'date_joined')
 
 class YoungSerializer(serializers.HyperlinkedModelSerializer):
     user = UserSerializer(many=False, read_only=False)
@@ -19,9 +27,10 @@ class YoungSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'user', 'date_born', 'home_phone', 'mobile_phone', 'address', 'occupation', 'profession', 'gender')
 class FoundSerializer(serializers.HyperlinkedModelSerializer):
     young = YoungSerializer(many=False, read_only=False)
+    area = AreaSerializer(many=False, read_only=False)
     class Meta:
         model = Found
-        fields = ('id', 'young', 'state', 'number_fds', 'city_fds', 'active_city', 'name_parent_fds')
+        fields = ('id', 'young', 'state', 'number_fds', 'city_fds', 'active_city', 'name_parent_fds', 'area')
 class fdsEventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = FdsEvents

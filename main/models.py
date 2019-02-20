@@ -17,7 +17,7 @@ class Young(models.Model):
     profession = models.CharField(max_length=255, blank=True)
     gender = models.CharField(max_length=50, choices=_GENDER, default="2")
     def __str__(self):
-        return self.user.username.encode('utf-8')
+        return self.user.get_full_name()
 
 class FdsEvents(models.Model):
     name = models.CharField(max_length=255, blank=False)
@@ -28,7 +28,7 @@ class FdsEvents(models.Model):
     is_form_active = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     def __str__(self):
-        return self.name+", FDS"+self.number_fds+", "+self.city_fds+", formInscription: "+str(self.is_form_active)
+        return str(self.name+str(", FDS")+str(self.number_fds)+str(", ")+self.city_fds)
 
 class Inscription(models.Model):
     _PIECE = (
@@ -118,11 +118,11 @@ class Found(models.Model):
     state = models.CharField(max_length=50, choices=_STATES, default="1") 
     number_fds = models.CharField(max_length=10, blank=False)  
     city_fds = models.CharField(max_length=255, blank=False)
-    active_city = models.CharField(max_length=255, blank=True)
-    area = models.ForeignKey(Areas,blank=False, default=None)
+    active_city = models.CharField(max_length=255, blank=False)
+    area = models.ForeignKey(Areas,blank=False, default=None, on_delete=models.CASCADE)
     name_parent_fds = models.CharField(max_length=255, blank=True)
     def __str__(self):
-        return self.state
+        return self.young.user.get_full_name()+" - FDS"+str(self.number_fds)
 
 
 
@@ -131,8 +131,8 @@ class StaffRoleFds(models.Model):
     role = models.CharField(max_length=255, blank=False)
 
 class StaffFds(models.Model):
-    found = models.ForeignKey(Found,blank=False, default=None)
-    fds_event = models.ForeignKey(FdsEvents,blank=False, default=None)
-    staff = models.ForeignKey(StaffRoleFds,blank=False, default=None)
+    found = models.ForeignKey(Found,blank=False, default=None, on_delete=models.CASCADE)
+    fds_event = models.ForeignKey(FdsEvents,blank=False, default=None, on_delete=models.CASCADE)
+    staff = models.ForeignKey(StaffRoleFds,blank=False, default=None, on_delete=models.CASCADE)
 
 

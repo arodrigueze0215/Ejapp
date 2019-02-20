@@ -10,14 +10,14 @@ from .models import (FdsEvents, Young, Inscription, Parents, Brothers)
 from django.utils import timezone
 from django.contrib.auth.models import User
 import json
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 def inscriptions_add(request):
     if request.method == 'POST' and request.is_ajax():
         nFds = request.GET.get('fds',None)
         city = request.GET.get('ciudad',None)
         Fds = FdsEvents.objects.get(number_fds=nFds,city_fds=city)
         if settings.DEBUG == True:
-            print "POST: ", request.POST
+            print("POST: ", request.POST)
         current_date = request.POST.get('current_date', None)
         personal_gender = request.POST.get('personal_gender', None)
         personal_names = request.POST.get('personal_names', None)
@@ -231,21 +231,21 @@ def inscriptions_add(request):
             nFds = request.GET.get('fds',None)
             city = request.GET.get('ciudad',None)
             if settings.DEBUG == True:
-                print "nFds: ", nFds
-                print "Ciudad: ", city
+                print("nFds: ", nFds)
+                print("Ciudad: ", city)
                 
             Fds = get_object_or_404(FdsEvents, number_fds=nFds, city_fds=city)
             if settings.DEBUG == True:
-                print "FDS: ", Fds
+                print("FDS: ", Fds)
             now = timezone.now()
             if Fds:
                 if now < Fds.date_start:
                     if Fds.is_active==True:
                         if Fds.is_form_active==True:
                             if settings.DEBUG == True:
-                                print "Fds esta vigente"
-                                print "RELATIONS: ", Brothers._RELATIONS
-                                print "Is active: ", Fds.is_active
+                                print("Fds esta vigente")
+                                print("RELATIONS: ", Brothers._RELATIONS)
+                                print("Is active: ", Fds.is_active)
                             
                             context = {
                                 'Fds': Fds,
@@ -268,7 +268,7 @@ def inscriptions_add(request):
                         return HttpResponse(templateNoFound.render(contextNoFds, request))
                 elif now > Fds.date_end:
                     if settings.DEBUG == True:
-                        print "Fds vencido"
+                        print("Fds vencido")
                     contextNoFds = {
                         'title': 'Hola',
                         'message': 'Desafortunádamente la fecha limite para inscripción ha pasado. El FDS ya terminó',
@@ -276,8 +276,8 @@ def inscriptions_add(request):
                     return HttpResponse(templateNoFound.render(contextNoFds, request))
                 else:
                     if settings.DEBUG == True:
-                        print "Fds en progreso"
-                        print str(now) +" == "+str(Fds.date_start)+" == "+str(Fds.date_end)
+                        print("Fds en progreso")
+                        print(str(now) +" == "+str(Fds.date_start)+" == "+str(Fds.date_end))
                     contextNoFds = {
                         'title': 'Hola',
                         'message': 'Desafortunádamente la fecha limite para inscripción ha pasado. El FDS está en curso.',
@@ -302,14 +302,14 @@ def list_fds(request):
         if request.is_ajax():
             method = request.POST.get('method', None)
             if settings.DEBUG == True:
-                    print "Method", method
+                    print("Method", method)
             if method == 'POST':
                 name = request.POST.get('name_fds')
                 number = request.POST.get('number_fds')
                 startDate = request.POST.get('startdate_fds')
                 endDate = request.POST.get('enddate_fds')
                 if settings.DEBUG == True:
-                    print "startDate", startDate
+                    print("startDate", startDate)
                 if number:
                     try:
                         numberFds = FdsEvents.objects.filter(number_fds=number)
@@ -320,7 +320,7 @@ def list_fds(request):
                                 newFDS.number_fds = number
                                 newFDS.date_start = startDate
                                 if settings.DEBUG == True:
-                                    print "start date", startDate
+                                    print("start date", startDate)
                                 newFDS.date_end = endDate
                                 newFDS.city_fds = "Pereira"
                                 newFDS.save()
@@ -334,7 +334,7 @@ def list_fds(request):
             elif method == 'DELETE':
                 fds = request.POST.get('id_fds')
                 if settings.DEBUG == True:
-                    print "number_fds requestPost", fds
+                    print("number_fds requestPost", fds)
                 if fds:
                     try:
                         Fds = get_object_or_404(FdsEvents, id=fds)
@@ -391,13 +391,13 @@ def enable_inscriptions(request):
             is_form = request.POST.get('is_form', None)
             fds_id = request.POST.get('fds_id', None)
             if settings.DEBUG == True:
-                print "is_form", is_form
-                print "fds_id", fds_id
+                print("is_form", is_form)
+                print("fds_id", str(fds_id))
 
             if is_form is not None and fds_id is not None:
                 Fds = get_object_or_404(FdsEvents, id=fds_id)
                 if settings.DEBUG == True:
-                    print "Fds found to enable inscription", Fds
+                    print("Fds found to enable inscription", Fds)
                 if Fds:
                     if is_form=="True":
                         Fds.is_form_active = True
@@ -406,15 +406,14 @@ def enable_inscriptions(request):
                         url = request.META['HTTP_ORIGIN']+path
                         
                         if settings.DEBUG == True:
-                            print "Fds saved True: ", Fds
-                            print "request META: ", request.META
-                            print "url: ", url
+                            print("Fds saved True: ", str(Fds))
+                            print("url: ", str(url))
                         return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción habilitada', 'active':'true', 'url':url})
                     else:
                         Fds.is_form_active = False
                         Fds.save()
                         if settings.DEBUG == True:
-                            print "Fds saved False: ", Fds
+                            print("Fds saved False: ", Fds)
                         return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción deshabilitada', 'active':'false'})
 
                 else:
@@ -430,26 +429,25 @@ def get_url_inscription(request):
         if request.is_ajax():
             fds_id = request.POST.get('fds_id', None)
             if settings.DEBUG == True:
-                print "fds_id", fds_id
+                print("fds_id", str(fds_id))
 
             if fds_id is not None:
                 Fds = get_object_or_404(FdsEvents, id=fds_id)
                 if settings.DEBUG == True:
-                    print "Fds found to enable inscription", Fds
+                    print("Fds found to enable inscription", str(Fds))
                 if Fds:
                     path = reverse("main:inscriptions_add")+"?fds="+Fds.number_fds+";ciudad="+Fds.city_fds
                     url = request.META['HTTP_ORIGIN']+path
                         
                     if settings.DEBUG == True:
-                        print "Fds get url: ", Fds
-                        print "request META: ", request.META
-                        print "url: ", url
+                        print("Fds get url: ", str(Fds))
+                        print("url: ", url)
                     return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción habilitada', 'url':url})
                 else:
                     Fds.is_form_active = False
                     Fds.save()
                     if settings.DEBUG == True:
-                        print "Fds saved False: ", Fds
+                        print("Fds saved False: ", str(Fds))
                     return JsonResponse({'result': 'ok', 'message':'Ficha de inscripción deshabilitada'})
 
             else:
@@ -472,3 +470,15 @@ def inscription_detail(request):
 
 def result_inscription(request):
     return render(request, 'result_inscription.html')
+    
+@login_required(login_url='/login/')
+def updateInscription(request):
+    return render(request, 'update_inscriptions.html')
+
+@login_required(login_url='/login/')
+def formNewEmptyFounder(request):
+    return render(request, 'form_new_empty_founder.html')
+
+@login_required(login_url='/login/')
+def formNewFounder(request):
+    return render(request, 'form_new_founder.html')

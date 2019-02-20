@@ -1,3 +1,5 @@
+
+let $ = window.$ = window.jQuery= require('jquery');
 export function csrfToken (name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {

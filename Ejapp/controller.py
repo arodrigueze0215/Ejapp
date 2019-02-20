@@ -37,14 +37,17 @@ def loginUser(request, **params):
 
 def AuthUserApi(request):
     try:
-        user= User.objects.get(email=request.user)
+        user= User.objects.get(email=request.user.email)
         if user:
-            young = Young.objects.get(user=user)
-            if young:
-                found = Found.objects.get(young=young)
-                if found:
-                    queryset = FoundSerializer(found, many=False, context={'request': request})
-                    return {'status':status.HTTP_200_OK ,'result': 'ok','authUser': queryset.data}
+            if user.is_active:
+                young = Young.objects.get(user=user)
+                if young:
+                    found = Found.objects.get(young=young)
+                    if found:
+                        queryset = FoundSerializer(found, many=False, context={'request': request})
+                        return {'status':status.HTTP_200_OK ,'result': 'ok','authUser': queryset.data}
+                    else:
+                        return {'status':status.HTTP_401_UNAUTHORIZED ,'result': 'error','statusText': 'Permisos restringidos.'}
                 else:
                     return {'status':status.HTTP_401_UNAUTHORIZED ,'result': 'error','statusText': 'Permisos restringidos.'}
             else:
@@ -64,8 +67,6 @@ def GetInscriptions(request, **params):
         if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
             city = params.get("city")
             fdsNum = params.get("fds")
-            print "Params fds: ", fdsNum
-            print "Params city: ", city
             if fdsNum and city:
                 fds = FdsEvents.objects.get(number_fds=fdsNum)
                 if fds:
@@ -123,90 +124,3 @@ def GetInscriptions(request, **params):
     except Inscription.DoesNotExist:
             data = {'object':{}, 'result': 'error','statusText': 'Inscripción no existe','code':status.HTTP_400_BAD_REQUEST}
             return data
-    
-def GetInscription(request, **params):
-    try:
-        auth = AuthUserApi(request)
-        if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
-            pk = params.get("pk")
-            inscription = Inscription.objects.get(id=pk)
-            if inscription:
-                objSerializer = InscriptionSerializerAll(inscription, many=False, context={'request': request})
-                data = {'bodyObject':objSerializer.data, 'result': 'ok','status':status.HTTP_200_OK}
-                return data
-            else:
-                data = {'bodyObject':{}, 'statusText': 'Inscripción no existe', 'result': 'error','status':status.HTTP_400_BAD_REQUEST}
-                return data
-        else:
-            return auth        
-    except Inscription.DoesNotExist:
-            data = {'bodyObject':{}, 'result': 'error', 'statusText': 'Inscripción no existe', 'status':status.HTTP_400_BAD_REQUEST}
-            return data
-            
-
-def GetParents(request, **params):
-    try:
-        auth = AuthUserApi(request)
-        if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
-            pk = params.get("pk")
-            if pk:
-                young = Young.objects.get(id=pk)
-                parents = Parents.objects.filter(young=young)
-                if len(parents)>0:
-                    headerObjectobjSerializer = YoungSerializer(young, many=False, context={'request': request})
-                    bodyObjectSerializer = ParentsSerializer(parents, many=True, context={'request': request})
-                    
-                    data = {'object':{'headerObject':headerObjectobjSerializer.data,'bodyObject':bodyObjectSerializer.data}, 'result': 'ok','status':status.HTTP_200_OK}
-                    return data
-                else:
-                    if young:
-                        headerObjectobjSerializer = YoungSerializer(young, many=False, context={'request': request})
-                        data = {'object':{'headerObject':headerObjectobjSerializer.data,'bodyObject':[]}, 'result': 'ok', 'status':status.HTTP_204_NO_CONTENT}
-                        return data
-                    else:
-                        data = {'object':{}, 'result': 'error', 'statusText': 'Joven no encontrado', 'status':status.HTTP_404_NOT_FOUND}
-                        return data
-            else:
-                data = {'object':{}, 'result': 'error','statusText': 'Parámetro incorrecto', 'status':status.HTTP_400_BAD_REQUEST}
-                return data
-        else:
-            return auth
-    except Young.DoesNotExist:
-        data = {'object':{}, 'result': 'error','statusText': 'No existe joven', 'status':status.HTTP_400_BAD_REQUEST}
-        return data
-    except Parents.DoesNotExist:
-        data = {'object':{}, 'result': 'error','statusText': 'No existe joven', 'status':status.HTTP_400_BAD_REQUEST}
-        return data
-
-def GetBrothers(request, **params):
-    try:
-        auth = AuthUserApi(request)
-        if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
-            pk = params.get("pk")
-            if pk:
-                young = Young.objects.get(id=pk)
-                brothers = Brothers.objects.filter(young=young)
-                if len(brothers)>0:
-                    headerObjectobjSerializer = YoungSerializer(young, many=False, context={'request': request})
-                    bodyObjectSerializer = BrothersSerializer(brothers, many=True, context={'request': request})
-                    data = {'object':{'headerObject':headerObjectobjSerializer.data,'bodyObject':bodyObjectSerializer.data}, 'result': 'ok','status':status.HTTP_200_OK}
-                    return data
-                else:
-                    if young:
-                        headerObjectobjSerializer = YoungSerializer(young, many=False, context={'request': request})
-                        data = {'object':{'headerObject':headerObjectobjSerializer.data,'bodyObject':[]}, 'result': 'ok', 'status':status.HTTP_204_NO_CONTENT}
-                        return data
-                    else:
-                        data = {'object':{}, 'result': 'error', 'statusText': 'Joven no encontrado', 'status':status.HTTP_404_NOT_FOUND}
-                        return data
-            else:
-                data = {'object':{}, 'result': 'error','statusText': 'Parámetro incorrecto','status':status.HTTP_400_BAD_REQUEST}
-                return data
-        else:
-            return auth
-    except Young.DoesNotExist:
-        data = {'object':{}, 'result': 'error','statusText': 'No existe joven','status':status.HTTP_400_BAD_REQUEST}
-        return data
-    except Brothers.DoesNotExist:
-        data = {'object':{}, 'result': 'error','statusText': 'No existe joven','status':status.HTTP_400_BAD_REQUEST}
-        return data

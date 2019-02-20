@@ -1,22 +1,23 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
-const webpack = require('webpack');
+const miniCss = require('mini-css-extract-plugin');
 module.exports = {
+    mode: 'development',
     entry:{
-        
         common:[
             'react',
             'react-dom',
-            'jquery',
-            
-        ],
-        
+            'moment',
+            'jquery',            
+        ],        
         app: path.resolve(__dirname,'src-static/js/app.js'),
         inscription: path.resolve(__dirname,'src-static/js/inscription.js'),
         fds: path.resolve(__dirname,'src-static/js/fds-list.js'),
         login: path.resolve(__dirname,'src-static/js/login.js'),
         inscriptionsList: path.resolve(__dirname,'src-static/js/react-components/pages/inscriptions-list/index.jsx'),
-        inscriptionDetail: path.resolve(__dirname,'src-static/js/react-components/pages/inscriptionDetail/index.jsx')
+        inscriptionDetail: path.resolve(__dirname,'src-static/js/react-components/pages/inscriptionDetail/index.jsx'),
+        formNewEmptyFounder: path.resolve(__dirname,'src-static/js/react-components/pages/register/registerFounders/index.jsx'),
+        newFounder: path.resolve(__dirname,'src-static/js/react-components/pages/register/newFounder/index.jsx'),
+        updateInscription: path.resolve(__dirname,'src-static/js/react-components/pages/updateInscription/index.jsx')
     },
     output:{
         path:path.resolve(__dirname,'static'),
@@ -28,25 +29,11 @@ module.exports = {
             {
                 test:/\.css$/, 
                 exclude: /node_modules/,
-                use:ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use:[
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                importLoaders: 1,
-                            }
-                        },
-                        'resolve-url-loader',
-                        'postcss-loader',
-                    ]
-
-                })
-            },
-            { 
-                test: /\.js$/, 
-                exclude: /node_modules/, 
-                loader: "babel-loader"
+                use:[
+                    miniCss.loader,
+                    'css-loader',
+                    'postcss-loader'
+                ]
             },
             { 
                 test: /\.jsx?$/, 
@@ -61,7 +48,7 @@ module.exports = {
                 use: [{
                     loader: 'url-loader',
                     options: { 
-                        limit: 10000, // Convert images < 8kb to base64 strings
+                        limit: 1000, // Convert images < 1kb to base64 strings
                         name: 'fonts/[hash]-[name].[ext]'
                     } 
                 }]
@@ -71,7 +58,7 @@ module.exports = {
                 use: [{
                     loader: 'url-loader',
                     options: { 
-                        limit: 10000, // Convert images < 10kb to base64 strings
+                        limit: 1000, // Convert images < 1kb to base64 strings
                         name: 'images/[hash]-[name].[ext]'
                     } 
                 }]
@@ -79,13 +66,15 @@ module.exports = {
         ]
 
     },
-    target: 'web',
+    optimization:{
+        splitChunks: {
+            name: "common",
+            chunks: "initial"
+        }
+    },
     plugins: [
-        new ExtractTextPlugin('css/app.bundle.css'),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'common',
-            minChunks: Infinity
-        })
-    ]
+        new miniCss({filename:'css/app.bundle.css'}),        
+    ],
+    target: 'web',
 
 }
