@@ -1,5 +1,5 @@
-Django==1.11.1
-django-filter==1.1.0
-djangorestframework==3.7.3
-Markdown==2.6.9
-pytz==2017.2
+Django==2.1.5
+django-filter==2.0.0
+djangorestframework==3.9.0
+Markdown==3.0.1
+pytz==2018.9
