@@ -1,3 +1,10 @@
+const $ = window.$ = window.jQuery= require('jquery');
+let moment = require('moment');
+window.moment = moment;
+require('../../../libs/foundation.min.js');
+require('../../../libs/datetime-moment.js');
+require('datatables.net');
+require('../../../libs/datetime.js');
 import React, {Component } from "react";
 import api from '../../../api/api.js';
 import hamburger from '../../../../images/hamburger.png';
@@ -20,6 +27,7 @@ class Nav extends Component{
     }
     
     async componentDidMount(){
+        $(document).foundation();
         const user = await api.apiAuth.getApiAuth();
         if (user.result==='ok'&& user.status===200) {
             this.setState({
@@ -28,7 +36,6 @@ class Nav extends Component{
         }
     }
     render(){
-        $(document).foundation();
         return(
             <header>
                 <nav className="navEj">

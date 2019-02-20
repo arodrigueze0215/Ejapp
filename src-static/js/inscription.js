@@ -3,6 +3,7 @@ require('moment');
 require('./libs/datetime-moment.js');
 require('./libs/foundation.min.js');
 require('foundation-datepicker');
+$(document).foundation();
 document.addEventListener('DOMContentLoaded',function(){
 	let brothers = new Array();
 	let today = ()=> {

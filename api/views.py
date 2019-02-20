@@ -9,6 +9,7 @@ from Areas import views as Aview
 from Cities import views as Cview
 from inscriptions import views as Iview
 from Family import views as familyView
+from Young import views as Yview
 
 class InscriptionsList(APIView):
     def get(self, request, format=None):
@@ -158,12 +159,14 @@ class BrothersList(APIView):
         )
         return Response(data, status.HTTP_200_OK)
 class YoungList(APIView):
+    def __init__(self):
+        self.youngC = Yview.YoungController()
 
     def post(self, request, format=None):
         fName = request.data.get("first_name")
         lName = request.data.get("last_name")
         email = request.data.get("email")
-        data = Fview.getListYoung(request, first_name=fName, last_name=lName, email=email)        
+        data = self.youngC.listFiltered(first_name=fName, last_name=lName, email=email)        
         return Response(data, status.HTTP_200_OK)
 
 class NewFoundWithYoung(APIView):

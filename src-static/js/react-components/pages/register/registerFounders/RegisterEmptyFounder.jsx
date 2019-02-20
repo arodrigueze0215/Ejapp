@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import DataYoung from './DataYoung.jsx'
-import DataFound from '../DataFound.jsx'
+import DataYoung from './DataYoung.jsx';
+import DataFound from '../DataFound.jsx';
 import api from '../../../../api/api.js';
 import ContentLoading from '../../../Commons/ContentLoading/ContentLoading.jsx';
 import ModalLayout from 'react-responsive-modal';
@@ -42,16 +42,13 @@ class RegisterEmptyFounder extends Component {
     }
 
     render(){
-        const style = {
-            display: 'none'
-        }
         if (this.state.datacities.result==='ok'&& this.state.datacities.status>=200 && this.state.datacities.status<=207) {
 
             return(
                 <section>
                     <div>
+                        <h2>Registrate como encontrado.</h2>
                         <form onSubmit={this.handleSubmit}>
-                            <h2>Registrate como encontrado.</h2>
                         
                             <DataYoung 
                                 {...this.state}

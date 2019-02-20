@@ -16,6 +16,7 @@ module.exports = {
         inscriptionsList: path.resolve(__dirname,'src-static/js/react-components/pages/inscriptions-list/index.jsx'),
         inscriptionDetail: path.resolve(__dirname,'src-static/js/react-components/pages/inscriptionDetail/index.jsx'),
         formNewEmptyFounder: path.resolve(__dirname,'src-static/js/react-components/pages/register/registerFounders/index.jsx'),
+        newFounder: path.resolve(__dirname,'src-static/js/react-components/pages/register/newFounder/index.jsx'),
         updateInscription: path.resolve(__dirname,'src-static/js/react-components/pages/updateInscription/index.jsx')
     },
     output:{
