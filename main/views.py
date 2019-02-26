@@ -8,7 +8,10 @@ from django.http import HttpResponse, JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from .models import (FdsEvents, Young, Inscription, Parents, Brothers)
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.contrib.auth.models import (
+    User,
+    Group
+)
 import json
 from django.urls import reverse
 def inscriptions_add(request):
@@ -375,8 +378,10 @@ def list_fds(request):
                         return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
                 return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
     else:
+        user = User.objects.get(username=request.user)
+        mGroup = Group.objects.get(user=user)
         template= loader.get_template('fds-list.html')
-        numberFds = FdsEvents.objects.filter(city_fds="Pereira", is_active=True)
+        numberFds = FdsEvents.objects.filter(city_fds=mGroup.name, is_active=True)
         context = None
         if len(numberFds) > 0:
             context = {
