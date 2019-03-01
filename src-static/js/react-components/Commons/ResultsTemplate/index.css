@@ -16,8 +16,45 @@
         font-size: 24px;
 
     }
-    &__name{
-        font-size: 18px;
+    &__content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        & button{
+            cursor: pointer;
+            margin-left: 24px;
+            font-family: inherit;
+            border: 1px solid transparent;
+            text-align: center;
+            padding: 0.85em 1em;
+            background-color: var(--primaryColor);
+            &:hover{
+                color: var(--yellowPrimaryColor);
+                background-color: #9e1813;
 
+            }       
+            &:focus{
+                color: var(--yellowPrimaryColor);
+                background-color: #9e1813;
+
+            }
+            & a {
+                color: white;  
+                &:hover{
+                    color: var(--yellowPrimaryColor);
+    
+                }       
+                &:focus{
+                    color: var(--yellowPrimaryColor);
+    
+                }
+            }       
+
+        }
+        &__name{
+            font-size: 18px;
+    
+        }
     }
 }
