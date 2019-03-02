@@ -7,9 +7,7 @@ function ResultsTemplate(props){
                 <h1 className="section__resultTemplate__result">MUY BIEN</h1>
             }
             <span className="section__resultTemplate__message">{props.message}</span>
-            <span className="section__resultTemplate__name">
-                {props.children}
-            </span>
+            {props.children}
         </section>
     );
 }
