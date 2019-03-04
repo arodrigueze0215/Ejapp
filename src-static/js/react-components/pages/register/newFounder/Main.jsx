@@ -58,14 +58,14 @@ export default class Main extends Component {
 			return(
 				<section className="Main__newFounder">
 					{ !show_form &&
-						<Search 
-							onClick={this.onclickSearch} 
+						<Search
+							onClick={this.onclickSearch}
 							onFilteredChange={this.onFilteredChange}
 						/>
 					}
-					
+
 					{ !show_form && Object.keys(user_selected).length > 0 &&
-						<YoungSelected 
+						<YoungSelected
 							user={this.state.user_selected}
 							click={this.onCompleteForm}
 						/>
@@ -114,33 +114,31 @@ export default class Main extends Component {
 				this.setState({
 					[name]: event.target.value
 				});
-				
+
 				break;
 			case 'filter_last_name':
 				this.setState({
 					[name]: event.target.value
 				});
-				
+
 				break;
 			case 'filter_email':
 				this.setState({
 					[name]: event.target.value
-				});				
+				});
 				break;
-		
+
 			default:
 				break;
 		}
-		
+
 	}
 	onClickItem(event){
 		event.stopPropagation();
 		this.onCloseModal();
 		const { bodyObject } = this.state.data_filtered;
 		let itemSelected = bodyObject.filter(item => item.id == event.currentTarget.id);
-		const { user } = itemSelected[0];
-		const user_selected = user
-		console.log('itemSelected',`${user.first_name} ${user.last_name}`);
+		const user_selected = itemSelected[0];
 		this.setState({ user_selected });
 
 

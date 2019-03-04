@@ -19,10 +19,12 @@
     --primaryColor:#CD2B26;
     --grayHover:#D5D5D5;
     --yellowPrimaryColor: #f8ed53;
+    --background: #fafafa;
     --yellowTransparent: rgba(248, 237, 83,.9);
 }
 body{
     overflow-x: hidden;
+    background-color: var(--background);
 
 }
 .Main{
