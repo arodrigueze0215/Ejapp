@@ -12,14 +12,38 @@ const YoungSelected = (props) => {
                             Detalle de la información
                         </div>
 						<div className="Main__newFounder__youngSelected__data">
-							<span><strong>Nombre completo:</strong> {user.first_name} { user.last_name }</span>
-                            <span><strong>Correo:</strong> { user.email }</span>
-                            <span><strong>Dirección:</strong> { young.address }</span>
-                            <span><strong>Fecha nacimiento</strong>{ young.date_born } </span>
-                            <span><strong>Teléfono de casa:</strong> { young.home_phone }</span>
-                            <span><strong>Teléfono personal:</strong> { young.mobile_phone }</span>
-                            <span><strong>Ocupación: </strong> { young.occupation }</span>
-                            <span><strong>Profesión:</strong> { young.profession }</span>
+								<div className="Main__newFounder__youngSelected__data__label">
+									<span><strong>Nombre completo:</strong> </span>
+									<span>{user.first_name} { user.last_name }</span>
+								</div>
+								<div className="Main__newFounder__youngSelected__data__label">
+									<span><strong>Correo:</strong></span>
+									<span>{ user.email }</span>
+								</div>
+								<div className="Main__newFounder__youngSelected__data__label">
+									<span><strong>Dirección:</strong></span>
+									<span>{ young.address }</span>
+								</div>
+								<div className="Main__newFounder__youngSelected__data__label">
+									<span><strong>Fecha nacimiento</strong></span>
+									<span>{ young.date_born }</span>
+								</div>
+								<div className="Main__newFounder__youngSelected__data__label">
+									<span><strong>Teléfono de casa:</strong></span>
+									<span>{ young.home_phone }</span>
+								</div>
+								<div className="Main__newFounder__youngSelected__data__label">
+									<span><strong>Teléfono personal:</strong></span>
+									<span>{ young.mobile_phone }</span>
+								</div>
+								<div className="Main__newFounder__youngSelected__data__label">
+									<span><strong>Ocupación: </strong></span>
+									<span>{ young.occupation }</span>
+								</div>
+								<div className="Main__newFounder__youngSelected__data__label">
+									<span><strong>Profesión:</strong></span>
+									<span>{ young.profession }</span>
+								</div>
 						</div>
 
 				</div>

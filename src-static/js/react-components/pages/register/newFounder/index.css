@@ -50,11 +50,37 @@
                 color: white;
 
             }
+			@media (--tablet-landscape){
+				width: 100%;
+
+			}
 			&__data {
 				display: flex;
                 flex-direction: column;
 				padding: 0px 21px;
 				justify-content: center;
+				max-height: 200px;
+				flex-wrap: wrap;
+				@media (--tablet-landscape){
+					flex-wrap: nowrap;
+					max-height: 600px;
+				}
+				&__label {
+					width: 30%;
+					display: flex;
+					justify-content: flex-start;
+					align-items: center;
+					margin: 5px 0px 12px 0px;
+					& > span {
+						margin-left: 4px;
+						margin-right: 4px;
+					}
+					@media (--tablet-landscape){
+						width: 100%;
+						flex-direction: column;
+						align-items: flex-start;
+					}
+				}
 			}
 		}
 	}
