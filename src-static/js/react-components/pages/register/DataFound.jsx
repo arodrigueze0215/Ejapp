@@ -8,6 +8,8 @@ function DataFound(props){
 	const styleRequired = {
 		color: 'red'
 	};
+    const young = props.user_selected
+    const { user } = young;
 	return(
 		<section>
 			<section>
@@ -75,17 +77,22 @@ function DataFound(props){
 						style={!props.fieldsRequired['personal_username']? styleRequired:{}}>
                     nickname
 						{!props.fieldsRequired['personal_username']? ' (ESTE CAMPO ES OBLIGATORIO)':''}
-						<input type="text" placeholder="Apodo" name="personal_username"/>
+						<input
+                            type="text"
+                            placeholder="Apodo"
+                            name="personal_username"
+                            defaultValue={user.username? user.username: ""}
+                            />
 					</label>
 					<label className="Main__dataRegister__email"
 						style={!props.fieldsRequired['personal_email']? styleRequired:{}}>
                     Correo electrónico
 						{!props.fieldsRequired['personal_email']? ' (ESTE CAMPO ES OBLIGATORIO)':''}
-						<input type="email" 
-							placeholder="encontrado@gmail.com" 
+						<input type="email"
+							placeholder={user.email? user.email: "encontrado@gmail.com"}
 							name="personal_email"
-							disabled={props.disableEmail}
-							defaultValue={props.defaultEmail}
+							disabled={user.email? true:false}
+							defaultValue={user.email? user.email: ""}
 						/>
 					</label>
 					<label className="Main__dataRegister__password"

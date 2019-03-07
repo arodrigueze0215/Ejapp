@@ -57,12 +57,10 @@ export default class Main extends Component {
 			console.log(user_selected);
 			return(
 				<section className="Main__newFounder">
-					{ !show_form &&
-						<Search
-							onClick={this.onclickSearch}
-							onFilteredChange={this.onFilteredChange}
-						/>
-					}
+                    <Search
+                        onClick={this.onclickSearch}
+                        onFilteredChange={this.onFilteredChange}
+                        />
 
 					{ !show_form && Object.keys(user_selected).length > 0 &&
 						<YoungSelected
@@ -139,7 +137,8 @@ export default class Main extends Component {
 		const { bodyObject } = this.state.data_filtered;
 		let itemSelected = bodyObject.filter(item => item.id == event.currentTarget.id);
 		const user_selected = itemSelected[0];
-		this.setState({ user_selected });
+        const show_form = false;
+		this.setState({ user_selected, show_form });
 
 
 	}

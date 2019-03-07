@@ -2,7 +2,6 @@
 import React from 'react';
 
 const YoungSelected = (props) => {
-	 console.log(props.user);
      const young = props.user
      const { user }= young;
 	return(
@@ -47,7 +46,13 @@ const YoungSelected = (props) => {
 						</div>
 
 				</div>
-				<button onClick={props.click}>Completar registro</button>
+                <div className="Main__newFounder__youngSelected__doRegister">
+                    <button
+                        className="Main__newFounder__youngSelected__doRegister__btn button"
+                        onClick={props.click}>
+                            Completar registro
+                    </button>
+                </div>
 			</section>
 	);
 };

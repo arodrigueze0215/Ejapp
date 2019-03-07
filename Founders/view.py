@@ -36,6 +36,7 @@ def newFoundWithYoung(request, **params):
                     user = young.user
                     if password:
                         user.set_password(password)
+                    #TODO: Update username if it was setted
                     if active_city:
                         mGroup = Group.objects.get(name=active_city)
                         mGroup.user_set.add(user)
