@@ -8,14 +8,18 @@ function DataFound(props){
 	const styleRequired = {
 		color: 'red'
 	};
-    const young = props.user_selected
-    const { user } = young;
+    let young="";
+    let user={};
+    if (props.user_selected) {
+        young = props.user_selected;
+        user = young.user;
+    }
 	return(
 		<section>
 			<section>
 				<h3>Datos como encontrado</h3>
 				<div>
-					<label 
+					<label
 						className="Main__dataFound__state"
 						style={!props.fieldsRequired['state']? styleRequired:{}}>¿Eres un encontrado activo? # FDS {!props.fieldsRequired['state']? ' (ESTE CAMPO ES OBLIGATORIO)':''}
 						<select name="state">
@@ -26,31 +30,31 @@ function DataFound(props){
 					</label>
 				</div>
 				<div>
-					<label 
+					<label
 						className="Main__dataFound__numberFds"
 						style={!props.fieldsRequired['number_fds']? styleRequired:{}}>
                         # FDS {!props.fieldsRequired['number_fds']? ' (ESTE CAMPO ES OBLIGATORIO)':''}
-						<input type="tel" placeholder="Número de FDS que viviste" name="number_fds"/> 
+						<input type="tel" placeholder="Número de FDS que viviste" name="number_fds"/>
 					</label>
 				</div>
 				<div>
-					<label 
+					<label
 						className="Main__dataFound__selectFdsCity"
 						style={!props.fieldsRequired['city_fds']? styleRequired:{}}>
                     Selecciona la ciudad donde viviste tu FDS
 						<CityFds name="city_fds"
-							{...props} 
+							{...props}
 						/>
 					</label>
 				</div>
 				<div>
-					<label 
+					<label
 						className="Main__dataFound__selectCityActive"
 						style={!props.fieldsRequired['active_city']? styleRequired:{}}>
-                    Selecciona la ciudad donde fue la última vez que estuviste activo o  donde actualmente estas activo 
+                    Selecciona la ciudad donde fue la última vez que estuviste activo o  donde actualmente estas activo
 						{!props.fieldsRequired['active_city']? ' (ESTE CAMPO ES OBLIGATORIO)':''}
 						<ActiveCity name="active_city"
-							{...props} 
+							{...props}
 						/>
 					</label>
 				</div>
@@ -60,7 +64,7 @@ function DataFound(props){
 					</label>
 				</div>
 				<div>
-					<label 
+					<label
 						className="Main__dataFound__selectArea"
 						style={!props.fieldsRequired['area']? styleRequired:{}}>
                     Selecciona el área al que perteneces.
@@ -79,9 +83,8 @@ function DataFound(props){
 						{!props.fieldsRequired['personal_username']? ' (ESTE CAMPO ES OBLIGATORIO)':''}
 						<input
                             type="text"
-                            placeholder="Apodo"
+                            placeholder="Ingresa un Nickname o Apodo que tengas"
                             name="personal_username"
-                            defaultValue={user.username? user.username: ""}
                             />
 					</label>
 					<label className="Main__dataRegister__email"
@@ -97,9 +100,9 @@ function DataFound(props){
 					</label>
 					<label className="Main__dataRegister__password"
 						style={!props.fieldsRequired['password']? styleRequired:{}}>
-                    Contraseña
+                        Contraseña
 						{!props.fieldsRequired['password']? ' (ESTE CAMPO ES OBLIGATORIO)':''}
-						<input type="password" placeholder="Contraseña" name="password" /> 
+						<input type="password" placeholder="Contraseña" name="password" />
 					</label>
 				</div>
 			</section>

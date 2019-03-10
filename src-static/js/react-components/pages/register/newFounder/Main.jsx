@@ -12,6 +12,7 @@ import ListYoung from './ListYoung.jsx';
 export default class Main extends Component {
 	constructor(props) {
 		super(props);
+        this.dataToSend = {}
 		this.state = {
 			open:false,
 			show_form:false,
@@ -41,7 +42,8 @@ export default class Main extends Component {
 		this.onFilteredChange = this.onFilteredChange.bind(this);
 		this.onCloseModal = this.onCloseModal.bind(this);
 		this.onClickItem = this.onClickItem.bind(this);
-		this.onCompleteForm = this.onCompleteForm.bind(this);
+        this.onCompleteForm = this.onCompleteForm.bind(this);
+        this.onSubmitForm = this.onSubmitForm.bind(this);
 	}
 	async componentDidMount() {
 		const datacities = await api.cities.getCitiesList();
@@ -69,8 +71,14 @@ export default class Main extends Component {
 						/>
 					}
 					{ show_form &&
-						<Form>
+						<Form submit={this.onSubmitForm}>
 							<DataFound {...this.state}/>
+                            <button
+                                type="submit"
+                                value="submit"
+                                className="Main__newFounder__form_submit button">
+                                    Completar registro
+                            </button>
 						</Form>
 					}
 					<Modal open={open} onClose={this.onCloseModal} center>
@@ -146,9 +154,23 @@ export default class Main extends Component {
 		const show_form = true;
 		this.setState({ show_form });
 	}
+    onSubmitForm(event) {
+        event.preventDefault();
+        this.dataToSend.state = event.target.elements['state'].value;
+        this.dataToSend.number_fds = event.target.elements['number_fds'].value;
+        this.dataToSend.city_fds = event.target.elements['city_fds'].value;
+        this.dataToSend.active_city = event.target.elements['active_city'].value;
+        this.dataToSend.area = event.target.elements['area'].value;
+        this.dataToSend.password = event.target.elements['password'].value;
+        this.dataToSend.nameparent = event.target.elements['nameparent'].value;
+        this.dataToSend.personal_username = event.target.elements['personal_username'].value;
+        console.log(this.dataToSend)
+
+    }
 
 	onCloseModal() {
 		const open = false;
 		this.setState({ open });
 	};
+
 }
