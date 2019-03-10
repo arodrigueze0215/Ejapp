@@ -9,6 +9,7 @@ import api from '../../../../api/api.js';
 import ContentLoading from '../../../Commons/ContentLoading/ContentLoading.jsx';
 import ListYoung from './ListYoung.jsx';
 
+
 export default class Main extends Component {
 	constructor(props) {
 		super(props);
