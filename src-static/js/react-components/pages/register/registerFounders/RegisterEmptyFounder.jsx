@@ -69,7 +69,7 @@ class RegisterEmptyFounder extends Component {
                         open={this.state.openModal} 
                         onClose={this.onCloseModal} 
                         center>
-                            <span> {this.state.MessageError}</span>
+                            <span> {this.state.msgerror}</span>
                     </ModalLayout>
                 </section>
             );
@@ -99,7 +99,7 @@ class RegisterEmptyFounder extends Component {
             }else {
                 this.setState({
                     open:true,
-                    MessageError: response.statusText
+                    msgerror: response.statusText
                 });
             }
             

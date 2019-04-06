@@ -13,8 +13,9 @@ import ListYoung from './ListYoung.jsx';
 export default class Main extends Component {
 	constructor(props) {
 		super(props);
-        this.dataToSend = {}
+    this.dataToSend = {}
 		this.state = {
+			msgerror: '',
 			open:false,
 			show_form:false,
 			filter_first_name:'',
@@ -57,13 +58,14 @@ export default class Main extends Component {
 			const { open } = this.state;
 			const { user_selected } = this.state;
 			const { show_form } = this.state;
+			const { msgerror } = this.state;
 			console.log(user_selected);
 			return(
 				<section className="Main__newFounder">
-                    <Search
-                        onClick={this.onclickSearch}
-                        onFilteredChange={this.onFilteredChange}
-                        />
+            <Search
+              onClick={this.onclickSearch}
+              onFilteredChange={this.onFilteredChange}
+            />
 
 					{ !show_form && Object.keys(user_selected).length > 0 &&
 						<YoungSelected
@@ -74,16 +76,20 @@ export default class Main extends Component {
 					{ show_form &&
 						<Form submit={this.onSubmitForm}>
 							<DataFound {...this.state}/>
-                            <button
-                                type="submit"
-                                value="submit"
-                                className="Main__newFounder__form_submit button">
-                                    Completar registro
-                            </button>
+                <button
+                    type="submit"
+                    value="submit"
+                    className="Main__newFounder__form_submit button">
+                        Completar registro
+                </button>
 						</Form>
 					}
 					<Modal open={open} onClose={this.onCloseModal} center>
-						<ListYoung data_filtered={this.state.data_filtered} clickItem={this.onClickItem}/>
+						{
+							msgerror!=='' ?
+								(<span> { msgerror }</span>) :
+								(<ListYoung data_filtered={this.state.data_filtered} clickItem={this.onClickItem}/>)
+						}
 					</Modal>
 				</section>
 			);
@@ -155,23 +161,87 @@ export default class Main extends Component {
 		const show_form = true;
 		this.setState({ show_form });
 	}
-    onSubmitForm(event) {
-        event.preventDefault();
-        this.dataToSend.state = event.target.elements['state'].value;
-        this.dataToSend.number_fds = event.target.elements['number_fds'].value;
-        this.dataToSend.city_fds = event.target.elements['city_fds'].value;
-        this.dataToSend.active_city = event.target.elements['active_city'].value;
-        this.dataToSend.area = event.target.elements['area'].value;
-        this.dataToSend.password = event.target.elements['password'].value;
-        this.dataToSend.nameparent = event.target.elements['nameparent'].value;
-        this.dataToSend.personal_username = event.target.elements['personal_username'].value;
-        console.log(this.dataToSend)
 
-    }
+  async onSubmitForm(event) {
+      event.preventDefault();
+			this.dataToSend.state = event.target.elements['state'].value;
+			this.dataToSend.number_fds = event.target.elements['number_fds'].value;
+			this.dataToSend.city_fds = event.target.elements['city_fds'].value;
+			this.dataToSend.active_city = event.target.elements['active_city'].value;
+			this.dataToSend.area = event.target.elements['area'].value;
+			this.dataToSend.password = event.target.elements['password'].value;
+			this.dataToSend.nameparent = event.target.elements['nameparent'].value;
+			this.dataToSend.personal_username = event.target.elements['personal_username'].value;
+			let i = 0;
+			let fieldsRequired = this.state.fieldsRequired;
+			if (this.dataToSend.personal_username.length===0) {
+          fieldsRequired['personal_username'] = false;
+          i++;
+      } else {
+          fieldsRequired['personal_username'] = true;
+      }
+      if (this.dataToSend.number_fds.length===0) {
+          fieldsRequired['number_fds'] = false;
+          i++;
+      } else {
+          fieldsRequired['number_fds'] = true;
+      }
+      if (this.dataToSend.city_fds=='0') {
+          fieldsRequired['city_fds'] = false;
+          i++;
+      } else {
+          fieldsRequired['city_fds'] = true;
+      }
+      if (this.dataToSend.active_city=='0') {
+          fieldsRequired['active_city'] = false;
+          i++;
+      } else {
+          fieldsRequired['active_city'] = true;
+      }
+      if (this.dataToSend.area=='0') {
+          fieldsRequired['area'] = false;
+          i++;
+      } else {
+          fieldsRequired['area'] = true;
+      }
+      if (this.dataToSend.password.length===0) {
+          fieldsRequired['password'] = false;
+          i++;
+      } else {
+          fieldsRequired['password'] = true;
+      }
+      if (this.dataToSend.state=='0') {
+          fieldsRequired['state'] = false;
+          i++;
+      } else {
+          fieldsRequired['state'] = true;
+      }
+      if (i>0) {
+        this.setState({
+            fieldsRequired
+        })
+				return;
+			}
+			else {
+				this.dataToSend.idyoung = this.state.user_selected.id;
+				const response = await api.founds.postNewFound(this.dataToSend);
+				if (response.result=='ok'&& response.status>=200 && response.status<=207) {
+						let url = `/resultado/?result=${response.result}&message=${response.statusText}&personal_name=${response.bodyObject.young.user.first_name}&type=registerfound`
+						window.location.href = url;
+				}else {
+						this.setState({
+								open:true,
+								msgerror: response.statusText
+						});
+				}
+			}
+
+  }
 
 	onCloseModal() {
 		const open = false;
-		this.setState({ open });
+		const msgerror = '';
+		this.setState({ open, msgerror });
 	};
 
 }
