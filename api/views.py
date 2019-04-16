@@ -163,10 +163,8 @@ class YoungList(APIView):
         self.youngC = Yview.YoungController()
 
     def post(self, request, format=None):
-        fName = request.data.get("first_name")
-        lName = request.data.get("last_name")
-        email = request.data.get("email")
-        data = self.youngC.listFiltered(first_name=fName, last_name=lName, email=email)        
+        fName = request.data.get("full_name")
+        data = self.youngC.listFiltered(full_name=fName)
         return Response(data, status.HTTP_200_OK)
 
 class NewFoundWithYoung(APIView):

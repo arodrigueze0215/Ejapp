@@ -18,9 +18,9 @@ export default class Main extends Component {
 			msgerror: '',
 			open:false,
 			show_form:false,
-			filter_first_name:'',
-			filter_last_name:'',
-			filter_email:'',
+			show_listYoung:false,
+			show_while:false,
+			filter_full_name:'',
 			datacities: {},
 			fieldsRequired: {
 				personal_gender: true,
@@ -44,8 +44,8 @@ export default class Main extends Component {
 		this.onFilteredChange = this.onFilteredChange.bind(this);
 		this.onCloseModal = this.onCloseModal.bind(this);
 		this.onClickItem = this.onClickItem.bind(this);
-        this.onCompleteForm = this.onCompleteForm.bind(this);
-        this.onSubmitForm = this.onSubmitForm.bind(this);
+    this.onCompleteForm = this.onCompleteForm.bind(this);
+    this.onSubmitForm = this.onSubmitForm.bind(this);
 	}
 	async componentDidMount() {
 		const datacities = await api.cities.getCitiesList();
@@ -58,6 +58,8 @@ export default class Main extends Component {
 			const { open } = this.state;
 			const { user_selected } = this.state;
 			const { show_form } = this.state;
+			const { show_while } = this.state;
+			const { show_listYoung } = this.state;
 			const { msgerror } = this.state;
 			console.log(user_selected);
 			return(
@@ -67,11 +69,8 @@ export default class Main extends Component {
               onFilteredChange={this.onFilteredChange}
             />
 
-					{ !show_form && Object.keys(user_selected).length > 0 &&
-						<YoungSelected
-							user={this.state.user_selected}
-							click={this.onCompleteForm}
-						/>
+					{ show_while &&
+						<ContentLoading/>
 					}
 					{ show_form &&
 						<Form submit={this.onSubmitForm}>
@@ -84,11 +83,13 @@ export default class Main extends Component {
                 </button>
 						</Form>
 					}
+					{ show_listYoung &&
+						<ListYoung dataFiltered= { this.state.data_filtered } />
+					}
 					<Modal open={open} onClose={this.onCloseModal} center>
 						{
-							msgerror!=='' ?
-								(<span> { msgerror }</span>) :
-								(<ListYoung data_filtered={this.state.data_filtered} clickItem={this.onClickItem}/>)
+							msgerror!=='' &&
+							<span> { msgerror }</span>
 						}
 					</Modal>
 				</section>
@@ -105,42 +106,31 @@ export default class Main extends Component {
 	}
 
 	async onclickSearch() {
-		const first_name = this.state.filter_first_name
-		const last_name = this.state.filter_last_name
-		const email = this.state.filter_email
+		const full_name = this.state.filter_full_name
 		const data = {
-			first_name,
-			last_name,
-			email
+			full_name
 		}
-		let data_filtered = await api.young.searchYoung(data);
 		this.setState({
-			open: true,
-			data_filtered
+			show_while: true,
+			show_listYoung:false
+		});
+		let data_filtered = await api.young.searchYoung(data);
+		const show_listYoung = true;
+		this.setState({
+			data_filtered,
+			show_listYoung,
+			show_while: false
 		});
 
 	}
 	onFilteredChange(event){
 		const name = event.target.name;
 		switch (name) {
-			case 'filter_first_name':
-				this.setState({
-					[name]: event.target.value
-				});
-
-				break;
-			case 'filter_last_name':
-				this.setState({
-					[name]: event.target.value
-				});
-
-				break;
-			case 'filter_email':
+			case 'filter_full_name':
 				this.setState({
 					[name]: event.target.value
 				});
 				break;
-
 			default:
 				break;
 		}

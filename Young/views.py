@@ -82,7 +82,7 @@ class YoungController():
             return data
 
     def listFiltered(self,**params):
-        fName = params.get("first_name",None)
+        fName = params.get("full_name",None)
         usersDuplicated = set()
         users = []
         usersTmp = []

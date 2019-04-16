@@ -7,9 +7,9 @@ const YoungSelected = (props) => {
 	return(
 			<section className="Main__newFounder__youngSelected">
 				<div>
-                        <div className="Main__newFounder__youngSelected__title">
-                            Detalle de la información
-                        </div>
+            <div className="Main__newFounder__youngSelected__title">
+                Detalle de la información
+            </div>
 						<div className="Main__newFounder__youngSelected__data">
 								<div className="Main__newFounder__youngSelected__data__label">
 									<span><strong>Nombre completo:</strong> </span>
@@ -46,13 +46,13 @@ const YoungSelected = (props) => {
 						</div>
 
 				</div>
-                <div className="Main__newFounder__youngSelected__doRegister">
-                    <button
-                        className="Main__newFounder__youngSelected__doRegister__btn button"
-                        onClick={props.click}>
-                            Completar registro
-                    </button>
-                </div>
+          <div className="Main__newFounder__youngSelected__doRegister">
+              <button
+                  className="Main__newFounder__youngSelected__doRegister__btn button"
+                  onClick={props.click}>
+                      Completar registro
+              </button>
+          </div>
 			</section>
 	);
 };

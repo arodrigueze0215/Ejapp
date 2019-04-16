@@ -6,15 +6,39 @@
 		align-items: center;
 		flex-direction: column;
 		&__searchYoung{
-			width:50%;
+			display:flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: row;
+			width: 100%;
+			@media (--tablet-portrait){
+				flex-direction: column;
+			}
+			&__fieldSearch{
+				width: 80%;
+				display: flex;
+				align-items: center;;
+				& > label {
+					width: 100%;
+
+				}
+				@media (--tablet-portrait){
+					width: 50%;
+					flex-direction: column;
+				}
+			}
 			&__submitSearch{
-				display:flex;
+				margin-left: 20px;
+				display: flex;
 				justify-content: center;
-				flex-direction:column-reverse;
+				align-items: center;
+				@media (--tablet-portrait){
+					width: 50%;
+					margin-left: 0px;
+				}
 				&__search{
-					width:50%;
-					margin: 4px auto;
 					background-color: var(--primaryColor);
+					width: 100%;
 					&:hover{
 						color: var(--yellowPrimaryColor);
 						background-color: #9e1813;
@@ -33,31 +57,31 @@
 			}
 		}
 		&__youngSelected {
-            margin-top: 16px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
+      margin-top: 16px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
 			background-color: white;
 			border-radius: 3px;
 			box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
-            &__title {
-                border-radius: 3px 3px 0px 0px;
-                border: 1px solid var(--primaryColor);
-                background-color: var(--primaryColor);
-                min-height: 42px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                color: white;
+      &__title {
+          border-radius: 3px 3px 0px 0px;
+          border: 1px solid var(--primaryColor);
+          background-color: var(--primaryColor);
+          min-height: 42px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: white;
 
-            }
+      }
 			@media (--tablet-landscape){
 				width: 100%;
 
 			}
 			&__data {
 				display: flex;
-                flex-direction: column;
+        flex-direction: column;
 				padding: 0px 21px;
 				justify-content: center;
 				max-height: 200px;
@@ -83,67 +107,27 @@
 					}
 				}
 			}
-            &__doRegister {
-                display: flex;
-                justify-content: flex-end;
-                padding: 14px;
-                &__btn {
-                    background-color: var(--primaryColor);
-                    &:hover{
-                        color: var(--yellowPrimaryColor);
-                        background-color: #9e1813;
-                    }
-                    &:focus{
-                        color: var(--yellowPrimaryColor);
-                        background-color: #9e1813;
-                    }
-                }
+      &__doRegister {
+          display: flex;
+          justify-content: flex-end;
+          padding: 14px;
+          &__btn {
+              background-color: var(--primaryColor);
+              &:hover{
+                  color: var(--yellowPrimaryColor);
+                  background-color: #9e1813;
+              }
+              &:focus{
+                  color: var(--yellowPrimaryColor);
+                  background-color: #9e1813;
+              }
+          }
 
-            }
+      }
 		}
-	}
-	&__searchModal{
-		margin-top: 24px;
-		& > ul {
-			margin-left: 0px;
-			list-style-type: none;
-			margin-bottom: 0px;
-		}
-		&__noFound {
-			display: flex;
-			flex-direction: column;
-			padding-top: 16px;
-			padding-right: 28px;
-		}
-		&__item{
-			display: flex;
-			flex-direction: column;
-			padding-top: 16px;
-			padding-right: 28px;
-			cursor: pointer;
-			&:focus{
-				color: #E0E0E0;
-				box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
-				border-radius: 3px;
-			}
-			&:hover{
-				background-color: #E0E0E0;
-				box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
-				border-radius: 3px;
-
-			}
-			&__fullname {
-				font-size: 24px;
-				color: black;
-				font-family: system-ui;
-
-			}
-			&__email {
-				font-size: 14px;
-				color: #757575;
-
-			}
-
+		&__listYoung{
+			margin-top: 24px;
+			width: 100%;
 		}
 	}
 }
