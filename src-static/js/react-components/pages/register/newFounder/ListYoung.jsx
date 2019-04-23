@@ -10,20 +10,25 @@ const listYoung = (props) => {
 				<YoungSelected
 					key={element.id}
 					user={ element }
+					click = { props.onClickItem }
+					id = {element.id}
 				/>
 			);
 		});
 
 		return(
 			<section className='Main__newFounder__listYoung'>
+				<section className='Main__newFounder__listYoung__count'>
+					<span>{element.length} Resultados</span>
+				</section>
 				{element}
 			</section>
 		);
 	} else if(data.result==='error'){
 		return(
-			<div className="Main__searchModal__noFound">
+			<section className="Main__searchModal__noFound">
 				<span>{data.statusText}</span>
-			</div>
+			</section>
 		)
 	}
 }

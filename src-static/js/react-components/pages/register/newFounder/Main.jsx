@@ -84,7 +84,7 @@ export default class Main extends Component {
 						</Form>
 					}
 					{ show_listYoung &&
-						<ListYoung dataFiltered= { this.state.data_filtered } />
+						<ListYoung dataFiltered= { this.state.data_filtered } click = {this.onClickItem}/>
 					}
 					<Modal open={open} onClose={this.onCloseModal} center>
 						{
