@@ -11,7 +11,7 @@
     <body>
         <div class="Main">
             <section class="Main__sectionLogin">
-                <form data-abide novalidate id="formLogin">                    
+                <form data-abide novalidate id="formLogin">
                     {% csrf_token %}
                     <h1 class="text-center">Iniciar sesión</h1>
                     <label class="Main__sectionLogin__email">Correo
@@ -32,10 +32,14 @@
                             <p><i class="fi-alert"></i>Hay algunos campos que son obligatorios</p>
                         </div>
                     </div>
+                    <div class="text-center">
+                      <span>Si aún no te has registrado ingresa <a style="color: red;" href="/nuevoencontrado/">Aquí</a></span>
+
+                    </div>
                 </form>
             </section>
         </div>
-        
+
         <script src="{% static 'js/common.js' %}"></script>
         <script src="{% static 'js/app.js' %}"></script>
         <script src="{% static 'js/login.js' %}"></script>

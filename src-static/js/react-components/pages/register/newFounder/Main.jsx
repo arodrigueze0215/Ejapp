@@ -23,6 +23,7 @@ export default class Main extends Component {
 			show_listYoung:false,
 			show_while:false,
 			visibleInfo: true,
+			infoOld: true,
 			filter_full_name:'',
 			datacities: {},
 			fieldsRequired: {
@@ -49,6 +50,7 @@ export default class Main extends Component {
     this.onCompleteForm = this.onCompleteForm.bind(this);
     this.onSubmitForm = this.onSubmitForm.bind(this);
     this.hideInfo = this.hideInfo.bind(this);
+    this.hideOld = this.hideOld.bind(this);
 	}
 	async componentDidMount() {
 		const datacities = await api.cities.getCitiesList();
@@ -58,7 +60,7 @@ export default class Main extends Component {
 	}
 	render() {
 		if (this.state.datacities.result==='ok'&& this.state.datacities.status>=200 && this.state.datacities.status<=207) {
-			const { show_while, show_listYoung, show_form, visibleInfo } = this.state;
+			const { show_while, show_listYoung, show_form, visibleInfo, infoOld } = this.state;
 			const { open } = this.state;
 			const { user_selected } = this.state;
 			const { msgerror } = this.state;
@@ -70,6 +72,8 @@ export default class Main extends Component {
 							onFilteredChange={this.onFilteredChange}
 							hide={this.hideInfo}
 							visibleInfo={ visibleInfo }
+							hideOld={this.hideOld}
+							infoOld={ infoOld }
 							/>
 					</EfectCard>
 
@@ -118,7 +122,8 @@ export default class Main extends Component {
 			show_while: true,
 			show_listYoung:false,
 			show_form: false,
-			visibleInfo: false
+			visibleInfo: false,
+			infoOld: false
 		});
 		let data_filtered = await api.young.searchYoung(data);
 		const show_listYoung = true;
@@ -236,6 +241,9 @@ export default class Main extends Component {
 
 	hideInfo() {
 		this.setState({ visibleInfo: false });
+	};
+	hideOld() {
+		this.setState({ infoOld: false });
 	};
 
 }
