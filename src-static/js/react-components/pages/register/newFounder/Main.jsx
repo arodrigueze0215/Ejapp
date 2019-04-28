@@ -7,6 +7,8 @@ import Form from './Form.jsx';
 import DataFound from '../DataFound.jsx';
 import api from '../../../../api/api.js';
 import ContentLoading from '../../../Commons/ContentLoading/ContentLoading.jsx';
+import MessageError from '../../../Commons/MessageError/MessageError.jsx';
+import EfectCard from '../../../Commons/EfectCard/EfectCard.jsx';
 import ListYoung from './ListYoung.jsx';
 
 
@@ -20,6 +22,7 @@ export default class Main extends Component {
 			show_form:false,
 			show_listYoung:false,
 			show_while:false,
+			visibleInfo: true,
 			filter_full_name:'',
 			datacities: {},
 			fieldsRequired: {
@@ -42,10 +45,10 @@ export default class Main extends Component {
 		};
 		this.onclickSearch = this.onclickSearch.bind(this);
 		this.onFilteredChange = this.onFilteredChange.bind(this);
-		this.onCloseModal = this.onCloseModal.bind(this);
 		this.onClickItem = this.onClickItem.bind(this);
     this.onCompleteForm = this.onCompleteForm.bind(this);
     this.onSubmitForm = this.onSubmitForm.bind(this);
+    this.hideInfo = this.hideInfo.bind(this);
 	}
 	async componentDidMount() {
 		const datacities = await api.cities.getCitiesList();
@@ -55,46 +58,47 @@ export default class Main extends Component {
 	}
 	render() {
 		if (this.state.datacities.result==='ok'&& this.state.datacities.status>=200 && this.state.datacities.status<=207) {
+			const { show_while, show_listYoung, show_form, visibleInfo } = this.state;
 			const { open } = this.state;
 			const { user_selected } = this.state;
-			const { show_form } = this.state;
-			const { show_while } = this.state;
-			const { show_listYoung } = this.state;
 			const { msgerror } = this.state;
-			console.log(user_selected);
 			return(
 				<section className="Main__newFounder">
-            <Search
-              onClick={this.onclickSearch}
-              onFilteredChange={this.onFilteredChange}
-            />
+					<EfectCard>
+						<Search
+							onClick={this.onclickSearch}
+							onFilteredChange={this.onFilteredChange}
+							hide={this.hideInfo}
+							visibleInfo={ visibleInfo }
+							/>
+					</EfectCard>
 
 					{ show_while &&
-						<ContentLoading/>
+						<ContentLoading text="Buscando..."/>
 					}
 					{ show_form &&
-						<Form submit={this.onSubmitForm}>
-							<DataFound {...this.state}/>
-                <button
-                    type="submit"
-                    value="submit"
-                    className="Main__newFounder__form_submit button">
-                        Completar registro
-                </button>
-						</Form>
+						<EfectCard>
+							<Form submit={this.onSubmitForm}>
+								<DataFound {...this.state}/>
+								<button
+									type="submit"
+									value="submit"
+									className="Main__newFounder__form_submit button">
+									Completar registro
+								</button>
+							</Form>
+						</EfectCard>
 					}
 					{ show_listYoung &&
 						<ListYoung dataFiltered= { this.state.data_filtered } click = {this.onClickItem}/>
 					}
-					<Modal open={open} onClose={this.onCloseModal} center>
-						{
-							msgerror!=='' &&
-							<span> { msgerror }</span>
-						}
-					</Modal>
 				</section>
 			);
 		} else if (this.state.datacities.result==='error') {
+			return(
+				<MessageError status={this.state.datacities.status} statusText={this.state.datacities.statusText}/>
+			);
+		} else if (this.state.datacities.status >= 400) {
 			return(
 				<MessageError status={this.state.datacities.status} statusText={this.state.datacities.statusText}/>
 			);
@@ -112,7 +116,9 @@ export default class Main extends Component {
 		}
 		this.setState({
 			show_while: true,
-			show_listYoung:false
+			show_listYoung:false,
+			show_form: false,
+			visibleInfo: false
 		});
 		let data_filtered = await api.young.searchYoung(data);
 		const show_listYoung = true;
@@ -138,12 +144,12 @@ export default class Main extends Component {
 	}
 	onClickItem(event){
 		event.stopPropagation();
-		this.onCloseModal();
 		const { bodyObject } = this.state.data_filtered;
-		let itemSelected = bodyObject.filter(item => item.id == event.currentTarget.id);
+		let itemSelected = bodyObject.filter(item => item.id == event.currentTarget.name);
 		const user_selected = itemSelected[0];
-        const show_form = false;
-		this.setState({ user_selected, show_form });
+		const show_form = true;
+		const show_listYoung = false;
+		this.setState({ user_selected, show_form, show_listYoung });
 
 
 	}
@@ -228,10 +234,8 @@ export default class Main extends Component {
 
   }
 
-	onCloseModal() {
-		const open = false;
-		const msgerror = '';
-		this.setState({ open, msgerror });
+	hideInfo() {
+		this.setState({ visibleInfo: false });
 	};
 
 }

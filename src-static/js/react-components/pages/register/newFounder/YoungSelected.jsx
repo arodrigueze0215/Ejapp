@@ -48,7 +48,7 @@ const YoungSelected = (props) => {
 				</div>
           <div className="Main__newFounder__youngSelected__doRegister">
               <button
-                id = {props.id}
+                  name = {props.id}
                   className="Main__newFounder__youngSelected__doRegister__btn button"
                   onClick={props.click}>
                       Completar registro

@@ -5,57 +5,83 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		&__searchYoung{
-			display:flex;
-			justify-content: center;
-			align-items: center;
-			flex-direction: row;
+		&__search{
 			width: 100%;
-			@media (--tablet-portrait){
-				flex-direction: column;
-			}
-			&__fieldSearch{
-				width: 80%;
-				display: flex;
-				align-items: center;;
-				& > label {
-					width: 100%;
-
-				}
-				@media (--tablet-portrait){
-					width: 50%;
-					flex-direction: column;
-				}
-			}
-			&__submitSearch{
-				margin-left: 20px;
+			&__infoMessage{
+				width: 100%;
+				text-align: center;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				@media (--tablet-portrait){
-					width: 50%;
-					margin-left: 0px;
+				border: solid 1px;
+				border-radius: 7px;
+				padding: 5%;
+				margin: 8% auto;
+				flex-direction: column;
+				& > p {
+					width: 80%;
 				}
-				&__search{
-					background-color: var(--primaryColor);
-					width: 100%;
-					&:hover{
-						color: var(--yellowPrimaryColor);
-						background-color: #9e1813;
+				&__close {
+					color: var(--primaryColor);
+					cursor: pointer;
 
-					}
-					&:focus{
-						color: var(--yellowPrimaryColor);
-						background-color: #9e1813;
+				}
+
+			}
+			&__searchYoung{
+				padding-top: 16px;
+				display:flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: row;
+				width: 100%;
+				@media (--tablet-portrait){
+					flex-direction: column;
+				}
+				&__fieldSearch{
+					width: 80%;
+					display: flex;
+					align-items: center;;
+					& > label {
+						width: 100%;
 
 					}
 					@media (--tablet-portrait){
-						width:100%;
+						width: 50%;
+						flex-direction: column;
+					}
+				}
+				&__submitSearch{
+					margin-left: 20px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					@media (--tablet-portrait){
+						width: 50%;
+						margin-left: 0px;
+					}
+					&__search{
+						background-color: var(--primaryColor);
+						width: 100%;
+						&:hover{
+							color: var(--yellowPrimaryColor);
+							background-color: #9e1813;
 
+						}
+						&:focus{
+							color: var(--yellowPrimaryColor);
+							background-color: #9e1813;
+
+						}
+						@media (--tablet-portrait){
+							width:100%;
+
+						}
 					}
 				}
 			}
 		}
+
 		&__youngSelected {
       margin-top: 16px;
       width: 100%;

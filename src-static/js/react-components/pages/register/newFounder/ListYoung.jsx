@@ -10,7 +10,7 @@ const listYoung = (props) => {
 				<YoungSelected
 					key={element.id}
 					user={ element }
-					click = { props.onClickItem }
+					click = { props.click }
 					id = {element.id}
 				/>
 			);
