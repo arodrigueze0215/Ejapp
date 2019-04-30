@@ -12,7 +12,10 @@ class ContentLoading extends Component{
         return(
             <div className="loadingComponent">
                 <div className="loadingComponent__loader"></div>
-                <h2>Cargando el contenido...</h2>
+                { this.props.text ?
+                  (<h2> {this.props.text} </h2>):
+                  (<h2> Cargando el contenido.. </h2>)
+                }
             </div>
         );
     }

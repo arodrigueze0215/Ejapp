@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from main.models import (
     Young,
+    Found
  )
 
 from api.serializers import (
@@ -79,42 +80,55 @@ class YoungController():
         except Young.DoesNotExist:
             data = {'bodyObject':{}, 'result': 'error','statusText': 'El joven a modificar no existe', 'status':status.HTTP_400_BAD_REQUEST}
             return data
-    
+
     def listFiltered(self,**params):
-        try:
-            fName = params.get("first_name",None)
-            lName = params.get("last_name", None)
-            email = params.get("email", None)
+        fName = params.get("full_name",None)
+        usersDuplicated = set()
+        users = []
+        usersTmp = []
+        youngs = []
+        if fName is None:
             users = []
-            youngs = []
-            if fName is not None and lName is not None and email is not None:
-                users = User.objects.filter(first_name__contains=fName, last_name__contains=lName, email__contains=email)
-            elif fName is not None and lName is not None:
-                users = User.objects.filter(first_name__contains=fName, last_name__contains=lName)
-            elif fName is not None and email is not None:
-                users = User.objects.filter(first_name__contains=fName, email__contains=email)
-            elif lName is not None and email is not None:
-                users = User.objects.filter(last_name__contains=lName, email__contains=email)
-            elif fName is not None:
-                users = User.objects.filter(first_name__contains=fName)
-            elif lName is not None:
-                users = User.objects.filter(last_name__contains=lName)
-            elif email is not None:
-                users = User.objects.filter(email__contains=email)
-            else:
-                users = []
-            if len(users) > 0:
-                for u in users:
+        else:
+            nameSplited = fName.split(" ")
+            if len(nameSplited) >= 1:
+                for splited in nameSplited:
+                    userFiltered = User.objects.filter(first_name__contains=splited.lower())
+                    usersTmp.extend(userFiltered)
+                for splited in nameSplited:
+                    userFiltered = User.objects.filter(last_name__contains=splited.lower())
+                    usersTmp.extend(userFiltered)
+                for splited in nameSplited:
+                    userFiltered = User.objects.filter(email__contains=splited.lower())
+                    usersTmp.extend(userFiltered)
+                for splited in nameSplited:
+                    userFiltered = User.objects.filter(username__contains=splited.lower())
+                    usersTmp.extend(userFiltered)
+
+                for uTemp in usersTmp:
+                    if uTemp not in usersDuplicated:
+                        users.append(uTemp)
+                        usersDuplicated.add(uTemp)
+        if len(users) == 0:
+            data = {'bodyObject':{}, 'result': 'error','statusText': 'No se encontro ningun dato','status':status.HTTP_200_OK }
+            return  data
+        else:
+            for u in users:
+                found = None
+                try:
+                    """We need to check if a young is not a Found yet"""
                     young = Young.objects.get(user=u)
+                    found = Found.objects.get(young=young)
+                except Found.DoesNotExist:
                     if young is not None:
                         youngs.append(young)
-            if len(youngs)>0:
-                youngSerializer = YoungSerializer(youngs, many=True)
-                data = {'bodyObject': youngSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
-                return data
-            data = {'bodyObject':{}, 'result': 'error','statusText': 'No se encontro ningun dato','status':status.HTTP_200_OK }
-            return  data
+                except Young.DoesNotExist:
+                    pass
 
-        except Young.DoesNotExist:
+        if len(youngs) == 0:
             data = {'bodyObject':{}, 'result': 'error','statusText': 'No se encontro ningun dato','status':status.HTTP_200_OK }
             return  data
+        else:
+            youngSerializer = YoungSerializer(youngs, many=True)
+            data = {'bodyObject': youngSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
+            return data

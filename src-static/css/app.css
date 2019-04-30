@@ -10,6 +10,7 @@
 @import "../js/react-components/Commons/nav/nav.css";
 @import "../js/react-components/Commons/ContentLoading/ContentLoading.css";
 @import "../js/react-components/Commons/MessageError/MessageError.css";
+@import "../js/react-components/Commons/EfectCard/EfectCard.css";
 @import "../js/react-components/Commons/ResultsTemplate/index.css";
 @import "../js/react-components/pages/inscriptions-list/index.css";
 @import "../js/react-components/pages/inscriptionDetail/index.css";
@@ -19,10 +20,12 @@
     --primaryColor:#CD2B26;
     --grayHover:#D5D5D5;
     --yellowPrimaryColor: #f8ed53;
+    --background: #fafafa;
     --yellowTransparent: rgba(248, 237, 83,.9);
 }
 body{
     overflow-x: hidden;
+    background-color: var(--background);
 
 }
 .Main{

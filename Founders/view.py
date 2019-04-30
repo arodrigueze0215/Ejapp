@@ -36,6 +36,7 @@ def newFoundWithYoung(request, **params):
                     user = young.user
                     if password:
                         user.set_password(password)
+                    #TODO: Update username if it was setted
                     if active_city:
                         mGroup = Group.objects.get(name=active_city)
                         mGroup.user_set.add(user)
@@ -74,7 +75,7 @@ def newFoundWithYoung(request, **params):
                     found.save()
                     """Todo salio bien"""
                     foundSerializer = FoundSerializer(found, context= {'request': request})
-                    data = {'bodyObject': foundSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
+                    data = {'bodyObject': foundSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK, 'statusText': 'Felicidades..!! Te has registrado satisfactóriamente' }
                     return data
 
             else:

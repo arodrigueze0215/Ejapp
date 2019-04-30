@@ -29,7 +29,7 @@ class RegisterEmptyFounder extends Component {
                 password: true,
             },
             msgerror: ''
-            
+
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onCloseModal = this.onCloseModal.bind(this);
@@ -43,50 +43,49 @@ class RegisterEmptyFounder extends Component {
 
     render(){
         if (this.state.datacities.result==='ok'&& this.state.datacities.status>=200 && this.state.datacities.status<=207) {
-
-            return(
-                <section>
-                    <div>
-                        <h2>Registrate como encontrado.</h2>
-                        <form onSubmit={this.handleSubmit}>
-                        
-                            <DataYoung 
-                                {...this.state}
-                            />
-                            <DataFound
-                                {...this.state}
-                                handleStateChange={this.handleStateChange}
-                            />
-                            <section className="Main__submit">
-                                <button type="submit" 
-                                    value="submit" 
-                                    className="Main__submit__register button">{this.state.loading}
-                                </button>
-                            </section>
-                        </form>
-                    </div>
-                    <ModalLayout
-                        open={this.state.openModal} 
-                        onClose={this.onCloseModal} 
-                        center>
-                            <span> {this.state.MessageError}</span>
-                    </ModalLayout>
-                </section>
-            );
+          return(
+            <section>
+              <div>
+                <h2>Registrate como encontrado.</h2>
+                <form onSubmit={this.handleSubmit}>
+                  <DataYoung
+                    {...this.state}
+                    />
+                  <DataFound
+                    {...this.state}
+                    handleStateChange={this.handleStateChange}
+                    />
+                  <section className="Main__submit">
+                    <button type="submit"
+                      value="submit"
+                      className="Main__submit__register button">{this.state.loading}
+                    </button>
+                  </section>
+                </form>
+              </div>
+              <ModalLayout
+                open={this.state.openModal}
+                onClose={this.onCloseModal}
+                center>
+                <span> {this.state.msgerror}</span>
+              </ModalLayout>
+            </section>
+          );
         } else if (this.state.datacities.result==='error') {
-            return(
-                <MessageError status={this.state.datacities.status} statusText={this.state.datacities.statusText}/>
-                );  
-            
+          return(
+            <MessageError status={this.state.datacities.status} statusText={this.state.datacities.statusText}/>
+          );
+
         } else {
-            return(
-                <ContentLoading/>
-                );  
+          return(
+            <ContentLoading/>
+          );
         }
+
     }
     async handleSubmit(event) {
         event.preventDefault();
-        
+
         let data = this.prepareDateToSend(event);
         this.setState({
             loading:"Enviando..."
@@ -99,19 +98,19 @@ class RegisterEmptyFounder extends Component {
             }else {
                 this.setState({
                     open:true,
-                    MessageError: response.statusText
+                    msgerror: response.statusText
                 });
             }
-            
+
         }
         this.setState({
             loading:"Registrarme"
         });
-        
+
 
 
     }
-    
+
     prepareDateToSend(event){
         this.dataToSend.personal_gender = event.target.elements['personal_gender'].value;
         this.dataToSend.personal_names = event.target.elements['personal_names'].value;

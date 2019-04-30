@@ -5,6 +5,7 @@ db.sqlite3
 *.pyc
 package-lock.json
 /Ejappenv/
+/.EjappEnv/
 /EjappenvPy3/
 /.vscode/
 *.DS_Store

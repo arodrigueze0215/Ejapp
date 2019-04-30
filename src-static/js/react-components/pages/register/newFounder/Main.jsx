@@ -7,17 +7,24 @@ import Form from './Form.jsx';
 import DataFound from '../DataFound.jsx';
 import api from '../../../../api/api.js';
 import ContentLoading from '../../../Commons/ContentLoading/ContentLoading.jsx';
+import MessageError from '../../../Commons/MessageError/MessageError.jsx';
+import EfectCard from '../../../Commons/EfectCard/EfectCard.jsx';
 import ListYoung from './ListYoung.jsx';
+
 
 export default class Main extends Component {
 	constructor(props) {
 		super(props);
+    this.dataToSend = {}
 		this.state = {
+			msgerror: '',
 			open:false,
 			show_form:false,
-			filter_first_name:'',
-			filter_last_name:'',
-			filter_email:'',
+			show_listYoung:false,
+			show_while:false,
+			visibleInfo: true,
+			infoOld: true,
+			filter_full_name:'',
 			datacities: {},
 			fieldsRequired: {
 				personal_gender: true,
@@ -39,9 +46,11 @@ export default class Main extends Component {
 		};
 		this.onclickSearch = this.onclickSearch.bind(this);
 		this.onFilteredChange = this.onFilteredChange.bind(this);
-		this.onCloseModal = this.onCloseModal.bind(this);
 		this.onClickItem = this.onClickItem.bind(this);
-		this.onCompleteForm = this.onCompleteForm.bind(this);
+    this.onCompleteForm = this.onCompleteForm.bind(this);
+    this.onSubmitForm = this.onSubmitForm.bind(this);
+    this.hideInfo = this.hideInfo.bind(this);
+    this.hideOld = this.hideOld.bind(this);
 	}
 	async componentDidMount() {
 		const datacities = await api.cities.getCitiesList();
@@ -51,36 +60,49 @@ export default class Main extends Component {
 	}
 	render() {
 		if (this.state.datacities.result==='ok'&& this.state.datacities.status>=200 && this.state.datacities.status<=207) {
+			const { show_while, show_listYoung, show_form, visibleInfo, infoOld } = this.state;
 			const { open } = this.state;
 			const { user_selected } = this.state;
-			const { show_form } = this.state;
-			console.log(user_selected);
+			const { msgerror } = this.state;
 			return(
 				<section className="Main__newFounder">
-					{ !show_form &&
-						<Search 
-							onClick={this.onclickSearch} 
+					<EfectCard>
+						<Search
+							onClick={this.onclickSearch}
 							onFilteredChange={this.onFilteredChange}
-						/>
-					}
-					
-					{ !show_form && Object.keys(user_selected).length > 0 &&
-						<YoungSelected 
-							user={this.state.user_selected}
-							click={this.onCompleteForm}
-						/>
+							hide={this.hideInfo}
+							visibleInfo={ visibleInfo }
+							hideOld={this.hideOld}
+							infoOld={ infoOld }
+							/>
+					</EfectCard>
+
+					{ show_while &&
+						<ContentLoading text="Buscando..."/>
 					}
 					{ show_form &&
-						<Form>
-							<DataFound {...this.state}/>
-						</Form>
+						<EfectCard>
+							<Form submit={this.onSubmitForm}>
+								<DataFound {...this.state}/>
+								<button
+									type="submit"
+									value="submit"
+									className="Main__newFounder__form_submit button">
+									Completar registro
+								</button>
+							</Form>
+						</EfectCard>
 					}
-					<Modal open={open} onClose={this.onCloseModal} center>
-						<ListYoung data_filtered={this.state.data_filtered} clickItem={this.onClickItem}/>
-					</Modal>
+					{ show_listYoung &&
+						<ListYoung dataFiltered= { this.state.data_filtered } click = {this.onClickItem}/>
+					}
 				</section>
 			);
 		} else if (this.state.datacities.result==='error') {
+			return(
+				<MessageError status={this.state.datacities.status} statusText={this.state.datacities.statusText}/>
+			);
+		} else if (this.state.datacities.status >= 400) {
 			return(
 				<MessageError status={this.state.datacities.status} statusText={this.state.datacities.statusText}/>
 			);
@@ -92,56 +114,47 @@ export default class Main extends Component {
 	}
 
 	async onclickSearch() {
-		const first_name = this.state.filter_first_name
-		const last_name = this.state.filter_last_name
-		const email = this.state.filter_email
+		const full_name = this.state.filter_full_name
 		const data = {
-			first_name,
-			last_name,
-			email
+			full_name
 		}
-		let data_filtered = await api.young.searchYoung(data);
 		this.setState({
-			open: true,
-			data_filtered
+			show_while: true,
+			show_listYoung:false,
+			show_form: false,
+			visibleInfo: false,
+			infoOld: false
+		});
+		let data_filtered = await api.young.searchYoung(data);
+		const show_listYoung = true;
+		this.setState({
+			data_filtered,
+			show_listYoung,
+			show_while: false
 		});
 
 	}
 	onFilteredChange(event){
 		const name = event.target.name;
 		switch (name) {
-			case 'filter_first_name':
+			case 'filter_full_name':
 				this.setState({
 					[name]: event.target.value
 				});
-				
 				break;
-			case 'filter_last_name':
-				this.setState({
-					[name]: event.target.value
-				});
-				
-				break;
-			case 'filter_email':
-				this.setState({
-					[name]: event.target.value
-				});				
-				break;
-		
 			default:
 				break;
 		}
-		
+
 	}
 	onClickItem(event){
 		event.stopPropagation();
-		this.onCloseModal();
 		const { bodyObject } = this.state.data_filtered;
-		let itemSelected = bodyObject.filter(item => item.id == event.currentTarget.id);
-		const { user } = itemSelected[0];
-		const user_selected = user
-		console.log('itemSelected',`${user.first_name} ${user.last_name}`);
-		this.setState({ user_selected });
+		let itemSelected = bodyObject.filter(item => item.id == event.currentTarget.name);
+		const user_selected = itemSelected[0];
+		const show_form = true;
+		const show_listYoung = false;
+		this.setState({ user_selected, show_form, show_listYoung });
 
 
 	}
@@ -150,8 +163,87 @@ export default class Main extends Component {
 		this.setState({ show_form });
 	}
 
-	onCloseModal() {
-		const open = false;
-		this.setState({ open });
+  async onSubmitForm(event) {
+      event.preventDefault();
+			this.dataToSend.state = event.target.elements['state'].value;
+			this.dataToSend.number_fds = event.target.elements['number_fds'].value;
+			this.dataToSend.city_fds = event.target.elements['city_fds'].value;
+			this.dataToSend.active_city = event.target.elements['active_city'].value;
+			this.dataToSend.area = event.target.elements['area'].value;
+			this.dataToSend.password = event.target.elements['password'].value;
+			this.dataToSend.nameparent = event.target.elements['nameparent'].value;
+			this.dataToSend.personal_username = event.target.elements['personal_username'].value;
+			let i = 0;
+			let fieldsRequired = this.state.fieldsRequired;
+			if (this.dataToSend.personal_username.length===0) {
+          fieldsRequired['personal_username'] = false;
+          i++;
+      } else {
+          fieldsRequired['personal_username'] = true;
+      }
+      if (this.dataToSend.number_fds.length===0) {
+          fieldsRequired['number_fds'] = false;
+          i++;
+      } else {
+          fieldsRequired['number_fds'] = true;
+      }
+      if (this.dataToSend.city_fds=='0') {
+          fieldsRequired['city_fds'] = false;
+          i++;
+      } else {
+          fieldsRequired['city_fds'] = true;
+      }
+      if (this.dataToSend.active_city=='0') {
+          fieldsRequired['active_city'] = false;
+          i++;
+      } else {
+          fieldsRequired['active_city'] = true;
+      }
+      if (this.dataToSend.area=='0') {
+          fieldsRequired['area'] = false;
+          i++;
+      } else {
+          fieldsRequired['area'] = true;
+      }
+      if (this.dataToSend.password.length===0) {
+          fieldsRequired['password'] = false;
+          i++;
+      } else {
+          fieldsRequired['password'] = true;
+      }
+      if (this.dataToSend.state=='0') {
+          fieldsRequired['state'] = false;
+          i++;
+      } else {
+          fieldsRequired['state'] = true;
+      }
+      if (i>0) {
+        this.setState({
+            fieldsRequired
+        })
+				return;
+			}
+			else {
+				this.dataToSend.idyoung = this.state.user_selected.id;
+				const response = await api.founds.postNewFound(this.dataToSend);
+				if (response.result=='ok'&& response.status>=200 && response.status<=207) {
+						let url = `/resultado/?result=${response.result}&message=${response.statusText}&personal_name=${response.bodyObject.young.user.first_name}&type=registerfound`
+						window.location.href = url;
+				}else {
+						this.setState({
+								open:true,
+								msgerror: response.statusText
+						});
+				}
+			}
+
+  }
+
+	hideInfo() {
+		this.setState({ visibleInfo: false });
 	};
+	hideOld() {
+		this.setState({ infoOld: false });
+	};
+
 }

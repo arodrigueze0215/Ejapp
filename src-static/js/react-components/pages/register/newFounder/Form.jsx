@@ -8,7 +8,7 @@ export default class Form extends Component {
 	render() {
 		return(
 			<section>
-				<form>
+				<form onSubmit={this.props.submit}>
 					{this.props.children}
 				</form>
 			</section>

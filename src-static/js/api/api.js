@@ -180,11 +180,30 @@ var api = {
 			const response = await fetch(
 				`${DOMAIN}/api/founds/`,
 				options
-				);
-				const data = response.json();
-				return data;
-			}
+			);
+			const data = response.json();
+			return data;
 		},
+		async postNewFound(found = {}) {
+			let json = JSON.stringify(found);
+			let options = {
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+					'X-CSRFToken': csrfToken('csrftoken')
+				},
+				method: 'POST',
+				credentials: 'same-origin',
+				body: json
+			};
+			const response = await fetch(
+				`${DOMAIN}/api/newfound/`,
+				options
+			);
+			const data = response.json();
+			return data;
+		}
+	},
 	young: {
 		async searchYoung(filter={}) {
 			let json = JSON.stringify(filter);
