@@ -199,23 +199,27 @@ def newFoundEmpty(request, **params):
 
 def getSingleFound(request, **params):
     """TODO: Missing a Auth User API validate"""
-    idFound = params.get("pk", None)
     try:
-        if idFound:
-            found = Found.objects.get(id=idFound)
-            if found:
-                foundSerializer = FoundSerializer(found, context= {'request': request})
-                data = {'bodyObject': foundSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
-                return data
+        auth = AuthUserApi(request)
+        if auth['result'] == 'ok' and auth['status']==status.HTTP_200_OK:
+            idFound = params.get("pk", None)
+            if idFound:
+                found = Found.objects.get(id=idFound)
+                if found:
+                    foundSerializer = FoundSerializer(found, context= {'request': request})
+                    data = {'bodyObject': foundSerializer.data, 'result': 'ok', 'status':status.HTTP_200_OK }
+                    return data
+                else:
+                    data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! No encontramos ningun dato en la busqueda.','status':status.HTTP_200_OK }
+                    return  data
             else:
-                data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! No encontramos ningun dato en la busqueda.','status':status.HTTP_200_OK }
-                return  data 
+                data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
+                return  data
         else:
-            data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! Ocurrio un error validando el identificador del encontrado.','status':status.HTTP_200_OK }
-            return  data 
+            return  auth
     except Found.DoesNotExist:
         data = {'bodyObject':{}, 'result': 'error','statusText': 'Lo sentimos!! No encontramos ningun dato en la busqueda.','status':status.HTTP_200_OK }
-        return  data 
+        return  data
 
 def getListFound(request):
     try:
