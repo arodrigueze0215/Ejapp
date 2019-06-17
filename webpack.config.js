@@ -7,8 +7,8 @@ module.exports = {
             'react',
             'react-dom',
             'moment',
-            'jquery',            
-        ],        
+            'jquery',
+        ],
         app: path.resolve(__dirname,'src-static/js/app.js'),
         inscription: path.resolve(__dirname,'src-static/js/inscription.js'),
         fds: path.resolve(__dirname,'src-static/js/fds-list.js'),
@@ -17,7 +17,8 @@ module.exports = {
         inscriptionDetail: path.resolve(__dirname,'src-static/js/react-components/pages/inscriptionDetail/index.jsx'),
         formNewEmptyFounder: path.resolve(__dirname,'src-static/js/react-components/pages/register/registerFounders/index.jsx'),
         newFounder: path.resolve(__dirname,'src-static/js/react-components/pages/register/newFounder/index.jsx'),
-        updateInscription: path.resolve(__dirname,'src-static/js/react-components/pages/updateInscription/index.jsx')
+        updateInscription: path.resolve(__dirname,'src-static/js/react-components/pages/updateInscription/index.jsx'),
+        founderDetails: path.resolve(__dirname,'src-static/js/react-components/pages/founder-details/index.jsx')
     },
     output:{
         path:path.resolve(__dirname,'static'),
@@ -27,7 +28,7 @@ module.exports = {
     module:{
         rules:[
             {
-                test:/\.css$/, 
+                test:/\.css$/,
                 exclude: /node_modules/,
                 use:[
                     miniCss.loader,
@@ -35,9 +36,9 @@ module.exports = {
                     'postcss-loader'
                 ]
             },
-            { 
-                test: /\.jsx?$/, 
-                exclude: /node_modules/, 
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
                 loader: "babel-loader",
                 query: {
                     presets: ['env', 'react'],
@@ -47,20 +48,20 @@ module.exports = {
                 test: /\.(ttf|eot|woff(2)|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 use: [{
                     loader: 'url-loader',
-                    options: { 
+                    options: {
                         limit: 1000, // Convert images < 1kb to base64 strings
                         name: 'fonts/[hash]-[name].[ext]'
-                    } 
+                    }
                 }]
             },
             {
                 test: /\.(png|jp(e*)g|svg)$/,
                 use: [{
                     loader: 'url-loader',
-                    options: { 
+                    options: {
                         limit: 1000, // Convert images < 1kb to base64 strings
                         name: 'images/[hash]-[name].[ext]'
-                    } 
+                    }
                 }]
             }
         ]
@@ -73,7 +74,7 @@ module.exports = {
         }
     },
     plugins: [
-        new miniCss({filename:'css/app.bundle.css'}),        
+        new miniCss({filename:'css/app.bundle.css'}),
     ],
     target: 'web',
 
