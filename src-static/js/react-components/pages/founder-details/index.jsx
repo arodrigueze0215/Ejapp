@@ -1,5 +1,4 @@
 import React from 'react';
-import InscriptionDetail from './InscriptionDetail.jsx';
 import {render} from 'react-dom';
 import Nav from '../../Commons/nav/Nav.jsx';
 const target = document.getElementById('reactTargetFounderDetail');

@@ -2,7 +2,17 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from .models import (FdsEvents, Young, Parents, Found, Areas, EjCities, Inscription, Brothers)
+from django.contrib.auth.models import Permission
+from .models import (
+    FdsEvents,
+    Young,
+    Parents,
+    Found,
+    Areas,
+    EjCities,
+    Inscription,
+    Brothers
+)
 
 
 @admin.register(FdsEvents)
@@ -27,7 +37,11 @@ class AreaAdmin(admin.ModelAdmin):
 @admin.register(EjCities)
 class CitiesAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
-    
+
 @admin.register(Inscription)
 class InscriptionAdmin(admin.ModelAdmin):
     list_display = ('id', 'young', 'fdsEvent', 'city', 'inscription_date', 'who_invite_me', 'pieces_save')
+
+@admin.register(Permission)
+class PermissionAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "codename")

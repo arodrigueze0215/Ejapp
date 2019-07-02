@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from rest_framework import status
 from main.models import (FdsEvents, Young, Inscription, Parents, Brothers, Found)
 from api.serializers import (
-    YoungSerializer, InscriptionSerializer, InscriptionSerializerAll, 
+    YoungSerializer, InscriptionSerializer, InscriptionSerializerAll,
     fdsEventSerializer, FoundSerializer, ParentsSerializer,
     BrothersSerializer
     )
@@ -23,6 +23,7 @@ def loginUser(request, **params):
                 found = Found.objects.get(young=young)
                 if found:
                     login(request, user)
+
                     return {'code':200 ,'result': 'ok','message': 'Hizo login exitosamente'}
                 else:
                     return {'code':404 ,'result': 'error','message': 'Quizás no te has registrado como encontrado.'}
@@ -90,7 +91,7 @@ def GetInscriptions(request, **params):
                 fds = FdsEvents.objects.get(city_fds=city)
                 if fds:
                     headerObjectobjSerializer = FdsEventSerializer(fds, many=False, context={'request': request})
-                    queryset = Inscription.objects.filter(FdsEvent=fds)                
+                    queryset = Inscription.objects.filter(FdsEvent=fds)
                     if queryset:
                         objSerializer = InscriptionSerializer(queryset, many=True, context={'request': request})
                         data = {'object':{'headerObject':headerObjectobjSerializer.data,'bodyObject':objSerializer.data}, 'result':'ok', 'status':status.HTTP_200_OK}
@@ -100,7 +101,7 @@ def GetInscriptions(request, **params):
                         return data
                 else:
                     data = {'object':{}, 'result': 'error', 'statusText': 'No existe este FDS aún','status':status.HTTP_404_NOT_FOUND}
-                    return data 
+                    return data
             elif fdsNum:
                 fds = FdsEvents.objects.get(number_fds=fdsNum)
                 if fds:

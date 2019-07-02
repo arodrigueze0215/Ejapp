@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded',function(){
 			data : data
 		});
 		postAjax.done((data) =>{
-			if (data.result==='ok') {
-				window.location = '/fds/';
-			}
+			console.log(data)
+			if (data.result==='ok' && data.is_adviser) window.location = '/fds/';
+			else window.location = '/fds/';
 		});
 	};
 });
