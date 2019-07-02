@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded',function(){
 		postAjax.done((data) =>{
 			console.log(data)
 			if (data.result==='ok' && data.is_adviser) window.location = '/fds/';
-			else window.location = '/fds/';
+			else window.location = '/encontrado/detalle';
 		});
 	};
 });

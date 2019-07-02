@@ -486,3 +486,7 @@ def formNewEmptyFounder(request):
 @login_required(login_url='/login/')
 def formNewFounder(request):
     return render(request, 'form_new_founder.html')
+
+@login_required(login_url='/login/')
+def founderDetils(request):
+    return render(request, 'founder_details.html')
