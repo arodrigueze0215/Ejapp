@@ -1,16 +1,21 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from Ejapp import settings
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import (
+    render,
+    get_object_or_404,
+    redirect
+)
 from django.template import loader
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from .models import (FdsEvents, Young, Inscription, Parents, Brothers)
 from django.utils import timezone
 from django.contrib.auth.models import (
     User,
-    Group
+    Group,
+    Permission
 )
 import json
 from django.urls import reverse
@@ -379,6 +384,19 @@ def list_fds(request):
                 return JsonResponse({'result': 'error', 'message':'Este Fds No existe'})
     else:
         user = User.objects.get(username=request.user)
+        user_p = Permission.objects.filter(user=user)
+        isAdviser = False
+        if len(user_p) > 0:
+            for permission in user_p:
+                print(permission)
+                if permission.name == 'is_adviser':
+                    isAdviser = True
+        else:
+            isAdviser = True
+
+        if isAdviser == True:
+            return HttpResponseRedirect(reverse("main:login:loginView"))
+
         mGroup = Group.objects.get(user=user)
         template= loader.get_template('fds-list.html')
         numberFds = FdsEvents.objects.filter(city_fds=mGroup.name, is_active=True)

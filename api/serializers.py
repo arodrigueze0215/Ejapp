@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from rest_framework import serializers
 from main.models import (Young, Found, Inscription, Parents, Brothers, FdsEvents, Areas, EjCities)
 
@@ -7,14 +7,22 @@ class CitySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = EjCities
         fields = ('id', 'name')
+
 class AreaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Areas
         fields = ('id', 'name')
+
+class PermissionSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Permission
+        fields = ('id', 'codename', 'name')
+
 class UserSerializer(serializers.ModelSerializer):
+    user_permissions = PermissionSerializer(many=True, read_only=False)
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'is_active', 'last_login', 'date_joined')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'is_active', 'last_login', 'date_joined', 'user_permissions')
 
 class YoungSerializer(serializers.HyperlinkedModelSerializer):
     user = UserSerializer(many=False, read_only=False)

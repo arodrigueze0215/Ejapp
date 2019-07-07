@@ -52,20 +52,28 @@ class Nav extends Component{
 }
 
 let UlNav = (props)=>{
-    let userAuth= `${props.user.authUser.young.user.first_name} ${props.user.authUser.young.user.last_name}`;
+    const { first_name, last_name, user_permissions } = props.user.authUser.young.user;
+    console.log(user_permissions)
+    let isAdviser = false;
+    if (user_permissions !== undefined) {
+        for (let permission in user_permissions) {
+            if (permission.codename === 'is_adviser') {
+                isAdviser = true;
+                break;
+            }
+        }
+    }
+    let userAuth= `${first_name} ${last_name}`;
     return(
         <div className="top-bar-right navEj__menuOptions">
             <ul className="dropdown menu" data-dropdown-menu>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Asitencia</a></li>
-                <li><a href="#">Talleres</a></li>
-                <li><a className="navEj__itemMenuSelected" href="/fds/">FDS</a></li>
-                <li><a href="#">Profundos</a></li>
-                <li><a href="#">Consejeros</a></li>
+                { isAdviser &&
+                    <li><a className="navEj__itemMenuSelected" href="/fds/">FDS</a></li>
+                }
                 <li>
                     <a>{userAuth}</a>
                     <ul className="menu vertical">
-                        <li><a href="#">Perfil</a></li>
+                        <li><a href="/encontrado/detalle">Perfil</a></li>
                         <li><a href="/logout/">Salir</a></li>
                     </ul>
                 </li>
@@ -99,25 +107,36 @@ let MenuSlide = (props) =>{
     let handleTouchStart = (e)=>{
         let $prfile = document.getElementById('menuSlide__content__listItem__myProfile');
         let $logout = document.getElementById('menuSlide__content__listItem__logout');
-        $prfile.classList.toggle('menuSlide__content__listItem__item--active');        
-        $logout.classList.toggle('menuSlide__content__listItem__item--active');        
+        $prfile.classList.toggle('menuSlide__content__listItem__item--active');
+        $logout.classList.toggle('menuSlide__content__listItem__item--active');
     }
-    let userAuth= `${props.user.authUser.young.user.first_name} ${props.user.authUser.young.user.last_name}`;
+    const { first_name, last_name, user_permissions } = props.user.authUser.young.user;
+    let isAdviser = false;
+    if (user_permissions !== undefined) {
+        for (let permission in user_permissions) {
+            if (permission.codename === 'is_adviser') {
+                isAdviser = true;
+                break;
+            }
+        }
+    }
+    const userAuth= `${first_name} ${last_name}`;
     return(
         <nav id="menuSlide" className="menuSlide">
             <div className="menuSlide__content">
                 <ul className="menu menuSlide__content__listItem" data-dropdown-menu>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Asitencia</a></li>
-                    <li><a href="#">Talleres</a></li>
-                    <li><a className="navFds__itemMenuSelected" href="#">FDS</a></li>
-                    <li><a href="#">Profundos</a></li>
-                    <li><a href="#">Consejeros</a></li>
+                    { isAdviser &&
+                        <li><a className="navEj__itemMenuSelected" href="/fds/">FDS</a></li>
+                    }
                     <li>
-                         <a onTouchStart={handleTouchStart}>{userAuth}</a>
-                        
+                        <a onTouchStart={handleTouchStart}>{userAuth}</a>
+
                     </li>
-                    <li id="menuSlide__content__listItem__myProfile" className="menuSlide__content__listItem__myProfile menuSlide__content__listItem__item--active"><a href="#">MI perfil</a></li>
+                    <li
+                        id="menuSlide__content__listItem__myProfile"
+                        className="menuSlide__content__listItem__myProfile menuSlide__content__listItem__item--active">
+                            <a href="/encontrado/detalle/">MI perfil</a>
+                    </li>
                     <li id = "menuSlide__content__listItem__logout" className="menuSlide__content__listItem__logout menuSlide__content__listItem__item--active"><a href="/logout/">Salir</a></li>
                 </ul>
             </div>

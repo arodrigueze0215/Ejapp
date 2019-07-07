@@ -12,30 +12,6 @@ from api.serializers import (
     BrothersSerializer
     )
 
-def loginUser(request, **params):
-    try:
-        email = params.get("email")
-        password = params.get("password")
-        if email and password:
-            user= authenticate(username=email, email=email, password=password)
-            young = Young.objects.get(user=user)
-            if young:
-                found = Found.objects.get(young=young)
-                if found:
-                    login(request, user)
-
-                    return {'code':200 ,'result': 'ok','message': 'Hizo login exitosamente'}
-                else:
-                    return {'code':404 ,'result': 'error','message': 'Quizás no te has registrado como encontrado.'}
-            else:
-                return {'code':404 ,'result': 'error','message': 'No existe nadie registrado con este correo.'}
-        else:
-            return {'code':404 ,'result': 'error','message': 'Hubo un error al intentar hacer login.'}
-    except Young.DoesNotExist:
-        return {'code':404 ,'result': 'error','message': 'No existe nadie registrado con este correo.'}
-    except Found.DoesNotExist:
-        return {'code':404 ,'result': 'error','message': 'Quizás no te has registrado como encontrado.'}
-
 def AuthUserApi(request):
     try:
         user= User.objects.get(email=request.user.email)

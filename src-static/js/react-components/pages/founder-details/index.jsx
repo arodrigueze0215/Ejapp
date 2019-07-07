@@ -8,7 +8,9 @@ let MainDetail = (props) =>{
         <div>
             <Nav/>
             <div className="content">
-              detalles de encontrado
+              <div className="content__founderDetails">
+                detalles de encontrado
+              </div>
             </div>
         </div>
 
