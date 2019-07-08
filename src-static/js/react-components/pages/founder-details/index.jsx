@@ -1,6 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 import Nav from '../../Commons/nav/Nav.jsx';
+import Main from './Main.jsx'
 const target = document.getElementById('reactTargetFounderDetail');
 
 let MainDetail = (props) =>{
@@ -9,7 +10,7 @@ let MainDetail = (props) =>{
             <Nav/>
             <div className="content">
               <div className="content__founderDetails">
-                detalles de encontrado
+                <Main/>
               </div>
             </div>
         </div>

@@ -388,7 +388,6 @@ def list_fds(request):
         isAdviser = False
         if len(user_p) > 0:
             for permission in user_p:
-                print(permission)
                 if permission.name == 'is_adviser':
                     isAdviser = True
         else:

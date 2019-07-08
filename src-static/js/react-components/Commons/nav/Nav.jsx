@@ -17,12 +17,13 @@ class Nav extends Component{
                 authUser:{
                     young:{
                         user:{
-                            first_name:'Nombre',
-                            last_name:'Apellido',
+                            first_name:'',
+                            last_name:'',
                         }
                     }
                 }
             },
+            isAdviser: false
         }
     }
     
@@ -30,9 +31,20 @@ class Nav extends Component{
         $(document).foundation();
         const user = await api.apiAuth.getApiAuth();
         if (user.result==='ok'&& user.status===200) {
+            const { user_permissions } = user.authUser.young.user;
+            let isAdviser = false;
+            if (user_permissions !== undefined) {
+                user_permissions.forEach(permission => {
+                    if (permission.codename === 'is_adviser') {
+                        isAdviser = true;
+                        return;
+                    }
+                });
+            }
             this.setState({
                 user,
-            });            
+                isAdviser
+            });
         }
     }
     render(){
@@ -41,11 +53,11 @@ class Nav extends Component{
                 <nav className="navEj">
                     <div className="top-bar">
                         <NavLogo/>
-                        <UlNav user={this.state.user}/>
+                        <UlNav user={this.state.user} isAdviser={this.state.isAdviser}/>
                         <Hamburger/>
                     </div>
                 </nav>
-                <MenuSlide user={this.state.user}/>
+                <MenuSlide user={this.state.user} isAdviser={this.state.isAdviser}/>
             </header>
         );
     }
@@ -53,22 +65,15 @@ class Nav extends Component{
 
 let UlNav = (props)=>{
     const { first_name, last_name, user_permissions } = props.user.authUser.young.user;
-    console.log(user_permissions)
-    let isAdviser = false;
-    if (user_permissions !== undefined) {
-        for (let permission in user_permissions) {
-            if (permission.codename === 'is_adviser') {
-                isAdviser = true;
-                break;
-            }
-        }
-    }
+    const { isAdviser } = props;
     let userAuth= `${first_name} ${last_name}`;
     return(
         <div className="top-bar-right navEj__menuOptions">
             <ul className="dropdown menu" data-dropdown-menu>
-                { isAdviser &&
-                    <li><a className="navEj__itemMenuSelected" href="/fds/">FDS</a></li>
+                { isAdviser ?
+                    (<li><a className="navEj__itemMenuSelected" href="/fds/">FDS</a></li>)
+                    :
+                    (<li><a className="navEj__itemMenuSelected">Cargando información..</a></li>)
                 }
                 <li>
                     <a>{userAuth}</a>
